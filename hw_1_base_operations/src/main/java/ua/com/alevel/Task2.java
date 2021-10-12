@@ -25,17 +25,17 @@ public class Task2 {
             }
         }
 
-        Set set = map.entrySet();
-
-        // Получаем итератор
-        Iterator i = set.iterator();
-
-        // Отображение элементов
-        int arr[] = new int[map.size()];
-        for (int j = 0; j < map.size(); j++) {
-
-            System.out.println();
-        }
+//        Set set = map.entrySet();
+//
+//        // Получаем итератор
+//        Iterator i = set.iterator();
+//
+//        // Отображение элементов
+//        int arr[] = new int[map.size()];
+//        for (int j = 0; j < map.size(); j++) {
+//
+//            System.out.println();
+//        }
 //            Map.Entry me = (Map.Entry)i.next();
 //            System.out.print(me.getKey() + ": ");
 //            System.out.println(me.getValue());

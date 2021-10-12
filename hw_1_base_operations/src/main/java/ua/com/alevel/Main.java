@@ -7,7 +7,7 @@ public class Main {
         //t1.task();
         Task2 t2 = new Task2();
         //t2.task();
-        Task3 t = new Task3();
+        Task3 t3 = new Task3();
         //t3.task();
     }
 }
