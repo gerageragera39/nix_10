@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Task1 {
 
-    public void task(){
+    public void srchSum(){
         int sum = 0, dig = 0;
         Scanner in = new Scanner(System.in);
         System.out.print("Enter the string ");

@@ -3,9 +3,9 @@ package ua.com.alevel;
 import java.util.*;
 
 public class Task2 {
-    public void task(){
-
+    public void quantSrch(){
         Scanner scan = new Scanner(System.in);
+        System.out.print("Enter the string : ");
         String str = scan.nextLine();
         String letter;
         int qnt[] = new int[str.length()];
@@ -21,30 +21,8 @@ public class Task2 {
                 map.put(letter, qnt[i]);
             }
         }
-        map.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEach(System.out::println);
-
-        //System.out.println(map);
-//        Set set = map.entrySet();
-//
-//        // Получаем итератор
-//        Iterator i = set.iterator();
-//
-//        // Отображение элементов
-//        int arr[] = new int[map.size()];
-//        for (int j = 0; j < map.size(); j++) {
-//
-//            System.out.println();
-//        }
-//            Map.Entry me = (Map.Entry)i.next();
-//            System.out.print(me.getKey() + ": ");
-//            System.out.println(me.getValue());
-
-//        TreeMap<Integer,String> sortMap = new TreeMap<Integer,String>(Collections.reverseOrder());
-//        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-//            sortMap.put(entry.getValue(),entry.getKey());
-//        }
-//        for (Map.Entry<String,Integer> entry : map.entrySet()) {
-//            System.out.println(entry.getValue() + " - " + entry.getKey());
-//        }
+        for (Map.Entry<String,Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
     }
 }

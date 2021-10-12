@@ -3,7 +3,7 @@ package ua.com.alevel;
 import java.util.Scanner;
 
 public class Task3 {
-    public void task(){
+    public void endTime(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of lesson : ");
         int lesson = scanner.nextInt();
