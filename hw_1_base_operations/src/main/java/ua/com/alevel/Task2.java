@@ -21,6 +21,8 @@ public class Task2 {
                 map.put(letter, qnt[i]);
             }
         }
+        map.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEach(System.out::println);
+
         //System.out.println(map);
 //        Set set = map.entrySet();
 //
@@ -37,7 +39,6 @@ public class Task2 {
 //            System.out.print(me.getKey() + ": ");
 //            System.out.println(me.getValue());
 
-       map.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEach(System.out::println);
 //        TreeMap<Integer,String> sortMap = new TreeMap<Integer,String>(Collections.reverseOrder());
 //        for (Map.Entry<String, Integer> entry : map.entrySet()) {
 //            sortMap.put(entry.getValue(),entry.getKey());
