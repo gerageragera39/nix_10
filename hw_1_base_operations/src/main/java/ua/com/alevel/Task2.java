@@ -1,9 +1,6 @@
 package ua.com.alevel;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Task2 {
     public void task(){
@@ -24,7 +21,7 @@ public class Task2 {
                 map.put(letter, qnt[i]);
             }
         }
-
+        System.out.println(map);
 //        Set set = map.entrySet();
 //
 //        // Получаем итератор
@@ -40,7 +37,7 @@ public class Task2 {
 //            System.out.print(me.getKey() + ": ");
 //            System.out.println(me.getValue());
 
-        //map.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEach(System.out::println);
+       // map.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).forEach(System.out::println);
 //        TreeMap<Integer,String> sortMap = new TreeMap<Integer,String>(Collections.reverseOrder());
 //        for (Map.Entry<String, Integer> entry : map.entrySet()) {
 //            sortMap.put(entry.getValue(),entry.getKey());
