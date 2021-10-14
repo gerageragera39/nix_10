@@ -2,9 +2,9 @@ package ua.com.alevel;
 
 import java.util.Scanner;
 
-public class Task1 {
+public class SumOfDigits {
 
-    public void srchSum(){
+    public void searchSum() {
         int sum = 0, dig = 0;
         Scanner in = new Scanner(System.in);
         System.out.print("Enter the string : ");

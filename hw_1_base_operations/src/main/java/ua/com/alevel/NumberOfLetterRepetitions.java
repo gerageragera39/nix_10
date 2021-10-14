@@ -2,8 +2,8 @@ package ua.com.alevel;
 
 import java.util.*;
 
-public class Task2 {
-    public void quantSrch(){
+public class NumberOfLetterRepetitions {
+    public void quantitySearch(){
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter the string : ");
         String str = scan.nextLine();

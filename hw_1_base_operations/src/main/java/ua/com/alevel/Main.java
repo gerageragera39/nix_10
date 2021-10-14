@@ -3,7 +3,9 @@ package ua.com.alevel;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         String position = "1";
         String taskNum;
@@ -15,55 +17,57 @@ public class Main {
                 case "1": {
                     System.out.print("Enter the number of task : ");
                     taskNum = scanner.nextLine();
-                    logic(taskNum);
+                    logic(scanner, taskNum);
                 }
             }
-            System.out.println("If you want to continue working, enter '1', if not, then '0'");
+
+            System.out.println("\nIf you want to continue in THIS PROJECT enter '1', if not then '0'");
             position = scanner.nextLine();
         }
-
     }
 
-    private static void logic(String taskNum) {
+    private static void logic(Scanner scanner, String taskNum) {
         switch (taskNum) {
             case "1":
                 task1();
+                index(scanner, taskNum);
                 break;
             case "2":
                 task2();
+                index(scanner, taskNum);
                 break;
             case "3":
                 task3();
+                index(scanner, taskNum);
                 break;
         }
     }
 
     private static void task1() {
-        Task1 t1 = new Task1();
-        t1.srchSum();
+       SumOfDigits sum = new SumOfDigits();
+       sum.searchSum();
     }
 
     private static void task2() {
-        Task2 task2 = new Task2();
-        task2.quantSrch();
+        NumberOfLetterRepetitions number = new NumberOfLetterRepetitions();
+        number.quantitySearch();
     }
 
     private static void task3() {
-        Task3 task3 = new Task3();
-        task3.endTime();
+        EndOfLesson time = new EndOfLesson();
+        time.endTime();
+    }
+
+    public static void index(Scanner scanner, String taskNum) {
+        System.out.println("\nIf you want to continue in THIS TASK enter '1', if not then '0'");
+        String position = scanner.nextLine();
+        switch (position) {
+            case "0": {
+                break;
+            }
+            case "1": {
+                logic(scanner, taskNum);
+            }
+        }
     }
 }
-
-//        Task1 t1 = new Task1();
-//        t1.srchSum();
-//        System.out.println("\n");
-//        Task2 t2 = new Task2();
-//        t2.quantSrch();
-//        System.out.println("\n");
-//        Task3 t3 = new Task3();
-//        t3.endTime();
-
-
-
-
-
