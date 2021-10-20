@@ -8,26 +8,46 @@ public final class StringHelperUtil {
 
         if(numOfWord == 0) {
             text = reverseText(text);
-            System.out.println(text);
         }else {
             text = reverseWords(text, numOfWord);
-            System.out.println(text);
         }
         return text;
     }
 
+    public static String reversePartOfSentence(String text, String part){
+
+        String[] words = text.split(part);
+        part = reverseText(part);
+        text = String.valueOf(words[0] + part);
+        for (int i = 1; i < words.length; i++) {
+            text += String.valueOf(words[i]);
+        }
+        return text;
+    }
+
+    public static String reveverseByInterval(String text, int firstIndex, int lastIndex) {
+        char startOfInterval = text.charAt(firstIndex);
+        char finishOfInterval = text.charAt(lastIndex);
+        String textOfInterval = String.valueOf(startOfInterval);
+        for (int i = firstIndex + 1; i <= lastIndex; i++) {
+            textOfInterval+=String.valueOf(text.charAt(i));
+        }
+        textOfInterval = StringHelperUtil.reversePartOfSentence(text, textOfInterval);
+        return textOfInterval;
+    }
+
     public static String reverseText(String text) {
 
-        char arr[] = text.toCharArray();
+        char reverseArray[] = text.toCharArray();
         char temp;
         for (int i = 0, j = text.length()-1; i < j; i++, j--) {
-            temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            temp = reverseArray[i];
+            reverseArray[i] = reverseArray[j];
+            reverseArray[j] = temp;
         }
-        text = String.valueOf(arr[0]);
-        for (int i = 1; i < arr.length; i++) {
-            text += String.valueOf(arr[i]);
+        text = String.valueOf(reverseArray[0]);
+        for (int i = 1; i < reverseArray.length; i++) {
+            text += String.valueOf(reverseArray[i]);
         }
         return text;
     }
