@@ -80,7 +80,7 @@ public class StringsMain {
                 break;
             }
             case "1": {
-                logic(scanner, taskNum);
+                logic(scanner, taskNum );
             }
         }
     }

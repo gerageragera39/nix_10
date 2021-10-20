@@ -30,7 +30,7 @@ public final class StringHelperUtil {
         char finishOfInterval = text.charAt(lastIndex);
         String textOfInterval = String.valueOf(startOfInterval);
         for (int i = firstIndex + 1; i <= lastIndex; i++) {
-            textOfInterval+=String.valueOf(text.charAt(i));
+            textOfInterval += String.valueOf(text.charAt(i));
         }
         textOfInterval = StringHelperUtil.reversePartOfSentence(text, textOfInterval);
         return textOfInterval;
