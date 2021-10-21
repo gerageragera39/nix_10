@@ -46,7 +46,7 @@ public class StringsMain {
         System.out.print("Enter the text you want to reverse : ");
         String text = scan().nextLine();
         String[] words = text.split(" ");
-        System.out.print("Enter word number (from 1 to " + words.length + "): ");
+        System.out.print("Enter 0 - for reversing a full line. Or enter word number (from 1 to " + words.length + ") : ");
         int numOfWord = scan().nextInt();
         System.out.println(StringHelperUtil.reverseAll(text, numOfWord));
     }
