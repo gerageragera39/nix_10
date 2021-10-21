@@ -1,19 +1,20 @@
 package ua.com.alevel.service;
 
 import ua.com.alevel.dao.UserDao;
-import ua.com.alevel.entity.User;
 
-import java.util.List;
+import ua.com.alevel.entity.User;
 
 public class UserService {
 
     private final UserDao userDao = new UserDao();
 
     public int create(User user, User[] users, int index) {
+
         if(index!=0){
             if (!userDao.existByEmail(user.getEmail())) {
                 userDao.create(user);
             } else {
+                System.out.println();
                 System.out.println("USER DOES NOT EXIST AT THIS EMAIL");
             }
         }

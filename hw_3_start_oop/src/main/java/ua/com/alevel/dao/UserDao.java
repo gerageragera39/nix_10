@@ -1,9 +1,8 @@
 package ua.com.alevel.dao;
 
 import ua.com.alevel.db.DBUser;
-import ua.com.alevel.entity.User;
 
-import java.util.List;
+import ua.com.alevel.entity.User;
 
 public class UserDao {
 

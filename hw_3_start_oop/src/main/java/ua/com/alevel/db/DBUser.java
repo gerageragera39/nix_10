@@ -57,16 +57,17 @@ public class DBUser {
     }
 
     public User findById(String id) {
+
         for (int j = 0; j < users.length; j++) {
             if(id.equals(String.valueOf(users[j].getId()))){
                 return users[j];
             }
         }
+
         System.out.println();
         System.out.println("USER NOT FOUND");
         UserController controller = new UserController();
         controller.run();
-        //throw new RuntimeException("user not found");
         return users[0];
 
 //        return users.stream()
@@ -81,22 +82,26 @@ public class DBUser {
     }
 
     public boolean existByEmail(String email) {
+
         for (int i = 0; i < users.length; i++) {
             if(email.equals(String.valueOf(users[i].getEmail()))){
                 return true;
             }
         }
+
         return false;
 //        return users.stream().anyMatch(user -> user.getEmail().equals(email));
     }
 
     private String generateId() {
+
         String id = UUID.randomUUID().toString();
         for (int i = 0; i < users.length; i++) {
             if(id.equals(String.valueOf(users[i].getId()))){
                 generateId();
             }
         }
+
         return id;
 //        if (users.stream().anyMatch(user -> user.getId().equals(id))) {
 //            return generateId();

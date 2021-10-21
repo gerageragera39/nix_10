@@ -21,16 +21,21 @@ public class UserController {
     private final UserService userService = new UserService();
 
     public void run() {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String position = "0";
+        runNavigation();
         try {
             while (position != null) {
-                crud(position, reader);
+                System.out.print("select your option : ");
                 position = reader.readLine();
+                if(!position.equals("0")){
+                    crud(position, reader);
+                }
                 if (position.equals("0")) {
                     System.exit(0);
                 }
-                crud(position, reader);
+                //crud(position, reader);
             }
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
@@ -38,6 +43,7 @@ public class UserController {
     }
 
     private void runNavigation() {
+
         System.out.println();
         System.out.println("if you want create user, please enter 1");
         System.out.println("if you want update user, please enter 2");
@@ -46,10 +52,10 @@ public class UserController {
         System.out.println("if you want findAll user, please enter 5");
         System.out.println("if you want exit, please enter 0");
         System.out.println();
-        System.out.print("select your option : ");
     }
 
     private void crud(String position, BufferedReader reader) {
+
         switch (position) {
             case "1" : create(reader); break;
             case "2" : update(reader); break;
@@ -57,10 +63,12 @@ public class UserController {
             case "4" : findById(reader);break;
             case "5" : findAll(reader);break;
         }
+
         runNavigation();
     }
 
     private void create(BufferedReader reader) {
+
         try {
             System.out.print("Please, enter your name : ");
             String name = reader.readLine();
@@ -94,6 +102,7 @@ public class UserController {
     }
 
     private void update(BufferedReader reader) {
+
         try {
             System.out.print("Please, enter id : ");
             String id = reader.readLine();
@@ -139,6 +148,7 @@ public class UserController {
     }
 
     private void delete(BufferedReader reader) {
+
         try {
             System.out.print("Please, enter id : ");
             String id = reader.readLine();
@@ -149,6 +159,7 @@ public class UserController {
     }
 
     private void findById(BufferedReader reader) {
+
         try {
             System.out.print("Please, enter id : ");
             String id = reader.readLine();
@@ -160,6 +171,7 @@ public class UserController {
     }
 
     private void findAll(BufferedReader reader) {
+
         User[] users = userService.findAll();
         if (users != null && users.length != 0) {
             for (User user : users) {
@@ -171,6 +183,7 @@ public class UserController {
     }
 
     private boolean existByEmail(String email) {
+
         UserDao user = new UserDao();
         return user.existByEmail(email);
     }
