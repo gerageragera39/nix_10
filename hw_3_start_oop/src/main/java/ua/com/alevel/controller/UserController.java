@@ -172,9 +172,11 @@ public class UserController {
     private void findAll(BufferedReader reader) {
 
         User[] users = userService.findAll();
+        int indexOfUser = 1;
         if (users != null && users.length != 0) {
             for (User user : users) {
-                System.out.println(user.toString());
+                System.out.println(user.toString(indexOfUser));
+                indexOfUser++;
             }
         } else {
             System.out.println("USERS EMPTY");

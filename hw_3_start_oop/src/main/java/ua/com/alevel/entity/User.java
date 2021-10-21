@@ -39,9 +39,9 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
+    //@Override
+    public String toString(int indexOfUser) {
+        return "User_"+ indexOfUser +" {" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
