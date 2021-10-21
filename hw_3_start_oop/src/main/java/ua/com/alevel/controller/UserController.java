@@ -7,7 +7,6 @@ import ua.com.alevel.service.UserService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
