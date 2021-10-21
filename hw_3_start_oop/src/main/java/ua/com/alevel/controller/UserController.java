@@ -17,16 +17,14 @@ public class UserController {
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static int indexForCreate = 0;
-    public static int indexForUpdate = 0;
 
     private final UserService userService = new UserService();
 
     public void run() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String position;
+        String position = "0";
         try {
-            runNavigation();
-            while ((position = reader.readLine()) != null) {
+            while (position != null) {
                 crud(position, reader);
                 position = reader.readLine();
                 if (position.equals("0")) {

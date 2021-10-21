@@ -1,10 +1,9 @@
 package ua.com.alevel.db;
 
+import ua.com.alevel.controller.UserController;
 import ua.com.alevel.entity.User;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 public class DBUser {
@@ -63,8 +62,12 @@ public class DBUser {
                 return users[j];
             }
         }
-        throw new RuntimeException("user not found");
-        //return users[0];
+        System.out.println();
+        System.out.println("USER NOT FOUND");
+        UserController controller = new UserController();
+        controller.run();
+        //throw new RuntimeException("user not found");
+        return users[0];
 
 //        return users.stream()
 //                .filter(u -> u.getId().equals(id))
