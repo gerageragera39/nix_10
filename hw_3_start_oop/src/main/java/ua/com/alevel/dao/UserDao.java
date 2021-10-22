@@ -29,4 +29,8 @@ public class UserDao {
     public boolean existByEmail(String email) {
         return DBUser.getInstance().existByEmail(email);
     }
+
+    public int numOfAllUsers() {
+        return DBUser.getInstance().numOfAllUsers();
+    }
 }

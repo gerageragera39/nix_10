@@ -49,6 +49,7 @@ public class UserController {
         System.out.println("if you want delete user, please enter 3");
         System.out.println("if you want findById user, please enter 4");
         System.out.println("if you want findAll user, please enter 5");
+        System.out.println("if you want numberOfAll users, please enter 6");
         System.out.println("if you want exit, please enter 0");
         System.out.println();
     }
@@ -61,6 +62,7 @@ public class UserController {
             case "3" : delete(reader); break;
             case "4" : findById(reader);break;
             case "5" : findAll(reader);break;
+            case "6" : NumOfAllUsers();break;
         }
 
         runNavigation();
@@ -134,6 +136,7 @@ public class UserController {
                     user.setEmail(email);
                     userService.update(user);
                 } else {
+                    System.out.println();
                     System.out.println("USER DOES NOT EXIST AT THIS EMAIL");
                 }
             }
@@ -152,6 +155,7 @@ public class UserController {
             System.out.print("Please, enter id : ");
             String id = reader.readLine();
             userService.delete(id);
+            System.out.println("User was deleted");
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
         }
@@ -183,9 +187,11 @@ public class UserController {
         }
     }
 
-    private boolean existByEmail(String email) {
+    public void NumOfAllUsers() {
+        System.out.println("Number Of All Users = "+userService.numOfAllUsers());
+    }
 
-        UserDao user = new UserDao();
-        return user.existByEmail(email);
+    private boolean existByEmail(String email) {
+        return userService.existByEmail(email);
     }
 }

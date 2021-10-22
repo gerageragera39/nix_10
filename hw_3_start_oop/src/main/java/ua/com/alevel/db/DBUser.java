@@ -107,4 +107,8 @@ public class DBUser {
 //            return generateId();
 //        }
     }
+
+    public int numOfAllUsers() {
+        return users.length;
+    }
 }

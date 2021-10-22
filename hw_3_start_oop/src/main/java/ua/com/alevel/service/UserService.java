@@ -40,4 +40,12 @@ public class UserService {
     public User[] findAll() {
         return userDao.findAll();
     }
+
+    public boolean existByEmail(String email) {
+        return userDao.existByEmail(email);
+    }
+
+    public int numOfAllUsers(){
+        return userDao.numOfAllUsers();
+    }
 }
