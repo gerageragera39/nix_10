@@ -1,4 +1,4 @@
-package ua.com.alevel.level_1;
+package ua.com.alevel.level_1.task1;
 
 import java.util.ArrayList;
 import java.util.Scanner;

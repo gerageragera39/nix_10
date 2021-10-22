@@ -1,4 +1,4 @@
-package ua.com.alevel.level_1;
+package ua.com.alevel.level_1.task1;
 
 public class Level1Main {
 
