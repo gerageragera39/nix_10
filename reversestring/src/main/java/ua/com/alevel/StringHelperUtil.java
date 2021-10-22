@@ -8,8 +8,17 @@ public final class StringHelperUtil {
 
         if(numOfWord == 0) {
             text = reverseText(text);
-        }else {
+        }else if(numOfWord!=-1){
             text = reverseWords(text, numOfWord);
+        }else {
+            String[] words = text.split(" ");
+            for (int i = 0; i < words.length; i++) {
+                words[i] = reverseText(words[i]);
+            }
+            text = String.valueOf(words[0]);
+            for (int i = 1; i < words.length; i++) {
+                text += " " + String.valueOf(words[i]);
+            }
         }
         return text;
     }

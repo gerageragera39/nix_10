@@ -46,8 +46,11 @@ public class StringsMain {
         System.out.print("Enter the text you want to reverse : ");
         String text = scan().nextLine();
         String[] words = text.split(" ");
-        System.out.print("Enter 0 - for reversing a full line. Or enter word number (from 1 to " + words.length + ") : ");
+        System.out.println("Enter 0 - for reversing a full line");
+        System.out.println("Enter -1 to reverse each word individually");
+        System.out.println("Or enter word number (from 1 to " + words.length + ") ");
         int numOfWord = scan().nextInt();
+        System.out.println();
         System.out.println(StringHelperUtil.reverseAll(text, numOfWord));
     }
 
@@ -56,6 +59,7 @@ public class StringsMain {
         String text = scan().nextLine();
         System.out.print("Enter part of the text : ");
         String part = scan().nextLine();
+        System.out.println();
         System.out.println(StringHelperUtil.reversePartOfSentence(text, part));
     }
 
@@ -69,6 +73,7 @@ public class StringsMain {
         int nextIndex = firstIndex + 1;
         System.out.print("Enter the number of the first letter with which to end the reversal (from " + nextIndex + " to " + endOfText + ") : ");
         int lastIndex = scan().nextInt();
+        System.out.println();
         System.out.println(StringHelperUtil.reveverseByInterval(text,firstIndex,lastIndex));
     }
 
