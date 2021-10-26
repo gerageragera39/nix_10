@@ -1,16 +1,26 @@
-package ua.com.alevel.level_1.task2;
+package ua.com.alevel.level_1;
+
+import ua.com.alevel.level_1.task1.NumberOfUniqueCharacters;
+import ua.com.alevel.level_1.task2.ChessKnight;
+import ua.com.alevel.level_1.task3.TriangleArea;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Level2Main {
+public class Level1Main {
+
     private final ChessKnight chessKnight = new ChessKnight();
     private int numOfStarts = 0;
     private final Scanner scanInt = new Scanner(System.in);
     private final Scanner scanLine = new Scanner(System.in);
     ArrayList<Integer> canToMove = new ArrayList<Integer>();
+    private final NumberOfUniqueCharacters numberOfUniqueCharacters = new NumberOfUniqueCharacters();
 
-    public void runlevel2() throws Exception {
+    public void runtask1() {
+        System.out.println(numberOfUniqueCharacters.findNumOfUniqueChar());
+    }
+
+    public void runtask2() throws Exception {
 //        Knight knight = new Knight();
 //        knight.setRank("u");
 //        knight.setFile(8);
@@ -29,11 +39,16 @@ public class Level2Main {
                 System.out.print("If you want to go on press 1 (else 0) : ");
                 position = scanInt.nextInt();
                 if(position == 1){
-                    this.runlevel2();
+                    this.runtask2();
                 }
                 break;
             case 0:
                 break;
         }
+    }
+
+    public void runtask3() {
+        TriangleArea dots = new TriangleArea();
+        dots.calcTriangleArea();
     }
 }

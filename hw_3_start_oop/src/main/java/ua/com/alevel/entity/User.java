@@ -41,7 +41,7 @@ public class User {
 
     //@Override
     public String toString(int indexOfUser) {
-        return "User_"+ indexOfUser +" {" +
+        return "User_" + indexOfUser + " {" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +

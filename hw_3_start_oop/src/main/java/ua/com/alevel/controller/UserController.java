@@ -28,7 +28,7 @@ public class UserController {
             while (position != null) {
                 System.out.print("select your option : ");
                 position = reader.readLine();
-                if(!position.equals("0")){
+                if (!position.equals("0")) {
                     crud(position, reader);
                 }
                 if (position.equals("0")) {
@@ -57,12 +57,24 @@ public class UserController {
     private void crud(String position, BufferedReader reader) {
 
         switch (position) {
-            case "1" : create(reader); break;
-            case "2" : update(reader); break;
-            case "3" : delete(reader); break;
-            case "4" : findById(reader);break;
-            case "5" : findAll(reader);break;
-            case "6" : NumOfAllUsers();break;
+            case "1":
+                create(reader);
+                break;
+            case "2":
+                update(reader);
+                break;
+            case "3":
+                delete(reader);
+                break;
+            case "4":
+                findById(reader);
+                break;
+            case "5":
+                findAll(reader);
+                break;
+            case "6":
+                NumOfAllUsers();
+                break;
         }
 
         runNavigation();
@@ -76,17 +88,17 @@ public class UserController {
             System.out.print("Please, enter your email : ");
             String email = reader.readLine();
             Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-            boolean emailRegex =  matcher.find();
-            while(!emailRegex){
+            boolean emailRegex = matcher.find();
+            while (!emailRegex) {
                 System.out.print("Email entered incorrectly, please, enter your email : ");
                 email = reader.readLine();
                 matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-                emailRegex =  matcher.find();
+                emailRegex = matcher.find();
             }
             System.out.print("Please, enter your age (from 0 to 117) : ");
             String ageString = reader.readLine();
             int age = Integer.parseInt(ageString);
-            while ((age<0) || (age>117)){
+            while ((age < 0) || (age > 117)) {
                 System.out.print("Wrong age, please, enter your age (from 0 to 117) : ");
                 ageString = reader.readLine();
                 age = Integer.parseInt(ageString);
@@ -112,17 +124,17 @@ public class UserController {
             System.out.print("Please, enter your email : ");
             String email = reader.readLine();
             Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-            boolean emailRegex =  matcher.find();
-            while(!emailRegex){
+            boolean emailRegex = matcher.find();
+            while (!emailRegex) {
                 System.out.print("Email entered incorrectly, please, enter your email : ");
                 email = reader.readLine();
                 matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
-                emailRegex =  matcher.find();
+                emailRegex = matcher.find();
             }
             System.out.print("Please, enter your age (from 0 to 117) : ");
             String ageString = reader.readLine();
             int age = Integer.parseInt(ageString);
-            while ((age<0) || (age>117)){
+            while ((age < 0) || (age > 117)) {
                 System.out.print("Wrong age, please, enter your age (from 0 to 117) : ");
                 ageString = reader.readLine();
                 age = Integer.parseInt(ageString);
@@ -131,7 +143,7 @@ public class UserController {
             user.setId(id);
             user.setAge(age);
             user.setName(name);
-            if(indexForCreate!=0){
+            if (indexForCreate != 0) {
                 if (!existByEmail(email)) {
                     user.setEmail(email);
                     userService.update(user);
@@ -140,7 +152,7 @@ public class UserController {
                     System.out.println("USER DOES NOT EXIST AT THIS EMAIL");
                 }
             }
-            if(indexForCreate == 0){
+            if (indexForCreate == 0) {
                 user.setEmail(email);
                 userService.update(user);
             }
@@ -188,7 +200,7 @@ public class UserController {
     }
 
     public void NumOfAllUsers() {
-        System.out.println("Number Of All Users = "+userService.numOfAllUsers());
+        System.out.println("Number Of All Users = " + userService.numOfAllUsers());
     }
 
     private boolean existByEmail(String email) {

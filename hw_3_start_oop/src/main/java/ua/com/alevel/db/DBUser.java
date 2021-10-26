@@ -25,7 +25,7 @@ public class DBUser {
     public void create(User user) {
         user.setId(generateId());
         users = Arrays.copyOf(users, users.length + 1);
-        users[users.length-1] = user;
+        users[users.length - 1] = user;
         //users.add(user);
     }
 
@@ -40,17 +40,17 @@ public class DBUser {
         User userToDelete = findById(id);
         int index = -1;
         for (int i = 0; i < users.length; i++) {
-            if(users[i].getId().equals(String.valueOf(userToDelete.getId()))){
+            if (users[i].getId().equals(String.valueOf(userToDelete.getId()))) {
                 users[i] = null;
                 index = i;
             }
         }
         User arrayWithDeletedUser[] = new User[users.length - 1];
         for (int i = 0; i < index; i++) {
-           arrayWithDeletedUser[i] = users[i];
+            arrayWithDeletedUser[i] = users[i];
         }
         for (int i = index; i < arrayWithDeletedUser.length; i++) {
-            arrayWithDeletedUser[i] = users[i+1];
+            arrayWithDeletedUser[i] = users[i + 1];
         }
         users = Arrays.copyOf(arrayWithDeletedUser, users.length - 1);
 //        users.removeIf(user -> user.getId().equals(id));
@@ -59,7 +59,7 @@ public class DBUser {
     public User findById(String id) {
 
         for (int j = 0; j < users.length; j++) {
-            if(id.equals(String.valueOf(users[j].getId()))){
+            if (id.equals(String.valueOf(users[j].getId()))) {
                 return users[j];
             }
         }
@@ -84,7 +84,7 @@ public class DBUser {
     public boolean existByEmail(String email) {
 
         for (int i = 0; i < users.length; i++) {
-            if(email.equals(String.valueOf(users[i].getEmail()))){
+            if (email.equals(String.valueOf(users[i].getEmail()))) {
                 return true;
             }
         }
@@ -97,7 +97,7 @@ public class DBUser {
 
         String id = UUID.randomUUID().toString();
         for (int i = 0; i < users.length; i++) {
-            if(id.equals(String.valueOf(users[i].getId()))){
+            if (id.equals(String.valueOf(users[i].getId()))) {
                 generateId();
             }
         }

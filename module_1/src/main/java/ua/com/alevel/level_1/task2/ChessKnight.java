@@ -13,6 +13,7 @@ public class ChessKnight {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final PrintStream printWriter = new PrintStream(System.out,true);
     public static final char aa = '\u265E';
+    public static final char bb = '\u2658';
 
     public ArrayList<Integer> knightMove(int file, String rank, int numOfStarts, ArrayList<Integer> canToMove) throws Exception {
 
