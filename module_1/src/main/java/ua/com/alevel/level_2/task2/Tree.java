@@ -9,7 +9,7 @@ public class Tree {
 
     public TreeNode treeCreating() {
 
-        root = makingTree();
+        root = makingTree((int) (Math.random() * 10) + 1, -1);
         printTree(root);
         if (root != null) {
             System.out.println();
@@ -25,28 +25,28 @@ public class Tree {
         return root;
     }
 
-    public TreeNode makingTree() {
+    public TreeNode makingTree(int value, int leftRight) {
         TreeNode tree = null;
         int random = randBranch(numOfKnot);
         numOfKnot = 0;
         if (random != 0) {
             if (random == 1) {
                 if (leftOrRight() == 0) {
-                    int value = randValue();
+                    value = randValue(value, leftRight);
                     tree = new TreeNode(value,
-                            makingTree(),
+                            makingTree(value, 0),
                             null);
                 } else {
-                    int value = randValue();
+                    value = randValue(value, leftRight);
                     tree = new TreeNode(value,
                             null,
-                            makingTree());
+                            makingTree(value, 1));
                 }
             } else {
-                int value = randValue();
+                value = randValue(value, leftRight);
                 tree = new TreeNode(value,
-                        makingTree(),
-                        makingTree());
+                        makingTree(value, 0),
+                        makingTree(value, 1));
 
             }
         }
@@ -119,8 +119,12 @@ public class Tree {
         return random;
     }
 
-    public int randValue() {
-        int value = (int) (Math.random() * 10) + 1;
+    public int randValue(int value, int leftRight) {
+        if(leftRight == 0){
+            value = (int) (Math.random() * (value - 1)) + 1;
+        }else{
+            value = (int) (Math.random() * 10) + value + 1;
+        }
         return value;
     }
 
