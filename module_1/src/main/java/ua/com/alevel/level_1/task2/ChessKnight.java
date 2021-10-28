@@ -131,16 +131,19 @@ public class ChessKnight {
                 if (board[i][j] == 0) {
                     System.out.print("●" + "   ");
                 } else if (board[i][j] == 1) {
-                    printWriter.print(ANSI_YELLOW + "2" + ANSI_RESET + "\t ");
+                    //printWriter.print(ANSI_YELLOW + aa + ANSI_RESET + "\t ");
+                    printWriter.print("2" + "\t ");
                 } else {
-                    System.out.print(ANSI_GREEN + "x" + ANSI_RESET + "   ");
+                    //System.out.print(ANSI_GREEN + "x" + ANSI_RESET + "   ");
+                    System.out.print("x" + "   ");
                 }
             }
             System.out.println();
         }
 
         System.out.println();
-        System.out.println("Your horse is in place " + ANSI_YELLOW + "2" + ANSI_RESET);
+        //System.out.println("Your horse is in place " + ANSI_YELLOW + "2" + ANSI_RESET);
+        System.out.println("Your horse is in place 2" );
         System.out.println();
         for (int i = 0; i < newCanToMove.size(); i += 2) {
             System.out.println("You can go to " + newCanToMove.get(i) + " - " + refact(newCanToMove.get(i + 1)));
