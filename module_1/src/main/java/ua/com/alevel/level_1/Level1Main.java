@@ -13,7 +13,7 @@ public class Level1Main {
     private int numOfStarts = 0;
     private final Scanner scanInt = new Scanner(System.in);
     private final Scanner scanLine = new Scanner(System.in);
-    ArrayList<Integer> canToMove = new ArrayList<Integer>();
+    public ArrayList<Integer> canToMove = new ArrayList<Integer>();
     private final NumberOfUniqueCharacters numberOfUniqueCharacters = new NumberOfUniqueCharacters();
 
     public void runtask1() {
@@ -21,14 +21,11 @@ public class Level1Main {
     }
 
     public void runtask2() throws Exception {
-//        Knight knight = new Knight();
-//        knight.setRank("u");
-//        knight.setFile(8);
         int position = 1;
         int file;
-        String rank ;
-        switch (position){
-            case 1 :
+        String rank;
+        switch (position) {
+            case 1:
                 System.out.print("Enter file - ");
                 file = scanInt.nextInt();
                 System.out.print("Enter rank - ");
@@ -38,10 +35,11 @@ public class Level1Main {
                 System.out.println();
                 System.out.print("If you want to go on press 1 (else 0) : ");
                 position = scanInt.nextInt();
-                if(position == 1){
+                if (position == 1) {
                     this.runtask2();
                 }
                 break;
+
             case 0:
                 break;
         }

@@ -8,7 +8,6 @@ public class Tree {
     public int numOfKnot = 1;
 
     public TreeNode treeCreating() {
-
         root = makingTree((int) (Math.random() * 10) + 1, -1);
         printTree(root);
         if (root != null) {
@@ -47,10 +46,8 @@ public class Tree {
                 tree = new TreeNode(value,
                         makingTree(value, 0),
                         makingTree(value, 1));
-
             }
         }
-
         return tree;
     }
 
@@ -98,15 +95,10 @@ public class Tree {
     }
 
     public int findMaxDepth(TreeNode root) {
-
         if (root == null) return 0;
-
         int Left = findMaxDepth(root.getLeft());
-
         int Right = findMaxDepth(root.getRight());
-
         return Math.max(Left, Right) + 1;
-
     }
 
     public int randBranch(int numOfKnot) {
@@ -120,9 +112,9 @@ public class Tree {
     }
 
     public int randValue(int value, int leftRight) {
-        if(leftRight == 0){
+        if (leftRight == 0) {
             value = (int) (Math.random() * (value - 1)) + 1;
-        }else{
+        } else {
             value = (int) (Math.random() * 10) + value + 1;
         }
         return value;

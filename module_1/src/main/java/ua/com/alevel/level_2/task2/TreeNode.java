@@ -1,7 +1,7 @@
 package ua.com.alevel.level_2.task2;
 
-
 public class TreeNode {
+
     int value;
     TreeNode left;
     TreeNode right;
@@ -30,7 +30,6 @@ public class TreeNode {
 
     public int sum() {
         int summ = value;
-
         if (left != null) {
             summ += left.sum();
         }
@@ -38,7 +37,6 @@ public class TreeNode {
         if (right != null) {
             summ += right.sum();
         }
-
         return summ;
     }
 }

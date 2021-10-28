@@ -29,7 +29,6 @@ public class TriangleArea {
         C[1] = scan.nextFloat();
 
         boolean equationOfStraightLine = (C[0] - A[0]) / (B[0] - A[0]) == (C[1] - A[1]) / (B[1] - A[1]);
-
         if (!equationOfStraightLine) {
             float determinant = (float) (A[0] - C[0]) * (B[1] - C[1]) - (B[0] - C[0]) * (A[1] - C[1]);
             float area = (float) 1 / 2 * Math.abs(determinant);
@@ -41,30 +40,3 @@ public class TriangleArea {
         }
     }
 }
-
-
-//        System.out.println("Enter coordinates A");
-//        String strACoordinates = scan.nextLine();
-//        for (int i = 0; i < strACoordinates.length(); i++) {
-//            if(Character.isDigit(strACoordinates.charAt(i))){
-//                index++;
-//            } else {
-//                break;
-//            }
-//        }
-//        for (int i = 0; i < index; i++) {
-//            A[0] += Character.getNumericValue(strACoordinates.charAt(i));
-//        }
-//
-//        int startOfSecondCoord = index + 1;
-//        for (int i = startOfSecondCoord; i < strACoordinates.length(); i++) {
-//            if(Character.isDigit(strACoordinates.charAt(i))){
-//                index++;
-//            } else {
-//                break;
-//            }
-//        }
-//        for (int i = startOfSecondCoord; i < index; i++) {
-//            A[1] += Character.getNumericValue(strACoordinates.charAt(i));
-//        }
-
