@@ -25,6 +25,7 @@
         <module>reversestring</module>
         <module>hw_3_start_oop</module>
         <module>module_1</module>
+        <module>hw_4_logs_and_test</module>
     </modules>
     <packaging>pom</packaging>
 
