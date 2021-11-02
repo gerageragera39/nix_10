@@ -4,9 +4,18 @@ public class Population {
 
     private String firstName;
     private String lastName;
-    private String city;
+    private String countryOfResidence;
     private int age;
     private String passportID;
+    private String sex;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getPassportID() {
         return passportID;
@@ -32,12 +41,12 @@ public class Population {
         this.lastName = lastName;
     }
 
-    public String getCity() {
-        return city;
+    public String getCountryOfResidence() {
+        return countryOfResidence;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCountryOfResidence(String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
     }
 
     public int getAge() {
@@ -46,5 +55,17 @@ public class Population {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Population{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", countryOfResidence='" + countryOfResidence + '\'' +
+                ", age=" + age +
+                ", passportID='" + passportID + '\'' +
+                ", sex=" + sex +
+                '}';
     }
 }

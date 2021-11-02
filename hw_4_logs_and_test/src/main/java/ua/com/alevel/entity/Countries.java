@@ -1,23 +1,39 @@
 package ua.com.alevel.entity;
 
+import java.util.Arrays;
+
 public class Countries {
 
+    private Population persons = new Population();
     private String nameOfCountry;
-    private Population[] people;
+    private static Population[] people;
+    private int ISO;
+
+    public int getISO() {
+        return ISO;
+    }
+
+    public void setISO(int ISO) {
+        this.ISO = ISO;
+    }
 
     public String getNameOfCountry() {
         return nameOfCountry;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "nameOfCountry='" + nameOfCountry + '\'' +
+                ", ISO=" + ISO +
+                '}';
     }
 
     public void setNameOfCountry(String nameOfCountry) {
         this.nameOfCountry = nameOfCountry;
     }
 
-    public Population[] getPeople() {
+    public static Population[] getPeople() {
         return people;
-    }
-
-    public void setPeople(Population[] people) {
-        this.people = people;
     }
 }
