@@ -75,7 +75,7 @@ public class DBCountries {
         System.out.println("COUNTRY NOT FOUND");
         CountriesController controller = new CountriesController();
         controller.run();
-        return countries[0];
+        return null;
     }
 
     public Countries[] findAllCounties() {
@@ -98,12 +98,17 @@ public class DBCountries {
         return countries.length;
     }
 
-    public Countries[] getCountries() {
-        return countries;
+    public boolean existByCountryName(String name){
+        for (int i = 0; i < countries.length; i++) {
+            if(name.equals(countries[i].getNameOfCountry())){
+                return false;
+            }
+        }
+        return true;
     }
 
-    public static Population[] getPeople() {
-        return Countries.getPeople();
+    public Countries[] getCountries() {
+        return countries;
     }
 }
 

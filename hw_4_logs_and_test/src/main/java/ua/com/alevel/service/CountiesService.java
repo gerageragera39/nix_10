@@ -7,11 +7,21 @@ import ua.com.alevel.entity.Countries;
 public class CountiesService {
 
     public void create(Countries country) {
-        CountriesDao.create(country);
+        if(existByCountryName(country.getNameOfCountry())){
+            CountriesDao.create(country);
+        } else{
+            System.out.println();
+            System.out.println("COUNTRY DOES NOT EXIST BY THIS NAME");
+        }
     }
 
     public void update(Countries country, String previousName) {
-        CountriesDao.update(country, previousName);
+        if(existByCountryName(country.getNameOfCountry())){
+            CountriesDao.update(country, previousName);
+        } else{
+            System.out.println();
+            System.out.println("COUNTRY DOES NOT EXIST BY THIS NAME");
+        }
     }
 
     public void delete(int IOS) {
@@ -30,4 +40,7 @@ public class CountiesService {
         return CountriesDao.numOfAllCountries();
     }
 
+    public boolean existByCountryName(String name){
+        return CountriesDao.existByCountryName(name);
+    }
 }

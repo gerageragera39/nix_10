@@ -23,7 +23,8 @@ public class PopulationController {
                     crud(position, reader);
                 }
                 if (position.equals("0")) {
-                    position = null;
+//                    position = null;
+                    RelationController.run();
                 }
                 //crud(position, reader);
             }

@@ -68,7 +68,7 @@ public class DBPopulation {
         System.out.println("PERSON NOT FOUND");
         PopulationController controller = new PopulationController();
         controller.run();
-        return people[0];
+        return null;
     }
 
     public Population[] findAllPersons() {
