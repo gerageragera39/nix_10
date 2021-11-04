@@ -1,5 +1,7 @@
 package ua.com.alevel.db;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.alevel.controller.PopulationController;
 import ua.com.alevel.entity.Countries;
 import ua.com.alevel.entity.Population;
@@ -8,6 +10,9 @@ import java.util.Arrays;
 import java.util.UUID;
 
 public class DBPopulation {
+
+    private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
+    private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
 
     private static Population[] people;
     private static DBPopulation instance;
@@ -57,7 +62,6 @@ public class DBPopulation {
     }
 
     public Population findByPassportId(String id) {
-
         for (int j = 0; j < people.length; j++) {
             if (id.equals(String.valueOf(people[j].getPassportID()))) {
                 return people[j];
@@ -66,6 +70,8 @@ public class DBPopulation {
 
         System.out.println();
         System.out.println("PERSON NOT FOUND");
+        LOGGER_WARN.warn("person not found by passport id : " + id);
+        LOGGER_INFO.info("person not found by passport id : " + id);
         PopulationController controller = new PopulationController();
         controller.run();
         return null;
@@ -76,14 +82,12 @@ public class DBPopulation {
     }
 
     public String generatePassportId() {
-
         String id = UUID.randomUUID().toString();
         for (int i = 0; i < people.length; i++) {
             if (id.equals(String.valueOf(people[i].getPassportID()))) {
                 generatePassportId();
             }
         }
-
         return id;
     }
 
@@ -91,7 +95,7 @@ public class DBPopulation {
         return people.length;
     }
 
-    public boolean existByCountry(String nameOfCountry){
+    public boolean existByCountry(String nameOfCountry) {
         Countries[] countries = DBCountries.getInstance().getCountries();
         for (int i = 0; i < countries.length; i++) {
             if (nameOfCountry.equals(String.valueOf(countries[i].getNameOfCountry()))) {

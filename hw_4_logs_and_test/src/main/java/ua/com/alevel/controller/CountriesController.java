@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 public class CountriesController {
 
     private static final CountiesService countiesService = new CountiesService();
-    private static final Population person = new Population();
     private static final PopulationService populationService = new PopulationService();
 
     public static void run() {
@@ -27,10 +26,8 @@ public class CountriesController {
                     crud(position, reader);
                 }
                 if (position.equals("0")) {
-//                    position = null;
                     RelationController.run();
                 }
-                //crud(position, reader);
             }
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
@@ -38,7 +35,6 @@ public class CountriesController {
     }
 
     private static void runNavigation() {
-
         System.out.println();
         System.out.println("if you want create country, please enter 1");
         System.out.println("if you want update country, please enter 2");
@@ -52,7 +48,6 @@ public class CountriesController {
     }
 
     private static void crud(String position, BufferedReader reader) throws IOException {
-
         switch (position) {
             case "1":
                 create(reader);
@@ -81,7 +76,6 @@ public class CountriesController {
     }
 
     private static void create(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter name of country : ");
             String nameOfCountry = reader.readLine();
@@ -111,7 +105,6 @@ public class CountriesController {
     }
 
     private static void delete(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter country ISO : ");
             String StringISO = reader.readLine();
@@ -124,7 +117,6 @@ public class CountriesController {
     }
 
     private static Countries findByISO(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter ISO : ");
             String StringISO = reader.readLine();
@@ -139,7 +131,6 @@ public class CountriesController {
     }
 
     private static void findAllCountries(BufferedReader reader) {
-
         Countries[] countries = countiesService.findAllCounties();
         if (countries != null && countries.length != 0) {
             for (Countries country : countries) {
@@ -159,7 +150,7 @@ public class CountriesController {
         Population[] people = populationService.findAllPersons();
         if (people != null && people.length != 0) {
             for (Population person : people) {
-                if(person.getCountryOfResidence().equals(country.getNameOfCountry())){
+                if (person.getCountryOfResidence().equals(country.getNameOfCountry())) {
                     System.out.println(person.toString());
                 }
             }

@@ -59,13 +59,13 @@ public class CountriesServiceTest {
         Assertions.assertEquals(countiesService.findAllCounties().length, DEFAULT_SIZE);
     }
 
-    public static Countries generateRandomCountry(){
+    public static Countries generateRandomCountry() {
         Countries country = new Countries();
         country.setNameOfCountry(NAME_OF_COUNTRY);
         return country;
     }
 
-    public static Countries generateCountry(String name){
+    public static Countries generateCountry(String name) {
         Countries country = new Countries();
         country.setNameOfCountry(name);
         return country;

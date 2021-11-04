@@ -1,12 +1,16 @@
 package ua.com.alevel.db;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.alevel.controller.CountriesController;
 import ua.com.alevel.entity.Countries;
-import ua.com.alevel.entity.Population;
 
 import java.util.Arrays;
 
 public class DBCountries {
+
+    private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
+    private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
 
     private Countries[] countries;
     private static DBCountries instance;
@@ -40,7 +44,6 @@ public class DBCountries {
 
     public void delete(int IOS) {
         Countries countryToDelete = findByISO(IOS);
-
         for (int i = 0; i < DBPopulation.getInstance().getPeople().length; i++) {
             if (DBPopulation.getInstance().getPeople()[i].getCountryOfResidence().equals(countryToDelete.getNameOfCountry())) {
                 DBPopulation.getInstance().delete(DBPopulation.getInstance().getPeople()[i].getPassportID());
@@ -63,16 +66,17 @@ public class DBCountries {
         countries = Arrays.copyOf(arrayWithDeletedUser, countries.length - 1);
     }
 
-    public Countries findByISO(int IOS) {
-
+    public Countries findByISO(int ISO) {
         for (int j = 0; j < countries.length; j++) {
-            if (IOS == countries[j].getISO()) {
+            if (ISO == countries[j].getISO()) {
                 return countries[j];
             }
         }
 
         System.out.println();
         System.out.println("COUNTRY NOT FOUND");
+        LOGGER_WARN.warn("county not found by ISO : " + ISO);
+        LOGGER_INFO.info("county not found by ISO : " + ISO);
         CountriesController controller = new CountriesController();
         controller.run();
         return null;
@@ -83,14 +87,12 @@ public class DBCountries {
     }
 
     private int generateISO() {
-
         int id = (int) (Math.random() * 999) + 1;
         for (int i = 0; i < countries.length; i++) {
             if (id == countries[i].getISO()) {
                 generateISO();
             }
         }
-
         return id;
     }
 
@@ -98,9 +100,9 @@ public class DBCountries {
         return countries.length;
     }
 
-    public boolean existByCountryName(String name){
+    public boolean existByCountryName(String name) {
         for (int i = 0; i < countries.length; i++) {
-            if(name.equals(countries[i].getNameOfCountry())){
+            if (name.equals(countries[i].getNameOfCountry())) {
                 return false;
             }
         }

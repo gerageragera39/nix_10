@@ -23,10 +23,8 @@ public class PopulationController {
                     crud(position, reader);
                 }
                 if (position.equals("0")) {
-//                    position = null;
                     RelationController.run();
                 }
-                //crud(position, reader);
             }
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
@@ -34,7 +32,6 @@ public class PopulationController {
     }
 
     private static void runNavigation() {
-
         System.out.println();
         System.out.println("if you want create person, please enter 1");
         System.out.println("if you want update person, please enter 2");
@@ -47,7 +44,6 @@ public class PopulationController {
     }
 
     private static void crud(String position, BufferedReader reader) {
-
         switch (position) {
             case "1":
                 create(reader);
@@ -73,7 +69,6 @@ public class PopulationController {
     }
 
     private static void create(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter person's first name : ");
             String firstName = reader.readLine();
@@ -89,7 +84,7 @@ public class PopulationController {
             }
             System.out.print("Please, enter person's sex (M or F) : ");
             String sex = reader.readLine();
-            while ((!sex.equals("M"))&&(!sex.equals("F"))){
+            while ((!sex.equals("M")) && (!sex.equals("F"))) {
                 System.out.print("Wrong sex, please, enter person's sex! (M or F) : ");
                 sex = reader.readLine();
             }
@@ -108,7 +103,6 @@ public class PopulationController {
     }
 
     private static void update(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter passport id : ");
             String id = reader.readLine();
@@ -139,7 +133,6 @@ public class PopulationController {
     }
 
     private static void delete(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter passport id : ");
             String id = reader.readLine();
@@ -151,7 +144,6 @@ public class PopulationController {
     }
 
     private static void findById(BufferedReader reader) {
-
         try {
             System.out.print("Please, enter passport id : ");
             String id = reader.readLine();
@@ -163,7 +155,6 @@ public class PopulationController {
     }
 
     private static void findAllPersons(BufferedReader reader) {
-
         Population[] people = populationService.findAllPersons();
         if (people != null && people.length != 0) {
             for (Population person : people) {

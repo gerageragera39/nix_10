@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class RelationController {
 
-    public static void run(){
+    public static void run() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String position = "0";
         runNavigation();
@@ -20,7 +20,6 @@ public class RelationController {
                 if (position.equals("0")) {
                     System.exit(0);
                 }
-                //crud(position, reader);
             }
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
@@ -28,7 +27,6 @@ public class RelationController {
     }
 
     private static void runNavigation() {
-
         System.out.println();
         System.out.println("if you want to work with countries, please enter 1");
         System.out.println("if you want to work with people, please enter 2");
@@ -37,7 +35,6 @@ public class RelationController {
     }
 
     private static void crud(String position, BufferedReader reader) {
-
         switch (position) {
             case "1":
                 CountriesController();
@@ -49,11 +46,11 @@ public class RelationController {
         runNavigation();
     }
 
-    private static void CountriesController(){
+    private static void CountriesController() {
         CountriesController.run();
     }
 
-    private static void PopulationController(){
+    private static void PopulationController() {
         PopulationController.run();
     }
 }

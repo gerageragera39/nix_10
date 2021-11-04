@@ -28,7 +28,7 @@ public class CountriesDao {
         return DBCountries.getInstance().numOfAllCountries();
     }
 
-    public static boolean existByCountryName(String name){
+    public static boolean existByCountryName(String name) {
         return DBCountries.getInstance().existByCountryName(name);
     }
 }

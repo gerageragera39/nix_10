@@ -29,7 +29,7 @@ public class PopulationDao {
         return DBPopulation.getInstance().numOfAllPersons();
     }
 
-    public static boolean existByCountry(String nameOfCountry){
+    public static boolean existByCountry(String nameOfCountry) {
         return DBPopulation.getInstance().existByCountry(nameOfCountry);
     }
 }

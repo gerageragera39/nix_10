@@ -27,7 +27,7 @@
         <logback.version>1.2.3</logback.version>
         <logs.folder>logs</logs.folder>
         <logs.test.folder>test</logs.test.folder>
-        <logs.life.folder>life</logs.life.folder>
+        <logs.life.folder>prod</logs.life.folder>
     </properties>
 
     <profiles>
@@ -41,7 +41,7 @@
             </properties>
         </profile>
         <profile>
-            <id>life</id>
+            <id>prod</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>

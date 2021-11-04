@@ -1,7 +1,5 @@
 package ua.com.alevel.entity;
 
-import java.util.Arrays;
-
 public class Countries {
 
     private Population persons = new Population();
