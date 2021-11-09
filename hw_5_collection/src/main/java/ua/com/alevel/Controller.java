@@ -42,7 +42,7 @@ public class Controller {
                 break;
 
             case "3":
-                System.out.print("Enter the array : ");
+                System.out.print("Enter the array ");
                 MyArrayList arrayList = new MyArrayList();
                 scanArray(arrayList);
                 mathSet = new MathSet(arrayList.getArray());
@@ -193,7 +193,7 @@ public class Controller {
                 mathSet.add(num);
                 break;
             case "2":
-                System.out.print("Enter the array : ");
+                System.out.print("Enter the array ");
                 MyArrayList list = new MyArrayList();
                 scanArray(list);
                 mathSet.add(list.getArray());
@@ -205,29 +205,21 @@ public class Controller {
         Scanner scan = new Scanner(System.in);
         switch (pos) {
             case "1":
-                System.out.print("Enter the MathSet : ");
+                System.out.print("Enter the MathSet ");
                 MyArrayList list1 = new MyArrayList();
                 MathSet ms = new MathSet();
                 ms.add(scanArray(list1).getArray());
                 mathSet.join(ms);
                 break;
             case "2":
-                String StringOneArray;
                 MathSet list2 = new MathSet();
                 String position1 = "1";
                 while (position1 != null) {
                     if (position1.equals("1")) {
-                        System.out.print("Enter the MathSet : ");
+                        System.out.print("Enter the MathSet ");
                         MathSet mathSet = new MathSet();
                         mathSet.add(scanArray(list2.getList()).getArray());
-//                        StringOneArray = scan.nextLine();
-//
-//                        for (int i = 0; i < StringOneArray.length(); i++) {
-//                            if (Character.isDigit(StringOneArray.charAt(i))) {
-//                                list2.add(Character.getNumericValue(StringOneArray.charAt(i)));
-//                            }
-//                        }
-                        System.out.println("Enter 1, if you want to create one more Array");
+                        System.out.println("Enter 1, if you want to create one more MathSet");
                         position1 = scan.nextLine();
                     } else {
                         position1 = null;
@@ -242,7 +234,7 @@ public class Controller {
         Scanner scan = new Scanner(System.in);
         switch (pos) {
             case "1":
-                System.out.print("Enter the MathSet : ");
+                System.out.print("Enter the MathSet ");
                 MyArrayList list1 = new MyArrayList();
                 MathSet ms = new MathSet();
                 ms.add(scanArray(list1).getArray());
@@ -253,17 +245,10 @@ public class Controller {
                 String position1 = "1";
                 while (position1 != null) {
                     if (position1.equals("1")) {
-                        System.out.print("Enter the MathSet : ");
+                        System.out.print("Enter the MathSet ");
                         MathSet mathSet = new MathSet();
                         mathSet.add(scanArray(list2.getList()).getArray());
-//                        StringOneArray = scan.nextLine();
-//
-//                        for (int i = 0; i < StringOneArray.length(); i++) {
-//                            if (Character.isDigit(StringOneArray.charAt(i))) {
-//                                list2.add(Character.getNumericValue(StringOneArray.charAt(i)));
-//                            }
-//                        }
-                        System.out.println("Enter 1, if you want to create one more Array");
+                        System.out.println("Enter 1, if you want to create one more MathSet");
                         position1 = scan.nextLine();
                     } else {
                         position1 = null;
@@ -393,14 +378,8 @@ public class Controller {
                 break;
             case "4":
                 System.out.print("Enter the array : ");
-                String StringArray = scan.nextLine();
                 MyArrayList arrayList = new MyArrayList();
-
-                for (int i = 0; i < StringArray.length(); i++) {
-                    if (Character.isDigit(StringArray.charAt(i))) {
-                        arrayList.add(Character.getNumericValue(StringArray.charAt(i)));
-                    }
-                }
+                scanArray(arrayList);
                 mathSet.clear(arrayList.getArray());
                 break;
         }
@@ -456,7 +435,6 @@ public class Controller {
                     doubleNum = Double.parseDouble(parseNum);
                     arrayList.add(doubleNum);
                 }
-                doubleNum = 0;
                 intNum = 0;
                 index = j;
                 doubleNumber = " ";
@@ -468,17 +446,4 @@ public class Controller {
         }
         return arrayList;
     }
-
-//    public static MyArrayList getList(){
-//        System.out.print("Enter the array : ");
-//        String StringArray = scanner.nextLine();
-//        MyArrayList arrayList = new MyArrayList();
-//
-//        for (int i = 0; i < StringArray.length(); i++) {
-//            if (Character.isDigit(StringArray.charAt(i))) {
-//                arrayList.add(Character.getNumericValue(StringArray.charAt(i)));
-//            }
-//        }
-//        return arrayList;
-//    }
 }

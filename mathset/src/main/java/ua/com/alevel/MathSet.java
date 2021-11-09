@@ -86,7 +86,6 @@ public class MathSet {
             for (int i = 0; i < list.getArray().length; i++) {
                 for (int j = 0; j < mathSet.getList().getArray().length; j++) {
                     if (list.get(i) == mathSet.getByIndex(j)) {
-                        //interList.add(mathSet.getByIndex(j));
                         int index = 0;
                         for (int k = 0; k < interList.size(); k++) {
                             if (mathSet.getByIndex(j) == interList.get(k)) {
