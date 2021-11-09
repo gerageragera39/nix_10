@@ -22,39 +22,39 @@ public class MyArrayList {
             }
         }
         for (int i = 0; i < array.length; i++) {
-            if(array[i] == null){
+            if (array[i] == null) {
                 array[i] = number;
                 break;
             }
         }
     }
 
-    public Number get(int index){
+    public Number get(int index) {
         return array[index];
     }
 
-    public void remove(int index){
+    public void remove(int index) {
         Number[] numArray = new Number[array.length - 1];
         Number[] currentArray = array;
         array = numArray;
 
         for (int i = 0, j = 0; i < array.length; i++, j++) {
-            if(j!=index) {
+            if (j != index) {
                 array[i] = currentArray[j];
-            } else{
+            } else {
                 i--;
             }
         }
     }
 
-    public int size(){
+    public int size() {
         return array.length;
     }
 
     public Number[] getArray() {
         Number[] notNullArray = new Number[0];
         for (int i = 0; i < array.length; i++) {
-            if(array[i] != null){
+            if (array[i] != null) {
                 Number[] currentArray = notNullArray;
                 notNullArray = new Number[notNullArray.length + 1];
                 for (int j = 0; j < currentArray.length; j++) {
