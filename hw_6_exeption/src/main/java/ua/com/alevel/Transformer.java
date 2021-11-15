@@ -247,7 +247,7 @@ public class Transformer {
                         }
                     }else {
                         if ((Integer.parseInt(data[0]) > 29)||(Integer.parseInt(data[0]) <= 0)) {
-
+                            trueExam = false;
                         }
                     }
                 }
