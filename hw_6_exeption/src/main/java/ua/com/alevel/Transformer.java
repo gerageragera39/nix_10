@@ -28,7 +28,7 @@ public class Transformer {
     }
 
     public int[] syntax(String time, int index) {
-        Matcher matcher;
+        Matcher matcher = null;
         switch (index) {
             case 1:
                 matcher = TIME_FIRST.matcher(time);
@@ -39,11 +39,9 @@ public class Transformer {
             case 3:
                 matcher = TIME_THIRD.matcher(time);
                 break;
-            default:
-                matcher = TIME_FIRST.matcher(time);
-                break;
         }
-        boolean isReg = matcher.find();
+        boolean isReg;
+        isReg = matcher.find();
         int[] intData = new int[0];
         if (isReg) {
             String[] data = splitTime(time, index);
@@ -52,7 +50,7 @@ public class Transformer {
 
         } else {
             System.out.println("Wrong data entry");
-            return timeMain.run();
+            return timeMain.runStartData();
         }
         return intData;
     }
@@ -233,26 +231,28 @@ public class Transformer {
         int[] intData = new int[7];
         try {
             boolean trueExam = true;
-            if((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999)) {
+            if((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999)||(Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) <= 0)) {
                 if ((Integer.parseInt(data[1]) == 1) || (Integer.parseInt(data[1]) == 3) || (Integer.parseInt(data[1]) == 5) || (Integer.parseInt(data[1]) == 7) || (Integer.parseInt(data[1]) == 8) || (Integer.parseInt(data[1]) == 10) || (Integer.parseInt(data[1]) == 12)) {
-                    if ((Integer.parseInt(data[0]) > 31)) {
+                    if ((Integer.parseInt(data[0]) > 31)||(Integer.parseInt(data[0]) <= 0)) {
                         trueExam = false;
                     }
                 } else if ((Integer.parseInt(data[1]) == 4) || (Integer.parseInt(data[1]) == 6) || (Integer.parseInt(data[1]) == 9) || (Integer.parseInt(data[1]) == 11)) {
-                    if ((Integer.parseInt(data[0]) > 30)){
+                    if ((Integer.parseInt(data[0]) > 30)||(Integer.parseInt(data[0]) <= 0)){
                         trueExam = false;
                     }
                 } else{
                     if (((Integer.parseInt(data[2]) % 4 != 0) || ((Integer.parseInt(data[2]) % 100 == 0))) && (Integer.parseInt(data[2]) % 400 != 0)) {
-                        if ((Integer.parseInt(data[0]) > 28)) {
+                        if ((Integer.parseInt(data[0]) > 28)||(Integer.parseInt(data[0]) <= 0)) {
                             trueExam = false;
                         }
                     }else {
-                        if ((Integer.parseInt(data[0]) > 29)) {
-                            trueExam = false;
+                        if ((Integer.parseInt(data[0]) > 29)||(Integer.parseInt(data[0]) <= 0)) {
+
                         }
                     }
                 }
+            }else{
+                trueExam = false;
             }
             if(trueExam){
                 for (int i = 0; i < intData.length; i++) {
@@ -260,7 +260,7 @@ public class Transformer {
                 }
             }else{
                 System.out.println("Wrong data entry");
-                return timeMain.run();
+                return timeMain.runStartData();
             }
         } catch (NumberFormatException e) {
             System.out.println("incorrect");

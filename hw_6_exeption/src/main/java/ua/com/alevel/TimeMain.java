@@ -16,7 +16,7 @@ public class TimeMain {
             syntaxExample();
             switch (position){
                 case "-1":
-                    startData = run();
+                    startData = runStartData();
                     for (int i = 0; i < startData.length; i++) {
                         System.out.print(startData[i] + " ");
                     }
@@ -28,7 +28,7 @@ public class TimeMain {
         }
     }
 
-    public static int[] run(){
+    public static int[] runStartData(){
         int[] intData = new int[0];
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
@@ -40,7 +40,7 @@ public class TimeMain {
             Transformer trans = new Transformer();
             return trans.transformTime(time, index);
         }catch (InputMismatchException e){
-            run();
+            runStartData();
         }
         return intData;
     }
