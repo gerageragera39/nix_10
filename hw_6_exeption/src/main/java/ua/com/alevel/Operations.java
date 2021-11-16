@@ -383,7 +383,6 @@ public class Operations {
         System.out.println("Decrease sort -> 1");
         System.out.println("Increase sort -> 2");
         System.out.print("Enter your choice : ");
-        System.out.println();
         String incDec = scanner.nextLine();
         ArrayList<Long> dataArray = new ArrayList<>();
         for (int i = 0; i < dataList.size(); i++) {
@@ -410,7 +409,6 @@ public class Operations {
                     }
                 }
                 dataArray = sortedList;
-
                 ArrayList<int[]> dataDec = new ArrayList<>();
                 for (int i = 0; i < dataArray.size(); i++) {
                     for (int j = 0; j < dataList.size(); j++) {

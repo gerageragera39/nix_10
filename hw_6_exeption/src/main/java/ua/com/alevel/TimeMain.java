@@ -31,6 +31,8 @@ public class TimeMain {
                     String addOne = "1";
                     while (!addOne.equals("0")) {
                         dataList.add(runStartData());
+                        System.out.println();
+                        System.out.println("if you want to add another date insert any number other than 0 : ");
                         addOne = scan.nextLine();
                     }
                     dataList = operations.increaseDecrease(dataList);
@@ -38,7 +40,6 @@ public class TimeMain {
                     for (int i = 0; i < dataList.size(); i++) {
                         dataArray[i] = dataList.get(i);
                     }
-
                     for (int i = 0; i < dataList.size(); i++) {
                         System.out.print("{");
                         printData(parseString(dataArray[i]), true);
@@ -51,6 +52,7 @@ public class TimeMain {
                     break;
                 case "5":
                     printData(parseString(startData), false);
+                    System.out.println();
                     break;
                 case "0":
                     System.exit(0);
@@ -89,16 +91,18 @@ public class TimeMain {
         System.out.println("Minus -> 3");
         System.out.println("Sort -> 4");
         System.out.println("Print data -> 5");
+        System.out.println("To exit -> 0");
     }
 
     public static void syntaxExample() {
         System.out.println("Примеры :");
         System.out.println("12/5/47 00:24 -> 1");
         System.out.println("12-5-47 00:24:00:001 -> 1");
-        System.out.println("Март 4 21 -> 2");
-        System.out.println("Апрель 32 1932 -> 2");
+        System.out.println("Март 4 21 ::2 -> 2");
+        System.out.println("Апрель 29 1932 -> 2");
         System.out.println("9 Апрель 789 15:23 -> 3");
         System.out.println("16 Ноябрь 2021 -> 3");
+        System.out.println();
     }
 
     public static void printData(String[] data, boolean isList) {
@@ -109,10 +113,11 @@ public class TimeMain {
             System.out.println("dd-mm-yy 00:00:00:000 -> 2");
             System.out.println("mmm-d-yy 00:00:00:000 -> 3");
             System.out.println("dd-mmm-yyyy 00:00:00:000 -> 4");
+            System.out.print("Enter your choice : ");
             Scanner scanner = new Scanner(System.in);
             method = scanner.nextLine();
+            System.out.println();
         }
-
         switch (method) {
             case "1":
                 for (int i = 0; i < 3; i++) {

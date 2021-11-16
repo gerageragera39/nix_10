@@ -61,155 +61,160 @@ public class Transformer {
 
     public String[] splitTime(String time, int index) {
         String[] data = {"01", "01", "0000", "00", "00", "00", "000"};
-        time += " ";
-        int indexOfDelimiter = 0;
-        int k = 0;
-        int numberOfDig = 0;
-        boolean firstStep = true;
-        if (index == 4) {
-            index = 1;
-        }
-        switch (index) {
-            case 1:
-                for (int i = 0; i < time.length(); i++) {
-                    if (String.valueOf(time.charAt(i)).equals("/") || String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":") || String.valueOf(time.charAt(i)).equals("-")) {
-                        for (int j = indexOfDelimiter; j < i; j++) {
-                            if (firstStep) {
-                                data[k] = String.valueOf(time.charAt(j));
-                                firstStep = false;
-                            } else {
-                                data[k] += String.valueOf(time.charAt(j));
-                            }
-                        }
-                        indexOfDelimiter = i + 1;
-                        k++;
-                        firstStep = true;
-                    }
-                }
-                break;
-            case 2:
-                boolean fistWrite = true;
-                boolean isMonth = false;
-                if (Character.isLetter(time.charAt(0))) {
-                    isMonth = true;
-                }
-                for (int i = 0; i < time.length(); i++) {
-                    if (!Character.isLetter(time.charAt(i)) && isMonth) {
-                        for (int j = 0; j < i; j++) {
-                            if (firstStep) {
-                                data[1] = String.valueOf(time.charAt(0));
-                                firstStep = false;
-                            } else {
-                                data[1] += String.valueOf(time.charAt(j));
-                            }
-                        }
-                        data[1] = StringMonth(data[1]);
-                        indexOfDelimiter = i + 1;
-                        isMonth = false;
-                    } else {
-                        if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
+        try {
+            time += " ";
+            int indexOfDelimiter = 0;
+            int k = 0;
+            int numberOfDig = 0;
+            boolean firstStep = true;
+            if (index == 4) {
+                index = 1;
+            }
+            switch (index) {
+                case 1:
+                    for (int i = 0; i < time.length(); i++) {
+                        if (String.valueOf(time.charAt(i)).equals("/") || String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":") || String.valueOf(time.charAt(i)).equals("-")) {
                             for (int j = indexOfDelimiter; j < i; j++) {
-                                if (fistWrite) {
+                                if (firstStep) {
                                     data[k] = String.valueOf(time.charAt(j));
-                                    fistWrite = false;
+                                    firstStep = false;
                                 } else {
                                     data[k] += String.valueOf(time.charAt(j));
                                 }
                             }
                             indexOfDelimiter = i + 1;
-                            if (k == 0) {
-                                k += 2;
-                            } else {
-                                k++;
-                            }
-                            fistWrite = true;
-                        }
-                    }
-                }
-                for (int i = 0; i < data[0].length(); i++) {
-                    numberOfDig++;
-                }
-                if (numberOfDig >= 3) {
-                    data[2] = data[0];
-                    data[0] = "01";
-                }
-                break;
-            case 3:
-                int indexOfEndDay = 0;
-                if (!Character.isLetter(time.charAt(0))) {
-                    for (int i = 0; i < time.length(); i++) {
-                        if (String.valueOf(time.charAt(i)).equals(" ")) {
-                            for (int j = 0; j < i; j++) {
-                                if (firstStep) {
-                                    data[0] = String.valueOf(time.charAt(0));
-                                    firstStep = false;
-                                } else {
-                                    data[0] += String.valueOf(time.charAt(j));
-                                }
-                                indexOfEndDay++;
-                            }
-                            break;
-                        }
-                    }
-                }
-                boolean monthWritten = false;
-                firstStep = true;
-                if (indexOfEndDay + 1 != time.length()) {
-                    if (Character.isLetter(time.charAt(indexOfEndDay + 1))) {
-                        for (int i = indexOfEndDay + 1; i < time.length(); i++) {
-                            if (!Character.isLetter(time.charAt(i))) {
-                                for (int j = indexOfEndDay + 1; j < i; j++) {
-                                    if (firstStep) {
-                                        data[1] = String.valueOf(time.charAt(j));
-                                        firstStep = false;
-                                        monthWritten = true;
-                                    } else {
-                                        data[1] += String.valueOf(time.charAt(j));
-                                    }
-                                }
-                                data[1] = StringMonth(data[1]);
-                                indexOfDelimiter = i;
-                                if (monthWritten) {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                firstStep = true;
-                k = 2;
-                if (indexOfEndDay + 1 != time.length()) {
-                    for (int i = indexOfDelimiter + 1; i < time.length(); i++) {
-                        if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
-                            for (int j = indexOfDelimiter + 1; j < i; j++) {
-                                if (firstStep) {
-                                    data[k] = String.valueOf(time.charAt(j));
-                                    firstStep = false;
-                                } else {
-                                    data[k] += String.valueOf(time.charAt(j));
-                                }
-                            }
-                            indexOfDelimiter = i;
                             k++;
                             firstStep = true;
                         }
                     }
-                }
+                    break;
+                case 2:
+                    boolean fistWrite = true;
+                    boolean isMonth = false;
+                    if (Character.isLetter(time.charAt(0))) {
+                        isMonth = true;
+                    }
+                    for (int i = 0; i < time.length(); i++) {
+                        if (!Character.isLetter(time.charAt(i)) && isMonth) {
+                            for (int j = 0; j < i; j++) {
+                                if (firstStep) {
+                                    data[1] = String.valueOf(time.charAt(0));
+                                    firstStep = false;
+                                } else {
+                                    data[1] += String.valueOf(time.charAt(j));
+                                }
+                            }
+                            data[1] = StringMonth(data[1]);
+                            indexOfDelimiter = i + 1;
+                            isMonth = false;
+                        } else {
+                            if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
+                                for (int j = indexOfDelimiter; j < i; j++) {
+                                    if (fistWrite) {
+                                        data[k] = String.valueOf(time.charAt(j));
+                                        fistWrite = false;
+                                    } else {
+                                        data[k] += String.valueOf(time.charAt(j));
+                                    }
+                                }
+                                indexOfDelimiter = i + 1;
+                                if (k == 0) {
+                                    k += 2;
+                                } else {
+                                    k++;
+                                }
+                                fistWrite = true;
+                            }
+                        }
+                    }
+                    for (int i = 0; i < data[0].length(); i++) {
+                        numberOfDig++;
+                    }
+                    if (numberOfDig >= 3) {
+                        data[2] = data[0];
+                        data[0] = "01";
+                    }
+                    break;
+                case 3:
+                    int indexOfEndDay = 0;
+                    if (!Character.isLetter(time.charAt(0))) {
+                        for (int i = 0; i < time.length(); i++) {
+                            if (String.valueOf(time.charAt(i)).equals(" ")) {
+                                for (int j = 0; j < i; j++) {
+                                    if (firstStep) {
+                                        data[0] = String.valueOf(time.charAt(0));
+                                        firstStep = false;
+                                    } else {
+                                        data[0] += String.valueOf(time.charAt(j));
+                                    }
+                                    indexOfEndDay++;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    boolean monthWritten = false;
+                    firstStep = true;
+                    if (indexOfEndDay + 1 != time.length()) {
+                        if (Character.isLetter(time.charAt(indexOfEndDay + 1))) {
+                            for (int i = indexOfEndDay + 1; i < time.length(); i++) {
+                                if (!Character.isLetter(time.charAt(i))) {
+                                    for (int j = indexOfEndDay + 1; j < i; j++) {
+                                        if (firstStep) {
+                                            data[1] = String.valueOf(time.charAt(j));
+                                            firstStep = false;
+                                            monthWritten = true;
+                                        } else {
+                                            data[1] += String.valueOf(time.charAt(j));
+                                        }
+                                    }
+                                    data[1] = StringMonth(data[1]);
+                                    indexOfDelimiter = i;
+                                    if (monthWritten) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    firstStep = true;
+                    k = 2;
+                    if (indexOfEndDay + 1 != time.length()) {
+                        for (int i = indexOfDelimiter + 1; i < time.length(); i++) {
+                            if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
+                                for (int j = indexOfDelimiter + 1; j < i; j++) {
+                                    if (firstStep) {
+                                        data[k] = String.valueOf(time.charAt(j));
+                                        firstStep = false;
+                                    } else {
+                                        data[k] += String.valueOf(time.charAt(j));
+                                    }
+                                }
+                                indexOfDelimiter = i;
+                                k++;
+                                firstStep = true;
+                            }
+                        }
+                    }
 
-                for (int i = 0; i < data[0].length(); i++) {
-                    numberOfDig++;
-                }
-                if (numberOfDig >= 3) {
-                    data[2] = data[0];
-                    data[0] = "01";
-                }
-                break;
+                    for (int i = 0; i < data[0].length(); i++) {
+                        numberOfDig++;
+                    }
+                    if (numberOfDig >= 3) {
+                        data[2] = data[0];
+                        data[0] = "01";
+                    }
+                    break;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println();
+            System.out.println("incorrect");
+            timeMain.runStartData();
         }
         return data;
     }
 
     public boolean exam(String[] data) {
-
         boolean trueExam = true;
         try {
             if (!((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999) || (Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) < 0))) {
@@ -270,7 +275,6 @@ public class Transformer {
                 }
             }
         }
-
         switch (month) {
             case "Январь":
                 return "01";
