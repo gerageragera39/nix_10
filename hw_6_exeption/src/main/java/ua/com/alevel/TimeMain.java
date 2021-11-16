@@ -3,6 +3,7 @@ package ua.com.alevel;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.SortedMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +26,9 @@ public class TimeMain {
                     break;
                 case "2":
                     operations.add(startData);
+                    break;
+                case "3":
+                    operations.minus(startData);
                     break;
                 case "5":
                     printData(parseString(startData));
@@ -60,6 +64,7 @@ public class TimeMain {
     public static void choice(){
         System.out.println("Difference -> 1");
         System.out.println("Add -> 2");
+        System.out.println("Minus -> 3");
         System.out.println("Print data -> 5");
     }
 

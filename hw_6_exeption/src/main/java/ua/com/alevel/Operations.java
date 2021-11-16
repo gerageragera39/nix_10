@@ -261,4 +261,142 @@ public class Operations {
     public long findMilliSeconds(int[] data){
         return findSeconds(data)*1000;
     }
+
+    public int[] minus(int[] startData) {
+        System.out.println("minus years -> 1");
+        System.out.println("minus months -> 2");
+        System.out.println("minus days -> 3");
+        System.out.println("minus hours -> 4");
+        System.out.println("minus minutes -> 5");
+        System.out.println("minus seconds -> 6");
+        System.out.println("minus milliseconds -> 7");
+        System.out.println("Select minus option :");
+        Scanner scanner = new Scanner(System.in);
+        String option = scanner.nextLine();
+        Scanner scanner2 = new Scanner(System.in);
+        int time = 0;
+        switch (option) {
+            case "1":
+                System.out.println("Enter the number of years you want to minus : ");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[2] -= time;
+                startData = minusRefactor(startData);
+
+                break;
+            case "2":
+                System.out.println("Enter the number of months you want to minus");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[1] -= time;
+                startData = minusRefactor(startData);
+
+                break;
+            case "3":
+                System.out.println("Enter the number of days you want to minus");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[0] -= time;
+                startData = minusRefactor(startData);
+
+                break;
+            case "4":
+                System.out.println("Enter the number of hours you want to minus");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[3] -= time;
+                startData = minusRefactor(startData);
+
+                break;
+            case "5":
+                System.out.println("Enter the number of minutes you want to minus");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[4] -= time;
+                startData = minusRefactor(startData);
+
+                break;
+            case "6":
+                System.out.println("Enter the number of seconds you want to minus");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[5] -= time;
+                startData = minusRefactor(startData);
+                break;
+            case "7":
+                System.out.println("Enter the number of milliseconds you want to minus");
+                System.out.println("Total years must be >= 0 !");
+                time = scanner2.nextInt();
+                startData[6] -= time;
+                startData = minusRefactor(startData);
+
+                break;
+            default:
+                System.out.println("Wrong index");
+                add(startData);
+        }
+        return new int[0];
+    }
+
+    public int[] minusRefactor(int[] data) {
+        int[] startData = data;
+        int factor = 0;
+        if (data[6] < 0) {
+            factor = data[6] / 1000;
+            factor++;
+            data[6] += factor * 1000;
+            data[5] -= factor;
+        }
+
+        if (data[5] < 0) {
+            factor = data[5] / 60;
+            factor++;
+            data[5] += factor * 60;
+            data[4] -= factor;
+        }
+
+        if (data[4] < 0) {
+            factor = data[4] / 60;
+            factor++;
+            data[4] += factor * 60;
+            data[3] -= factor;
+        }
+
+        if (data[3] < 0) {
+            factor = data[3] / 24;
+            factor++;
+            data[3] += factor * 24;
+            data[0] -= factor;
+        }
+
+        while (data[0] < 0) {
+            data[0] += numOfDays(data[1], data[2]);
+            data[1]--;
+            if (data[1] < 0) {
+                data[1] += 12;
+                data[2]--;
+            }
+            if (data[2] < 0) {
+                System.out.println("total years < 0");
+                System.out.println("Year will be zero");
+                data[2] = 0;
+                return startData;
+            }
+        }
+
+        if (data[1] < 0) {
+            factor = data[1] / 12;
+            factor++;
+            data[1] += factor * 12;
+            data[2] -= factor;
+        }
+
+        if (data[2] < 0) {
+            System.out.println("total years > 9999");
+            System.out.println("Year will be zero");
+            data[2] = 0;
+            return startData;
+        }
+        return data;
+    }
 }
