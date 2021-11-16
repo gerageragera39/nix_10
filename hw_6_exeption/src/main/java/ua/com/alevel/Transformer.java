@@ -21,6 +21,9 @@ public class Transformer {
     public static final Pattern TIME_FIRST =
             Pattern.compile("^\\d{0,2}/\\d{0,2}/\\d{0,4} *\\d{0,2}:*\\d{0,2}:*\\d{0,2}:*\\d{0,3}$", Pattern.CASE_INSENSITIVE);
 
+    public static final Pattern TIME_FIRST_2 =
+            Pattern.compile("^\\d{0,2}-\\d{0,2}-\\d{0,4} *\\d{0,2}:*\\d{0,2}:*\\d{0,2}:*\\d{0,3}$", Pattern.CASE_INSENSITIVE);
+
     public static TimeMain timeMain = new TimeMain();
 
     public int[] transformTime(String time, int index) {
@@ -29,25 +32,33 @@ public class Transformer {
 
     public int[] syntax(String time, int index) {
         Matcher matcher = null;
+        Matcher matcher2 = null;
         switch (index) {
             case 1:
                 matcher = TIME_FIRST.matcher(time);
+                matcher2 = TIME_FIRST_2.matcher(time);
                 break;
             case 2:
                 matcher = TIME_SECOND.matcher(time);
                 break;
             case 3:
                 matcher = TIME_THIRD.matcher(time);
+                matcher2 = TIME_SECOND.matcher(time);
                 break;
         }
         boolean isReg;
-        isReg = matcher.find();
+        if(index == 2){
+            isReg = matcher.find();
+        }else if(index == 3){
+            isReg = matcher.find() && !matcher2.find();
+        } else{
+            isReg = matcher.find() || matcher2.find();
+        }
         int[] intData = new int[0];
         if (isReg) {
             String[] data = splitTime(time, index);
-            data = parseString(data);
-            intData = examAndParseInt(data);
-
+            //data = parseString(data);
+            intData = parseInteger(data);
         } else {
             System.out.println("Wrong data entry");
             return timeMain.runStartData();
@@ -68,7 +79,7 @@ public class Transformer {
         switch (index) {
             case 1:
                 for (int i = 0; i < time.length(); i++) {
-                    if (String.valueOf(time.charAt(i)).equals("/") || String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
+                    if (String.valueOf(time.charAt(i)).equals("/") || String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")||String.valueOf(time.charAt(i)).equals("-")) {
                         for (int j = indexOfDelimiter; j < i; j++) {
                             if (firstStep) {
                                 data[k] = String.valueOf(time.charAt(j));
@@ -82,10 +93,6 @@ public class Transformer {
                         firstStep = true;
                     }
                 }
-                for (int i = 0; i < data.length; i++) {
-                    System.out.print(data[i] + " ");
-                }
-                System.out.println();
                 break;
             case 2:
                 boolean fistWrite = true;
@@ -155,42 +162,46 @@ public class Transformer {
                 }
                 boolean monthWritten = false;
                 firstStep = true;
-                if (Character.isLetter(time.charAt(indexOfEndDay + 1))) {
-                    for (int i = indexOfEndDay + 1; i < time.length(); i++) {
-                        if (!Character.isLetter(time.charAt(i))) {
-                            for (int j = indexOfEndDay + 1; j < i; j++) {
-                                if (firstStep) {
-                                    data[1] = String.valueOf(time.charAt(j));
-                                    firstStep = false;
-                                    monthWritten = true;
-                                } else {
-                                    data[1] += String.valueOf(time.charAt(j));
+                if(indexOfEndDay+1 != time.length()) {
+                    if (Character.isLetter(time.charAt(indexOfEndDay + 1))) {
+                        for (int i = indexOfEndDay + 1; i < time.length(); i++) {
+                            if (!Character.isLetter(time.charAt(i))) {
+                                for (int j = indexOfEndDay + 1; j < i; j++) {
+                                    if (firstStep) {
+                                        data[1] = String.valueOf(time.charAt(j));
+                                        firstStep = false;
+                                        monthWritten = true;
+                                    } else {
+                                        data[1] += String.valueOf(time.charAt(j));
+                                    }
                                 }
-                            }
-                            data[1] = StringMonth(data[1]);
-                            indexOfDelimiter = i;
-                            if (monthWritten) {
-                                break;
+                                data[1] = StringMonth(data[1]);
+                                indexOfDelimiter = i;
+                                if (monthWritten) {
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-
+                //indexOfDelimiter = indexOfEndDay;
                 firstStep = true;
                 k = 2;
-                for (int i = indexOfDelimiter + 1; i < time.length(); i++) {
-                    if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
-                        for (int j = indexOfDelimiter + 1; j < i; j++) {
-                            if (firstStep) {
-                                data[k] = String.valueOf(time.charAt(j));
-                                firstStep = false;
-                            } else {
-                                data[k] += String.valueOf(time.charAt(j));
+                if(indexOfEndDay+1 != time.length()) {
+                    for (int i = indexOfDelimiter + 1; i < time.length(); i++) {
+                        if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
+                            for (int j = indexOfDelimiter + 1; j < i; j++) {
+                                if (firstStep) {
+                                    data[k] = String.valueOf(time.charAt(j));
+                                    firstStep = false;
+                                } else {
+                                    data[k] += String.valueOf(time.charAt(j));
+                                }
                             }
+                            indexOfDelimiter = i;
+                            k++;
+                            firstStep = true;
                         }
-                        indexOfDelimiter = i;
-                        k++;
-                        firstStep = true;
                     }
                 }
 
@@ -227,11 +238,11 @@ public class Transformer {
         return data;
     }
 
-    public int[] examAndParseInt(String[] data) {
-        int[] intData = new int[7];
+    public boolean exam(String[] data) {
+
+        boolean trueExam = true;
         try {
-            boolean trueExam = true;
-            if((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999)||(Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) <= 0)) {
+            if(!((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999)||(Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) < 0))) {
                 if ((Integer.parseInt(data[1]) == 1) || (Integer.parseInt(data[1]) == 3) || (Integer.parseInt(data[1]) == 5) || (Integer.parseInt(data[1]) == 7) || (Integer.parseInt(data[1]) == 8) || (Integer.parseInt(data[1]) == 10) || (Integer.parseInt(data[1]) == 12)) {
                     if ((Integer.parseInt(data[0]) > 31)||(Integer.parseInt(data[0]) <= 0)) {
                         trueExam = false;
@@ -254,16 +265,30 @@ public class Transformer {
             }else{
                 trueExam = false;
             }
-            if(trueExam){
-                for (int i = 0; i < intData.length; i++) {
-                    intData[i] = Integer.parseInt(data[i]);
-                }
-            }else{
-                System.out.println("Wrong data entry");
-                return timeMain.runStartData();
-            }
+//            if(trueExam){
+//                for (int i = 0; i < intData.length; i++) {
+//                    intData[i] = Integer.parseInt(data[i]);
+//                }
+//            }else{
+//                System.out.println("Wrong data entry");
+//                return timeMain.runStartData();
+//            }
         } catch (NumberFormatException e) {
             System.out.println("incorrect");
+            timeMain.runStartData();
+        }
+        return trueExam;
+    }
+
+    public int[] parseInteger(String[] data){
+        int[] intData = new int[7];
+        if(exam(data)){
+            for (int i = 0; i < intData.length; i++) {
+                intData[i] = Integer.parseInt(data[i]);
+            }
+        }else{
+            System.out.println("Wrong data entry");
+            return timeMain.runStartData();
         }
         return intData;
     }

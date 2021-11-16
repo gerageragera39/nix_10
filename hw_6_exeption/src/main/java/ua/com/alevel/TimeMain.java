@@ -8,18 +8,20 @@ import java.util.regex.Pattern;
 
 public class TimeMain {
 
+    public static final Operations operations = new Operations();
+
     public static void main(String[] args) {
-        int[] startData;
+        System.out.println("16 Ноябрь 2021");
+        syntaxExample();
+        int[] startData = runStartData();
         String position = "-1";
         Scanner scanner = new Scanner(System.in);
         while (position != null){
-            syntaxExample();
             switch (position){
-                case "-1":
-                    startData = runStartData();
-                    for (int i = 0; i < startData.length; i++) {
-                        System.out.print(startData[i] + " ");
-                    }
+                case "1":
+                    operations.add(startData);
+                case "5":
+                    printData(parseString(startData));
                 case "0":
                     System.exit(0);
             }
@@ -46,8 +48,49 @@ public class TimeMain {
     }
 
     public static void syntaxExample(){
-        System.out.println("/5/47 00:24:00:000 -- 1");
+        System.out.println("12/5/47 00:24:00:000 -- 1");
+        System.out.println("12-5-47 00:24:00:000 -- 1");
         System.out.println("Март 4 21 -- 2");
-        System.out.println("09 Апрель 789 45:23 -- 3");
+        System.out.println("09 Апрель 789 15:23 -- 3");
+    }
+
+    public static void printData(String[] data){
+        for (int i = 0; i < data.length; i++) {
+            System.out.print(data[i] + " ");
+        }
+    }
+
+    public static String[] parseString(int[] toParseData) {
+        String[] data = new String[7];
+        for (int i = 0; i < data.length; i++) {
+            data[i] = String.valueOf(toParseData[i]);
+        }
+        int[] twoCharIndices = {0, 1, 3, 4, 5};
+        for (int k : twoCharIndices) {
+            if (data[k].length() == 1) {
+                data[k] = "0" + data[k];
+            }
+        }
+        switch (data[2].length()) {
+            case 1:
+                data[2] = "000" + data[2];
+                break;
+            case 2:
+                data[2] = "00" + data[2];
+                break;
+            case 3:
+                data[2] = "0" + data[2];
+                break;
+        }
+
+        switch (data[6].length()) {
+            case 1:
+                data[6] = "00" + data[6];
+                break;
+            case 2:
+                data[6] = "0" + data[6];
+                break;
+        }
+        return data;
     }
 }
