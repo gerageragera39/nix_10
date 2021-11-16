@@ -5,19 +5,12 @@ import java.util.regex.Pattern;
 
 public class Transformer {
 
-    //  mmm-d-yy - Март 4 21
-    //  mmm-d-yy - Апрель 32 1932
     public static final Pattern TIME_SECOND =
             Pattern.compile("^\\D* *\\d{0,2} *\\d{0,4} *\\d{0,2}:*\\d{0,2}:*\\d{0,2}:*\\d{0,3}$", Pattern.CASE_INSENSITIVE);
 
-    //  1256 14:59
-    //  09 Апрель 789 45:23
     public static final Pattern TIME_THIRD =
             Pattern.compile("^\\d{0,2} *\\D* *\\d{0,4} *\\d{0,2}:*\\d{0,2}:*\\d{0,2}:*\\d{0,3}$", Pattern.CASE_INSENSITIVE);
 
-    //  /5/47 00:24:00:000
-    //  /2/ :2
-    //  3/4/2021
     public static final Pattern TIME_FIRST =
             Pattern.compile("^\\d{0,2}/\\d{0,2}/\\d{0,4} *\\d{0,2}:*\\d{0,2}:*\\d{0,2}:*\\d{0,3}$", Pattern.CASE_INSENSITIVE);
 
@@ -47,19 +40,19 @@ public class Transformer {
                 break;
         }
         boolean isReg;
-        if(index == 2){
+        if (index == 2) {
             isReg = matcher.find();
-        }else if(index == 3){
+        } else if (index == 3) {
             isReg = matcher.find() && !matcher2.find();
-        } else{
+        } else {
             isReg = matcher.find() || matcher2.find();
         }
-        int[] intData = new int[0];
+        int[] intData;
         if (isReg) {
             String[] data = splitTime(time, index);
-            //data = parseString(data);
             intData = parseInteger(data);
         } else {
+            System.out.println();
             System.out.println("Wrong data entry");
             return timeMain.runStartData();
         }
@@ -79,7 +72,7 @@ public class Transformer {
         switch (index) {
             case 1:
                 for (int i = 0; i < time.length(); i++) {
-                    if (String.valueOf(time.charAt(i)).equals("/") || String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")||String.valueOf(time.charAt(i)).equals("-")) {
+                    if (String.valueOf(time.charAt(i)).equals("/") || String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":") || String.valueOf(time.charAt(i)).equals("-")) {
                         for (int j = indexOfDelimiter; j < i; j++) {
                             if (firstStep) {
                                 data[k] = String.valueOf(time.charAt(j));
@@ -142,7 +135,6 @@ public class Transformer {
                 }
                 break;
             case 3:
-                //  09 Апрель 789 45:23
                 int indexOfEndDay = 0;
                 if (!Character.isLetter(time.charAt(0))) {
                     for (int i = 0; i < time.length(); i++) {
@@ -162,7 +154,7 @@ public class Transformer {
                 }
                 boolean monthWritten = false;
                 firstStep = true;
-                if(indexOfEndDay+1 != time.length()) {
+                if (indexOfEndDay + 1 != time.length()) {
                     if (Character.isLetter(time.charAt(indexOfEndDay + 1))) {
                         for (int i = indexOfEndDay + 1; i < time.length(); i++) {
                             if (!Character.isLetter(time.charAt(i))) {
@@ -184,10 +176,9 @@ public class Transformer {
                         }
                     }
                 }
-                //indexOfDelimiter = indexOfEndDay;
                 firstStep = true;
                 k = 2;
-                if(indexOfEndDay+1 != time.length()) {
+                if (indexOfEndDay + 1 != time.length()) {
                     for (int i = indexOfDelimiter + 1; i < time.length(); i++) {
                         if (String.valueOf(time.charAt(i)).equals(" ") || String.valueOf(time.charAt(i)).equals(":")) {
                             for (int j = indexOfDelimiter + 1; j < i; j++) {
@@ -217,76 +208,48 @@ public class Transformer {
         return data;
     }
 
-    public String[] parseString(String[] data) {
-        int[] twoCharIndices = {0, 1, 3, 4, 5};
-        for (int k : twoCharIndices) {
-            if (data[k].length() == 1) {
-                data[k] = "0" + data[k];
-            }
-        }
-        switch (data[2].length()) {
-            case 1:
-                data[2] = "000" + data[2];
-                break;
-            case 2:
-                data[2] = "00" + data[2];
-                break;
-            case 3:
-                data[2] = "0" + data[2];
-                break;
-        }
-        return data;
-    }
-
     public boolean exam(String[] data) {
 
         boolean trueExam = true;
         try {
-            if(!((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999)||(Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) < 0))) {
+            if (!((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999) || (Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) < 0))) {
                 if ((Integer.parseInt(data[1]) == 1) || (Integer.parseInt(data[1]) == 3) || (Integer.parseInt(data[1]) == 5) || (Integer.parseInt(data[1]) == 7) || (Integer.parseInt(data[1]) == 8) || (Integer.parseInt(data[1]) == 10) || (Integer.parseInt(data[1]) == 12)) {
-                    if ((Integer.parseInt(data[0]) > 31)||(Integer.parseInt(data[0]) <= 0)) {
+                    if ((Integer.parseInt(data[0]) > 31) || (Integer.parseInt(data[0]) <= 0)) {
                         trueExam = false;
                     }
                 } else if ((Integer.parseInt(data[1]) == 4) || (Integer.parseInt(data[1]) == 6) || (Integer.parseInt(data[1]) == 9) || (Integer.parseInt(data[1]) == 11)) {
-                    if ((Integer.parseInt(data[0]) > 30)||(Integer.parseInt(data[0]) <= 0)){
+                    if ((Integer.parseInt(data[0]) > 30) || (Integer.parseInt(data[0]) <= 0)) {
                         trueExam = false;
                     }
-                } else{
+                } else {
                     if (((Integer.parseInt(data[2]) % 4 != 0) || ((Integer.parseInt(data[2]) % 100 == 0))) && (Integer.parseInt(data[2]) % 400 != 0)) {
-                        if ((Integer.parseInt(data[0]) > 28)||(Integer.parseInt(data[0]) <= 0)) {
+                        if ((Integer.parseInt(data[0]) > 28) || (Integer.parseInt(data[0]) <= 0)) {
                             trueExam = false;
                         }
-                    }else {
-                        if ((Integer.parseInt(data[0]) > 29)||(Integer.parseInt(data[0]) <= 0)) {
+                    } else {
+                        if ((Integer.parseInt(data[0]) > 29) || (Integer.parseInt(data[0]) <= 0)) {
                             trueExam = false;
                         }
                     }
                 }
-            }else{
+            } else {
                 trueExam = false;
             }
-//            if(trueExam){
-//                for (int i = 0; i < intData.length; i++) {
-//                    intData[i] = Integer.parseInt(data[i]);
-//                }
-//            }else{
-//                System.out.println("Wrong data entry");
-//                return timeMain.runStartData();
-//            }
         } catch (NumberFormatException e) {
+            System.out.println();
             System.out.println("incorrect");
             timeMain.runStartData();
         }
         return trueExam;
     }
 
-    public int[] parseInteger(String[] data){
+    public int[] parseInteger(String[] data) {
         int[] intData = new int[7];
-        if(exam(data)){
+        if (exam(data)) {
             for (int i = 0; i < intData.length; i++) {
                 intData[i] = Integer.parseInt(data[i]);
             }
-        }else{
+        } else {
             System.out.println("Wrong data entry");
             return timeMain.runStartData();
         }

@@ -1,10 +1,9 @@
 package ua.com.alevel;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Operations {
-
-    Transformer transformer = new Transformer();
 
     public int[] add(int[] startData) {
         System.out.println("add years -> 1");
@@ -26,7 +25,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[2] += time;
                 startData = refactor(startData);
-
                 break;
             case "2":
                 System.out.println("Enter the number of months you want to add");
@@ -34,7 +32,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[1] += time;
                 startData = refactor(startData);
-
                 break;
             case "3":
                 System.out.println("Enter the number of days you want to add");
@@ -42,7 +39,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[0] += time;
                 startData = refactor(startData);
-
                 break;
             case "4":
                 System.out.println("Enter the number of hours you want to add");
@@ -50,7 +46,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[3] += time;
                 startData = refactor(startData);
-
                 break;
             case "5":
                 System.out.println("Enter the number of minutes you want to add");
@@ -58,7 +53,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[4] += time;
                 startData = refactor(startData);
-
                 break;
             case "6":
                 System.out.println("Enter the number of seconds you want to add");
@@ -76,7 +70,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[6] += time;
                 startData = refactor(startData);
-
                 break;
             default:
                 System.out.println("Wrong index");
@@ -169,7 +162,6 @@ public class Operations {
                 return 30;
             }
         }
-
         return daysOfFebruary;
     }
 
@@ -217,14 +209,6 @@ public class Operations {
         }
     }
 
-    public long isLeap(int year) {
-        if (((year % 4 != 0) || (year % 100 == 0)) && (year % 400 != 0)) {
-            return 31536000000L;
-        } else {
-            return 31622400000L;
-        }
-    }
-
     public long findMonths(int[] data) {
         return data[2] * 12 + data[1] - 1;
     }
@@ -246,20 +230,20 @@ public class Operations {
         return numberOfDays;
     }
 
-    public long findHours(int[] data){
-        return findDays(data)*24;
+    public long findHours(int[] data) {
+        return findDays(data) * 24;
     }
 
-    public long findMinutes(int[] data){
-        return findHours(data)*60;
+    public long findMinutes(int[] data) {
+        return findHours(data) * 60;
     }
 
-    public long findSeconds(int[] data){
-        return findMinutes(data)*60;
+    public long findSeconds(int[] data) {
+        return findMinutes(data) * 60;
     }
 
-    public long findMilliSeconds(int[] data){
-        return findSeconds(data)*1000;
+    public long findMilliSeconds(int[] data) {
+        return findSeconds(data) * 1000;
     }
 
     public int[] minus(int[] startData) {
@@ -282,7 +266,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[2] -= time;
                 startData = minusRefactor(startData);
-
                 break;
             case "2":
                 System.out.println("Enter the number of months you want to minus");
@@ -290,7 +273,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[1] -= time;
                 startData = minusRefactor(startData);
-
                 break;
             case "3":
                 System.out.println("Enter the number of days you want to minus");
@@ -298,7 +280,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[0] -= time;
                 startData = minusRefactor(startData);
-
                 break;
             case "4":
                 System.out.println("Enter the number of hours you want to minus");
@@ -306,7 +287,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[3] -= time;
                 startData = minusRefactor(startData);
-
                 break;
             case "5":
                 System.out.println("Enter the number of minutes you want to minus");
@@ -314,7 +294,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[4] -= time;
                 startData = minusRefactor(startData);
-
                 break;
             case "6":
                 System.out.println("Enter the number of seconds you want to minus");
@@ -329,7 +308,6 @@ public class Operations {
                 time = scanner2.nextInt();
                 startData[6] -= time;
                 startData = minusRefactor(startData);
-
                 break;
             default:
                 System.out.println("Wrong index");
@@ -398,5 +376,102 @@ public class Operations {
             return startData;
         }
         return data;
+    }
+
+    public ArrayList<int[]> increaseDecrease(ArrayList<int[]> dataList) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Decrease sort -> 1");
+        System.out.println("Increase sort -> 2");
+        System.out.print("Enter your choice : ");
+        System.out.println();
+        String incDec = scanner.nextLine();
+        ArrayList<Long> dataArray = new ArrayList<>();
+        for (int i = 0; i < dataList.size(); i++) {
+            dataArray.add(findMilliSeconds(dataList.get(i)));
+        }
+        ArrayList<Long> sortedList;
+        int index = 0;
+        switch (incDec) {
+            case "1":
+                sortedList = new ArrayList<>();
+                long max = dataArray.get(0);
+
+                while (dataArray.size() != 0) {
+                    for (int i = 0; i < dataArray.size(); i++) {
+                        if (max <= dataArray.get(i)) {
+                            max = dataArray.get(i);
+                            index = i;
+                        }
+                    }
+                    sortedList.add(max);
+                    dataArray.remove(index);
+                    if (dataArray.size() != 0) {
+                        max = getMin(dataArray);
+                    }
+                }
+                dataArray = sortedList;
+
+                ArrayList<int[]> dataDec = new ArrayList<>();
+                for (int i = 0; i < dataArray.size(); i++) {
+                    for (int j = 0; j < dataList.size(); j++) {
+                        if (dataArray.get(i) == findMilliSeconds(dataList.get(j))) {
+                            dataDec.add(dataList.get(j));
+                            break;
+                        }
+                    }
+                }
+                return dataDec;
+            case "2":
+                sortedList = new ArrayList<>();
+                long min = getMax(dataArray);
+                while (dataArray.size() != 0) {
+                    for (int i = 0; i < dataArray.size(); i++) {
+                        if (min >= dataArray.get(i)) {
+                            min = dataArray.get(i);
+                            index = i;
+                        }
+                    }
+                    sortedList.add(min);
+                    dataArray.remove(index);
+                    if (dataArray.size() != 0) {
+                        min = getMax(dataArray);
+                    }
+                }
+                dataArray = sortedList;
+                ArrayList<int[]> dataInc = new ArrayList<>();
+                for (int i = 0; i < dataArray.size(); i++) {
+                    for (int j = 0; j < dataList.size(); j++) {
+                        if (dataArray.get(i) == findMilliSeconds(dataList.get(j))) {
+                            dataInc.add(dataList.get(j));
+                            break;
+                        }
+                    }
+                }
+                return dataInc;
+            default:
+                System.out.println("Wrong enter");
+                increaseDecrease(dataList);
+        }
+        return null;
+    }
+
+    public long getMin(ArrayList<Long> dataArray) {
+        long min = dataArray.get(0);
+        for (int i = 0; i < dataArray.size(); i++) {
+            if (min > dataArray.get(i)) {
+                min = dataArray.get(i);
+            }
+        }
+        return min;
+    }
+
+    public long getMax(ArrayList<Long> dataArray) {
+        long max = dataArray.get(0);
+        for (int i = 0; i < dataArray.size(); i++) {
+            if (max < dataArray.get(i)) {
+                max = dataArray.get(i);
+            }
+        }
+        return max;
     }
 }

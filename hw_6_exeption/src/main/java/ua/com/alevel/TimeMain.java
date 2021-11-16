@@ -1,24 +1,19 @@
 package ua.com.alevel;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.SortedMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class TimeMain {
 
     public static final Operations operations = new Operations();
 
     public static void main(String[] args) {
-        System.out.println("16 Ноябрь 2021");
-        syntaxExample();
         int[] startData = runStartData();
         String position = "-1";
         Scanner scanner = new Scanner(System.in);
-        while (position != null){
-            switch (position){
+        while (position != null) {
+            switch (position) {
                 case "1":
                     System.out.println("Enter the date you want to compare with");
                     int[] differenceData = runStartData();
@@ -29,9 +24,33 @@ public class TimeMain {
                     break;
                 case "3":
                     operations.minus(startData);
+                case "4":
+                    Scanner scan = new Scanner(System.in);
+                    ArrayList<int[]> dataList = new ArrayList<>();
+                    dataList.add(startData);
+                    String addOne = "1";
+                    while (!addOne.equals("0")) {
+                        dataList.add(runStartData());
+                        addOne = scan.nextLine();
+                    }
+                    dataList = operations.increaseDecrease(dataList);
+                    int[][] dataArray = new int[dataList.size()][7];
+                    for (int i = 0; i < dataList.size(); i++) {
+                        dataArray[i] = dataList.get(i);
+                    }
+
+                    for (int i = 0; i < dataList.size(); i++) {
+                        System.out.print("{");
+                        printData(parseString(dataArray[i]), true);
+                        System.out.print("}");
+                        if (i != dataList.size() - 1) {
+                            System.out.print(", ");
+                        }
+                    }
+                    System.out.println();
                     break;
                 case "5":
-                    printData(parseString(startData));
+                    printData(parseString(startData), false);
                     break;
                 case "0":
                     System.exit(0);
@@ -44,7 +63,8 @@ public class TimeMain {
         }
     }
 
-    public static int[] runStartData(){
+    public static int[] runStartData() {
+        syntaxExample();
         int[] intData = new int[0];
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
@@ -55,69 +75,79 @@ public class TimeMain {
             String time = scanner2.nextLine();
             Transformer trans = new Transformer();
             return trans.transformTime(time, index);
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
+            System.out.println();
+            System.out.println("wrong input");
             runStartData();
         }
         return intData;
     }
 
-    public static void choice(){
+    public static void choice() {
         System.out.println("Difference -> 1");
         System.out.println("Add -> 2");
         System.out.println("Minus -> 3");
+        System.out.println("Sort -> 4");
         System.out.println("Print data -> 5");
     }
 
-    public static void syntaxExample(){
-        System.out.println("12/5/47 00:24:00:000 -- 1");
-        System.out.println("12-5-47 00:24:00:000 -- 1");
-        System.out.println("Март 4 21 -- 2");
-        System.out.println("09 Апрель 789 15:23 -- 3");
+    public static void syntaxExample() {
+        System.out.println("Примеры :");
+        System.out.println("12/5/47 00:24 -> 1");
+        System.out.println("12-5-47 00:24:00:001 -> 1");
+        System.out.println("Март 4 21 -> 2");
+        System.out.println("Апрель 32 1932 -> 2");
+        System.out.println("9 Апрель 789 15:23 -> 3");
+        System.out.println("16 Ноябрь 2021 -> 3");
     }
 
-    public static void printData(String[] data){
-        System.out.println("Choose print method");
-        System.out.println("dd/mm/yy 00:00:00:000 -> 1");
-        System.out.println("dd-mm-yy 00:00:00:000 -> 2");
-        System.out.println("mmm-d-yy 00:00:00:000 -> 3");
-        System.out.println("dd-mmm-yyyy 00:00:00:000 -> 4");
-        Scanner scanner = new Scanner(System.in);
-        String method = scanner.nextLine();
-        switch (method){
+    public static void printData(String[] data, boolean isList) {
+        String method = "4";
+        if (!isList) {
+            System.out.println("Choose print method");
+            System.out.println("dd/mm/yy 00:00:00:000 -> 1");
+            System.out.println("dd-mm-yy 00:00:00:000 -> 2");
+            System.out.println("mmm-d-yy 00:00:00:000 -> 3");
+            System.out.println("dd-mmm-yyyy 00:00:00:000 -> 4");
+            Scanner scanner = new Scanner(System.in);
+            method = scanner.nextLine();
+        }
+
+        switch (method) {
             case "1":
                 for (int i = 0; i < 3; i++) {
-                    if(i!=2){
+                    if (i != 2) {
                         System.out.print(data[i] + "/");
-                    }else{
+                    } else {
                         System.out.print(data[i]);
                     }
                 }
                 break;
             case "2":
                 for (int i = 0; i < 3; i++) {
-                    if(i!=2){
+                    if (i != 2) {
                         System.out.print(data[i] + "-");
-                    }else{
+                    } else {
                         System.out.print(data[i]);
                     }
                 }
                 break;
             case "3":
-                System.out.print(switchMonth(data[1])+"-");
-                System.out.print(data[0]+"-");
+                System.out.print(switchMonth(data[1]) + "-");
+                System.out.print(data[0] + "-");
                 System.out.print(data[2]);
                 break;
             case "4":
-                System.out.print(data[0]+"-");
-                System.out.print(switchMonth(data[1])+"-");
+                System.out.print(data[0] + "-");
+                System.out.print(switchMonth(data[1]) + "-");
                 System.out.print(data[2]);
                 break;
         }
         System.out.print(" ");
         for (int i = 3; i < 7; i++) {
-            if(i!=6){
+            if (i != 6) {
                 System.out.print(data[i] + ":");
-            }else{
+            } else {
                 System.out.print(data[i]);
             }
         }
@@ -157,7 +187,7 @@ public class TimeMain {
         return data;
     }
 
-    public static String switchMonth(String month){
+    public static String switchMonth(String month) {
         switch (month) {
             case "01":
                 return "Январь";
