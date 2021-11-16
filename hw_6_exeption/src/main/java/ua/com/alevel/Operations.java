@@ -6,7 +6,7 @@ public class Operations {
 
     Transformer transformer = new Transformer();
 
-    public int[] add(int[] startData){
+    public int[] add(int[] startData) {
         System.out.println("add years -> 1");
         System.out.println("add months -> 2");
         System.out.println("add days -> 3");
@@ -19,62 +19,52 @@ public class Operations {
         String option = scanner.nextLine();
         Scanner scanner2 = new Scanner(System.in);
         int time = 0;
-        switch (option){
+        switch (option) {
             case "1":
                 System.out.println("Enter the number of years you want to add : ");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[2]+=time;
+                startData[2] += time;
                 startData = refactor(startData);
-                for (int i = 0; i < startData.length; i++) {
-                    System.out.print(startData[i] + " ");
-                }
+
                 break;
             case "2":
                 System.out.println("Enter the number of months you want to add");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[1]+=time;
+                startData[1] += time;
                 startData = refactor(startData);
-                for (int i = 0; i < startData.length; i++) {
-                    System.out.print(startData[i] + " ");
-                }
+
                 break;
             case "3":
                 System.out.println("Enter the number of days you want to add");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[0]+=time;
+                startData[0] += time;
                 startData = refactor(startData);
-                for (int i = 0; i < startData.length; i++) {
-                    System.out.print(startData[i] + " ");
-                }
+
                 break;
             case "4":
                 System.out.println("Enter the number of hours you want to add");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[3]+=time;
+                startData[3] += time;
                 startData = refactor(startData);
-                for (int i = 0; i < startData.length; i++) {
-                    System.out.print(startData[i] + " ");
-                }
+
                 break;
             case "5":
                 System.out.println("Enter the number of minutes you want to add");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[4]+=time;
+                startData[4] += time;
                 startData = refactor(startData);
-                for (int i = 0; i < startData.length; i++) {
-                    System.out.print(startData[i] + " ");
-                }
+
                 break;
             case "6":
                 System.out.println("Enter the number of seconds you want to add");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[5]+=time;
+                startData[5] += time;
                 startData = refactor(startData);
                 for (int i = 0; i < startData.length; i++) {
                     System.out.print(startData[i] + " ");
@@ -84,11 +74,9 @@ public class Operations {
                 System.out.println("Enter the number of milliseconds you want to add");
                 System.out.println("Total years must be <= 9999 !");
                 time = scanner2.nextInt();
-                startData[6]+=time;
+                startData[6] += time;
                 startData = refactor(startData);
-                for (int i = 0; i < startData.length; i++) {
-                    System.out.print(startData[i] + " ");
-                }
+
                 break;
             default:
                 System.out.println("Wrong index");
@@ -97,7 +85,7 @@ public class Operations {
         return new int[0];
     }
 
-    public String[] parseString(int[] data){
+    public String[] parseString(int[] data) {
         String[] stringData = new String[7];
         for (int i = 0; i < data.length; i++) {
             stringData[i] = String.valueOf(data[i]);
@@ -147,13 +135,13 @@ public class Operations {
             }
         }
 
-        if(data[1] > 12){
+        if (data[1] > 12) {
             factor = data[1] / 12;
             data[1] -= factor * 12;
             data[2] += factor;
         }
 
-        if(data[2] > 9999){
+        if (data[2] > 9999) {
             System.out.println("total years > 9999");
             System.out.println("Year will be zero");
             data[2] = 0;
@@ -162,26 +150,115 @@ public class Operations {
         return data;
     }
 
-    public int numOfDays(int numOfMonth, int year){
-        int[] days31 = {1,3,5,7,8,10,12};
-        int[] days30 = {4,6,9,11};
+    public int numOfDays(int numOfMonth, int year) {
+        int[] days31 = {1, 3, 5, 7, 8, 10, 12};
+        int[] days30 = {4, 6, 9, 11};
         int daysOfFebruary;
-        if(((year % 4 != 0) || (year % 100 == 0)) && (year % 400 != 0)){
+        if (((year % 4 != 0) || (year % 100 == 0)) && (year % 400 != 0)) {
             daysOfFebruary = 28;
-        }else{
+        } else {
             daysOfFebruary = 29;
         }
-        for (int day:days31) {
-            if(numOfMonth == day){
+        for (int day : days31) {
+            if (numOfMonth == day) {
                 return 31;
             }
         }
-        for (int day:days30) {
-            if(numOfMonth == day){
+        for (int day : days30) {
+            if (numOfMonth == day) {
                 return 30;
             }
         }
 
         return daysOfFebruary;
+    }
+
+    public void difference(int[] firstData, int[] secondData) {
+        System.out.println("difference in years -> 1");
+        System.out.println("difference in months -> 2");
+        System.out.println("difference in days -> 3");
+        System.out.println("difference in hours -> 4");
+        System.out.println("difference in minutes -> 5");
+        System.out.println("difference in seconds -> 6");
+        System.out.println("difference in milliseconds -> 7");
+        System.out.println("Select difference option :");
+        Scanner scanner = new Scanner(System.in);
+        String option = scanner.nextLine();
+
+        switch (option) {
+            case "1":
+                int years = firstData[2] - secondData[2];
+                System.out.println("years - " + Math.abs(years));
+                break;
+            case "2":
+                long months = findMonths(firstData) - findMonths(secondData);
+                System.out.println("months - " + Math.abs(months));
+                break;
+            case "3":
+                long days = findDays(firstData) - findDays(secondData);
+                System.out.println("days - " + Math.abs(days));
+                break;
+            case "4":
+                long hours = findHours(firstData) - findHours(secondData);
+                System.out.println("hours - " + Math.abs(hours));
+                break;
+            case "5":
+                long minutes = findMinutes(firstData) - findMonths(secondData);
+                System.out.println("minutes - " + Math.abs(minutes));
+                break;
+            case "6":
+                long seconds = findSeconds(firstData) - findSeconds(secondData);
+                System.out.println("seconds - " + Math.abs(seconds));
+                break;
+            case "7":
+                long milliseconds = findMilliSeconds(firstData) - findMilliSeconds(secondData);
+                System.out.println("milliseconds - " + Math.abs(milliseconds));
+                break;
+        }
+    }
+
+    public long isLeap(int year) {
+        if (((year % 4 != 0) || (year % 100 == 0)) && (year % 400 != 0)) {
+            return 31536000000L;
+        } else {
+            return 31622400000L;
+        }
+    }
+
+    public long findMonths(int[] data) {
+        return data[2] * 12 + data[1] - 1;
+    }
+
+    public long findDays(int[] data) {
+        int numberOfDays = 0;
+        int numOfYear = 0;
+        long finish = findMonths(data);
+        for (int i = 0; i < finish; i++) {
+            numberOfDays += numOfDays(i, numOfYear);
+            if (i % 12 == 0) {
+                numOfYear++;
+            }
+            if (i == 12) {
+                i = 0;
+                finish -= 12;
+            }
+        }
+        return numberOfDays;
+    }
+
+    public long findHours(int[] data){
+        return findDays(data)*24;
+    }
+
+    public long findMinutes(int[] data){
+        return findHours(data)*60;
+    }
+
+    public long findSeconds(int[] data){
+        return findMinutes(data)*60;
+    }
+
+    public long findMilliSeconds(int[] data){
+        return findSeconds(data)*1000;
     }
 }

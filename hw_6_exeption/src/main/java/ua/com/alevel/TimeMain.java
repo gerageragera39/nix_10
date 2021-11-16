@@ -19,12 +19,22 @@ public class TimeMain {
         while (position != null){
             switch (position){
                 case "1":
+                    System.out.println("Enter the date you want to compare with");
+                    int[] differenceData = runStartData();
+                    operations.difference(startData, differenceData);
+                    break;
+                case "2":
                     operations.add(startData);
+                    break;
                 case "5":
                     printData(parseString(startData));
+                    break;
                 case "0":
                     System.exit(0);
             }
+            System.out.println();
+            choice();
+            System.out.println();
             System.out.print("Enter your option : ");
             position = scanner.nextLine();
         }
@@ -47,6 +57,12 @@ public class TimeMain {
         return intData;
     }
 
+    public static void choice(){
+        System.out.println("Difference -> 1");
+        System.out.println("Add -> 2");
+        System.out.println("Print data -> 5");
+    }
+
     public static void syntaxExample(){
         System.out.println("12/5/47 00:24:00:000 -- 1");
         System.out.println("12-5-47 00:24:00:000 -- 1");
@@ -55,8 +71,50 @@ public class TimeMain {
     }
 
     public static void printData(String[] data){
-        for (int i = 0; i < data.length; i++) {
-            System.out.print(data[i] + " ");
+        System.out.println("Choose print method");
+        System.out.println("dd/mm/yy 00:00:00:000 -> 1");
+        System.out.println("dd-mm-yy 00:00:00:000 -> 2");
+        System.out.println("mmm-d-yy 00:00:00:000 -> 3");
+        System.out.println("dd-mmm-yyyy 00:00:00:000 -> 4");
+        Scanner scanner = new Scanner(System.in);
+        String method = scanner.nextLine();
+        switch (method){
+            case "1":
+                for (int i = 0; i < 3; i++) {
+                    if(i!=2){
+                        System.out.print(data[i] + "/");
+                    }else{
+                        System.out.print(data[i]);
+                    }
+                }
+                break;
+            case "2":
+                for (int i = 0; i < 3; i++) {
+                    if(i!=2){
+                        System.out.print(data[i] + "-");
+                    }else{
+                        System.out.print(data[i]);
+                    }
+                }
+                break;
+            case "3":
+                System.out.print(switchMonth(data[1])+"-");
+                System.out.print(data[0]+"-");
+                System.out.print(data[2]);
+                break;
+            case "4":
+                System.out.print(data[0]+"-");
+                System.out.print(switchMonth(data[1])+"-");
+                System.out.print(data[2]);
+                break;
+        }
+        System.out.print(" ");
+        for (int i = 3; i < 7; i++) {
+            if(i!=6){
+                System.out.print(data[i] + ":");
+            }else{
+                System.out.print(data[i]);
+            }
         }
     }
 
@@ -92,5 +150,35 @@ public class TimeMain {
                 break;
         }
         return data;
+    }
+
+    public static String switchMonth(String month){
+        switch (month) {
+            case "01":
+                return "Январь";
+            case "02":
+                return "Февраль";
+            case "03":
+                return "Март";
+            case "04":
+                return "Апрель";
+            case "05":
+                return "Май";
+            case "06":
+                return "Июнь";
+            case "07":
+                return "Июль";
+            case "08":
+                return "Август";
+            case "09":
+                return "Сентябрь";
+            case "10":
+                return "Октябрь";
+            case "11":
+                return "Ноябрь";
+            case "12":
+                return "Декабрь";
+        }
+        return null;
     }
 }

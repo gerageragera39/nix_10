@@ -334,6 +334,8 @@ public class Transformer {
             case "Декабрь":
                 return "12";
             default:
+                System.out.println("Wrong month");
+                timeMain.runStartData();
                 return "00";
         }
     }
