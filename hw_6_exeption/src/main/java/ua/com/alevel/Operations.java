@@ -311,7 +311,7 @@ public class Operations {
                 break;
             default:
                 System.out.println("Wrong index");
-                add(startData);
+                minus(startData);
         }
         return new int[0];
     }

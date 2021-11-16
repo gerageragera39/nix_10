@@ -24,6 +24,7 @@ public class TimeMain {
                     break;
                 case "3":
                     operations.minus(startData);
+                    break;
                 case "4":
                     Scanner scan = new Scanner(System.in);
                     ArrayList<int[]> dataList = new ArrayList<>();
