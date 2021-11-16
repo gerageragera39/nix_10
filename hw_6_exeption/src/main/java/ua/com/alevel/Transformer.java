@@ -24,36 +24,44 @@ public class Transformer {
     }
 
     public int[] syntax(String time, int index) {
-        Matcher matcher = null;
-        Matcher matcher2 = null;
-        switch (index) {
-            case 1:
-                matcher = TIME_FIRST.matcher(time);
-                matcher2 = TIME_FIRST_2.matcher(time);
-                break;
-            case 2:
-                matcher = TIME_SECOND.matcher(time);
-                break;
-            case 3:
-                matcher = TIME_THIRD.matcher(time);
-                matcher2 = TIME_SECOND.matcher(time);
-                break;
-        }
-        boolean isReg;
-        if (index == 2) {
-            isReg = matcher.find();
-        } else if (index == 3) {
-            isReg = matcher.find() && !matcher2.find();
-        } else {
-            isReg = matcher.find() || matcher2.find();
-        }
-        int[] intData;
-        if (isReg) {
-            String[] data = splitTime(time, index);
-            intData = parseInteger(data);
-        } else {
-            System.out.println();
-            System.out.println("Wrong data entry");
+        int[] intData = null;
+        try {
+            Matcher matcher = null;
+            Matcher matcher2 = null;
+            switch (index) {
+                case 1:
+                    matcher = TIME_FIRST.matcher(time);
+                    matcher2 = TIME_FIRST_2.matcher(time);
+                    break;
+                case 2:
+                    matcher = TIME_SECOND.matcher(time);
+                    break;
+                case 3:
+                    matcher = TIME_THIRD.matcher(time);
+                    matcher2 = TIME_SECOND.matcher(time);
+                    break;
+                default:
+                    System.out.println("incorrect index");
+                    return timeMain.runStartData();
+            }
+            boolean isReg;
+            if (index == 2) {
+                isReg = matcher.find();
+            } else if (index == 3) {
+                isReg = matcher.find() && !matcher2.find();
+            } else {
+                isReg = matcher.find() || matcher2.find();
+            }
+            if (isReg) {
+                String[] data = splitTime(time, index);
+                intData = parseInteger(data);
+            } else {
+                System.out.println();
+                System.out.println("Wrong data entry");
+                return timeMain.runStartData();
+            }
+        } catch (NullPointerException e) {
+            System.out.println("incorrect index");
             return timeMain.runStartData();
         }
         return intData;
