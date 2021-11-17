@@ -225,22 +225,22 @@ public class Transformer {
     public boolean exam(String[] data) {
         boolean trueExam = true;
         try {
-            if (!((Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999) || (Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) < 0))) {
+            if (!((Integer.parseInt(data[1]) > 12)||((Integer.parseInt(data[1]) <= 0)) || (Integer.parseInt(data[2]) > 9999) || (Integer.parseInt(data[3]) > 23) || (Integer.parseInt(data[4]) > 59) || (Integer.parseInt(data[5]) > 59) || (Integer.parseInt(data[6]) > 999) || (Integer.parseInt(data[1]) > 12) || (Integer.parseInt(data[2]) < 0))) {
                 if ((Integer.parseInt(data[1]) == 1) || (Integer.parseInt(data[1]) == 3) || (Integer.parseInt(data[1]) == 5) || (Integer.parseInt(data[1]) == 7) || (Integer.parseInt(data[1]) == 8) || (Integer.parseInt(data[1]) == 10) || (Integer.parseInt(data[1]) == 12)) {
-                    if ((Integer.parseInt(data[0]) > 31) || (Integer.parseInt(data[0]) <= 0)) {
+                    if ((Integer.parseInt(data[0]) > 31) || (Integer.parseInt(data[0]) < 0)) {
                         trueExam = false;
                     }
                 } else if ((Integer.parseInt(data[1]) == 4) || (Integer.parseInt(data[1]) == 6) || (Integer.parseInt(data[1]) == 9) || (Integer.parseInt(data[1]) == 11)) {
-                    if ((Integer.parseInt(data[0]) > 30) || (Integer.parseInt(data[0]) <= 0)) {
+                    if ((Integer.parseInt(data[0]) > 30) || (Integer.parseInt(data[0]) < 0)) {
                         trueExam = false;
                     }
                 } else {
                     if (((Integer.parseInt(data[2]) % 4 != 0) || ((Integer.parseInt(data[2]) % 100 == 0))) && (Integer.parseInt(data[2]) % 400 != 0)) {
-                        if ((Integer.parseInt(data[0]) > 28) || (Integer.parseInt(data[0]) <= 0)) {
+                        if ((Integer.parseInt(data[0]) > 28) || (Integer.parseInt(data[0]) < 0)) {
                             trueExam = false;
                         }
                     } else {
-                        if ((Integer.parseInt(data[0]) > 29) || (Integer.parseInt(data[0]) <= 0)) {
+                        if ((Integer.parseInt(data[0]) > 29) || (Integer.parseInt(data[0]) < 0)) {
                             trueExam = false;
                         }
                     }
