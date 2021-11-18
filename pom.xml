@@ -29,6 +29,8 @@
         <module>hw_5_collection</module>
         <module>mathset</module>
         <module>hw_6_exeption</module>
+        <module>parser</module>
+        <module>hw_7_ionio</module>
     </modules>
     <packaging>pom</packaging>
 
