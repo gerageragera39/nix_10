@@ -6,6 +6,7 @@ import ua.com.alevel.service.PopulationService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class PopulationController {
 
@@ -155,8 +156,8 @@ public class PopulationController {
     }
 
     private static void findAllPersons(BufferedReader reader) {
-        Population[] people = populationService.findAllPersons();
-        if (people != null && people.length != 0) {
+        List<Population> people = populationService.findAllPersons();
+        if (people != null && people.size() != 0) {
             for (Population person : people) {
                 System.out.println(person.toString());
             }

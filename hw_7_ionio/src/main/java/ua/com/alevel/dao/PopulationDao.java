@@ -3,6 +3,8 @@ package ua.com.alevel.dao;
 import ua.com.alevel.db.DBPopulation;
 import ua.com.alevel.entity.Population;
 
+import java.util.List;
+
 public class PopulationDao {
 
     public void create(Population person) {
@@ -21,7 +23,7 @@ public class PopulationDao {
         return DBPopulation.getInstance().findByPassportId(id);
     }
 
-    public static Population[] findAllPersons() {
+    public static List<Population> findAllPersons() {
         return DBPopulation.getInstance().findAllPersons();
     }
 

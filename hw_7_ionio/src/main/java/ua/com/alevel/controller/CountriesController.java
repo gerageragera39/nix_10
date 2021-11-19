@@ -8,6 +8,7 @@ import ua.com.alevel.service.PopulationService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class CountriesController {
 
@@ -131,8 +132,8 @@ public class CountriesController {
     }
 
     private static void findAllCountries(BufferedReader reader) {
-        Countries[] countries = countiesService.findAllCounties();
-        if (countries != null && countries.length != 0) {
+        List<Countries> countries = countiesService.findAllCounties();
+        if (countries != null && countries.size() != 0) {
             for (Countries country : countries) {
                 System.out.println(country.toString());
             }
@@ -147,8 +148,8 @@ public class CountriesController {
 
     public static void findPersonsOfCountry(BufferedReader reader) throws IOException {
         Countries country = findByISO(reader);
-        Population[] people = populationService.findAllPersons();
-        if (people != null && people.length != 0) {
+        List<Population> people = populationService.findAllPersons();
+        if (people != null && people.size() != 0) {
             for (Population person : people) {
                 if (person.getCountryOfResidence().equals(country.getNameOfCountry())) {
                     System.out.println(person.toString());

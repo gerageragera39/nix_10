@@ -2,11 +2,11 @@ package ua.com.alevel.entity;
 
 public class Population {
 
+    private String passportID;
     private String firstName;
     private String lastName;
     private String countryOfResidence;
     private int age;
-    private String passportID;
     private String sex;
 
     public String getSex() {

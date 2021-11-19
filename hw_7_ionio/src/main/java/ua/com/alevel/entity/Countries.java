@@ -2,10 +2,8 @@ package ua.com.alevel.entity;
 
 public class Countries {
 
-    private Population persons = new Population();
-    private String nameOfCountry;
-    private static Population[] people;
     private int ISO;
+    private String nameOfCountry;
 
     public int getISO() {
         return ISO;
@@ -31,7 +29,4 @@ public class Countries {
         this.nameOfCountry = nameOfCountry;
     }
 
-    public static Population[] getPeople() {
-        return people;
-    }
 }

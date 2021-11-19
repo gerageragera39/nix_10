@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import ua.com.alevel.dao.PopulationDao;
 import ua.com.alevel.entity.Population;
 
+import java.util.List;
+
 public class PopulationService {
 
     private final PopulationDao populationDao = new PopulationDao();
@@ -55,7 +57,7 @@ public class PopulationService {
         return PopulationDao.findByPassportId(id);
     }
 
-    public static Population[] findAllPersons() {
+    public static List<Population> findAllPersons() {
         return PopulationDao.findAllPersons();
     }
 

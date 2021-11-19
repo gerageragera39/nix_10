@@ -3,6 +3,8 @@ package ua.com.alevel.dao;
 import ua.com.alevel.db.DBCountries;
 import ua.com.alevel.entity.Countries;
 
+import java.util.List;
+
 public class CountriesDao {
     public static void create(Countries user) {
         DBCountries.getInstance().create(user);
@@ -20,7 +22,7 @@ public class CountriesDao {
         return DBCountries.getInstance().findByISO(IOS);
     }
 
-    public static Countries[] findAllCounties() {
+    public static List<Countries> findAllCounties() {
         return DBCountries.getInstance().findAllCounties();
     }
 

@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import ua.com.alevel.dao.CountriesDao;
 import ua.com.alevel.entity.Countries;
 
+import java.util.List;
+
 public class CountiesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CountiesService.class);
@@ -46,7 +48,7 @@ public class CountiesService {
         return CountriesDao.findByISO(IOS);
     }
 
-    public Countries[] findAllCounties() {
+    public List<Countries> findAllCounties() {
         return CountriesDao.findAllCounties();
     }
 
