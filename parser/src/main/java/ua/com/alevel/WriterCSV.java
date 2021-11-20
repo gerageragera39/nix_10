@@ -9,8 +9,8 @@ public class WriterCSV {
 
     public String path;
 
-    public WriterCSV(String path) {
-        this.path = path;
+    public WriterCSV(String pth) {
+        setPath(pth);
     }
 
     public void writeCVS(List<String> fields){
@@ -61,5 +61,18 @@ public class WriterCSV {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void clearCSV(){
+        try {
+            FileWriter fileWriter = new FileWriter(path);
+            fileWriter.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPath(String pth) {
+        this.path = pth;
     }
 }

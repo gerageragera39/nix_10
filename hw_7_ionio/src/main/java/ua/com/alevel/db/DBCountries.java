@@ -18,8 +18,10 @@ public class DBCountries {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
 
-    public static final String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\countries.csv";
-    public static final WriterCSV writer = new WriterCSV(path);
+//    public static String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
+    private static String path;
+
+    public final WriterCSV writer = new WriterCSV(path);
 
 //    private Countries[] countries;
     private static DBCountries instance;
@@ -91,13 +93,13 @@ public class DBCountries {
         return null;
     }
 
-    public List<Countries> findAllCounties() {
-        return readCountryCSV(path);
+    public List<Countries> findAllCounties(String pt) {
+        return readCountryCSV(pt);
     }
 
     private int generateISO() {
         int ISO = (int) (Math.random() * 999) + 1;
-        List<Countries> countries = findAllCounties();
+        List<Countries> countries = findAllCounties(path);
         for (int i = 0; i < countries.size(); i++) {
             if (ISO == countries.get(i).getISO()) {
                 generateISO();
@@ -111,7 +113,7 @@ public class DBCountries {
     }
 
     public boolean existByCountryName(String name) {
-        List<Countries> countries = findAllCounties();
+        List<Countries> countries = findAllCounties(path);
         for (int i = 0; i < countries.size(); i++) {
             if (name.equals(countries.get(i).getNameOfCountry())) {
                 return false;
@@ -179,6 +181,10 @@ public class DBCountries {
         list.add(String.valueOf(country.getISO()));
         list.add(country.getNameOfCountry());
         return list;
+    }
+
+    public static void setPath(String path) {
+        DBCountries.path = path;
     }
 }
 

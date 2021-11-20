@@ -19,8 +19,9 @@ public class DBPopulation {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
 
-    public static final String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\population.csv";
-    public static final WriterCSV writer = new WriterCSV(path);
+//    public static final String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\population.csv";
+    public static String path;
+    public static WriterCSV writer = new WriterCSV(path);
 
 //    private static Population[] people;
     private static DBPopulation instance;
@@ -49,7 +50,7 @@ public class DBPopulation {
         current.setLastName(updatePerson.getLastName());
         current.setAge(updatePerson.getAge());
         current.setCountryOfResidence(updatePerson.getCountryOfResidence());
-        List<Population> populationList = readPopulationCSV(path);
+        List<Population> populationList = readPopulationCSV();
         writer.clearCSV(Population.class);
         for (int i = 0; i < populationList.size(); i++) {
             if(!String.valueOf(populationList.get(i).getPassportID()).equals(current.getPassportID())){
@@ -62,7 +63,7 @@ public class DBPopulation {
 
     public void delete(String id) {
         findByPassportId(id);
-        List<Population> populationList = readPopulationCSV(path);
+        List<Population> populationList = readPopulationCSV();
         writer.clearCSV(Population.class);
         for (int i = 0; i < populationList.size(); i++) {
             if(!String.valueOf(populationList.get(i).getPassportID()).equals(id)){
@@ -72,7 +73,7 @@ public class DBPopulation {
     }
 
     public Population findByPassportId(String id) {
-        List<Population> peopleList = readPopulationCSV(path);
+        List<Population> peopleList = readPopulationCSV();
         for (int i = 0; i < peopleList.size(); i++) {
             if (id.equals(String.valueOf(peopleList.get(i).getPassportID()))) {
                 return peopleList.get(i);
@@ -89,7 +90,7 @@ public class DBPopulation {
     }
 
     public List<Population> findAllPersons() {
-        return readPopulationCSV(path);
+        return readPopulationCSV();
     }
 
     public String generatePassportId() {
@@ -104,11 +105,11 @@ public class DBPopulation {
     }
 
     public int numOfAllPersons() {
-        return readPopulationCSV(path).size();
+        return readPopulationCSV().size();
     }
 
     public boolean existByCountry(String nameOfCountry) {
-        List<Countries> countries = DBCountries.getInstance().findAllCounties();
+        List<Countries> countries = DBCountries.getInstance().findAllCounties("C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv");
         for (int i = 0; i < countries.size(); i++) {
             if (nameOfCountry.equals(String.valueOf(countries.get(i).getNameOfCountry()))) {
                 return true;
@@ -123,10 +124,11 @@ public class DBPopulation {
 
     public void populationWriter(String path, Population person){
         List<String> list = getFiends(person);
-        writer.writeCVS(list);
+        WriterCSV writerCSV1 = new WriterCSV(path);
+        writerCSV1.writeCVS(list);
     }
 
-    public List<Population> readPopulationCSV(String path){
+    public List<Population> readPopulationCSV(){
         String[][] personFields = null;
         ReaderCSV readerCSV = new ReaderCSV(path);
         List<String> list = readerCSV.readCSV();
@@ -181,5 +183,9 @@ public class DBPopulation {
         list.add(String.valueOf(person.getAge()));
         list.add(person.getSex());
         return list;
+    }
+
+    public static void setPath(String pth) {
+        DBPopulation.path = pth;
     }
 }

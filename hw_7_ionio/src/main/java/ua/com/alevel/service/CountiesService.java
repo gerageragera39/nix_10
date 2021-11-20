@@ -13,11 +13,12 @@ public class CountiesService {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
     private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
+    public static String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
 
     public void create(Countries country) {
         LOGGER_INFO.info("start creating country");
         if (existByCountryName(country.getNameOfCountry())) {
-            CountriesDao.create(country);
+            CountriesDao.create(country, path);
             LOGGER_INFO.info("finish creating country : " + country.getNameOfCountry());
         } else {
             System.out.println();
@@ -29,7 +30,7 @@ public class CountiesService {
     public void update(Countries country, String previousName) {
         LOGGER_INFO.info("start updating country : ");
         if (existByCountryName(country.getNameOfCountry())) {
-            CountriesDao.update(country, previousName);
+            CountriesDao.update(country, previousName, path);
             LOGGER_INFO.info("finish updating country : " + country.getNameOfCountry());
         } else {
             System.out.println();
@@ -40,23 +41,27 @@ public class CountiesService {
 
     public void delete(int IOS) {
         LOGGER_INFO.info("start deleting country");
-        CountriesDao.delete(IOS);
+        CountriesDao.delete(IOS, path);
         LOGGER_INFO.info("finish deleting country : ");
     }
 
     public Countries findByISO(int IOS) {
-        return CountriesDao.findByISO(IOS);
+        return CountriesDao.findByISO(IOS, path);
     }
 
     public List<Countries> findAllCounties() {
-        return CountriesDao.findAllCounties();
+        return CountriesDao.findAllCounties(path);
     }
 
     public int numOfAllCountries() {
-        return CountriesDao.numOfAllCountries();
+        return CountriesDao.numOfAllCountries(path);
     }
 
     public boolean existByCountryName(String name) {
-        return CountriesDao.existByCountryName(name);
+        return CountriesDao.existByCountryName(name, path);
+    }
+
+    public static void setPath(String path) {
+        CountiesService.path = path;
     }
 }
