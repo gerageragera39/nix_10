@@ -21,7 +21,7 @@ public class DBPopulation {
 
 //    public static final String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\population.csv";
     public static String path;
-    public static WriterCSV writer = new WriterCSV(path);
+//    public static WriterCSV writer = new WriterCSV(path);
 
 //    private static Population[] people;
     private static DBPopulation instance;
@@ -51,23 +51,25 @@ public class DBPopulation {
         current.setAge(updatePerson.getAge());
         current.setCountryOfResidence(updatePerson.getCountryOfResidence());
         List<Population> populationList = readPopulationCSV();
-        writer.clearCSV(Population.class);
+        WriterCSV writerCSV = new WriterCSV(path);
+        writerCSV.clearCSV(Population.class);
         for (int i = 0; i < populationList.size(); i++) {
             if(!String.valueOf(populationList.get(i).getPassportID()).equals(current.getPassportID())){
-                writer.writeCVS(getFiends(populationList.get(i)));
+                writerCSV.writeCVS(getFiends(populationList.get(i)));
             }else{
-                writer.writeCVS(getFiends(current));
+                writerCSV.writeCVS(getFiends(current));
             }
         }
     }
 
     public void delete(String id) {
+        WriterCSV writerCSV = new WriterCSV(path);
         findByPassportId(id);
         List<Population> populationList = readPopulationCSV();
-        writer.clearCSV(Population.class);
+        writerCSV.clearCSV(Population.class);
         for (int i = 0; i < populationList.size(); i++) {
             if(!String.valueOf(populationList.get(i).getPassportID()).equals(id)){
-                writer.writeCVS(getFiends(populationList.get(i)));
+                writerCSV.writeCVS(getFiends(populationList.get(i)));
             }
         }
     }
@@ -109,7 +111,7 @@ public class DBPopulation {
     }
 
     public boolean existByCountry(String nameOfCountry) {
-        List<Countries> countries = DBCountries.getInstance().findAllCounties("C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv");
+        List<Countries> countries = DBCountries.getInstance().findAllCounties(path);
         for (int i = 0; i < countries.size(); i++) {
             if (nameOfCountry.equals(String.valueOf(countries.get(i).getNameOfCountry()))) {
                 return true;

@@ -26,13 +26,15 @@ public class PopulationServiceTest {
     private static final int DEFAULT_SIZE = 20;
     private static String createdID;
 
-    public static final String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\population.csv";
+    public static final String path = "..\\hw_7_ionio\\src\\test\\resources\\test_population.csv";
+    public static final String countryPath = "..\\hw_7_ionio\\src\\test\\resources\\test_countries.csv";
     public static final WriterCSV writerCSV = new WriterCSV(path);
-    public static final List<Countries> countriesList = countiesService.findAllCounties();
-    public static final List<Population> populationList = populationService.findAllPersons();
 
     @BeforeAll
     public static void setUp() {
+        populationService.setCountryPath(countryPath);
+        populationService.setPath(path);
+        countiesService.setPath(countryPath);
         writerCSV.clearCSV();
         Countries country = CountriesServiceTest.generateRandomCountry();
         countiesService.create(country);
@@ -92,12 +94,6 @@ public class PopulationServiceTest {
         Assertions.assertEquals(populationService.findAllPersons().size(), DEFAULT_SIZE);
     }
 
-    @AfterAll
-    public static void rollback(){
-        returnCountriesCSV(countriesList);
-        returnPopulationCSV(populationList);
-    }
-
     private static Population generateRandomPerson() {
         Population person = new Population();
         person.setFirstName(FIRST_NAME);
@@ -116,29 +112,5 @@ public class PopulationServiceTest {
         person.setSex(sex);
         person.setAge(age);
         return person;
-    }
-
-    public static void returnCountriesCSV(List<Countries> countriesList){
-        writerCSV.clearCSV(Countries.class);
-        for (int i = 0; i < countriesList.size(); i++) {
-            List<String> fields = new ArrayList<>();
-            fields.add(String.valueOf(countriesList.get(i).getISO()));
-            fields.add(countriesList.get(i).getNameOfCountry());
-            writerCSV.writeCVS(fields);
-        }
-    }
-
-    public static void returnPopulationCSV(List<Population> populationList){
-        writerCSV.clearCSV(Countries.class);
-        for (int i = 0; i < populationList.size(); i++) {
-            List<String> fields = new ArrayList<>();
-            fields.add(populationList.get(i).getPassportID());
-            fields.add(populationList.get(i).getFirstName());
-            fields.add(populationList.get(i).getLastName());
-            fields.add(populationList.get(i).getCountryOfResidence());
-            fields.add(String.valueOf(populationList.get(i).getAge()));
-            fields.add(populationList.get(i).getSex());
-            writerCSV.writeCVS(fields);
-        }
     }
 }
