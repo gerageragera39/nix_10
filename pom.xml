@@ -31,6 +31,7 @@
         <module>hw_6_exeption</module>
         <module>parser</module>
         <module>hw_7_ionio</module>
+        <module>module_2</module>
     </modules>
     <packaging>pom</packaging>
 
