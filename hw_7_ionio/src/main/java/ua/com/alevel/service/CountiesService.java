@@ -13,12 +13,9 @@ public class CountiesService {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
     private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
-//    public static String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
-    public static String path = "..\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
+//    public static String path = "..\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
 
-//    public static String path = ".\\src\\main\\resources\\countries.csv";
-
-//    public static String path = "countries.csv";
+    public static String path = ".\\src\\main\\resources\\countries.csv";
 
     public void create(Countries country) {
         LOGGER_INFO.info("start creating country");
