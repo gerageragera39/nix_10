@@ -1,6 +1,5 @@
 package ua.com.alevel.dao;
 
-import ua.com.alevel.db.DBCountries;
 import ua.com.alevel.db.DBPopulation;
 import ua.com.alevel.entity.Population;
 

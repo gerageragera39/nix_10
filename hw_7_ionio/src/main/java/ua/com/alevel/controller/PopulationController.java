@@ -28,7 +28,8 @@ public class PopulationController {
                 }
             }
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            run();
         }
     }
 
@@ -65,7 +66,6 @@ public class PopulationController {
                 numOfAllPersons();
                 break;
         }
-
         runNavigation();
     }
 
@@ -99,7 +99,8 @@ public class PopulationController {
             person.setCountryOfResidence(countryOfResidence);
             populationService.create(person);
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            create(reader);
         }
     }
 
@@ -129,7 +130,8 @@ public class PopulationController {
             person.setCountryOfResidence(CountryOfResidence);
             populationService.update(person);
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            update(reader);
         }
     }
 
@@ -140,7 +142,8 @@ public class PopulationController {
             populationService.delete(id);
             System.out.println("User was deleted");
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            delete(reader);
         }
     }
 
@@ -151,7 +154,8 @@ public class PopulationController {
             Population person = populationService.findByPassportId(id);
             System.out.println(person.toString());
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            findById(reader);
         }
     }
 

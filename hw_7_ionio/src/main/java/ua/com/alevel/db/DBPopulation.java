@@ -19,16 +19,8 @@ public class DBPopulation {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
 
-//    public static final String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\population.csv";
     public static String path;
-//    public static WriterCSV writer = new WriterCSV(path);
-
-//    private static Population[] people;
     private static DBPopulation instance;
-
-//    public DBPopulation() {
-//        people = new Population[0];
-//    }
 
     public static DBPopulation getInstance() {
         if (instance == null) {
@@ -39,9 +31,7 @@ public class DBPopulation {
 
     public void create(Population person) {
         person.setPassportID(generatePassportId());
-//        people = Arrays.copyOf(people, people.length + 1);
-//        people[people.length - 1] = person;
-        populationWriter(path,person);
+        populationWriter(path, person);
     }
 
     public void update(Population updatePerson) {
@@ -54,9 +44,9 @@ public class DBPopulation {
         WriterCSV writerCSV = new WriterCSV(path);
         writerCSV.clearCSV(Population.class);
         for (int i = 0; i < populationList.size(); i++) {
-            if(!String.valueOf(populationList.get(i).getPassportID()).equals(current.getPassportID())){
+            if (!String.valueOf(populationList.get(i).getPassportID()).equals(current.getPassportID())) {
                 writerCSV.writeCVS(getFiends(populationList.get(i)));
-            }else{
+            } else {
                 writerCSV.writeCVS(getFiends(current));
             }
         }
@@ -68,7 +58,7 @@ public class DBPopulation {
         List<Population> populationList = readPopulationCSV();
         writerCSV.clearCSV(Population.class);
         for (int i = 0; i < populationList.size(); i++) {
-            if(!String.valueOf(populationList.get(i).getPassportID()).equals(id)){
+            if (!String.valueOf(populationList.get(i).getPassportID()).equals(id)) {
                 writerCSV.writeCVS(getFiends(populationList.get(i)));
             }
         }
@@ -120,17 +110,13 @@ public class DBPopulation {
         return false;
     }
 
-//    public static Population[] getPeople() {
-//        return people;
-//    }
-
-    public void populationWriter(String path, Population person){
+    public void populationWriter(String path, Population person) {
         List<String> list = getFiends(person);
         WriterCSV writerCSV1 = new WriterCSV(path);
         writerCSV1.writeCVS(list);
     }
 
-    public List<Population> readPopulationCSV(){
+    public List<Population> readPopulationCSV() {
         String[][] personFields = null;
         ReaderCSV readerCSV = new ReaderCSV(path);
         List<String> list = readerCSV.readCSV();
@@ -141,21 +127,21 @@ public class DBPopulation {
         boolean firstStep = true;
         for (int i = 0; i < list.size(); i++) {
             for (int j = 1; j < list.get(i).length(); j++) {
-                if(list.get(i).charAt(j) == '"'){
+                if (list.get(i).charAt(j) == '"') {
                     for (int k = indexOfQuotes; k < j; k++) {
-                        if(firstStep){
+                        if (firstStep) {
                             personFields[i][fieldIndex] = String.valueOf(list.get(i).charAt(k));
                             firstStep = false;
                             indexOfQuotes++;
-                        }else{
+                        } else {
                             personFields[i][fieldIndex] += String.valueOf(list.get(i).charAt(k));
                             indexOfQuotes++;
                         }
                     }
                     fieldIndex++;
                     firstStep = true;
-                    j+=3;
-                    indexOfQuotes+=3;
+                    j += 3;
+                    indexOfQuotes += 3;
                 }
             }
             fieldIndex = 0;
@@ -176,7 +162,7 @@ public class DBPopulation {
         return peopleList;
     }
 
-    public List<String> getFiends(Population person){
+    public List<String> getFiends(Population person) {
         List<String> list = new ArrayList<>();
         list.add(person.getPassportID());
         list.add(person.getFirstName());

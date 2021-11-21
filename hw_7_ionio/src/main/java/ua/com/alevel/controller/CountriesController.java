@@ -31,7 +31,8 @@ public class CountriesController {
                 }
             }
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            run();
         }
     }
 
@@ -72,7 +73,6 @@ public class CountriesController {
                 findPersonsOfCountry(reader);
                 break;
         }
-
         runNavigation();
     }
 
@@ -84,7 +84,8 @@ public class CountriesController {
             country.setNameOfCountry(nameOfCountry);
             countiesService.create(country);
         } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            System.out.println("Wrong input");
+            create(reader);
         }
     }
 
@@ -100,8 +101,9 @@ public class CountriesController {
             newCountry.setNameOfCountry(nameOfCountry);
             newCountry.setISO(ISO);
             countiesService.update(newCountry, previousName);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Wrong input");
+            update(reader);
         }
     }
 
@@ -112,8 +114,9 @@ public class CountriesController {
             int ISO = Integer.parseInt(StringISO);
             countiesService.delete(ISO);
             System.out.println("Country was deleted");
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Wrong input");
+            delete(reader);
         }
     }
 
@@ -125,8 +128,9 @@ public class CountriesController {
             Countries country = countiesService.findByISO(ISO);
             System.out.println(country.toString());
             return country;
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Wrong input");
+            delete(reader);
         }
         return new Countries();
     }
@@ -146,7 +150,7 @@ public class CountriesController {
         System.out.println("Number Of All Countries = " + countiesService.numOfAllCountries());
     }
 
-    public static void findPersonsOfCountry(BufferedReader reader) throws IOException {
+    public static void findPersonsOfCountry(BufferedReader reader) {
         Countries country = findByISO(reader);
         List<Population> people = populationService.findAllPersons();
         if (people != null && people.size() != 0) {

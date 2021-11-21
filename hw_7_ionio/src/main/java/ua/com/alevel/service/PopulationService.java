@@ -14,8 +14,6 @@ public class PopulationService {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
     private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
-//    public static String path = "..\\nix_10\\hw_7_ionio\\src\\main\\resources\\population.csv";
-//    public static String countryPath = "..\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
     public static String path = ".\\src\\main\\resources\\population.csv";
     public static String countryPath = ".\\src\\main\\resources\\countries.csv";
 
@@ -80,9 +78,4 @@ public class PopulationService {
     public static void setCountryPath(String countryPth) {
         PopulationService.countryPath = countryPth;
     }
-
-
-//    public static void setPath(String path) {
-//        CountiesService.path = path;
-//    }
 }

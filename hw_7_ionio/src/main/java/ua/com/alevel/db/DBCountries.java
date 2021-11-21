@@ -6,11 +6,9 @@ import ua.com.alevel.ReaderCSV;
 import ua.com.alevel.WriterCSV;
 import ua.com.alevel.controller.CountriesController;
 import ua.com.alevel.entity.Countries;
-import ua.com.alevel.entity.Population;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DBCountries {
@@ -18,17 +16,11 @@ public class DBCountries {
     private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
     private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
 
-//    public static String path = "C:\\Users\\admin\\IdeaProjects\\nix_10\\hw_7_ionio\\src\\main\\resources\\countries.csv";
     private static String path;
 
     public final WriterCSV writer = new WriterCSV(path);
 
-//    private Countries[] countries;
     private static DBCountries instance;
-
-//    public DBCountries() {
-//        countries = new Countries[0];
-//    }
 
     public static DBCountries getInstance() {
         if (instance == null) {
@@ -39,28 +31,18 @@ public class DBCountries {
 
     public void create(Countries newCountry) {
         newCountry.setISO(generateISO());
-//        countries = Arrays.copyOf(countries, countries.length + 1);
-//        countries[countries.length - 1] = newCountry;
         countriesWriter(path, newCountry);
     }
 
     public void update(Countries updateCountry, String previousName) {
-//        Countries current = findByISO(updateCountry.getISO());
-//        for (int i = 0; i < DBPopulation.getInstance().getPeople().length; i++) {
-//            if (DBPopulation.getInstance().getPeople()[i].getCountryOfResidence().equals(previousName)) {
-//                DBPopulation.getInstance().getPeople()[i].setCountryOfResidence(updateCountry.getNameOfCountry());
-//            }
-//        }
-//        current.setNameOfCountry(updateCountry.getNameOfCountry());
-
-        Countries current = findByISO(updateCountry.getISO()) ;
+        Countries current = findByISO(updateCountry.getISO());
         current.setNameOfCountry(updateCountry.getNameOfCountry());
         List<Countries> countriesList = readCountryCSV(path);
         writer.clearCSV(Countries.class);
         for (int i = 0; i < countriesList.size(); i++) {
-            if(countriesList.get(i).getISO() != current.getISO()){
+            if (countriesList.get(i).getISO() != current.getISO()) {
                 writer.writeCVS(getFiends(countriesList.get(i)));
-            }else{
+            } else {
                 writer.writeCVS(getFiends(current));
             }
         }
@@ -71,7 +53,7 @@ public class DBCountries {
         List<Countries> countriesList = readCountryCSV(path);
         writer.clearCSV(Countries.class);
         for (int i = 0; i < countriesList.size(); i++) {
-            if(countriesList.get(i).getISO() != ISO){
+            if (countriesList.get(i).getISO() != ISO) {
                 writer.writeCVS(getFiends(countriesList.get(i)));
             }
         }
@@ -130,7 +112,8 @@ public class DBCountries {
         writer.writeCVS(list);
     }
 
-    public static List<Countries> readCountryCSV(String path){
+    public static List<Countries> readCountryCSV(String path) {
+        List<Countries> countriesList = new ArrayList<>();
         String[][] countryFields = null;
         ReaderCSV readerCSV = new ReaderCSV(path);
         List<String> list = readerCSV.readCSV();
@@ -145,28 +128,27 @@ public class DBCountries {
         boolean firstStep = true;
         for (int i = 0; i < list.size(); i++) {
             for (int j = 1; j < list.get(i).length(); j++) {
-                if(list.get(i).charAt(j) == '"'){
+                if (list.get(i).charAt(j) == '"') {
                     for (int k = indexOfQuotes; k < j; k++) {
-                        if(firstStep){
+                        if (firstStep) {
                             countryFields[i][fieldIndex] = String.valueOf(list.get(i).charAt(k));
                             firstStep = false;
                             indexOfQuotes++;
-                        }else{
+                        } else {
                             countryFields[i][fieldIndex] += String.valueOf(list.get(i).charAt(k));
                             indexOfQuotes++;
                         }
                     }
                     fieldIndex++;
                     firstStep = true;
-                    j+=3;
-                    indexOfQuotes+=3;
+                    j += 3;
+                    indexOfQuotes += 3;
                 }
             }
             fieldIndex = 0;
             indexOfQuotes = 1;
         }
 
-        List<Countries> countriesList = new ArrayList<>();
         for (int i = 1; i < list.size(); i++) {
             Countries country = new Countries();
             country.setISO(Integer.parseInt(countryFields[i][0]));
@@ -176,7 +158,7 @@ public class DBCountries {
         return countriesList;
     }
 
-    public List<String> getFiends(Countries country){
+    public List<String> getFiends(Countries country) {
         List<String> list = new ArrayList<>();
         list.add(String.valueOf(country.getISO()));
         list.add(country.getNameOfCountry());
