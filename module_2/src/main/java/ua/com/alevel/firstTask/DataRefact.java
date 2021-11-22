@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FirstTask {
+public class DataRefact {
 
-    public static final String pathInput = ".\\src\\main\\resources\\first_task\\first_task_input.txt";
-    public static final String pathOutput = ".\\src\\main\\resources\\first_task\\first_task_output.txt";
+    public static final String pathInput = ".\\src\\main\\resources\\firstTaskFiles\\first_task_input.txt";
+    public static final String pathOutput = ".\\src\\main\\resources\\firstTaskFiles\\first_task_output.txt";
     public static final Pattern REG_FIRST =
             Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4}$", Pattern.CASE_INSENSITIVE);
     public static final Pattern REG_SECOND =
@@ -77,8 +77,8 @@ public class FirstTask {
                         srtData[indexOfData] += String.valueOf(data.charAt(j));
                     }
                 }
-                if(i==data.length()-1){
-                    srtData[indexOfData]+=String.valueOf(data.charAt(i));
+                if (i == data.length() - 1) {
+                    srtData[indexOfData] += String.valueOf(data.charAt(i));
                 }
                 indexOfData++;
                 indexOfDelimiter = i + 1;
@@ -89,29 +89,29 @@ public class FirstTask {
 
         boolean writtenMonth = false;
         for (String srtDatum : srtData) {
-            if(srtDatum.length() == 4){
+            if (srtDatum.length() == 4) {
                 outputData[0] = srtDatum;
-            }else if((Integer.parseInt(srtDatum) <= 12 && Integer.parseInt(srtDatum) > 0)&&(!writtenMonth)){
+            } else if ((Integer.parseInt(srtDatum) <= 12 && Integer.parseInt(srtDatum) > 0) && (!writtenMonth)) {
                 outputData[1] = srtDatum;
                 writtenMonth = true;
-            }else if(Integer.parseInt(srtDatum) <= 31 && Integer.parseInt(srtDatum) > 0){
+            } else if (Integer.parseInt(srtDatum) <= 31 && Integer.parseInt(srtDatum) > 0) {
                 outputData[2] = srtDatum;
-            }else{
+            } else {
                 return;
             }
         }
 
         for (String outputDatum : outputData) {
-            if(outputDatum == null){
+            if (outputDatum == null) {
                 return;
             }
         }
 
         try {
             FileWriter writer = new FileWriter(pathOutput, true);
-            writer.write(outputData[0]+outputData[1]+outputData[2]);
-            if((Integer.parseInt(outputData[1]) <= 12)&&(Integer.parseInt(outputData[2]) <= 12)){
-                writer.write(" or " + outputData[0]+outputData[2]+outputData[1]);
+            writer.write(outputData[0] + outputData[1] + outputData[2]);
+            if ((Integer.parseInt(outputData[1]) <= 12) && (Integer.parseInt(outputData[2]) <= 12)) {
+                writer.write(" or " + outputData[0] + outputData[2] + outputData[1]);
             }
             writer.write('\n');
             writer.flush();
