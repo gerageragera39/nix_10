@@ -11,7 +11,7 @@ public class City {
     private int numOfNeighbors;
     private Map<Integer, Integer> neighbors = new HashMap<>();
     private List<Integer> neighborsIds = new ArrayList<>();
-    private int index;
+    private int id;
 
     public String getName() {
         return name;
@@ -21,12 +21,12 @@ public class City {
         this.name = name;
     }
 
-    public int getIndex() {
-        return index;
+    public int getId() {
+        return id;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNumOfNeighbors(int numOfNeighbors) {

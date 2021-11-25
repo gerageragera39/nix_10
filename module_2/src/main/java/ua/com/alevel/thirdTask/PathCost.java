@@ -23,7 +23,7 @@ public class PathCost {
             }
             for (int k = 1; k <= numOfCities; k++) {
                 City city = new City();
-                city.setIndex(k);
+                city.setId(k);
                 city.setName(bufferedReader.readLine());
                 int numOfNeighbors = Integer.parseInt(bufferedReader.readLine());
                 city.setNumOfNeighbors(numOfNeighbors);
@@ -111,7 +111,7 @@ public class PathCost {
                 }
             }
         }
-        passedIds.add(city.getIndex());
+        passedIds.add(city.getId());
         if (city.getName().equals(finish)) {
             passed.add(new ArrayList<>(passedIds));
             return null;
@@ -125,7 +125,7 @@ public class PathCost {
 
     public City findById(List<City> cities, int id) {
         for (int i = 0; i < cities.size(); i++) {
-            if (cities.get(i).getIndex() == id) {
+            if (cities.get(i).getId() == id) {
                 return cities.get(i);
             }
         }
