@@ -1,4 +1,4 @@
-package ua.com.alevel.SecondTask;
+package ua.com.alevel.secondTask;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +10,7 @@ public class UniqueName {
 
     public static final String pathInput = ".\\src\\main\\resources\\secondTaskFiles\\second_task_input.txt";
 
-    public void run(){
+    public void run() {
         try {
             int indexOfDataEnd = 0;
             BufferedReader bufferedReader = new BufferedReader(new FileReader(pathInput));
@@ -33,7 +33,7 @@ public class UniqueName {
 
                         boolean isUnique = true;
                         for (int j = 0; j < uniqueNames.size(); j++) {
-                            if(uniqueNames.get(j).equals(name)){
+                            if (uniqueNames.get(j).equals(name)) {
                                 isUnique = false;
                                 uniqueNames.remove(j);
                                 removedNames.add(name);
@@ -41,21 +41,21 @@ public class UniqueName {
                         }
 
                         for (int k = 0; k < removedNames.size(); k++) {
-                            if(removedNames.get(k).equals(name)){
+                            if (removedNames.get(k).equals(name)) {
                                 isUnique = false;
                             }
                         }
 
-                        if(isUnique){
+                        if (isUnique) {
                             uniqueNames.add(name);
                         }
                     }
                     indexOfDataEnd = 0;
                 }
             }
-            if(uniqueNames.size()!=0){
+            if (uniqueNames.size() != 0) {
                 System.out.println("First unique name - " + uniqueNames.get(0));
-            }else{
+            } else {
                 System.out.println("There are no unique names");
             }
         } catch (IOException e) {
