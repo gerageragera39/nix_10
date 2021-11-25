@@ -17,6 +17,10 @@ public class PathCost {
             int numOfCities = 0;
             if (bufferedReader.ready()) {
                 numOfCities = Integer.parseInt(bufferedReader.readLine());
+                if(numOfCities>1000){
+                    System.out.println("Too big number of cities");
+                    System.exit(0);
+                }
             } else {
                 System.out.println("Wrong input");
                 System.exit(0);
@@ -78,21 +82,24 @@ public class PathCost {
                 }
             }
 
-            for (int i = 0; i < mapPathPrice.size(); i++) {
-                if (mapPathPrice.get(passed.get(i)) == values.get(0)) {
-                    System.out.print("The cheapest way : ");
-                    for (int j = 0; j < passed.get(i).size(); j++) {
-                        System.out.print(passed.get(i).get(j));
-                        if (j != passed.get(i).size() - 1) {
-                            System.out.print(" -> ");
+            if (values.get(0) <= 200_000){
+                for (int i = 0; i < mapPathPrice.size(); i++) {
+                    if (mapPathPrice.get(passed.get(i)) == values.get(0)) {
+                        System.out.print("The cheapest way : ");
+                        for (int j = 0; j < passed.get(i).size(); j++) {
+                            System.out.print(passed.get(i).get(j));
+                            if (j != passed.get(i).size() - 1) {
+                                System.out.print(" -> ");
+                            }
                         }
+                        System.out.println("; value = " + values.get(0));
                     }
-                    System.out.println("; value = " + values.get(0));
                 }
+            }else{
+                System.out.println("All paths are very expensive, cost more than 200.000");
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Wrong input");
         }
     }
 
