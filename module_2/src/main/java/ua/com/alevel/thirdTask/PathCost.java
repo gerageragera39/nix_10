@@ -87,7 +87,7 @@ public class PathCost {
                     if (mapPathPrice.get(passed.get(i)) == values.get(0)) {
                         System.out.print("The cheapest way : ");
                         for (int j = 0; j < passed.get(i).size(); j++) {
-                            System.out.print(passed.get(i).get(j));
+                            System.out.print(findById(cities, passed.get(i).get(j)).getName());
                             if (j != passed.get(i).size() - 1) {
                                 System.out.print(" -> ");
                             }
