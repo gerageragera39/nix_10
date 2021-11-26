@@ -17,7 +17,7 @@ public class PathCost {
             int numOfCities = 0;
             if (bufferedReader.ready()) {
                 numOfCities = Integer.parseInt(bufferedReader.readLine());
-                if(numOfCities>1000){
+                if (numOfCities > 1000) {
                     System.out.println("Too big number of cities");
                     System.exit(0);
                 }
@@ -37,66 +37,70 @@ public class PathCost {
                 city.setNeighborsIds(getList(city));
                 cities.add(city);
             }
-            String[] destination = new String[2];
-            int indexOfStartEnd = 0, indexOfNameCityEnd = 0;
-            if (bufferedReader.ready()) {
-                String str = bufferedReader.readLine();
-                for (int i = 0; i < str.length(); i++) {
-                    if (Character.isLetter(str.charAt(i))) {
-                        destination[indexOfStartEnd] = String.valueOf(str.charAt(i));
-                        for (int j = i + 1; j < str.length(); j++) {
-                            if (Character.isLetter(str.charAt(j))) {
-                                destination[indexOfStartEnd] += str.charAt(j);
-                                indexOfNameCityEnd++;
-                            } else {
-                                break;
+            int numOfPaths = Integer.parseInt(bufferedReader.readLine());
+            for (int l = 0; l < numOfPaths; l++) {
+                String[] destination = new String[2];
+                int indexOfStartEnd = 0, indexOfNameCityEnd = 0;
+                if (bufferedReader.ready()) {
+                    String str = bufferedReader.readLine();
+                    for (int i = 0; i < str.length(); i++) {
+                        if (Character.isLetter(str.charAt(i))) {
+                            destination[indexOfStartEnd] = String.valueOf(str.charAt(i));
+                            for (int j = i + 1; j < str.length(); j++) {
+                                if (Character.isLetter(str.charAt(j))) {
+                                    destination[indexOfStartEnd] += str.charAt(j);
+                                    indexOfNameCityEnd++;
+                                } else {
+                                    break;
+                                }
                             }
+                            indexOfStartEnd++;
+                            i += indexOfNameCityEnd;
                         }
-                        indexOfStartEnd++;
-                        i += indexOfNameCityEnd;
+                        indexOfNameCityEnd = 0;
                     }
-                    indexOfNameCityEnd = 0;
                 }
-            }
 
-            List<Integer> passedIds = new ArrayList<>();
-            for (int i = 0; i < cities.size(); i++) {
-                if (cities.get(i).getName().equals(destination[0])) {
-                    findingPath(cities, cities.get(i), passedIds, destination[1]);
-                    break;
-                }
-            }
-
-            Map<List<Integer>, Integer> mapPathPrice = new HashMap<>();
-            for (int i = 0; i < passed.size(); i++) {
-                mapPathPrice.put(new ArrayList<>(passed.get(i)), getPrice(cities, passed.get(i)));
-            }
-            List<Integer> values = new ArrayList<>(mapPathPrice.values());
-            for (int i = 0; i < values.size(); i++) {
-                for (int j = 0; j < values.size(); j++) {
-                    if (values.get(i) > values.get(j)) {
-                        values.remove(i);
-                        i--;
+                List<Integer> passedIds = new ArrayList<>();
+                for (int i = 0; i < cities.size(); i++) {
+                    if (cities.get(i).getName().equals(destination[0])) {
+                        findingPath(cities, cities.get(i), passedIds, destination[1]);
                         break;
                     }
                 }
-            }
 
-            if (values.get(0) <= 200_000){
-                for (int i = 0; i < mapPathPrice.size(); i++) {
-                    if (mapPathPrice.get(passed.get(i)) == values.get(0)) {
-                        System.out.print("The cheapest way : ");
-                        for (int j = 0; j < passed.get(i).size(); j++) {
-                            System.out.print(findById(cities, passed.get(i).get(j)).getName());
-                            if (j != passed.get(i).size() - 1) {
-                                System.out.print(" -> ");
-                            }
+                Map<List<Integer>, Integer> mapPathPrice = new HashMap<>();
+                for (int i = 0; i < passed.size(); i++) {
+                    mapPathPrice.put(new ArrayList<>(passed.get(i)), getPrice(cities, passed.get(i)));
+                }
+                List<Integer> values = new ArrayList<>(mapPathPrice.values());
+                for (int i = 0; i < values.size(); i++) {
+                    for (int j = 0; j < values.size(); j++) {
+                        if (values.get(i) > values.get(j)) {
+                            values.remove(i);
+                            i--;
+                            break;
                         }
-                        System.out.println("; value = " + values.get(0));
                     }
                 }
-            }else{
-                System.out.println("All paths are very expensive, cost more than 200.000");
+
+                if (values.get(0) <= 200_000) {
+                    for (int i = 0; i < mapPathPrice.size(); i++) {
+                        if (mapPathPrice.get(passed.get(i)) == values.get(0)) {
+                            System.out.print("The cheapest way : ");
+                            for (int j = 0; j < passed.get(i).size(); j++) {
+                                System.out.print(findById(cities, passed.get(i).get(j)).getName());
+                                if (j != passed.get(i).size() - 1) {
+                                    System.out.print(" -> ");
+                                }
+                            }
+                            System.out.println("; value = " + values.get(0));
+                        }
+                    }
+                } else {
+                    System.out.println("All paths are very expensive, cost more than 200.000");
+                }
+                passed = new ArrayList<>();
             }
         } catch (IOException e) {
             System.out.println("Wrong input");
