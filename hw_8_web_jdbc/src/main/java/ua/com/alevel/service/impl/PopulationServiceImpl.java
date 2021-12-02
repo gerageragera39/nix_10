@@ -21,7 +21,7 @@ public class PopulationServiceImpl implements PopulationService {
 
     @Override
     public void create(Population entity) {
-        if(!populationDao.existById(entity.getPassportID())){
+        if (!populationDao.existById(entity.getPassportID())) {
             populationDao.create(entity);
         }
     }
@@ -72,7 +72,7 @@ public class PopulationServiceImpl implements PopulationService {
     @Override
     public DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest) {
         DataTableResponse<Population> dataTableResponse = populationDao.findAllNotVisible(dataTableRequest);
-        long count = populationDao.count();
+        long count = populationDao.notVisibleCount();
         WebResponseUtil.initDataTableResponse(dataTableRequest, dataTableResponse, count);
         return dataTableResponse;
     }

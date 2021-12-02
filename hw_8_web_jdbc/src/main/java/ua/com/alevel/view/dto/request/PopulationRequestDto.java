@@ -2,13 +2,12 @@ package ua.com.alevel.view.dto.request;
 
 import ua.com.alevel.persistence.sex.Sex;
 
-public class PopulationRequestDto extends RequestDto{
+public class PopulationRequestDto extends RequestDto {
 
     private String passportID;
     private String firstName;
     private String lastName;
     private int age;
-//    private String sex;
     private Sex sex;
     private String countryName;
 
@@ -43,15 +42,6 @@ public class PopulationRequestDto extends RequestDto{
     public void setAge(int age) {
         this.age = age;
     }
-
-//    public String getSex() {
-//        return sex;
-//    }
-//
-//    public void setSex(String sex) {
-//        this.sex = sex;
-//    }
-
 
     public Sex getSex() {
         return sex;

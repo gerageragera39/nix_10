@@ -7,7 +7,7 @@ import ua.com.alevel.view.dto.response.PopulationResponseDto;
 
 import java.util.Map;
 
-public interface PopulationFacade extends BaseFacade<PopulationRequestDto, PopulationResponseDto>{
+public interface PopulationFacade extends BaseFacade<PopulationRequestDto, PopulationResponseDto> {
 
     Map<Long, String> findByCountryId(Long id);
 

@@ -5,7 +5,8 @@ public class SortData {
     private String sort;
     private String order;
 
-    public SortData() { }
+    public SortData() {
+    }
 
     public SortData(String sort, String order) {
         this.sort = sort;

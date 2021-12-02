@@ -19,12 +19,12 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/population")
-public class PopulationController extends BaseController{
+public class PopulationController extends BaseController {
 
     private final PopulationFacade populationFacade;
     private final CountriesFacade countriesFacade;
 
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
             new HeaderName("first name", "firstName", "first_name"),
             new HeaderName("last name", "lastName", "last_name"),
@@ -83,15 +83,10 @@ public class PopulationController extends BaseController{
 
     @GetMapping("/сitizenship/{id}")
     public String redirectToNewCitizenshipPage(@PathVariable Long id, Model model) {
-//        List<String> names = countriesFacade.findAllCountriesNames();
         List<String> names = countriesFacade.notAddedCountryNamesByPersonId(id);
         PopulationResponseDto populationResponseDto = populationFacade.findById(id);
-//        PopulationRequestDto populationRequestDto = new PopulationRequestDto();
-//        populationRequestDto.setPassportID(populationResponseDto.getPassportID());
         setTempPassportId(populationResponseDto.getPassportID());
-
         model.addAttribute("person", new PopulationRequestDto());
-//        model.addAttribute("personPassportId", populationResponseDto.getPassportID());
         model.addAttribute("countryNames", names);
         return "pages/population/population_new_citizenship";
     }
@@ -106,13 +101,11 @@ public class PopulationController extends BaseController{
 
     @GetMapping("/toRemove/{id}")
     public String redirectToRemovedCitizenshipPage(@PathVariable Long id, Model model) {
-//        List<String> names = countriesFacade.findAllCountriesNames();
         PopulationResponseDto populationResponseDto = populationFacade.findById(id);
         setTempPassportId(populationResponseDto.getPassportID());
         List<String> names = countriesFacade.findNamesByPersonId(id);
 
         model.addAttribute("person", new PopulationRequestDto());
-//        model.addAttribute("personPassportId", populationResponseDto.getPassportID());
         model.addAttribute("countryNames", names);
         return "pages/population/population_remove_citizenship";
     }
@@ -151,12 +144,8 @@ public class PopulationController extends BaseController{
 
     @GetMapping("/details/{id}")
     public String redirectToNewAuthorPage(@PathVariable Long id, Model model) {
-//        model.addAttribute("country", countriesFacade.findById(id));
-//        model.addAttribute("people", populationFacade.findByCountryId(id));
-//        model.addAttribute("createNew", "/population/new");
         model.addAttribute("countries", countriesFacade.findByPersonId(id));
         model.addAttribute("person", populationFacade.findById(id));
-//        model.addAttribute("createNewСitizenship", "/population/citizenship/");
         return "pages/population/population_details";
     }
 

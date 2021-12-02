@@ -19,7 +19,8 @@ public final class WebRequestUtil {
     public static final int DEFAULT_PAGE_PARAM_VALUE = 1;
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
 
-    private WebRequestUtil() { }
+    private WebRequestUtil() {
+    }
 
     public static DataTableRequest initDataTableRequest(WebRequest request) {
         DataTableRequest dataTableRequest = new DataTableRequest();

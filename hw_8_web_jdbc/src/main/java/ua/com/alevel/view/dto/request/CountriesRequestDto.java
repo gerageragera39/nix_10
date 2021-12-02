@@ -1,6 +1,6 @@
 package ua.com.alevel.view.dto.request;
 
-public class CountriesRequestDto extends RequestDto{
+public class CountriesRequestDto extends RequestDto {
 
     private String nameOfCountry;
     private Integer ISO;

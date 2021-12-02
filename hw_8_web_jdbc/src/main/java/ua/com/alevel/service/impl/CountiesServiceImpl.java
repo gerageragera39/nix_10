@@ -22,7 +22,7 @@ public class CountiesServiceImpl implements CountiesService {
 
     @Override
     public void create(Countries entity) {
-        if(!countriesDao.existById(entity.getNameOfCountry(), entity.getISO())){
+        if (!countriesDao.existById(entity.getNameOfCountry(), entity.getISO())) {
             countriesDao.create(entity);
         }
     }
@@ -44,14 +44,13 @@ public class CountiesServiceImpl implements CountiesService {
 
     @Override
     public DataTableResponse<Countries> findAll(DataTableRequest request) {
-//        return countriesDao.findAll(request);
         DataTableResponse<Countries> dataTableResponse = countriesDao.findAll(request);
         long count = countriesDao.count();
         WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
         return dataTableResponse;
     }
 
-    public List<String> findAllCountriesNames(){
+    public List<String> findAllCountriesNames() {
         return countriesDao.findAllCountriesNames();
     }
 

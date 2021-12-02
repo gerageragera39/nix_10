@@ -17,25 +17,12 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/countries")
-public class CountriesController extends BaseController{
-
-//    private final CountriesFacade countriesFacade;
-//
-//    public CountriesController(CountriesFacade countriesFacade) {
-//        this.countriesFacade = countriesFacade;
-//    }
-//
-//    @GetMapping
-//    public String findAll(Model model, WebRequest request) {
-//        PageData<CountriesResponseDto> response = countriesFacade.findAll(request);
-//        model.addAttribute("pageData", response);
-//        return "pages/countries/countries_all";
-//    }
+public class CountriesController extends BaseController {
 
     private final CountriesFacade countriesFacade;
     private final PopulationFacade populationFacade;
 
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
             new HeaderName("country name", "countryName", "country_name"),
             new HeaderName("ISO", "ISO", "ISO"),
@@ -53,7 +40,6 @@ public class CountriesController extends BaseController{
 
     @GetMapping
     public String findAll(Model model, WebRequest request) {
-
         PageData<CountriesResponseDto> response = countriesFacade.findAll(request);
         initDataTable(response, columnNames, model);
         model.addAttribute("pageData", response);

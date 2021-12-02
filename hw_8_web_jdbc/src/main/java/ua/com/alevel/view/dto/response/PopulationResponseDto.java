@@ -3,17 +3,17 @@ package ua.com.alevel.view.dto.response;
 import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.persistence.sex.Sex;
 
-public class PopulationResponseDto extends ResponseDto{
+public class PopulationResponseDto extends ResponseDto {
 
     private String passportID;
     private String firstName;
     private String lastName;
     private int age;
-//    private String sex;
     private Sex sex;
     private Integer countryCount;
 
-    public PopulationResponseDto() { }
+    public PopulationResponseDto() {
+    }
 
     public PopulationResponseDto(Population person) {
         setId(person.getId());
@@ -24,7 +24,6 @@ public class PopulationResponseDto extends ResponseDto{
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.age = person.getAge();
-//        this.sex = person.getSex();
         this.sex = person.getSex();
     }
 
@@ -59,15 +58,6 @@ public class PopulationResponseDto extends ResponseDto{
     public void setAge(int age) {
         this.age = age;
     }
-
-//    public String getSex() {
-//        return sex;
-//    }
-//
-//    public void setSex(String sex) {
-//        this.sex = sex;
-//    }
-
 
     public Sex getSex() {
         return sex;

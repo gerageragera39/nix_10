@@ -6,7 +6,7 @@ import ua.com.alevel.view.dto.response.CountriesResponseDto;
 import java.util.List;
 import java.util.Map;
 
-public interface CountriesFacade extends BaseFacade<CountriesRequestDto, CountriesResponseDto>{
+public interface CountriesFacade extends BaseFacade<CountriesRequestDto, CountriesResponseDto> {
 
     List<String> findAllCountriesNames();
 

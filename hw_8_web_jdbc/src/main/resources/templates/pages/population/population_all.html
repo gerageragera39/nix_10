@@ -1,72 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org"-->
-<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
-<!--      layout:decorate="~{layout}">-->
-<!--<head>-->
-<!--    <meta charset="utf-8">-->
-<!--    <title>countries</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<div layout:fragment="content">-->
-
-<!--    <div class="row">-->
-<!--        <div class="col-12">-->
-<!--            <div class="card mb-2 mt-2">-->
-<!--                <div class="card-header">-->
-<!--                    All countries-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <table class="table table-sm table-hover">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th>#</th>-->
-<!--                            <th>firstName</th>-->
-<!--                            <th>lastName</th>-->
-<!--                            <th>age</th>-->
-<!--                            <th>sex</th>-->
-<!--                            <th>passportId</th>-->
-<!--                            <th>details</th>-->
-<!--                            <th>delete</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr th:each="person,iter : ${pageData.getItems()}">-->
-<!--                            <td th:text="${iter.count}"></td>-->
-<!--                            <td th:text="${person.getFirstName()}"></td>-->
-<!--                            <td th:text="${person.getLastName()}"></td>-->
-<!--                            <td th:text="${person.getAge()}"></td>-->
-<!--                            <td th:text="${person.getSex()}"></td>-->
-<!--                            <td th:text="${person.getPassportID()}"></td>-->
-<!--                            &lt;!&ndash;                            <td th:text="${#calendars.format(country.getCreated(),'dd MMMM yyyy')}"></td>&ndash;&gt;-->
-<!--                            <td>-->
-<!--                                <a th:href="@{'/countries/details/' + ${country.getId()}}" type="button" class="btn btn-primary">details</a>-->
-<!--                            </td>-->
-<!--                            <td>-->
-<!--                                <a th:href="@{'/countries/delete/' + ${country.getId()}}" type="button" class="btn btn-danger">delete</a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="col-12">-->
-<!--            <div class="card mt-2">-->
-<!--                <div class="card-header">-->
-<!--                    <a type="button" class="btn btn-primary" th:href="@{/books/new}">Add</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--</div>-->
-
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
@@ -82,7 +13,7 @@
 
     <tr th:each="person,iter : ${pageData.getItems()}">
         <td th:text="${iter.count}"></td>
-        <td th:text="${person.getFirstName()}"></td>-->
+        <td th:text="${person.getFirstName()}"></td>
         <td th:text="${person.getLastName()}"></td>
         <td th:text="${person.getAge()}"></td>
         <td th:text="${person.getSex()}"></td>

@@ -6,7 +6,7 @@ import ua.com.alevel.persistence.entity.Population;
 
 import java.util.Map;
 
-public interface PopulationDao extends BaseDao<Population>{
+public interface PopulationDao extends BaseDao<Population> {
 
     Map<Long, String> findByCountryId(Long id);
 
@@ -19,4 +19,6 @@ public interface PopulationDao extends BaseDao<Population>{
     void removeRelation(String countryName, String personPassportId);
 
     DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest);
+
+    long notVisibleCount();
 }

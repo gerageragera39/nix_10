@@ -6,7 +6,7 @@ import ua.com.alevel.persistence.entity.Population;
 
 import java.util.Map;
 
-public interface PopulationService extends BaseService<Population>{
+public interface PopulationService extends BaseService<Population> {
 
     Map<Long, String> findByCountryId(Long id);
 

@@ -49,7 +49,6 @@ public class PopulationDaoImpl implements PopulationDao {
             preparedStatement.setString(4, entity.getFirstName());
             preparedStatement.setString(5, entity.getLastName());
             preparedStatement.setInt(6, entity.getAge());
-//            preparedStatement.setString(7, entity.getSex());
             preparedStatement.setString(7, entity.getSex().toString());
             preparedStatement.setString(8, entity.getPassportID());
             preparedStatement.execute();
@@ -112,7 +111,7 @@ public class PopulationDaoImpl implements PopulationDao {
             ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_PERSON_WITH_COUNTRY_COUNT_QUERY);
             while (resultSet.next()) {
                 int count = resultSet.getInt("countryCount");
-                if(count==0){
+                if (count == 0) {
                     long personId = resultSet.getLong("id");
                     PreparedStatement preparedStatement3 = jpaConfig.getConnection().prepareStatement(DO_PERSON_NOT_VISIBLE_QUERY + personId);
                     preparedStatement3.executeUpdate();
@@ -135,17 +134,13 @@ public class PopulationDaoImpl implements PopulationDao {
                 "group by people.id order by " +
                 dataTableRequest.getSort() + " " +
                 dataTableRequest.getOrder();
-//                dataTableRequest.getOrder() +
-//                " limit " +
-//                limit + "," +
-//                dataTableRequest.getPageSize();
 
         System.out.println(sql);
 
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 PopulationResultSet populationResultSet = convertResultSetToSimpleAuthor(resultSet);
-                if(!populationResultSet.person.getVisible()){
+                if (!populationResultSet.person.getVisible()) {
                     System.out.println(populationResultSet.person + String.valueOf(populationResultSet.person.getVisible()));
                     people.add(populationResultSet.getPerson());
                     otherParamMap.put(populationResultSet.getPerson().getId(), populationResultSet.getCountryCount());
@@ -159,6 +154,18 @@ public class PopulationDaoImpl implements PopulationDao {
         tableResponse.setItems(people);
         tableResponse.setOtherParamMap(otherParamMap);
         return tableResponse;
+    }
+
+    @Override
+    public long notVisibleCount() {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from population where visible = false")) {
+            while (resultSet.next()) {
+                return resultSet.getLong("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
@@ -193,7 +200,7 @@ public class PopulationDaoImpl implements PopulationDao {
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 PopulationResultSet populationResultSet = convertResultSetToSimpleAuthor(resultSet);
-                if(populationResultSet.person.getVisible()){
+                if (populationResultSet.person.getVisible()) {
                     System.out.println(populationResultSet.person + String.valueOf(populationResultSet.person.getVisible()));
                     people.add(populationResultSet.getPerson());
                     otherParamMap.put(populationResultSet.getPerson().getId(), populationResultSet.getCountryCount());
@@ -211,7 +218,7 @@ public class PopulationDaoImpl implements PopulationDao {
 
     @Override
     public long count() {
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from population")) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from population where visible = true")) {
             while (resultSet.next()) {
                 return resultSet.getLong("count");
             }
@@ -309,7 +316,7 @@ public class PopulationDaoImpl implements PopulationDao {
         }
     }
 
-    public Population findPersonByPassportId(String passportId){
+    public Population findPersonByPassportId(String passportId) {
         Population person = new Population();
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_PERSON_BY_PASSPORT_ID_QUERY + passportId)) {
             while (resultSet.next()) {

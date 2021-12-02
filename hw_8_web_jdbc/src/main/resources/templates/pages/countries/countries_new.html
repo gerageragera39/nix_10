@@ -21,11 +21,13 @@
                     <form action="#" th:action="@{/countries/create}" th:object="${country}" method="post">
                         <div class="form-group">
                             <label for="countryName">Country name</label>
-                            <input type="text" class="form-control" id="countryName" aria-describedby="countryName" placeholder="Enter country name" th:field="*{nameOfCountry}">
+                            <input type="text" class="form-control" id="countryName" aria-describedby="countryName"
+                                   placeholder="Enter country name" th:field="*{nameOfCountry}">
                         </div>
                         <div class="form-group">
                             <label for="ISO">ISO</label>
-                            <input type="text" class="form-control" id="ISO" aria-describedby="ISO" placeholder="Enter ISO" th:field="*{ISO}">
+                            <input type="text" class="form-control" id="ISO" aria-describedby="ISO"
+                                   placeholder="Enter ISO" th:field="*{ISO}">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class DataTableResponse <ENTITY extends BaseEntity>{
+public class DataTableResponse<ENTITY extends BaseEntity> {
 
     private List<ENTITY> items;
     private long itemsSize;

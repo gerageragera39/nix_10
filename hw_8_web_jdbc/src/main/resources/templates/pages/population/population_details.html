@@ -56,41 +56,28 @@
                             <td>
                                 <ul th:each="country : ${countries}">
                                     <li>
-<!--                                        <a role="button" class="btn btn-link disabled" th:href="@{'/countries/details/' + ${country.getKey()}}" th:text="${country.getValue()}">details</a>-->
-                                        <a role="button" class="btn btn-link" th:href="@{'/countries/details/' + ${country.getKey()}}" th:text="${country.getValue()}">details</a>
+                                        <!--                                        <a role="button" class="btn btn-link disabled" th:href="@{'/countries/details/' + ${country.getKey()}}" th:text="${country.getValue()}">details</a>-->
+                                        <a role="button" class="btn btn-link"
+                                           th:href="@{'/countries/details/' + ${country.getKey()}}"
+                                           th:text="${country.getValue()}">details</a>
                                     </li>
-<!--                                    <li th:text="${country}"> </li>-->
+                                    <!--                                    <li th:text="${country}"> </li>-->
                                 </ul>
                             </td>
                         </tr>
                     </table>
-<!--                    <div class="col-12">-->
-<!--                        <div class="card mt-2 mb-2">-->
-<!--                            <div class="card-header">-->
-<!--                                <a type="button" class="btn btn-primary" th:href="@{${createNewСitizenship}}">Add citizenship</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <hr>-->
-<!--                    <a th:href="@{'/population/citizenship/' + ${person.getId()}}" type="button" class="btn btn-primary">Create new employee</a>-->
-<!--                    <a th:href="@{/population/new/" type="button" class="btn btn-primary">Create new employee</a>-->
-<!--                    <div class="col-12">-->
-<!--                        <div class="card mt-2 mb-2">-->
-<!--                            <div class="card-header">-->
-<!--                                <a type="button" class="btn btn-primary" th:href="@{${createNewСitizenship}}">Add Citizenship</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                     <div class="col-12">
                         <div class="card mt-2 mb-2">
                             <div class="card-header">
-                                <a type="button" class="btn btn-primary" th:href="@{'/population/сitizenship/' + ${person.getId()}}">Add new Citizenship</a>
-                                <a type="button" class="btn btn-primary" th:href="@{'/population/toRemove/' + ${person.getId()}}">Delete Citizenship</a>
-                                <a type="button" class="btn btn-primary" th:href="@{'/population/toUpdate/' + ${person.getId()}}">Update Person</a>
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/population/сitizenship/' + ${person.getId()}}">Add new Citizenship</a>
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/population/toRemove/' + ${person.getId()}}">Delete Citizenship</a>
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/population/toUpdate/' + ${person.getId()}}">Update Person</a>
                             </div>
                         </div>
                     </div>
-<!--                    <a role="button" class="btn btn-link" th:href="@{'/population/delete/' + ${person.getId()}}" th:text="delete">details</a>-->
                 </div>
             </div>
         </div>

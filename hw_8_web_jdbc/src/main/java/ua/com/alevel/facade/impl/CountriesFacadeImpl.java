@@ -57,22 +57,6 @@ public class CountriesFacadeImpl implements CountriesFacade {
 
     @Override
     public PageData<CountriesResponseDto> findAll(WebRequest request) {
-//        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-//        SortData sortData = WebRequestUtil.generateSortData(request);
-//
-//        DataTableRequest dataTableRequest = new DataTableRequest();
-//        dataTableRequest.setOrder(sortData.getOrder());
-//        dataTableRequest.setSort(sortData.getSort());
-//        dataTableRequest.setCurrentPage(pageAndSizeData.getPage());
-//        dataTableRequest.setPageSize(dataTableRequest.getPageSize());
-//
-//        DataTableResponse<Countries> dataTableResponse = countiesService.findAll(dataTableRequest);
-//
-//        PageData<CountriesResponseDto> pageData = new PageData<>();
-//        List<CountriesResponseDto> items = dataTableResponse.getItems().stream().map(CountriesResponseDto::new).collect(Collectors.toList());
-//        pageData.setItems(items);
-//
-//        return pageData;
         PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = new DataTableRequest();
@@ -82,7 +66,6 @@ public class CountriesFacadeImpl implements CountriesFacade {
         dataTableRequest.setOrder(sortData.getOrder());
 
         DataTableResponse<Countries> dataTableResponse = countiesService.findAll(dataTableRequest);
-
         List<CountriesResponseDto> countries = dataTableResponse.getItems().stream().
                 map(CountriesResponseDto::new).
                 peek(countryResponseDto -> countryResponseDto.setPeopleCount((Integer) dataTableResponse.
@@ -100,7 +83,7 @@ public class CountriesFacadeImpl implements CountriesFacade {
         return pageData;
     }
 
-    public List<String> findAllCountriesNames(){
+    public List<String> findAllCountriesNames() {
         return countiesService.findAllCountriesNames();
     }
 
@@ -117,11 +100,11 @@ public class CountriesFacadeImpl implements CountriesFacade {
         boolean firstStep = true;
         for (int i = 0; i < names.size(); i++) {
             for (int j = 0; j < names.get(i).length(); j++) {
-                if(names.get(i).charAt(j) != ' '){
-                    if(firstStep){
+                if (names.get(i).charAt(j) != ' ') {
+                    if (firstStep) {
                         simpleName = String.valueOf(names.get(i).charAt(j));
                         firstStep = false;
-                    }else{
+                    } else {
                         simpleName += String.valueOf(names.get(i).charAt(j));
                     }
                 } else {
@@ -140,7 +123,7 @@ public class CountriesFacadeImpl implements CountriesFacade {
         List<String> addedNames = findNamesByPersonId(id);
         for (int i = 0; i < allNames.size(); i++) {
             for (int j = 0; j < addedNames.size(); j++) {
-                if(allNames.get(i).equals(addedNames.get(j))){
+                if (allNames.get(i).equals(addedNames.get(j))) {
                     allNames.remove(i);
                 }
             }

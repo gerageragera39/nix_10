@@ -33,8 +33,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         person.setFirstName(populationRequestDto.getFirstName());
         person.setLastName(populationRequestDto.getLastName());
         person.setAge(populationRequestDto.getAge());
-//        person.setSex(populationRequestDto.getSex());
-//        person.setSex(Sex.valueOf(populationRequestDto.getSex()));
         person.setSex(populationRequestDto.getSex());
         person.setPassportID(populationRequestDto.getPassportID());
         populationService.create(person);
@@ -73,7 +71,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         dataTableRequest.setOrder(sortData.getOrder());
 
         DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest);
-
         List<PopulationResponseDto> people = dataTableResponse.getItems().stream().
                 map(PopulationResponseDto::new).
                 peek(authorResponseDto -> authorResponseDto.setCountryCount((Integer) dataTableResponse.
@@ -96,7 +93,7 @@ public class PopulationFacadeImpl implements PopulationFacade {
         return populationService.findByCountryId(id);
     }
 
-    public void createRelation(PopulationRequestDto populationRequestDto){
+    public void createRelation(PopulationRequestDto populationRequestDto) {
         String countryName = populationRequestDto.getCountryName();
         String personPassportId = populationRequestDto.getPassportID();
         populationService.createRelation(countryName, personPassportId);
@@ -127,7 +124,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         dataTableRequest.setOrder(sortData.getOrder());
 
         DataTableResponse<Population> dataTableResponse = populationService.findAllNotVisible(dataTableRequest);
-
         List<PopulationResponseDto> people = dataTableResponse.getItems().stream().
                 map(PopulationResponseDto::new).
                 peek(authorResponseDto -> authorResponseDto.setCountryCount((Integer) dataTableResponse.

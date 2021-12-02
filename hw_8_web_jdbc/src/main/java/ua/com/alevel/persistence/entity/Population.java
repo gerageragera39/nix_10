@@ -2,13 +2,12 @@ package ua.com.alevel.persistence.entity;
 
 import ua.com.alevel.persistence.sex.Sex;
 
-public class Population extends BaseEntity{
+public class Population extends BaseEntity {
 
     private String passportID;
     private String firstName;
     private String lastName;
     private int age;
-//    private String sex;
     private Sex sex;
 
     public Population() {
@@ -46,15 +45,6 @@ public class Population extends BaseEntity{
     public void setAge(int age) {
         this.age = age;
     }
-
-//    public String getSex() {
-//        return sex;
-//    }
-//
-//    public void setSex(String sex) {
-//        this.sex = sex;
-//    }
-
 
     public Sex getSex() {
         return sex;

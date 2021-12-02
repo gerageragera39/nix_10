@@ -5,7 +5,8 @@ public class PageAndSizeData {
     int page;
     int size;
 
-    public PageAndSizeData() { }
+    public PageAndSizeData() {
+    }
 
     public PageAndSizeData(int page, int size) {
         this.page = page;

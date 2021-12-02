@@ -24,12 +24,10 @@ public class CountriesDaoImpl implements CountriesDao {
 
     private static final String CREATE_COUNTRY_QUERY = "insert into countries values(default, ?,?,?,?,?)";
     private static final String FIND_COUNTRY_BY_ID_QUERY = "select * from countries where id = ";
-    private static final String FIND_COUNTRIES_NAMES_QUERY = "select country_name from countries";
     private static final String FIND_COUNTRY_BY_PERSON_ID_QUERY = "select id, country_name, ISO from countries left join country_person cp on countries.id = cp.country_id where person_id = ";
     private final static String EXIST_COUNTRY_NAME_ID_QUERY = "select count(*) from countries where country_name = ";
     private final static String EXIST_COUNTRY_ISO_ID_QUERY = "select count(*) from countries where ISO = ";
     private static final String DELETE_COUNTRY_QUERY = "delete from countries where id = ";
-    private static final String DELETE_PERSON_QUERY = "delete from population where id = ";
     private static final String DELETE_RELATION_BY_COUNTRY_ID_QUERY = "delete from country_person where country_id = ";
     private static final String FIND_ALL_PERSON_WITH_COUNTRY_COUNT_QUERY = "select id, count(person_id) as countryCount from population as people left join country_person as cp on people.id = cp.person_id group by people.id";
     private static final String DO_PERSON_NOT_VISIBLE_QUERY = "update population set visible = false where id = ";
@@ -42,7 +40,7 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @Override
     public void create(Countries entity) {
-        try(PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_COUNTRY_QUERY)) {
+        try (PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(CREATE_COUNTRY_QUERY)) {
             preparedStatement.setTimestamp(1, new Timestamp(entity.getCreated().getTime()));
             preparedStatement.setTimestamp(2, new Timestamp(entity.getUpdated().getTime()));
             preparedStatement.setBoolean(3, entity.getVisible());
@@ -69,7 +67,7 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @Override
     public void delete(Long id) {
-        try  {
+        try {
             PreparedStatement preparedStatement = jpaConfig.getConnection().prepareStatement(DELETE_COUNTRY_QUERY + id);
             PreparedStatement preparedStatement2 = jpaConfig.getConnection().prepareStatement(DELETE_RELATION_BY_COUNTRY_ID_QUERY + id);
             preparedStatement2.executeUpdate();
@@ -78,7 +76,7 @@ public class CountriesDaoImpl implements CountriesDao {
             ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_ALL_PERSON_WITH_COUNTRY_COUNT_QUERY);
             while (resultSet.next()) {
                 int count = resultSet.getInt("countryCount");
-                if(count==0){
+                if (count == 0) {
                     long personId = resultSet.getLong("id");
                     PreparedStatement preparedStatement3 = jpaConfig.getConnection().prepareStatement(DO_PERSON_NOT_VISIBLE_QUERY + personId);
                     preparedStatement3.executeUpdate();
@@ -111,12 +109,12 @@ public class CountriesDaoImpl implements CountriesDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return (count1 == 1)||(count2 == 1);
+        return (count1 == 1) || (count2 == 1);
     }
 
     @Override
     public Countries findById(Long id) {
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_COUNTRY_BY_ID_QUERY + id)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_COUNTRY_BY_ID_QUERY + id)) {
             while (resultSet.next()) {
                 return initCountryByResultSet(resultSet);
             }
@@ -143,8 +141,7 @@ public class CountriesDaoImpl implements CountriesDao {
 
         System.out.println(sql);
 
-
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 CountriesResultSet countriesResultSet = convertResultSetToSimpleCountry(resultSet);
                 countries.add(countriesResultSet.getCountry());
@@ -153,7 +150,6 @@ public class CountriesDaoImpl implements CountriesDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         DataTableResponse<Countries> tableResponse = new DataTableResponse<>();
         tableResponse.setItems(countries);
         tableResponse.setOtherParamMap(otherParamMap);
@@ -162,7 +158,7 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @Override
     public long count() {
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from countries")) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select count(*) as count from countries")) {
             while (resultSet.next()) {
                 return resultSet.getLong("count");
             }
@@ -224,11 +220,10 @@ public class CountriesDaoImpl implements CountriesDao {
         }
     }
 
-    public List<String> findAllCountriesNames(){
+    public List<String> findAllCountriesNames() {
         List<String> names = new ArrayList<>();
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery("select country_name from countries")) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery("select country_name from countries")) {
             while (resultSet.next()) {
-//                return resultSet.getLong("count");
                 names.add(resultSet.getString("country_name"));
             }
         } catch (SQLException e) {
@@ -240,7 +235,7 @@ public class CountriesDaoImpl implements CountriesDao {
     @Override
     public Map<Long, String> findByCountryId(Long personId) {
         Map<Long, String> map = new HashMap<>();
-        try(ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_COUNTRY_BY_PERSON_ID_QUERY + personId)) {
+        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(FIND_COUNTRY_BY_PERSON_ID_QUERY + personId)) {
             while (resultSet.next()) {
                 Long id = resultSet.getLong("id");
                 String countryName = resultSet.getString("country_name");

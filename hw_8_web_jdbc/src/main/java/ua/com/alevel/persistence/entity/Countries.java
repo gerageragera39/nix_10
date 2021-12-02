@@ -1,6 +1,6 @@
 package ua.com.alevel.persistence.entity;
 
-public class Countries extends BaseEntity{
+public class Countries extends BaseEntity {
 
     private String nameOfCountry;
     private Integer ISO;
