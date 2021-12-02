@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Person details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Person details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${person.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>First name</th>
+                            <td th:text="${person.getFirstName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Last name</th>
+                            <td th:text="${person.getLastName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Age</th>
+                            <td th:text="${person.getAge()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Sex</th>
+                            <td th:text="${person.getSex()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Passport ID</th>
+                            <td th:text="${person.getPassportID()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(person.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(person.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>All citizenships</th>
+                            <td>
+                                <ul th:each="country : ${countries}">
+                                    <li>
+<!--                                        <a role="button" class="btn btn-link disabled" th:href="@{'/countries/details/' + ${country.getKey()}}" th:text="${country.getValue()}">details</a>-->
+                                        <a role="button" class="btn btn-link" th:href="@{'/countries/details/' + ${country.getKey()}}" th:text="${country.getValue()}">details</a>
+                                    </li>
+<!--                                    <li th:text="${country}"> </li>-->
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+<!--                    <div class="col-12">-->
+<!--                        <div class="card mt-2 mb-2">-->
+<!--                            <div class="card-header">-->
+<!--                                <a type="button" class="btn btn-primary" th:href="@{${createNewСitizenship}}">Add citizenship</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <a th:href="@{'/population/citizenship/' + ${person.getId()}}" type="button" class="btn btn-primary">Create new employee</a>-->
+<!--                    <a th:href="@{/population/new/" type="button" class="btn btn-primary">Create new employee</a>-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="card mt-2 mb-2">-->
+<!--                            <div class="card-header">-->
+<!--                                <a type="button" class="btn btn-primary" th:href="@{${createNewСitizenship}}">Add Citizenship</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header">
+                                <a type="button" class="btn btn-primary" th:href="@{'/population/сitizenship/' + ${person.getId()}}">Add new Citizenship</a>
+                                <a type="button" class="btn btn-primary" th:href="@{'/population/toRemove/' + ${person.getId()}}">Delete Citizenship</a>
+                                <a type="button" class="btn btn-primary" th:href="@{'/population/toUpdate/' + ${person.getId()}}">Update Person</a>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <a role="button" class="btn btn-link" th:href="@{'/population/delete/' + ${person.getId()}}" th:text="delete">details</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

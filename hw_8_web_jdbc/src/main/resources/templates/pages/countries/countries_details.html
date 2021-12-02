@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Country details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Country details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${country.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Country Name</th>
+                            <td th:text="${country.getNameOfCountry()}"></td>
+                        </tr>
+                        <tr>
+                            <th>ISO</th>
+                            <td th:text="${country.getISO()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(country.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(country.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>All population</th>
+                            <td>
+                                <ul th:each="person : ${people}">
+                                    <li>
+<!--                                        <a role="button" class="btn btn-link disabled" th:href="@{'/books/details/' + ${book.getKey()}}" th:text="${book.getValue()}">details</a>-->
+                                        <a role="button" class="btn btn-link" th:href="@{'/population/details/' + ${person.getKey()}}" th:text="${person.getValue()}">details</a>
+                                    </li>
+<!--                                    <li th:text="${person}"> </li>-->
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header">
+                                <a type="button" class="btn btn-primary" th:href="@{'/countries/toUpdate/' + ${country.getId()}}">Update Country</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
