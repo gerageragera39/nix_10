@@ -133,7 +133,9 @@ public class PopulationDaoImpl implements PopulationDao {
                 "from population as people left join country_person as cp on people.id = cp.person_id " +
                 "where visible = false group by people.id order by " +
                 dataTableRequest.getSort() + " " +
-                dataTableRequest.getOrder();
+                dataTableRequest.getOrder() + " limit " +
+                limit + "," +
+                dataTableRequest.getPageSize();
 
         System.out.println(sql);
 
