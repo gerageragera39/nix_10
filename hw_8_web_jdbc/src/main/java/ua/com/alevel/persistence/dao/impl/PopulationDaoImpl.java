@@ -131,7 +131,7 @@ public class PopulationDaoImpl implements PopulationDao {
 
         String sql = "select id, first_name, last_name, age, sex, passport_id, visible, count(person_id) as countryCount " +
                 "from population as people left join country_person as cp on people.id = cp.person_id " +
-                "group by people.id order by " +
+                "where visible = false group by people.id order by " +
                 dataTableRequest.getSort() + " " +
                 dataTableRequest.getOrder();
 
@@ -140,11 +140,9 @@ public class PopulationDaoImpl implements PopulationDao {
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 PopulationResultSet populationResultSet = convertResultSetToSimpleAuthor(resultSet);
-                if (!populationResultSet.person.getVisible()) {
-                    System.out.println(populationResultSet.person + String.valueOf(populationResultSet.person.getVisible()));
-                    people.add(populationResultSet.getPerson());
-                    otherParamMap.put(populationResultSet.getPerson().getId(), populationResultSet.getCountryCount());
-                }
+                System.out.println(populationResultSet.person + String.valueOf(populationResultSet.person.getVisible()));
+                people.add(populationResultSet.getPerson());
+                otherParamMap.put(populationResultSet.getPerson().getId(), populationResultSet.getCountryCount());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -189,7 +187,7 @@ public class PopulationDaoImpl implements PopulationDao {
 
         String sql = "select id, first_name, last_name, age, sex, passport_id, visible, count(person_id) as countryCount " +
                 "from population as people left join country_person as cp on people.id = cp.person_id " +
-                "group by people.id order by " +
+                "where visible = true group by people.id order by " +
                 request.getSort() + " " +
                 request.getOrder() + " limit " +
                 limit + "," +
@@ -200,11 +198,9 @@ public class PopulationDaoImpl implements PopulationDao {
         try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
             while (resultSet.next()) {
                 PopulationResultSet populationResultSet = convertResultSetToSimpleAuthor(resultSet);
-                if (populationResultSet.person.getVisible()) {
-                    System.out.println(populationResultSet.person + String.valueOf(populationResultSet.person.getVisible()));
-                    people.add(populationResultSet.getPerson());
-                    otherParamMap.put(populationResultSet.getPerson().getId(), populationResultSet.getCountryCount());
-                }
+                System.out.println(populationResultSet.person + String.valueOf(populationResultSet.person.getVisible()));
+                people.add(populationResultSet.getPerson());
+                otherParamMap.put(populationResultSet.getPerson().getId(), populationResultSet.getCountryCount());
             }
         } catch (SQLException e) {
             e.printStackTrace();

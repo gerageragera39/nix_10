@@ -154,10 +154,20 @@ public class PopulationController extends BaseController {
         PageData<PopulationResponseDto> response = populationFacade.findAllNotVisible(request);
         initDataTable(response, columnNames, model);
         model.addAttribute("pageData", response);
-        model.addAttribute("createUrl", "/population/all");
+        model.addAttribute("createUrl", "/population/allNotVisible");
         model.addAttribute("createNew", "/population/new");
         model.addAttribute("cardHeader", "All People");
         return "pages/population/population_all";
+    }
+
+    @PostMapping("/allNotVisible")
+    public ModelAndView findAllNotVisibleRedirect(WebRequest request, ModelMap model) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+//        return new ModelAndView("redirect:/population", model);
+        return new ModelAndView("redirect:/population/notVisible", model);
     }
 
     public String getTempPassportId() {

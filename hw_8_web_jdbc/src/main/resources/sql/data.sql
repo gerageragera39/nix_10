@@ -29,7 +29,7 @@ insert into population values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true
 insert into population values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Gleb', 'Roberts', 90, 'M', '7964513');
 insert into population values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Vika', 'Mills', 21, 'F', '7972851');
 insert into population values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Dasha', 'Lewis', 29, 'F', '9945992');
-insert into population values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Masha', 'Morgan', 34, 'F', '7499091');
+insert into population values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Viktoria', 'Morgan', 34, 'F', '7499091');
 insert into population values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Petya', 'Florence', 67, 'M', '7885543');
 insert into population values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Andrei', 'Campbell', 78, 'M', '5906290');
 insert into population values (13, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Cristobal', 'Bronte', 82, 'F', '5029690');
@@ -45,6 +45,7 @@ insert into population values (22, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), fal
 
 insert into country_person values (1, 1);
 insert into country_person values (2, 1);
+insert into country_person values (2, 12);
 insert into country_person values (3, 3);
 insert into country_person values (1, 2);
 insert into country_person values (4, 4);
@@ -54,6 +55,7 @@ insert into country_person values (5, 6);
 insert into country_person values (6, 7);
 insert into country_person values (7, 7);
 insert into country_person values (7, 8);
+insert into country_person values (7, 14);
 insert into country_person values (7, 9);
 insert into country_person values (8, 9);
 insert into country_person values (9, null);
@@ -66,6 +68,7 @@ insert into country_person values (13, 15);
 insert into country_person values (14, 19);
 insert into country_person values (14, 20);
 insert into country_person values (14, 11);
+insert into country_person values (14, 18);
 insert into country_person values (15, 1);
 insert into country_person values (15, 2);
 insert into country_person values (16, 20);
