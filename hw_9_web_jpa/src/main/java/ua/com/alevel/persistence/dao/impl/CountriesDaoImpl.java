@@ -2,20 +2,20 @@ package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.CountriesDao;
+import ua.com.alevel.persistence.dao.PopulationDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Countries;
+import ua.com.alevel.persistence.entity.Population;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -23,6 +23,12 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+//    private final PopulationDao populationDao;
+//
+//    public CountriesDaoImpl(PopulationDao populationDao) {
+//        this.populationDao = populationDao;
+//    }
 
     @Override
     public void create(Countries entity) {
@@ -50,55 +56,80 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @Override
     public Countries findById(Long id) {
-        return null;
+//        Query query = entityManager.createQuery("select c from Countries c where c.id = :id")
+//                .setParameter("id", id);
+//        return (Countries) query.getSingleResult();
+        return entityManager.find(Countries.class, id);
     }
 
     @Override
     public DataTableResponse<Countries> findAll(DataTableRequest request) {
-        List<Countries> countries = new ArrayList<>();
         Map<Object, Object> otherParamMap = new HashMap<>();
-
-        int limit = (request.getCurrentPage() - 1) * request.getPageSize();
-
-        String sql = "select id, country_name, ISO, count(country_id) as personCount " +
-                "from countries as country left join country_person as cp on country.id = cp.country_id " +
-                "group by country.id order by " +
-                request.getSort() + " " +
-                request.getOrder() + " limit " +
-                limit + "," +
-                request.getPageSize();
-
-        System.out.println(sql);
-
-        try (ResultSet resultSet = jpaConfig.getStatement().executeQuery(sql)) {
-            while (resultSet.next()) {
-                CountriesResultSet countriesResultSet = convertResultSetToSimpleCountry(resultSet);
-                countries.add(countriesResultSet.getCountry());
-                otherParamMap.put(countriesResultSet.getCountry().getId(), countriesResultSet.getPersonCount());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Countries> criteriaQuery = criteriaBuilder.createQuery(Countries.class);
+        Root<Countries> from = criteriaQuery.from(Countries.class);
+//        criteriaQuery.where(visible = true);
+        if (request.getOrder().equals("desc")) {
+            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
+        } else {
+            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
         }
-        DataTableResponse<Countries> tableResponse = new DataTableResponse<>();
-        tableResponse.setItems(countries);
-        tableResponse.setOtherParamMap(otherParamMap);
-        return tableResponse;
 
-//        page = (page - 1) * size;
-//
-//        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
-//        Root<Employee> from = criteriaQuery.from(Employee.class);
-//        if (order.equals("desc")) {
-//            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(sort)));
-//        } else {
-//            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(sort)));
-//        }
-//
-//        return entityManager.createQuery(criteriaQuery)
-//                .setFirstResult(page)
-//                .setMaxResults(size)
-//                .getResultList();
+        int page = (request.getCurrentPage() - 1) * request.getPageSize();
+        int size = page + request.getPageSize();
+
+        List<Countries> items = entityManager.createQuery(criteriaQuery)
+                .setFirstResult(page)
+                .setMaxResults(size)
+                .getResultList();
+
+        for (int i = 0; i < items.size(); i++) {
+            otherParamMap.put(items.get(i).getId(), countNumOfPeople(items.get(i).getId()));
+        }
+
+        DataTableResponse<Countries> response = new DataTableResponse<>();
+        response.setSort(request.getSort());
+        response.setOrder(request.getOrder());
+        response.setCurrentPage(request.getCurrentPage());
+        response.setCurrentSize(request.getPageSize());
+        response.setItems(items);
+        response.setOtherParamMap(otherParamMap);
+
+        return response;
+    }
+
+    @Override
+    public long countVisible() {
+        Query query = entityManager.createQuery("select count(c) from Countries c");
+        return (long) query.getSingleResult();
+    }
+
+    @Override
+    public List<String> findAllCountriesNames() {
+        Query query = entityManager.createQuery("select c.nameOfCountry from Countries c");
+        return query.getResultList();
+    }
+
+    @Override
+    public int countNumOfPeople(Long id) {
+        return findById(id).getPeople().size();
+    }
+
+    @Override
+    public Map<Long, String> findPeopleByCountryId(Long id) {
+        List<Population> populationList = findById(id).getPeople().stream().toList();
+        Map<Long, String> people = new HashMap<>();
+        for (int i = 0; i < populationList.size(); i++) {
+            people.put(populationList.get(i).getId(), populationList.get(i).getFirstName() + populationList.get(i).getLastName());
+        }
+        return people;
+    }
+
+    @Override
+    public Countries findByName(String countryName) {
+        Query query = entityManager.createQuery("select c from Countries c where c.nameOfCountry = :countryName")
+                .setParameter("countryName", countryName);
+        return (Countries) query.getSingleResult();
     }
 
 //    @Override

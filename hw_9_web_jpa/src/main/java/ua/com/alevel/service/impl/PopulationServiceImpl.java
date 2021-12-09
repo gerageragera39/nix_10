@@ -4,8 +4,14 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.PopulationDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.Countries;
 import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.service.PopulationService;
+import ua.com.alevel.util.WebResponseUtil;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class PopulationServiceImpl implements PopulationService {
@@ -38,6 +44,42 @@ public class PopulationServiceImpl implements PopulationService {
 
     @Override
     public DataTableResponse<Population> findAll(DataTableRequest request) {
-        return null;
+        DataTableResponse<Population> dataTableResponse = populationDao.findAll(request);
+        long count = populationDao.countVisible();
+        WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
+        return dataTableResponse;
+    }
+
+    @Override
+    public Map<Long, String> findCountriesByPersonId(Long id) {
+        return populationDao.findCountriesByPersonId(id);
+    }
+
+    @Override
+    public List<String> findNamesByPersonId(Long id) {
+        return populationDao.findNamesByPersonId(id);
+    }
+
+    @Override
+    public List<String> findAllCountriesNames() {
+        return populationDao.findAllCountriesNames();
+    }
+
+    @Override
+    public void addRelation(String countryName, String personPassportId) {
+        populationDao.addRelation(countryName, personPassportId);
+    }
+
+    @Override
+    public void removeRelation(String countryName, String personPassportId) {
+        populationDao.removeRelation(countryName, personPassportId);
+    }
+
+    @Override
+    public DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest) {
+        DataTableResponse<Population> dataTableResponse = populationDao.findAllNotVisible(dataTableRequest);
+        long count = populationDao.countNotVisible();
+        WebResponseUtil.initDataTableResponse(dataTableRequest, dataTableResponse, count);
+        return dataTableResponse;
     }
 }

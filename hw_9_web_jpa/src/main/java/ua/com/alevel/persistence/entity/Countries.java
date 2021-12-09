@@ -62,4 +62,13 @@ public class Countries extends BaseEntity {
         people.remove(person);
         person.getCountries().remove(this);
     }
+
+    @Override
+    public String toString() {
+        return "Countries{" +
+                "nameOfCountry='" + nameOfCountry + '\'' +
+                ", ISO=" + ISO +
+                ", people=" + people +
+                '}';
+    }
 }

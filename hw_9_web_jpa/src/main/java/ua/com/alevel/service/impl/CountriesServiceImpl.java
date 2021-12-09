@@ -5,7 +5,13 @@ import ua.com.alevel.persistence.dao.CountriesDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Countries;
+import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.service.CountriesService;
+import ua.com.alevel.util.WebResponseUtil;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class CountriesServiceImpl implements CountriesService {
@@ -33,11 +39,29 @@ public class CountriesServiceImpl implements CountriesService {
 
     @Override
     public Countries findById(Long id) {
-        return findById(id);
+        return countriesDao.findById(id);
     }
 
     @Override
     public DataTableResponse<Countries> findAll(DataTableRequest request) {
-        return null;
+        DataTableResponse<Countries> dataTableResponse = countriesDao.findAll(request);
+        long count = countriesDao.countVisible();
+        WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
+        return dataTableResponse;
+    }
+
+    @Override
+    public List<String> findAllCountriesNames() {
+        return countriesDao.findAllCountriesNames();
+    }
+
+    @Override
+    public Map<Long, String> findPeopleByCountryId(Long id) {
+        return countriesDao.findPeopleByCountryId(id);
+    }
+
+    @Override
+    public Countries findByName(String countryName) {
+        return countriesDao.findByName(countryName);
     }
 }

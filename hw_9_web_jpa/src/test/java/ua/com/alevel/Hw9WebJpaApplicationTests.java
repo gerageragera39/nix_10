@@ -5,8 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ua.com.alevel.persistence.dao.CountriesDao;
 import ua.com.alevel.persistence.dao.PopulationDao;
+import ua.com.alevel.persistence.entity.Countries;
 import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.persistence.sex.Sex;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @SpringBootTest
 class Hw9WebJpaApplicationTests {
@@ -29,9 +33,16 @@ class Hw9WebJpaApplicationTests {
             person.setLastName("ln1" + (i + 1));
             person.setAge(i + 1);
             person.setSex(Sex.F);
-            person.setPassportID("i + 1");
+            person.setPassportID(String.valueOf(i+1));
             populationDao.create(person);
         }
+
+//        for (int i = 0; i < 5; i++) {
+//            Countries countries = new Countries();
+//            countries.setNameOfCountry("name"+(i+1));
+//            countries.setISO(i*12);
+//            countriesDao.create(countries);
+//        }
 
 //        Department department = departmentDao.findById(2L);
 //        Assertions.assertNotNull(department);
@@ -65,5 +76,15 @@ class Hw9WebJpaApplicationTests {
 //        department.addEmployee(employee);
 //
 //        departmentDao.update(department);
+    }
+
+    @Test
+    void addPerson(){
+        System.out.println(countriesDao.findById(20L).toString());
+    }
+
+    @Test
+    void initRelations(){
+        countriesDao.findById(20L).addPerson(populationDao.findById(1L));
     }
 }

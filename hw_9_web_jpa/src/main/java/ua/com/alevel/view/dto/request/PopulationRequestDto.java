@@ -1,40 +1,15 @@
-package ua.com.alevel.persistence.entity;
+package ua.com.alevel.view.dto.request;
 
 import ua.com.alevel.persistence.sex.Sex;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+public class PopulationRequestDto extends RequestDto {
 
-@Entity
-@Table(name = "population")
-public class Population extends BaseEntity {
-
-    @Column(name = "passport_id")
     private String passportID;
-
-    @Column(name = "first_name")
     private String firstName;
-
-    @Column(name = "last_name")
     private String lastName;
-
-    private Integer age;
-
-    @Enumerated(EnumType.STRING)
+    private int age;
     private Sex sex;
-
-    @ManyToMany(mappedBy = "people", cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REMOVE
-    })
-    private Set<Countries> countries;
-
-    public Population() {
-        super();
-        this.countries = new HashSet<>();
-    }
+    private String countryName;
 
     public String getPassportID() {
         return passportID;
@@ -76,11 +51,23 @@ public class Population extends BaseEntity {
         this.sex = sex;
     }
 
-    public Set<Countries> getCountries() {
-        return countries;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountries(Set<Countries> countries) {
-        this.countries = countries;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    @Override
+    public String toString() {
+        return "PopulationRequestDto{" +
+                "passportID='" + passportID + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", countryName='" + countryName + '\'' +
+                '}';
     }
 }
