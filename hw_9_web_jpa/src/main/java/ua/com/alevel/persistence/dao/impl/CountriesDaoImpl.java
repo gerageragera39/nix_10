@@ -64,6 +64,12 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @Override
     public DataTableResponse<Countries> findAll(DataTableRequest request) {
+        if(request.getSort().equals("country_name")){
+            request.setSort("nameOfCountry");
+        } else if(request.getSort().equals("personCount")){
+            request.setSort("people");
+        }
+
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Countries> criteriaQuery = criteriaBuilder.createQuery(Countries.class);

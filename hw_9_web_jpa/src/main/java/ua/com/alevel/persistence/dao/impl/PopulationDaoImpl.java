@@ -59,14 +59,20 @@ public class PopulationDaoImpl implements PopulationDao {
 
     @Override
     public DataTableResponse<Population> findAll(DataTableRequest request) {
+        if (request.getSort().equals("first_name")) {
+            request.setSort("firstName");
+        } else if (request.getSort().equals("last_name")) {
+            request.setSort("lastName");
+        } else if (request.getSort().equals("countryCount")) {
+            request.setSort("countries");
+        }
+
         String column = "visible";
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Population> criteriaQuery = criteriaBuilder.createQuery(Population.class);
         Root<Population> from = criteriaQuery.from(Population.class);
         Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), true));
-//        CriteriaQuery cq = criteriaQuery.select(from).where(cond);
-//        criteriaQuery.where(visible = true);
         if (request.getOrder().equals("desc")) {
             criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
         } else {
@@ -136,22 +142,38 @@ public class PopulationDaoImpl implements PopulationDao {
 
     @Override
     public void addRelation(String countryName, String personPassportId) {
-        Countries country = (Countries) findPersonByPassportIdAndCountryByName(countryName, personPassportId).get(0);
-        Population person = (Population) findPersonByPassportIdAndCountryByName(countryName, personPassportId).get(1);
+        List<Object> list = findPersonByPassportIdAndCountryByName(countryName, personPassportId);
+        Countries country = (Countries) list.get(0);
+        Population person = (Population) list.get(1);
 
+        if (person.getCountries().size() == 0) {
+            person.setVisible(true);
+            update(person);
+        }
         country.addPerson(person);
     }
 
     @Override
     public void removeRelation(String countryName, String personPassportId) {
-        Countries country = (Countries) findPersonByPassportIdAndCountryByName(countryName, personPassportId).get(0);
-        Population person = (Population) findPersonByPassportIdAndCountryByName(countryName, personPassportId).get(1);
+        List<Object> list = findPersonByPassportIdAndCountryByName(countryName, personPassportId);
+        Countries country = (Countries) list.get(0);
+        Population person = (Population) list.get(1);
 
         country.removePerson(person);
+        if (person.getCountries().size() == 0) {
+            person.setVisible(false);
+            update(person);
+        }
     }
 
     @Override
     public DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest) {
+        if (dataTableRequest.getSort().equals("first_name")) {
+            dataTableRequest.setSort("firstName");
+        } else if (dataTableRequest.getSort().equals("last_name")) {
+            dataTableRequest.setSort("lastName");
+        }
+
         String column = "visible";
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -195,7 +217,7 @@ public class PopulationDaoImpl implements PopulationDao {
         return (long) query.getSingleResult();
     }
 
-    private List<Object> findPersonByPassportIdAndCountryByName(String countryName, String personPassportId){
+    private List<Object> findPersonByPassportIdAndCountryByName(String countryName, String personPassportId) {
         Query query1 = entityManager.createQuery("select c from Countries c where c.nameOfCountry = :countryName")
                 .setParameter("countryName", countryName);
         List<Countries> countries = query1.getResultList();
