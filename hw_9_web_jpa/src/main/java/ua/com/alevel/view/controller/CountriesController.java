@@ -24,9 +24,9 @@ public class CountriesController extends BaseController {
 
     private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
-            new HeaderName("country name", "countryName", "country_name"),
+            new HeaderName("country name", "countryName", "nameOfCountry"),
             new HeaderName("ISO", "ISO", "ISO"),
-            new HeaderName("people count", "peopleCount", "personCount"),
+            new HeaderName("people count", "peopleCount", "peopleCount"),
             new HeaderName("details", null, null),
             new HeaderName("delete", null, null)
     };

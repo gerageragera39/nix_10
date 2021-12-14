@@ -2,7 +2,6 @@ package ua.com.alevel.persistence.dao.impl;
 
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.CountriesDao;
-import ua.com.alevel.persistence.dao.PopulationDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Countries;
@@ -23,12 +22,6 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-
-//    private final PopulationDao populationDao;
-//
-//    public CountriesDaoImpl(PopulationDao populationDao) {
-//        this.populationDao = populationDao;
-//    }
 
     @Override
     public void create(Countries entity) {
@@ -56,38 +49,43 @@ public class CountriesDaoImpl implements CountriesDao {
 
     @Override
     public Countries findById(Long id) {
-//        Query query = entityManager.createQuery("select c from Countries c where c.id = :id")
-//                .setParameter("id", id);
-//        return (Countries) query.getSingleResult();
         return entityManager.find(Countries.class, id);
     }
 
     @Override
     public DataTableResponse<Countries> findAll(DataTableRequest request) {
-        if(request.getSort().equals("country_name")){
-            request.setSort("nameOfCountry");
-        } else if(request.getSort().equals("personCount")){
-            request.setSort("people");
-        }
-
+        List<Countries> items;
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Countries> criteriaQuery = criteriaBuilder.createQuery(Countries.class);
         Root<Countries> from = criteriaQuery.from(Countries.class);
-//        criteriaQuery.where(visible = true);
-        if (request.getOrder().equals("desc")) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
-        } else {
-            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
-        }
-
         int page = (request.getCurrentPage() - 1) * request.getPageSize();
         int size = page + request.getPageSize();
 
-        List<Countries> items = entityManager.createQuery(criteriaQuery)
-                .setFirstResult(page)
-                .setMaxResults(size)
-                .getResultList();
+        if(request.getSort().equals("peopleCount")){
+            Query query;
+            if (request.getOrder().equals("desc")) {
+                query = entityManager.createQuery("select c from Countries c where c.visible = true order by c.people.size desc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            } else {
+                query = entityManager.createQuery("select c from Countries c where c.visible = true order by c.people.size asc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            }
+            items = query.getResultList();
+        } else {
+            if (request.getOrder().equals("desc")) {
+                criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
+            }
+
+            items = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(page)
+                    .setMaxResults(size)
+                    .getResultList();
+        }
 
         for (int i = 0; i < items.size(); i++) {
             otherParamMap.put(items.get(i).getId(), countNumOfPeople(items.get(i).getId()));
@@ -138,8 +136,11 @@ public class CountriesDaoImpl implements CountriesDao {
         return (Countries) query.getSingleResult();
     }
 
-//    @Override
-//    public List<Countries> findAll(int page, int size, String sort, String order) {
-//        return null;
-//    }
+    @Override
+    public boolean existByISOAndCountyName(String nameOfCountry, Integer iso) {
+        Query query = entityManager.createQuery("select count(c.id) from Countries c where c.ISO = :iso or c.nameOfCountry = :nameOfCountry")
+                .setParameter("iso", iso)
+                .setParameter("nameOfCountry", nameOfCountry);
+        return (Long) query.getSingleResult() == 1;
+    }
 }

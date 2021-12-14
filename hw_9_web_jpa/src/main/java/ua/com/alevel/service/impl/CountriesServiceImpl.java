@@ -5,13 +5,11 @@ import ua.com.alevel.persistence.dao.CountriesDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Countries;
-import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.service.CountriesService;
 import ua.com.alevel.util.WebResponseUtil;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class CountriesServiceImpl implements CountriesService {
@@ -24,12 +22,16 @@ public class CountriesServiceImpl implements CountriesService {
 
     @Override
     public void create(Countries entity) {
-        countriesDao.create(entity);
+        if (!countriesDao.existByISOAndCountyName(entity.getNameOfCountry(), entity.getISO())) {
+            countriesDao.create(entity);
+        }
     }
 
     @Override
     public void update(Countries entity) {
-        countriesDao.update(entity);
+        if (!countriesDao.existByISOAndCountyName(entity.getNameOfCountry(), entity.getISO())) {
+            countriesDao.update(entity);
+        }
     }
 
     @Override

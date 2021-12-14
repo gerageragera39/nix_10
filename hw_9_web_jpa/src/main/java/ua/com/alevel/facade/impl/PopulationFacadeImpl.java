@@ -6,7 +6,6 @@ import ua.com.alevel.facade.PopulationFacade;
 import ua.com.alevel.persistence.dao.CountriesDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Countries;
 import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.service.CountriesService;
 import ua.com.alevel.service.PopulationService;
@@ -24,11 +23,9 @@ import java.util.stream.Collectors;
 public class PopulationFacadeImpl implements PopulationFacade {
 
     private final PopulationService populationService;
-    private final CountriesService countriesService;
 
-    public PopulationFacadeImpl(PopulationService populationService, CountriesDao countriesDao, CountriesService countriesService) {
+    public PopulationFacadeImpl(PopulationService populationService, CountriesService countriesService) {
         this.populationService = populationService;
-        this.countriesService = countriesService;
     }
 
     @Override
@@ -93,12 +90,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         return pageData;
     }
 
-    public void createRelation(PopulationRequestDto populationRequestDto) {
-        String countryName = populationRequestDto.getCountryName();
-        String personPassportId = populationRequestDto.getPassportID();
-//        populationService.createRelation(countryName, personPassportId);
-    }
-
     @Override
     public void addRelation(PopulationRequestDto dto) {
         String countryName = dto.getCountryName();
@@ -124,7 +115,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         dataTableRequest.setOrder(sortData.getOrder());
 
         DataTableResponse<Population> dataTableResponse = populationService.findAllNotVisible(dataTableRequest);
-//        DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest);
         List<PopulationResponseDto> people = dataTableResponse.getItems().stream().
                 map(PopulationResponseDto::new).
                 peek(authorResponseDto -> authorResponseDto.setCountryCount((Integer) dataTableResponse.
@@ -168,11 +158,3 @@ public class PopulationFacadeImpl implements PopulationFacade {
         return allNames;
     }
 }
-
-
-
-
-//Countries country = countriesService.findByName(populationRequestDto.getCountryName());
-//        Set<Countries> set = new HashSet<>();
-//        set.add(country);
-//        person.setCountries(set);

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table}">
+<head>
+    <meta charset="utf-8">
+    <title>population</title>
+</head>
+<body>
+
+<div layout:fragment="data_table_content">
+
+    <tr th:each="person,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${person.getFirstName()}"></td>
+        <td th:text="${person.getLastName()}"></td>
+        <td th:text="${person.getAge()}"></td>
+        <td th:text="${person.getSex()}"></td>
+        <td th:text="${person.getPassportID()}"></td>
+        <td th:text="${person.getCountryCount()}"></td>
+        <td>
+            <a th:href="@{'/population/details/' + ${person.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:href="@{'/population/delete/' + ${person.getId()}}" type="button" class="btn btn-danger">delete</a>
+        </td>
+    </tr>
+
+</div>
+
+</body>
+</html>

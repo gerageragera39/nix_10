@@ -6,7 +6,6 @@ import ua.com.alevel.persistence.entity.Population;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface PopulationService extends BaseService<Population> {
 

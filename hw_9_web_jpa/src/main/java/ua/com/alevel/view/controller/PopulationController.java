@@ -26,8 +26,8 @@ public class PopulationController extends BaseController {
 
     private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
-            new HeaderName("first name", "firstName", "first_name"),
-            new HeaderName("last name", "lastName", "last_name"),
+            new HeaderName("first name", "firstName", "firstName"),
+            new HeaderName("last name", "lastName", "lastName"),
             new HeaderName("age", "age", "age"),
             new HeaderName("sex", "sex", "sex"),
             new HeaderName("passport ID", null, null),
@@ -77,7 +77,7 @@ public class PopulationController extends BaseController {
     public String create(@ModelAttribute("person") PopulationRequestDto dto) {
         System.out.println("dto = " + dto);
         populationFacade.create(dto);
-        populationFacade.createRelation(dto);
+        populationFacade.addRelation(dto);
         return "redirect:/population";
     }
 
@@ -166,7 +166,6 @@ public class PopulationController extends BaseController {
         if (MapUtils.isNotEmpty(parameterMap)) {
             parameterMap.forEach(model::addAttribute);
         }
-//        return new ModelAndView("redirect:/population", model);
         return new ModelAndView("redirect:/population/notVisible", model);
     }
 

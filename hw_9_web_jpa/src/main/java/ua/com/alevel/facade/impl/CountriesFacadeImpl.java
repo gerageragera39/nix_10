@@ -6,7 +6,6 @@ import ua.com.alevel.facade.CountriesFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Countries;
-import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.service.CountriesService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.view.dto.request.CountriesRequestDto;
@@ -15,12 +14,8 @@ import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.response.CountriesResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
 
-import javax.persistence.Table;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,49 +85,6 @@ public class CountriesFacadeImpl implements CountriesFacade {
     public List<String> findAllCountriesNames() {
         return countiesService.findAllCountriesNames();
     }
-
-//    @Override
-//    public List<String> findNamesByPersonId(Long id) {
-//        List<Countries> countries = countiesService.findNamesByPersonId(id).stream().toList();
-//        List<String> names = new ArrayList<>();
-//        for (int i = 0; i < countries.size(); i++) {
-//            names.add(countries.get(i).getNameOfCountry());
-//        }
-//        List<String> simpleNames = new ArrayList<>();
-//        String simpleName = " ";
-//        boolean firstStep = true;
-//        for (int i = 0; i < names.size(); i++) {
-//            for (int j = 0; j < names.get(i).length(); j++) {
-//                if (names.get(i).charAt(j) != ' ') {
-//                    if (firstStep) {
-//                        simpleName = String.valueOf(names.get(i).charAt(j));
-//                        firstStep = false;
-//                    } else {
-//                        simpleName += String.valueOf(names.get(i).charAt(j));
-//                    }
-//                } else {
-//                    break;
-//                }
-//            }
-//            firstStep = true;
-//            simpleNames.add(simpleName);
-//        }
-//        return simpleNames;
-//    }
-
-//    @Override
-//    public List<String> notAddedCountryNamesByPersonId(Long id) {
-//        List<String> allNames = countiesService.findAllCountriesNames();
-////        List<String> addedNames = findNamesByPersonId(id);
-////        for (int i = 0; i < allNames.size(); i++) {
-////            for (int j = 0; j < addedNames.size(); j++) {
-////                if (allNames.get(i).equals(addedNames.get(j))) {
-////                    allNames.remove(i);
-////                }
-////            }
-////        }
-//        return allNames;
-//    }
 
     @Override
     public Map<Long, String> findPeopleByCountryId(Long id) {

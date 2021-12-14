@@ -13,11 +13,12 @@ public class Countries extends BaseEntity {
 
     private Integer ISO;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REMOVE
-    })
+//    @ManyToMany(cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE,
+//            CascadeType.REMOVE
+//    })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "county_person",
             joinColumns = @JoinColumn(name = "county_id"),

@@ -4,14 +4,12 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.PopulationDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Countries;
 import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.service.PopulationService;
 import ua.com.alevel.util.WebResponseUtil;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class PopulationServiceImpl implements PopulationService {
@@ -24,7 +22,9 @@ public class PopulationServiceImpl implements PopulationService {
 
     @Override
     public void create(Population entity) {
-        populationDao.create(entity);
+        if (!populationDao.existByPassportId(entity.getPassportID()) && ageCheck(entity.getAge())) {
+            populationDao.create(entity);
+        }
     }
 
     @Override
@@ -67,7 +67,9 @@ public class PopulationServiceImpl implements PopulationService {
 
     @Override
     public void addRelation(String countryName, String personPassportId) {
-        populationDao.addRelation(countryName, personPassportId);
+        if(populationDao.existByPassportId(personPassportId)){
+            populationDao.addRelation(countryName, personPassportId);
+        }
     }
 
     @Override
@@ -81,5 +83,12 @@ public class PopulationServiceImpl implements PopulationService {
         long count = populationDao.countNotVisible();
         WebResponseUtil.initDataTableResponse(dataTableRequest, dataTableResponse, count);
         return dataTableResponse;
+    }
+
+    public boolean ageCheck(int age) {
+        if ((age > 0) && (age < 122)) {
+            return true;
+        }
+        return false;
     }
 }

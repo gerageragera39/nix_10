@@ -41,7 +41,7 @@ insert into population values (18, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), tru
 insert into population values (19, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 23, 'Greta', 'Collins', '6720862', 'F');
 insert into population values (20, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 51, 'Hazel', 'Bradley', '1652303', 'F');
 insert into population values (21, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 18, 'Edith', 'Barlow', '8492669', 'M');
-insert into population values (22, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), false, 54, 'Gorge', 'Brown', '6499969', 'M');
+insert into population values (22, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 54, 'Gorge', 'Brown', '6499969', 'M');
 
 # insert into country_person values (1, 1);
 # insert into country_person values (2, 1);

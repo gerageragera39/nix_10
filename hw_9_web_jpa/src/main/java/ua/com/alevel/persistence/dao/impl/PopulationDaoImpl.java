@@ -59,33 +59,40 @@ public class PopulationDaoImpl implements PopulationDao {
 
     @Override
     public DataTableResponse<Population> findAll(DataTableRequest request) {
-        if (request.getSort().equals("first_name")) {
-            request.setSort("firstName");
-        } else if (request.getSort().equals("last_name")) {
-            request.setSort("lastName");
-        } else if (request.getSort().equals("countryCount")) {
-            request.setSort("countries");
-        }
-
-        String column = "visible";
+        List<Population> items;
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Population> criteriaQuery = criteriaBuilder.createQuery(Population.class);
         Root<Population> from = criteriaQuery.from(Population.class);
-        Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), true));
-        if (request.getOrder().equals("desc")) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
-        } else {
-            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
-        }
-        criteriaQuery.where(cond);
+
         int page = (request.getCurrentPage() - 1) * request.getPageSize();
         int size = page + request.getPageSize();
 
-        List<Population> items = entityManager.createQuery(criteriaQuery)
-                .setFirstResult(page)
-                .setMaxResults(size)
-                .getResultList();
+        if (request.getSort().equals("countryCount")) {
+            Query query;
+            if (request.getOrder().equals("desc")) {
+                query = entityManager.createQuery("select p from Population p where p.visible = true order by p.countries.size desc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            } else {
+                query = entityManager.createQuery("select p from Population p where p.visible = true order by p.countries.size asc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            }
+            items = query.getResultList();
+        } else {
+            Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), true));
+            if (request.getOrder().equals("desc")) {
+                criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
+            }
+            criteriaQuery.where(cond);
+            items = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(page)
+                    .setMaxResults(size)
+                    .getResultList();
+        }
 
         for (int i = 0; i < items.size(); i++) {
             otherParamMap.put(items.get(i).getId(), countNumOfCountries(items.get(i).getId()));
@@ -168,33 +175,39 @@ public class PopulationDaoImpl implements PopulationDao {
 
     @Override
     public DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest) {
-        if (dataTableRequest.getSort().equals("first_name")) {
-            dataTableRequest.setSort("firstName");
-        } else if (dataTableRequest.getSort().equals("last_name")) {
-            dataTableRequest.setSort("lastName");
-        }
-
-        String column = "visible";
+        List<Population> items;
         Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Population> criteriaQuery = criteriaBuilder.createQuery(Population.class);
         Root<Population> from = criteriaQuery.from(Population.class);
         Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), false));
-//        CriteriaQuery cq = criteriaQuery.select(from).where(cond);
-//        criteriaQuery.where(visible = true);
-        if (dataTableRequest.getOrder().equals("desc")) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(dataTableRequest.getSort())));
-        } else {
-            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(dataTableRequest.getSort())));
-        }
-        criteriaQuery.where(cond);
         int page = (dataTableRequest.getCurrentPage() - 1) * dataTableRequest.getPageSize();
         int size = page + dataTableRequest.getPageSize();
 
-        List<Population> items = entityManager.createQuery(criteriaQuery)
-                .setFirstResult(page)
-                .setMaxResults(size)
-                .getResultList();
+        if (dataTableRequest.getSort().equals("countryCount")) {
+            Query query;
+            if (dataTableRequest.getOrder().equals("desc")) {
+                query = entityManager.createQuery("select p from Population p where p.visible = false order by p.countries.size desc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            } else {
+                query = entityManager.createQuery("select p from Population p where p.visible = false order by p.countries.size asc")
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            }
+            items = query.getResultList();
+        } else {
+            if (dataTableRequest.getOrder().equals("desc")) {
+                criteriaQuery.orderBy(criteriaBuilder.desc(from.get(dataTableRequest.getSort())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.asc(from.get(dataTableRequest.getSort())));
+            }
+            criteriaQuery.where(cond);
+            items = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(page)
+                    .setMaxResults(size)
+                    .getResultList();
+        }
 
         for (int i = 0; i < items.size(); i++) {
             otherParamMap.put(items.get(i).getId(), countNumOfCountries(items.get(i).getId()));
@@ -217,7 +230,15 @@ public class PopulationDaoImpl implements PopulationDao {
         return (long) query.getSingleResult();
     }
 
-    private List<Object> findPersonByPassportIdAndCountryByName(String countryName, String personPassportId) {
+    @Override
+    public boolean existByPassportId(String passportID) {
+        Query query = entityManager.createQuery("select count(p.id) from Population p where p.passportID = :passportID")
+                .setParameter("passportID", passportID);
+        return (Long) query.getSingleResult() == 1;
+    }
+
+    @Override
+    public List<Object> findPersonByPassportIdAndCountryByName(String countryName, String personPassportId) {
         Query query1 = entityManager.createQuery("select c from Countries c where c.nameOfCountry = :countryName")
                 .setParameter("countryName", countryName);
         List<Countries> countries = query1.getResultList();

@@ -21,6 +21,4 @@ public interface BaseDao<ENTITY extends BaseEntity> {
     DataTableResponse<ENTITY> findAll(DataTableRequest request);
 
     long countVisible();
-
-    //    List<ENTITY> findAll(int page, int size, String sort, String order);
 }

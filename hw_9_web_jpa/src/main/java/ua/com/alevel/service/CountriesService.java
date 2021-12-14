@@ -1,14 +1,12 @@
 package ua.com.alevel.service;
 
 import ua.com.alevel.persistence.entity.Countries;
-import ua.com.alevel.persistence.entity.Population;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface CountriesService extends BaseService<Countries> {
+
     List<String> findAllCountriesNames();
 
     Map<Long, String> findPeopleByCountryId(Long id);

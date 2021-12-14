@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Person</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New Person</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/population/create}" th:object="${person}" method="post">
+                        <div class="form-group">
+                            <label for="firstName">First name</label>
+                            <input type="text" class="form-control" id="firstName" aria-describedby="firstName"
+                                   placeholder="Enter firstName" th:field="*{firstName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last name</label>
+                            <input type="text" class="form-control" id="lastName" aria-describedby="lastName"
+                                   placeholder="Enter lastName" th:field="*{lastName}">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">age</label>
+                            <input type="number" class="form-control" id="age" aria-describedby="age"
+                                   placeholder="Enter age" th:field="*{age}">
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">Sex</label>
+                            <select class="form-control" id="sex" th:field="*{sex}">
+                                <option th:each="type : ${sexes}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                            <div/>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select class="form-control" id="country" th:field="*{countryName}">
+                                    <option th:each="name : ${countryNames}"
+                                            th:value="${name}"
+                                            th:text="${name}">
+                                    </option>
+                                </select>
+                                <div/>
+                                <div class="form-group">
+                                    <label for="passportId">passport ID</label>
+                                    <input type="text" class="form-control" id="passportId"
+                                           aria-describedby="passportId" placeholder="Enter passport ID"
+                                           th:field="*{passportID}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

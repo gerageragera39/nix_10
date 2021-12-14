@@ -24,11 +24,12 @@ public class Population extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
-    @ManyToMany(mappedBy = "people", cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REMOVE
-    })
+//    @ManyToMany(mappedBy = "people", cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE,
+//            CascadeType.REMOVE
+//    })
+    @ManyToMany(mappedBy = "people", cascade = CascadeType.ALL)
     private Set<Countries> countries;
 
     public Population() {

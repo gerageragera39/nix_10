@@ -25,4 +25,8 @@ public interface PopulationDao extends BaseDao<Population> {
     DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest);
 
     long countNotVisible();
+
+    boolean existByPassportId(String passportID);
+
+    List<Object> findPersonByPassportIdAndCountryByName(String countryName, String personPassportId);
 }

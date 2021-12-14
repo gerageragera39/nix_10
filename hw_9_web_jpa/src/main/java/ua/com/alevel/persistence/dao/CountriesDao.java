@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public interface CountriesDao extends BaseDao<Countries> {
+
     List<String> findAllCountriesNames();
 
     int countNumOfPeople(Long id);
@@ -15,4 +16,6 @@ public interface CountriesDao extends BaseDao<Countries> {
     Map<Long, String> findPeopleByCountryId(Long id);
 
     Countries findByName(String countryName);
+
+    boolean existByISOAndCountyName(String nameOfCountry, Integer iso);
 }
