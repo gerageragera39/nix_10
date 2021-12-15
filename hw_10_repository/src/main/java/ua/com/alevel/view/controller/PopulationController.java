@@ -9,7 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CountriesFacade;
 import ua.com.alevel.facade.PopulationFacade;
-import ua.com.alevel.persistense.sex.Sex;
+import ua.com.alevel.persistence.sex.Sex;
 import ua.com.alevel.view.dto.request.PopulationRequestDto;
 import ua.com.alevel.view.dto.response.PageData;
 import ua.com.alevel.view.dto.response.PopulationResponseDto;

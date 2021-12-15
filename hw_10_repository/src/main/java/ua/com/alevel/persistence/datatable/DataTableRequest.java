@@ -1,4 +1,4 @@
-package ua.com.alevel.persistense.datatable;
+package ua.com.alevel.persistence.datatable;
 
 public class DataTableRequest {
 

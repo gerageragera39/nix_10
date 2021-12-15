@@ -1,6 +1,6 @@
-package ua.com.alevel.persistense.entity;
+package ua.com.alevel.persistence.entity;
 
-import ua.com.alevel.persistense.sex.Sex;
+import ua.com.alevel.persistence.sex.Sex;
 
 import javax.persistence.*;
 import java.util.HashSet;

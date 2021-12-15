@@ -1,9 +1,9 @@
-package ua.com.alevel.persistense.crud;
+package ua.com.alevel.persistence.crud;
 
-import ua.com.alevel.persistense.datatable.DataTableRequest;
-import ua.com.alevel.persistense.datatable.DataTableResponse;
-import ua.com.alevel.persistense.entity.BaseEntity;
-import ua.com.alevel.persistense.repository.BaseRepository;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.repository.BaseRepository;
 
 import java.util.Optional;
 

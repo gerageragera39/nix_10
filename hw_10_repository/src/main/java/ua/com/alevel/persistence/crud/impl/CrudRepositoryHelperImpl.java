@@ -1,4 +1,4 @@
-package ua.com.alevel.persistense.crud.impl;
+package ua.com.alevel.persistence.crud.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,19 +8,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.alevel.persistense.crud.CrudRepositoryHelper;
-import ua.com.alevel.persistense.datatable.DataTableRequest;
-import ua.com.alevel.persistense.datatable.DataTableResponse;
-import ua.com.alevel.persistense.entity.BaseEntity;
-import ua.com.alevel.persistense.repository.BaseRepository;
+import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.repository.BaseRepository;
 
 import java.util.Optional;
 
 @Service
 //@Transactional
-public class CrudRepositoryHelperImpl<
-        E extends BaseEntity,
-        R extends BaseRepository<E>>
+public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseRepository<E>>
         implements CrudRepositoryHelper<E, R> {
 
     @Override

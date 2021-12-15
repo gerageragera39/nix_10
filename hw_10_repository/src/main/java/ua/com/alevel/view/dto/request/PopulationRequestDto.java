@@ -1,6 +1,6 @@
 package ua.com.alevel.view.dto.request;
 
-import ua.com.alevel.persistense.sex.Sex;
+import ua.com.alevel.persistence.sex.Sex;
 
 public class PopulationRequestDto extends RequestDto {
 

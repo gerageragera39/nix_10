@@ -1,7 +1,7 @@
 package ua.com.alevel.view.dto.response;
 
-import ua.com.alevel.persistense.entity.Population;
-import ua.com.alevel.persistense.sex.Sex;
+import ua.com.alevel.persistence.entity.Population;
+import ua.com.alevel.persistence.sex.Sex;
 
 public class PopulationResponseDto extends ResponseDto {
 

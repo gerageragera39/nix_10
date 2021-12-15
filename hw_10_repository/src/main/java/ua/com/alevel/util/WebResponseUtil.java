@@ -1,8 +1,8 @@
 package ua.com.alevel.util;
 
-import ua.com.alevel.persistense.datatable.DataTableRequest;
-import ua.com.alevel.persistense.datatable.DataTableResponse;
-import ua.com.alevel.persistense.entity.BaseEntity;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.view.dto.response.PageData;
 import ua.com.alevel.view.dto.response.ResponseDto;
 

@@ -1,6 +1,6 @@
-package ua.com.alevel.persistense.datatable;
+package ua.com.alevel.persistence.datatable;
 
-import ua.com.alevel.persistense.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.BaseEntity;
 
 import java.util.Collections;
 import java.util.List;

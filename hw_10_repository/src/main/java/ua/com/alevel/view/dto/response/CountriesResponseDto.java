@@ -1,7 +1,7 @@
 package ua.com.alevel.view.dto.response;
 
 
-import ua.com.alevel.persistense.entity.Countries;
+import ua.com.alevel.persistence.entity.Countries;
 
 public class CountriesResponseDto extends ResponseDto {
 

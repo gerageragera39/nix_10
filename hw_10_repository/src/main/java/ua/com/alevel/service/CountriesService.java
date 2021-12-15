@@ -1,6 +1,6 @@
 package ua.com.alevel.service;
 
-import ua.com.alevel.persistense.entity.Countries;
+import ua.com.alevel.persistence.entity.Countries;
 
 import java.util.List;
 import java.util.Map;
