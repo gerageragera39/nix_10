@@ -39,8 +39,8 @@ class Hw10RepositoryApplicationTests {
 
         for (int i = 1; i <= 22; i++) {
             Population person = populationRepository.findById((long) i).get();
-            if(person.getCountries().size() == 0){
-                person.setVisible(false);
+            if(person.getCountries().size() != 0){
+                person.setVisible(true);
                 populationService.update(person);
             }
         }

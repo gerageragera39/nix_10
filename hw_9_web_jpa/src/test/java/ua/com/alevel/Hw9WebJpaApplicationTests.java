@@ -35,8 +35,8 @@ class Hw9WebJpaApplicationTests {
 
         for (int i = 1; i <= 22; i++) {
             Population person = populationDao.findById((long) i);
-            if(person.getCountries().size() == 0){
-                person.setVisible(false);
+            if(person.getCountries().size() != 0){
+                person.setVisible(true);
                 populationDao.update(person);
             }
         }
