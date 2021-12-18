@@ -46,12 +46,12 @@ public class PopulationController extends BaseController {
 
     @GetMapping
     public String findAll(Model model, WebRequest request) {
-        PageData<PopulationResponseDto> response = populationFacade.findAll(request);
+        PageData<PopulationResponseDto> response = populationFacade.findAll(request, true);
         initDataTable(response, columnNames, model);
         model.addAttribute("pageData", response);
         model.addAttribute("createUrl", "/population/all");
         model.addAttribute("createNew", "/population/new");
-        model.addAttribute("cardHeader", "All People");
+        model.addAttribute("cardHeader", "All People With Citizenship");
         return "pages/population/population_all";
     }
 
@@ -77,7 +77,7 @@ public class PopulationController extends BaseController {
     public String create(@ModelAttribute("person") PopulationRequestDto dto) {
         System.out.println("dto = " + dto);
         populationFacade.create(dto);
-        populationFacade.createRelation(dto);
+        populationFacade.addRelation(dto);
         return "redirect:/population";
     }
 
@@ -151,12 +151,12 @@ public class PopulationController extends BaseController {
 
     @GetMapping("/notVisible")
     public String findNotVisible(Model model, WebRequest request) {
-        PageData<PopulationResponseDto> response = populationFacade.findAllNotVisible(request);
+        PageData<PopulationResponseDto> response = populationFacade.findAll(request, false);
         initDataTable(response, columnNames, model);
         model.addAttribute("pageData", response);
         model.addAttribute("createUrl", "/population/allNotVisible");
         model.addAttribute("createNew", "/population/new");
-        model.addAttribute("cardHeader", "All People");
+        model.addAttribute("cardHeader", "All People Without Citizenship");
         return "pages/population/population_all";
     }
 
@@ -166,7 +166,6 @@ public class PopulationController extends BaseController {
         if (MapUtils.isNotEmpty(parameterMap)) {
             parameterMap.forEach(model::addAttribute);
         }
-//        return new ModelAndView("redirect:/population", model);
         return new ModelAndView("redirect:/population/notVisible", model);
     }
 

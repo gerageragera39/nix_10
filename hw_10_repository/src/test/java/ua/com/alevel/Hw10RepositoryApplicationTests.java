@@ -3,8 +3,6 @@ package ua.com.alevel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.CrudRepository;
-import ua.com.alevel.persistence.entity.Countries;
 import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.persistence.repository.CountriesRepository;
 import ua.com.alevel.persistence.repository.PopulationRepository;
@@ -23,12 +21,6 @@ class Hw10RepositoryApplicationTests {
 
     @Autowired
     private PopulationService populationService;
-
-//    Hw10RepositoryApplicationTests(PopulationRepository populationRepository, CountriesRepository countriesRepository, PopulationService populationService) {
-////        this.populationRepository = populationRepository;
-////        this.countriesRepository = countriesRepository;
-////        this.populationService = populationService;
-//    }
 
     @Test
     void contextLoads() {

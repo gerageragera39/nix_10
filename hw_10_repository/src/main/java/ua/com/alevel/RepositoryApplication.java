@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
         DataSourceAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class })
-public class Hw10RepositoryApplication {
+public class RepositoryApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Hw10RepositoryApplication.class, args);
+        SpringApplication.run(RepositoryApplication.class, args);
     }
 }

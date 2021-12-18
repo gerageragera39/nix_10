@@ -32,26 +32,33 @@ public class PopulationFacadeImpl implements PopulationFacade {
 
     @Override
     public void create(PopulationRequestDto populationRequestDto) {
-        Population person = new Population();
-        person.setFirstName(populationRequestDto.getFirstName());
-        person.setLastName(populationRequestDto.getLastName());
-        person.setAge(populationRequestDto.getAge());
-        person.setSex(populationRequestDto.getSex());
-        person.setPassportID(populationRequestDto.getPassportID());
-
-        populationService.create(person);
+        try {
+            Population person = new Population();
+            person.setFirstName(populationRequestDto.getFirstName());
+            person.setLastName(populationRequestDto.getLastName());
+            person.setAge(populationRequestDto.getAge());
+            person.setSex(populationRequestDto.getSex());
+            person.setPassportID(populationRequestDto.getPassportID());
+            populationService.create(person);
+        } catch (NumberFormatException e) {
+            System.out.println("Wrong input");
+        }
     }
 
     @Override
     public void update(PopulationRequestDto populationRequestDto, Long id) {
-        Population person = new Population();
-        person.setId(id);
-        person.setFirstName(populationRequestDto.getFirstName());
-        person.setLastName(populationRequestDto.getLastName());
-        person.setAge(populationRequestDto.getAge());
-        person.setSex(populationRequestDto.getSex());
-        person.setPassportID(populationRequestDto.getPassportID());
-        populationService.update(person);
+        try {
+            Population person = new Population();
+            person.setId(id);
+            person.setFirstName(populationRequestDto.getFirstName());
+            person.setLastName(populationRequestDto.getLastName());
+            person.setAge(populationRequestDto.getAge());
+            person.setSex(populationRequestDto.getSex());
+            person.setPassportID(populationRequestDto.getPassportID());
+            populationService.update(person);
+        } catch (NumberFormatException e) {
+            System.out.println("Wrong input");
+        }
     }
 
     @Override
@@ -65,7 +72,7 @@ public class PopulationFacadeImpl implements PopulationFacade {
     }
 
     @Override
-    public PageData<PopulationResponseDto> findAll(WebRequest request) {
+    public PageData<PopulationResponseDto> findAll(WebRequest request, boolean visible) {
         PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = new DataTableRequest();
@@ -74,7 +81,7 @@ public class PopulationFacadeImpl implements PopulationFacade {
         dataTableRequest.setSort(sortData.getSort());
         dataTableRequest.setOrder(sortData.getOrder());
 
-        DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest);
+        DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest, visible);
         List<PopulationResponseDto> people = dataTableResponse.getItems().stream().
                 map(PopulationResponseDto::new).
                 peek(authorResponseDto -> authorResponseDto.setCountryCount((Integer) dataTableResponse.
@@ -90,12 +97,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         pageData.setItemsSize(dataTableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;
-    }
-
-    public void createRelation(PopulationRequestDto populationRequestDto) {
-        String countryName = populationRequestDto.getCountryName();
-        String personPassportId = populationRequestDto.getPassportID();
-//        populationService.createRelation(countryName, personPassportId);
     }
 
     @Override
@@ -110,35 +111,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         String countryName = dto.getCountryName();
         String personPassportId = dto.getPassportID();
         populationService.removeRelation(countryName, personPassportId);
-    }
-
-    @Override
-    public PageData<PopulationResponseDto> findAllNotVisible(WebRequest request) {
-        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
-        SortData sortData = WebRequestUtil.generateSortData(request);
-        DataTableRequest dataTableRequest = new DataTableRequest();
-        dataTableRequest.setPageSize(pageAndSizeData.getSize());
-        dataTableRequest.setCurrentPage(pageAndSizeData.getPage());
-        dataTableRequest.setSort(sortData.getSort());
-        dataTableRequest.setOrder(sortData.getOrder());
-
-//        DataTableResponse<Population> dataTableResponse = populationService.findAllNotVisible(dataTableRequest);
-        DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest);
-        List<PopulationResponseDto> people = dataTableResponse.getItems().stream().
-                map(PopulationResponseDto::new).
-                peek(authorResponseDto -> authorResponseDto.setCountryCount((Integer) dataTableResponse.
-                        getOtherParamMap().get(authorResponseDto.getId()))).
-                collect(Collectors.toList());
-
-        PageData<PopulationResponseDto> pageData = new PageData<>();
-        pageData.setItems(people);
-        pageData.setCurrentPage(pageAndSizeData.getPage());
-        pageData.setPageSize(pageAndSizeData.getSize());
-        pageData.setSort(sortData.getSort());
-        pageData.setOrder(sortData.getOrder());
-        pageData.setItemsSize(dataTableResponse.getItemsSize());
-        pageData.initPaginationState();
-        return pageData;
     }
 
     @Override
@@ -167,9 +139,3 @@ public class PopulationFacadeImpl implements PopulationFacade {
         return allNames;
     }
 }
-
-
-//Countries country = countriesService.findByName(populationRequestDto.getCountryName());
-//        Set<Countries> set = new HashSet<>();
-//        set.add(country);
-//        person.setCountries(set);

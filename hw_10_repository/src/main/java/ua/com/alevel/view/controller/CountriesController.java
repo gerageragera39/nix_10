@@ -40,7 +40,7 @@ public class CountriesController extends BaseController {
 
     @GetMapping
     public String findAll(Model model, WebRequest request) {
-        PageData<CountriesResponseDto> response = countriesFacade.findAll(request);
+        PageData<CountriesResponseDto> response = countriesFacade.findAll(request, true);
         initDataTable(response, columnNames, model);
         model.addAttribute("pageData", response);
         model.addAttribute("createUrl", "/countries/all");

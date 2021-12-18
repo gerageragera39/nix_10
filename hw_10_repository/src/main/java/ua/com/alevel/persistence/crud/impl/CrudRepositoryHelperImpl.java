@@ -1,12 +1,10 @@
 package ua.com.alevel.persistence.crud.impl;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -47,9 +45,32 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void delete(R repository, Long id) {
+    public void delete(R repository, Long id, Class entityClass) {
+        if (entityClass.isAssignableFrom(Countries.class)) {
+            Countries country = countriesRepository.findById(id).get();
+            List<Population> people = country.getPeople().stream().toList();
+            for (int i = 0; i < people.size(); i++) {
+                country.removePerson(people.get(i));
+            }
+
+            for (int i = 0; i < people.size(); i++) {
+                if (people.get(i).getCountries().size() == 0) {
+                    people.get(i).setVisible(false);
+                    update((R) populationRepository, (E) people.get(i));
+                }
+            }
+            update((R) countriesRepository, (E) country);
+        } else {
+            Population person = populationRepository.findById(id).get();
+            List<Countries> countries = person.getCountries().stream().toList();
+            for (int i = 0; i < countries.size(); i++) {
+                countries.get(i).removePerson(person);
+                update((R) countriesRepository, (E) countries.get(i));
+            }
+        }
         checkById(repository, id);
         repository.deleteById(id);
+
     }
 
     @Override
@@ -60,22 +81,44 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
 
     @Override
     @Transactional(readOnly = true)
-    public DataTableResponse<E> findAll(R repository, DataTableRequest dataTableRequest) {
+    public DataTableResponse<E> findAll(R repository, DataTableRequest dataTableRequest, Class entityClass, boolean visible) {
         Map<Object, Object> otherParamMap = new HashMap<>();
         int page = dataTableRequest.getCurrentPage() - 1;
         int size = dataTableRequest.getPageSize();
         String sortBy = dataTableRequest.getSort();
         String orderBy = dataTableRequest.getOrder();
 
-        Sort sort = orderBy.equals("desc")
-                ? Sort.by(sortBy).descending()
-                : Sort.by(sortBy).ascending();
-        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        List<E> items;
+        if (sortBy.equals("countryCount") || sortBy.equals("personCount")) {
+            PageRequest pageRequest = PageRequest.of(page, size);
+            if (orderBy.equals("desc")) {
+                if (entityClass.isAssignableFrom(Countries.class)) {
+                    items = (List<E>) countriesRepository.findAllByVisibleTrueOrderByPeopleSizeDesc(visible, pageRequest);
+                } else {
+                    items = (List<E>) populationRepository.findAllByVisibleTrueOrderByCountriesSizeDesc(visible, pageRequest);
+                }
+            } else {
+                if (entityClass.isAssignableFrom(Countries.class)) {
+                    items = (List<E>) countriesRepository.findAllByVisibleTrueOrderByPeopleSizeAsc(visible, pageRequest);
+                } else {
+                    items = (List<E>) populationRepository.findAllByVisibleTrueOrderByCountriesSizeAsc(visible, pageRequest);
+                }
+            }
+        } else {
+            Sort sort = orderBy.equals("desc")
+                    ? Sort.by(sortBy).descending()
+                    : Sort.by(sortBy).ascending();
+            PageRequest pageRequest = PageRequest.of(page, size, sort);
 
-        Page<E> pageEntity = repository.findAll(pageRequest);
+            if (entityClass.isAssignableFrom(Countries.class)) {
+                items = (List<E>) countriesRepository.findAllByVisible(visible, pageRequest);
+
+            } else {
+                items = (List<E>) populationRepository.findAllByVisible(visible, pageRequest);
+            }
+        }
+
         DataTableResponse<E> dataTableResponse = new DataTableResponse<>();
-        dataTableResponse.setItemsSize(pageEntity.getTotalElements());
-        List<E> items = pageEntity.getContent();
         dataTableResponse.setItems(items);
         dataTableResponse.setOrder(orderBy);
         dataTableResponse.setSort(sortBy);
@@ -83,16 +126,17 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
         dataTableResponse.setCurrentSize(dataTableRequest.getPageSize());
 
         for (int i = 0; i < items.size(); i++) {
-            int numOfCountries = 0;
-            if(items.get(i).getClass().isAssignableFrom(Countries.class)){
+            int numOfCountries;
+            if (items.get(i).getClass().isAssignableFrom(Countries.class)) {
+                dataTableResponse.setItemsSize(countriesRepository.numOfAllCountries(visible));
                 numOfCountries = countriesRepository.findCount(items.get(i).getId());
-            }else{
+            } else {
+                dataTableResponse.setItemsSize(populationRepository.numOfAllPeople(visible));
                 numOfCountries = populationRepository.findCount(items.get(i).getId());
             }
             otherParamMap.put(items.get(i).getId(), numOfCountries);
         }
         dataTableResponse.setOtherParamMap(otherParamMap);
-
         return dataTableResponse;
     }
 
@@ -101,7 +145,7 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
         Countries country = countriesRepository.findByNameOfCountry(countryName);
         Population person = populationRepository.findByPassportID(personPassportId);
         country.addPerson(person);
-        update((R) countriesRepository, (E)country);
+        update((R) countriesRepository, (E) country);
     }
 
     @Override
@@ -109,7 +153,8 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
         Countries country = countriesRepository.findByNameOfCountry(countryName);
         Population person = populationRepository.findByPassportID(personPassportId);
         country.removePerson(person);
-        update((R) countriesRepository, (E)country);
+        update((R) populationRepository, (E) person);
+        update((R) countriesRepository, (E) country);
     }
 
     private void checkById(R repository, Long id) {

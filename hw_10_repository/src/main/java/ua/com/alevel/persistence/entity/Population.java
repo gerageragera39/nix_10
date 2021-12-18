@@ -27,7 +27,6 @@ public class Population extends BaseEntity {
     @ManyToMany(mappedBy = "people", cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE,
-            CascadeType.REMOVE
     })
     private Set<Countries> countries;
 

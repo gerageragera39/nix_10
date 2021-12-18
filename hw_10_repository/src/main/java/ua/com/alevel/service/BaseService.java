@@ -16,6 +16,6 @@ public interface BaseService<ENTITY extends BaseEntity> {
 
     Optional<ENTITY> findById(Long id);
 
-    DataTableResponse<ENTITY> findAll(DataTableRequest request);
+    DataTableResponse<ENTITY> findAll(DataTableRequest request, boolean visible);
 }
 

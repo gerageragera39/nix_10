@@ -29,7 +29,9 @@ public class PopulationServiceImpl implements PopulationService {
 
     @Override
     public void update(Population entity) {
-        populationDao.update(entity);
+        if(ageCheck(entity.getAge())) {
+            populationDao.update(entity);
+        }
     }
 
     @Override

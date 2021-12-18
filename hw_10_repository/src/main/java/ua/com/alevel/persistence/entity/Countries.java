@@ -16,7 +16,6 @@ public class Countries extends BaseEntity {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE,
-            CascadeType.REMOVE
     })
     @JoinTable(
             name = "county_person",

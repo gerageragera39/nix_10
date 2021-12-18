@@ -15,5 +15,5 @@ public interface BaseFacade<REQ extends RequestDto, RES extends ResponseDto> {
 
     RES findById(Long id);
 
-    PageData<RES> findAll(WebRequest request);
+    PageData<RES> findAll(WebRequest request, boolean visible);
 }

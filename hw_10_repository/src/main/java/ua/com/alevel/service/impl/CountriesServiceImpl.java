@@ -30,21 +30,21 @@ public class CountriesServiceImpl implements CountriesService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void create(Countries country) {
-        if(countriesRepository.findByNameOfCountryOrISO(country.getNameOfCountry(), country.getISO()).size() == 0) {
+        if (countriesRepository.findByNameOfCountryOrISO(country.getNameOfCountry(), country.getISO()).size() == 0) {
             crudRepositoryHelper.create(countriesRepository, country);
         }
     }
 
     @Override
     public void update(Countries entity) {
-        if(countriesRepository.findByNameOfCountryOrISO(entity.getNameOfCountry(), entity.getISO()).size() == 0) {
+        if (countriesRepository.findByNameOfCountryOrISO(entity.getNameOfCountry(), entity.getISO()).size() == 0) {
             crudRepositoryHelper.update(countriesRepository, entity);
         }
     }
 
     @Override
     public void delete(Long id) {
-        crudRepositoryHelper.delete(countriesRepository, id);
+        crudRepositoryHelper.delete(countriesRepository, id, Countries.class);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class CountriesServiceImpl implements CountriesService {
 
     @Override
     @Transactional()
-    public DataTableResponse<Countries> findAll(DataTableRequest request) {
-        return crudRepositoryHelper.findAll(countriesRepository, request);
+    public DataTableResponse<Countries> findAll(DataTableRequest request, boolean visible) {
+        return crudRepositoryHelper.findAll(countriesRepository, request, Countries.class, visible);
     }
 
     @Override

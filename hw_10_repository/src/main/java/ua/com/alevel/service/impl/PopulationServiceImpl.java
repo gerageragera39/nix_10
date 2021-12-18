@@ -25,17 +25,21 @@ public class PopulationServiceImpl implements PopulationService {
 
     @Override
     public void create(Population entity) {
-        crudRepositoryHelper.create(populationRepository, entity);
+        if (populationRepository.findAllByPassportID(entity.getPassportID()).size() == 0 && validAge(entity.getAge())) {
+            crudRepositoryHelper.create(populationRepository, entity);
+        }
     }
 
     @Override
     public void update(Population entity) {
-        crudRepositoryHelper.update(populationRepository, entity);
+        if (validAge(entity.getAge())) {
+            crudRepositoryHelper.update(populationRepository, entity);
+        }
     }
 
     @Override
     public void delete(Long id) {
-        crudRepositoryHelper.delete(populationRepository, id);
+        crudRepositoryHelper.delete(populationRepository, id, Population.class);
     }
 
     @Override
@@ -45,8 +49,8 @@ public class PopulationServiceImpl implements PopulationService {
     }
 
     @Override
-    public DataTableResponse<Population> findAll(DataTableRequest request) {
-        return crudRepositoryHelper.findAll(populationRepository, request);
+    public DataTableResponse<Population> findAll(DataTableRequest request, boolean visible) {
+        return crudRepositoryHelper.findAll(populationRepository, request, Population.class, visible);
     }
 
     @Override
@@ -86,13 +90,15 @@ public class PopulationServiceImpl implements PopulationService {
         Population person = populationRepository.findByPassportID(personPassportId);
 
         if (person.getCountries().size() == 0) {
-            person.setVisible(true);
+            person.setVisible(false);
             update(person);
         }
     }
 
-    @Override
-    public DataTableResponse<Population> findAllNotVisible(DataTableRequest dataTableRequest) {
-        return null;
+    private boolean validAge(int age) {
+        if ((age > 0) && (age < 122)) {
+            return true;
+        }
+        return false;
     }
 }
