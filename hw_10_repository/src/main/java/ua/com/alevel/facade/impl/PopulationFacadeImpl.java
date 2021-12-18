@@ -122,8 +122,8 @@ public class PopulationFacadeImpl implements PopulationFacade {
         dataTableRequest.setSort(sortData.getSort());
         dataTableRequest.setOrder(sortData.getOrder());
 
-        DataTableResponse<Population> dataTableResponse = populationService.findAllNotVisible(dataTableRequest);
-//        DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest);
+//        DataTableResponse<Population> dataTableResponse = populationService.findAllNotVisible(dataTableRequest);
+        DataTableResponse<Population> dataTableResponse = populationService.findAll(dataTableRequest);
         List<PopulationResponseDto> people = dataTableResponse.getItems().stream().
                 map(PopulationResponseDto::new).
                 peek(authorResponseDto -> authorResponseDto.setCountryCount((Integer) dataTableResponse.
@@ -153,7 +153,7 @@ public class PopulationFacadeImpl implements PopulationFacade {
 
     @Override
     public List<String> notAddedCountryNamesByPersonId(Long id) {
-        List<String> allNames = populationService.findAllCountriesNames();
+        List<String> allNames = countriesService.findAllCountriesNames();
         List<String> addedNames = findNamesByPersonId(id);
         for (int i = 0; i < allNames.size(); i++) {
             for (int j = 0; j < addedNames.size(); j++) {
@@ -167,8 +167,6 @@ public class PopulationFacadeImpl implements PopulationFacade {
         return allNames;
     }
 }
-
-
 
 
 //Countries country = countriesService.findByName(populationRequestDto.getCountryName());

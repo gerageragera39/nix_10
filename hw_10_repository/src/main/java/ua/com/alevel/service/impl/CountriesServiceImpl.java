@@ -6,10 +6,12 @@ import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Countries;
+import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.persistence.repository.CountriesRepository;
 import ua.com.alevel.service.CountriesService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,12 +30,16 @@ public class CountriesServiceImpl implements CountriesService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void create(Countries country) {
-        crudRepositoryHelper.create(countriesRepository, country);
+        if(countriesRepository.findByNameOfCountryOrISO(country.getNameOfCountry(), country.getISO()).size() == 0) {
+            crudRepositoryHelper.create(countriesRepository, country);
+        }
     }
 
     @Override
     public void update(Countries entity) {
-        crudRepositoryHelper.update(countriesRepository, entity);
+        if(countriesRepository.findByNameOfCountryOrISO(entity.getNameOfCountry(), entity.getISO()).size() == 0) {
+            crudRepositoryHelper.update(countriesRepository, entity);
+        }
     }
 
     @Override
@@ -54,26 +60,16 @@ public class CountriesServiceImpl implements CountriesService {
 
     @Override
     public List<String> findAllCountriesNames() {
-        return null;
+        return countriesRepository.findAllCountriesNames();
     }
 
     @Override
     public Map<Long, String> findPeopleByCountryId(Long id) {
-        return null;
+        Map<Long, String> map = new HashMap<>();
+        List<Population> population = countriesRepository.findPeopleByCountryId(id);
+        for (int i = 0; i < population.size(); i++) {
+            map.put(population.get(i).getId(), population.get(i).getFirstName() + " " + population.get(i).getLastName());
+        }
+        return map;
     }
-
-    @Override
-    public Countries findByName(String countryName) {
-        return null;
-    }
-
-//    @Override
-////    @Transactional(propagation = Propagation.REQUIRES_NEW)
-//    public void help() {
-//        System.out.println("DepartmentServiceImpl.help");
-//        crudRepositoryHelper.help();
-//        crudRepositoryHelper.help();
-//        crudRepositoryHelper.help();
-//        crudRepositoryHelper.help();
-//    }
 }

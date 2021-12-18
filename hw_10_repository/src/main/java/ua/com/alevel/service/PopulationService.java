@@ -13,8 +13,6 @@ public interface PopulationService extends BaseService<Population> {
 
     List<String> findNamesByPersonId(Long id);
 
-    List<String> findAllCountriesNames();
-
     void addRelation(String countryName, String personPassportId);
 
     void removeRelation(String countryName, String personPassportId);

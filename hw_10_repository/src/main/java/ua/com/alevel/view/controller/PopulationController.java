@@ -26,8 +26,8 @@ public class PopulationController extends BaseController {
 
     private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
-            new HeaderName("first name", "firstName", "first_name"),
-            new HeaderName("last name", "lastName", "last_name"),
+            new HeaderName("first name", "first_ame", "firstName"),
+            new HeaderName("last name", "last_name", "lastName"),
             new HeaderName("age", "age", "age"),
             new HeaderName("sex", "sex", "sex"),
             new HeaderName("passport ID", null, null),

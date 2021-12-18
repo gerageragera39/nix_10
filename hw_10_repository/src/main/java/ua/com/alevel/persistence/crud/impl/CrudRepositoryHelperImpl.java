@@ -12,19 +12,24 @@ import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.Countries;
+import ua.com.alevel.persistence.entity.Population;
 import ua.com.alevel.persistence.repository.BaseRepository;
+import ua.com.alevel.persistence.repository.CountriesRepository;
+import ua.com.alevel.persistence.repository.PopulationRepository;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
-//@Transactional
 public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseRepository<E>>
         implements CrudRepositoryHelper<E, R> {
 
-    @Override
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED)
-    public void help() {
-        System.out.println("CrudRepositoryHelperImpl.help");
+    private final PopulationRepository populationRepository;
+    private final CountriesRepository countriesRepository;
+
+    public CrudRepositoryHelperImpl(PopulationRepository populationRepository, CountriesRepository countriesRepository) {
+        this.populationRepository = populationRepository;
+        this.countriesRepository = countriesRepository;
     }
 
     @Override
@@ -56,6 +61,7 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
     @Override
     @Transactional(readOnly = true)
     public DataTableResponse<E> findAll(R repository, DataTableRequest dataTableRequest) {
+        Map<Object, Object> otherParamMap = new HashMap<>();
         int page = dataTableRequest.getCurrentPage() - 1;
         int size = dataTableRequest.getPageSize();
         String sortBy = dataTableRequest.getSort();
@@ -67,19 +73,43 @@ public class CrudRepositoryHelperImpl<E extends BaseEntity, R extends BaseReposi
         PageRequest pageRequest = PageRequest.of(page, size, sort);
 
         Page<E> pageEntity = repository.findAll(pageRequest);
-
         DataTableResponse<E> dataTableResponse = new DataTableResponse<>();
         dataTableResponse.setItemsSize(pageEntity.getTotalElements());
-        dataTableResponse.setItemsSize(pageEntity.getTotalPages());
-//        dataTableResponse.setTotalPageSize(pageEntity.getTotalPages());
-        dataTableResponse.setItems(pageEntity.getContent());
+        List<E> items = pageEntity.getContent();
+        dataTableResponse.setItems(items);
         dataTableResponse.setOrder(orderBy);
         dataTableResponse.setSort(sortBy);
         dataTableResponse.setCurrentPage(dataTableRequest.getCurrentPage());
         dataTableResponse.setCurrentSize(dataTableRequest.getPageSize());
-//        dataTableResponse.setPageSize(dataTableRequest.getPageSize());
+
+        for (int i = 0; i < items.size(); i++) {
+            int numOfCountries = 0;
+            if(items.get(i).getClass().isAssignableFrom(Countries.class)){
+                numOfCountries = countriesRepository.findCount(items.get(i).getId());
+            }else{
+                numOfCountries = populationRepository.findCount(items.get(i).getId());
+            }
+            otherParamMap.put(items.get(i).getId(), numOfCountries);
+        }
+        dataTableResponse.setOtherParamMap(otherParamMap);
 
         return dataTableResponse;
+    }
+
+    @Override
+    public void addRelation(String countryName, String personPassportId) {
+        Countries country = countriesRepository.findByNameOfCountry(countryName);
+        Population person = populationRepository.findByPassportID(personPassportId);
+        country.addPerson(person);
+        update((R) countriesRepository, (E)country);
+    }
+
+    @Override
+    public void removeRelation(String countryName, String personPassportId) {
+        Countries country = countriesRepository.findByNameOfCountry(countryName);
+        Population person = populationRepository.findByPassportID(personPassportId);
+        country.removePerson(person);
+        update((R) countriesRepository, (E)country);
     }
 
     private void checkById(R repository, Long id) {
