@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New Account</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h2>New Account</h2>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/accounts/create}" th:object="${account}" method="post">
+<!--                        <div class="form-group">-->
+<!--                            <label for="balance">Balance</label>-->
+<!--                            <input type="number" class="form-control" id="balance" aria-describedby="balance"-->
+<!--                                   placeholder="Enter balance" th:field="*{balance}">-->
+<!--                        </div>-->
+
+                        <div class="form-group">
+<!--                            <label for="balance1">Balance</label>-->
+                            <h3>Balance:</h3>
+                            <div>
+                                <label for="hryvnas">гривны : </label>
+                                <input type="number" class="form-control" id="hryvnas" aria-describedby="hryvnas"
+                                       placeholder="Enter hryvnas" th:field="*{hryvnas}">
+                                <label for="penny">копейки : </label>
+                                <input type="number" class="form-control" id="penny" aria-describedby="penny"
+                                       placeholder="Enter penny" th:field="*{penny}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+<!--                            <label for="cardType">Card Type</label>-->
+                            <h3>Card Type:</h3>
+                            <select class="form-control" id="cardType" th:field="*{cardType}">
+                                <option th:each="types : ${cardTypes}"
+                                        th:value="${types}"
+                                        th:text="${types}">
+                                </option>
+                            </select>
+                            <div/>
+
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

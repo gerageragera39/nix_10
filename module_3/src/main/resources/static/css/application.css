@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body {
-    /*background: url('https://wallpaperaccess.com/full/31193.jpg') no-repeat center center fixed;*/
-    background: url('https://www.tourprom.ru/site_media/images/upload/2018/10/24/newsphoto/po-miru.jpg') no-repeat center center fixed;
+    background: url('https://inbusiness.kz/images/small/37/images/YVPsqWX6.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100%;
     font-family: 'Numans', sans-serif;
@@ -18,4 +17,16 @@ a.nav-item.nav-link {
 .sort {
     cursor: pointer;
     margin-right: 2em;
+}
+
+input, textarea {
+    display: inline-block;
+}
+
+.incomeMinus {
+    color: red;
+}
+
+.incomePlus {
+    color: green;
 }

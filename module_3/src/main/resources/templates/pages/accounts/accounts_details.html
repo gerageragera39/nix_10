@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>User details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header d-flex justify-content-start h3">
+                    Account details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${account.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Card Number</th>
+                            <td th:text="${account.getCardNumber()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Balance</th>
+                            <td th:text="${account.getBalance()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Card Type</th>
+                            <td th:text="${account.getCardType()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(account.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(account.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>User</th>
+                            <td>
+                                <ul th:each="u : ${user}">
+                                    <li>
+                                        <a role="button" class="btn btn-link"
+                                           th:href="@{'/users/details/' + ${u.getKey()}}"
+                                           th:text="${u.getValue()}">details</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th>All transactions</th>-->
+<!--                            <td>-->
+<!--                                <ul th:each="transaction : ${transactions}">-->
+<!--                                    <li>-->
+<!--                                        <a role="button" class="btn btn-link"-->
+<!--                                           th:href="@{'/transactions/details/' + ${transaction.getKey()}}"-->
+<!--                                           th:text="${transaction.getValue()}">details</a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                    </table>
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header">
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/accounts/newTransaction/' + ${account.getId()}}">Add new Transaction</a>
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/transactions/allByAccount/' + ${account.getId()}}">Show all Transactions</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
