@@ -8,4 +8,6 @@ import java.util.Map;
 public interface UserService extends BaseService<User> {
 
     Map<Long, String> findAccountsByUserId(Long id);
+
+    boolean existByEmail(String email);
 }

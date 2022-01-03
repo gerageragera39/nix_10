@@ -5,7 +5,9 @@ import ua.com.alevel.persistence.dao.CategoryDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Category;
+import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.CategoryService;
+import ua.com.alevel.util.WebResponseUtil;
 
 import java.util.List;
 
@@ -40,7 +42,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public DataTableResponse<Category> findAll(DataTableRequest request) {
-        return categoryDao.findAll(request);
+//        return categoryDao.findAll(request);
+        DataTableResponse<Category> dataTableResponse = categoryDao.findAll(request);
+        long count = categoryDao.countVisible();
+        WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
+        return dataTableResponse;
     }
 
     @Override

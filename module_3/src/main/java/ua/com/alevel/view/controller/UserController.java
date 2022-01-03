@@ -72,8 +72,11 @@ public class UserController extends BaseController {
     @PostMapping("/create")
     public String create(@ModelAttribute("user") UserRequestDto dto) {
         userFacade.create(dto, dto.getEmail());
-        accountController.setTempUserEmail(dto.getEmail());
-        return "redirect:/accounts/new";
+        if(userFacade.existByEmail(dto.getEmail())){
+            accountController.setTempUserEmail(dto.getEmail());
+            return "redirect:/accounts/new";
+        }
+        return "redirect:/users";
     }
 
     @GetMapping("/newAccount/{id}")

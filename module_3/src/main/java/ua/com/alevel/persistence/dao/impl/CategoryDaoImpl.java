@@ -107,6 +107,12 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
+    public long countVisible() {
+        Query query = entityManager.createQuery("select count(c) from Category c where c.visible = true");
+        return (long) query.getSingleResult();
+    }
+
+    @Override
     public List<String> getAllCategoryNames() {
         Query query = entityManager.createQuery("select c.name from Category c");
         return query.getResultList();

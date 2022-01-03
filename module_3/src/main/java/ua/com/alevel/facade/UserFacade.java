@@ -10,4 +10,6 @@ import java.util.Map;
 public interface UserFacade extends BaseFacade<UserRequestDto, UserResponseDto> {
 
     Map<Long, String> findAccountsByUserId(Long id);
+
+    boolean existByEmail(String email);
 }

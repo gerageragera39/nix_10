@@ -17,6 +17,7 @@ import ua.com.alevel.view.dto.response.TransactionResponseDto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,7 +73,7 @@ public class TransactionFacadeImpl implements TransactionFacade {
 
     @Override
     public TransactionResponseDto findById(Long id) {
-        return null;
+        return new TransactionResponseDto(transactionService.findById(id));
     }
 
     @Override
@@ -104,7 +105,7 @@ public class TransactionFacadeImpl implements TransactionFacade {
     }
 
     @Override
-    public PageData<TransactionResponseDto> findAll(Long accountId, WebRequest request) {
+    public PageData<TransactionResponseDto> findAll(Class entityClass, Long entityId, WebRequest request) {
         PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = new DataTableRequest();
@@ -113,7 +114,7 @@ public class TransactionFacadeImpl implements TransactionFacade {
         dataTableRequest.setSort(sortData.getSort());
         dataTableRequest.setOrder(sortData.getOrder());
 
-        DataTableResponse<Transaction> dataTableResponse = transactionService.findAll(accountId, dataTableRequest);
+        DataTableResponse<Transaction> dataTableResponse = transactionService.findAll(entityClass, entityId, dataTableRequest);
 
         List<TransactionResponseDto> transactions = dataTableResponse.getItems().stream().
                 map(TransactionResponseDto::new).
@@ -129,5 +130,15 @@ public class TransactionFacadeImpl implements TransactionFacade {
         pageData.setItemsSize(dataTableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;
+    }
+
+    @Override
+    public Map<Long, String> findByAccountByTransactionId(Long id) {
+        return transactionService.findByAccountByTransactionId(id);
+    }
+
+    @Override
+    public Map<Long, String> findUserByTransactionId(Long id) {
+        return transactionService.findUserByTransactionId(id);
     }
 }

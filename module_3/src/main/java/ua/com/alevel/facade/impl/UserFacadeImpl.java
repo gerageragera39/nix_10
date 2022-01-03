@@ -87,4 +87,9 @@ public class UserFacadeImpl implements UserFacade {
     public Map<Long, String> findAccountsByUserId(Long id) {
         return userService.findAccountsByUserId(id);
     }
+
+    @Override
+    public boolean existByEmail(String email) {
+        return userService.existByEmail(email);
+    }
 }

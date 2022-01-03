@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CategoryFacade;
 import ua.com.alevel.facade.TransactionFacade;
 import ua.com.alevel.persistence.cardType.CardType;
+import ua.com.alevel.persistence.entity.Account;
+import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.view.dto.request.AccountRequestDto;
 import ua.com.alevel.view.dto.request.TransactionRequestDto;
 import ua.com.alevel.view.dto.response.PageData;
@@ -52,7 +54,18 @@ public class TransactionController extends BaseController {
 
     @GetMapping("/allByAccount/{accountId}")
     public String findAllByAccountId(@PathVariable Long accountId, Model model, WebRequest request) {
-        PageData<TransactionResponseDto> response = transactionFacade.findAll(accountId, request);
+        PageData<TransactionResponseDto> response = transactionFacade.findAll(Account.class, accountId, request);
+        initDataTable(response, columnNames, model);
+        model.addAttribute("pageData", response);
+        model.addAttribute("createUrl", "/transactions/all");
+        model.addAttribute("createNew", "/transactions/new");
+        model.addAttribute("cardHeader", "All Transactions");
+        return "pages/transactions/transactions_all";
+    }
+
+    @GetMapping("/allByUser/{userId}")
+    public String findAllByUserId(@PathVariable Long userId, Model model, WebRequest request) {
+        PageData<TransactionResponseDto> response = transactionFacade.findAll(User.class, userId, request);
         initDataTable(response, columnNames, model);
         model.addAttribute("pageData", response);
         model.addAttribute("createUrl", "/transactions/all");
@@ -68,6 +81,14 @@ public class TransactionController extends BaseController {
             parameterMap.forEach(model::addAttribute);
         }
         return new ModelAndView("redirect:/transactions", model);
+    }
+
+    @GetMapping("/details/{id}")
+    public String redirectToUserDetailsPage(@PathVariable Long id, Model model) {
+        model.addAttribute("transaction", transactionFacade.findById(id));
+        model.addAttribute("account", transactionFacade.findByAccountByTransactionId(id));
+        model.addAttribute("user", transactionFacade.findUserByTransactionId(id));
+        return "pages/transactions/transactions_details";
     }
 
     @GetMapping("/new")

@@ -113,6 +113,12 @@ public class UserDaoImpl implements UserDao {
         return response;
     }
 
+    @Override
+    public long countVisible() {
+        Query query = entityManager.createQuery("select count(u) from User u where u.visible = true");
+        return (long) query.getSingleResult();
+    }
+
     public int countNumOfAccounts(Long id){
         List<Account> accounts = findById(id).getAccounts().stream().toList();
         int countVisible = 0;
@@ -138,5 +144,19 @@ public class UserDaoImpl implements UserDao {
             accounts.put(visibleAccounts.get(i).getId(), visibleAccounts.get(i).getCardNumber());
         }
         return accounts;
+    }
+
+    @Override
+    public boolean existByPassportId(String passportID) {
+        Query query = entityManager.createQuery("select count(u.id) from User u where u.passportID = :passportID")
+                .setParameter("passportID", passportID);
+        return (Long) query.getSingleResult() == 1;
+    }
+
+    @Override
+    public boolean existByEmail(String email) {
+        Query query = entityManager.createQuery("select count(u.id) from User u where u.email = :email")
+                .setParameter("email", email);
+        return (Long) query.getSingleResult() == 1;
     }
 }

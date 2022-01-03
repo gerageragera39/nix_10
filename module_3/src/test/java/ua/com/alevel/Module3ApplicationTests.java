@@ -25,7 +25,7 @@ class Module3ApplicationTests {
 
     @Test
     void create(){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             User user = new User();
 //            user.setId(Long.getLong(String.valueOf(i)));
             user.setFirstName("fn" + i);

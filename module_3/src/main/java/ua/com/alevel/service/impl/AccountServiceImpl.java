@@ -5,7 +5,9 @@ import ua.com.alevel.persistence.dao.AccountDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Account;
+import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.AccountService;
+import ua.com.alevel.util.WebResponseUtil;
 
 import java.util.Map;
 
@@ -45,7 +47,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public DataTableResponse<Account> findAll(DataTableRequest request) {
-        return accountDao.findAll(request);
+//        return accountDao.findAll(request);
+        DataTableResponse<Account> dataTableResponse = accountDao.findAll(request);
+        long count = accountDao.countVisible();
+        WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
+        return dataTableResponse;
     }
 
     @Override

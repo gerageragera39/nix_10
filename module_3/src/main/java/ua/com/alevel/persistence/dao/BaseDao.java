@@ -18,4 +18,6 @@ public interface BaseDao<ENTITY extends BaseEntity> {
     ENTITY findById(Long id);
 
     DataTableResponse<ENTITY> findAll(DataTableRequest request);
+
+    long countVisible();
 }

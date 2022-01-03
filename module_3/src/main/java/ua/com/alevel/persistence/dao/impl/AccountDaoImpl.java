@@ -157,6 +157,12 @@ public class AccountDaoImpl implements AccountDao {
         return response;
     }
 
+    @Override
+    public long countVisible() {
+        Query query = entityManager.createQuery("select count(a) from Account a where a.visible = true");
+        return (long) query.getSingleResult();
+    }
+
     public int countNumOfTransactions(Long id){
         return findById(id).getTransactions().size();
     }
