@@ -31,3 +31,35 @@ insert into categories values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true
 insert into categories values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, false, 'Погулял с девушкой');
 insert into categories values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, true, 'Продал какую-то вещь');
 insert into categories values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, false, 'Купил какую-то вещь');
+
+
+insert into accounts values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 100, '3464 3599 4288 0115', 'Premium', 1);
+insert into accounts values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 200, '3636 5647 2011 1470', 'Premium', 2);
+insert into accounts values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 300, '9248 0009 3256 2135', 'Premium', 3);
+insert into accounts values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 400, '1810 4790 9812 0611', 'Premium', 4);
+insert into accounts values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 500, '7020 5461 7051 2566', 'Premium', 5);
+insert into accounts values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 600, '0829 4226 4412 0319', 'Premium', 6);
+insert into accounts values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 700, '9603 8809 4170 8664', 'Premium', 7);
+insert into accounts values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 900, '4830 9691 8195 0927', 'Gold', 8);
+insert into accounts values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1000, '4879 2793 0927 5272', 'Gold', 9);
+insert into accounts values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1100, '3055 8299 7157 4040', 'Gold', 10);
+insert into accounts values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1200, '7628 2386 6648 6444', 'Gold', 11);
+insert into accounts values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1300, '0546 9355 7344 7684', 'Gold', 12);
+insert into accounts values (13, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1400, '4289 9418 4023 9091', 'Gold', 13);
+insert into accounts values (14, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1500, '7600 0652 3392 1156', 'Discount', 14);
+insert into accounts values (15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1600, '5579 4196 5929 5335', 'Discount', 15);
+insert into accounts values (16, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1700, '4998 6852 0295 6473', 'Discount', 16);
+insert into accounts values (17, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1800, '0700 2241 8554 6745', 'Discount', 17);
+insert into accounts values (18, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1900, '3213 3865 6891 3504', 'Discount', 18);
+insert into accounts values (19, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2000, '8000 0323 0341 8804', 'Discount', 19);
+insert into accounts values (20, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2100, '2535 1175 0166 4434', 'Default', 20);
+insert into accounts values (21, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2200, '8043 8596 2416 5605', 'Default', 21);
+insert into accounts values (22, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2300, '1523 2960 7105 6263', 'Default', 22);
+insert into accounts values (23, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2400, '2540 2073 2292 0338', 'Default', 1);
+insert into accounts values (24, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2500, '6357 4937 1296 3725', 'Default', 2);
+insert into accounts values (25, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2600, '7595 6474 0241 1600', 'Default', 3);
+insert into accounts values (26, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2700, '9712 5610 4582 4527', 'Children', 4);
+insert into accounts values (27, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2800, '7771 0208 8111 1776', 'Children', 5);
+insert into accounts values (28, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2900, '1286 1039 7782 7867', 'Children', 6);
+insert into accounts values (29, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 3000, '8004 0765 8179 3797', 'Children', 7);
+insert into accounts values (30, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 3100, '6723 7504 5294 5502', 'Children', 8);

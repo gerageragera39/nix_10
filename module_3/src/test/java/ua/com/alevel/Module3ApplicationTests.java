@@ -25,7 +25,7 @@ class Module3ApplicationTests {
 
     @Test
     void init() {
-        for (int i = 1; i < 23; i++) {
+        for (int i = 2; i < 23; i++) {
             User user = userDao.findById((long) i);
             Account account = new Account();
             account.setBalance((double) (i * 100));
