@@ -9,15 +9,12 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CategoryFacade;
 import ua.com.alevel.facade.TransactionFacade;
-import ua.com.alevel.persistence.cardType.CardType;
 import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.User;
-import ua.com.alevel.view.dto.request.AccountRequestDto;
 import ua.com.alevel.view.dto.request.TransactionRequestDto;
 import ua.com.alevel.view.dto.response.PageData;
 import ua.com.alevel.view.dto.response.TransactionResponseDto;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -102,7 +99,6 @@ public class TransactionController extends BaseController {
     public String create(@ModelAttribute("transaction") TransactionRequestDto dto) {
         transactionFacade.create(dto, getTempAccountId());
         return "redirect:/accounts";
-//        return "redirect:/accounts/details/{" + getTempAccountId() + "}";
     }
 
     public String getTempAccountId() {

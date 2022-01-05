@@ -17,7 +17,7 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
     private Set<Transaction> transactions;
 
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
 
@@ -45,7 +45,7 @@ public class Category extends BaseEntity {
         this.transactions = transactions;
     }
 
-    public Category(){
+    public Category() {
         super();
         this.transactions = new HashSet<>();
     }

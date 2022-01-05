@@ -9,11 +9,9 @@ public class Transaction extends BaseEntity {
     private Double amount;
 
     @ManyToOne(cascade = CascadeType.ALL)
-//    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "account_id")
     private Account account;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
     @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "category_id")
     private Category category;
@@ -42,7 +40,7 @@ public class Transaction extends BaseEntity {
         this.category = category;
     }
 
-    public Transaction(){
+    public Transaction() {
         super();
     }
 }

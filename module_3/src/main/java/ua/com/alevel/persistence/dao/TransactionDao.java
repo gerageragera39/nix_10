@@ -6,7 +6,7 @@ import ua.com.alevel.persistence.entity.Transaction;
 
 import java.util.Map;
 
-public interface TransactionDao extends BaseDao<Transaction>{
+public interface TransactionDao extends BaseDao<Transaction> {
 
     DataTableResponse<Transaction> findAll(Class entityClass, Long entityId, DataTableRequest dataTableRequest);
 

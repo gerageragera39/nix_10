@@ -16,12 +16,6 @@
         <td th:text="${category.getName()}"></td>
         <td th:text="${category.isFinances()}"></td>
         <td th:text="${category.getTransactionCount()}"></td>
-        <td>
-            <a th:href="@{'/categories/details/' + ${category.getId()}}" type="button" class="btn btn-primary">details</a>
-        </td>
-        <td>
-            <a th:href="@{'/categories/delete/' + ${category.getId()}}" type="button" class="btn btn-danger">delete</a>
-        </td>
     </tr>
 
 </div>

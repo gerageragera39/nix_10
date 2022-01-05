@@ -35,16 +35,16 @@ public class AccountFacadeImpl implements AccountFacade {
         Double hryvnas;
         if (accountRequestDto.getHryvnas() == null) {
             hryvnas = Double.valueOf(0);
-        } else{
+        } else {
             hryvnas = accountRequestDto.getHryvnas();
         }
         if (accountRequestDto.getPenny() == null) {
             balance = Double.valueOf(0);
-        } else{
+        } else {
             balance = accountRequestDto.getPenny();
         }
-        while (balance >= 100){
-            balance = balance/100;
+        while (balance >= 100) {
+            balance = balance / 100;
         }
         balance += hryvnas;
         account.setBalance(balance);
@@ -53,7 +53,9 @@ public class AccountFacadeImpl implements AccountFacade {
 
     @Override
     public void update(AccountRequestDto accountRequestDto, Long id) {
-
+        Account account = accountService.findById(id);
+        account.setCardType(accountRequestDto.getCardType());
+        accountService.update(account);
     }
 
     @Override
@@ -64,6 +66,39 @@ public class AccountFacadeImpl implements AccountFacade {
     @Override
     public void delete(String name) {
         accountService.delete(name);
+    }
+
+    @Override
+    public void writeOut(Long id) {
+        accountService.writeOut(id);
+    }
+
+    @Override
+    public PageData<AccountResponseDto> findAll(Long userId, WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        dataTableRequest.setPageSize(pageAndSizeData.getSize());
+        dataTableRequest.setCurrentPage(pageAndSizeData.getPage());
+        dataTableRequest.setSort(sortData.getSort());
+        dataTableRequest.setOrder(sortData.getOrder());
+
+        DataTableResponse<Account> dataTableResponse = accountService.findAll(userId, dataTableRequest);
+
+        List<AccountResponseDto> accounts = dataTableResponse.getItems().stream().
+                map(AccountResponseDto::new).
+                collect(Collectors.toList());
+
+
+        PageData<AccountResponseDto> pageData = new PageData<>();
+        pageData.setItems(accounts);
+        pageData.setCurrentPage(pageAndSizeData.getPage());
+        pageData.setPageSize(pageAndSizeData.getSize());
+        pageData.setSort(sortData.getSort());
+        pageData.setOrder(sortData.getOrder());
+        pageData.setItemsSize(dataTableResponse.getItemsSize());
+        pageData.initPaginationState();
+        return pageData;
     }
 
     @Override

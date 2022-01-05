@@ -13,7 +13,8 @@ public class UserResponseDto extends ResponseDto {
     private String passportID;
     private Integer accountCount;
 
-    public UserResponseDto(){ }
+    public UserResponseDto() {
+    }
 
     public UserResponseDto(User user) {
         setId(user.getId());

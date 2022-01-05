@@ -15,7 +15,6 @@ import ua.com.alevel.view.dto.request.TransactionRequestDto;
 import ua.com.alevel.view.dto.response.PageData;
 import ua.com.alevel.view.dto.response.TransactionResponseDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,27 +37,33 @@ public class TransactionFacadeImpl implements TransactionFacade {
         Double balance;
         Double hryvnas;
         if (transactionRequestDto.getHryvnas() == null) {
-            hryvnas = Double.valueOf(0);
-        } else{
+            hryvnas = (double) 0;
+        } else {
             hryvnas = transactionRequestDto.getHryvnas();
         }
         if (transactionRequestDto.getPenny() == null) {
-            balance = Double.valueOf(0);
-        } else{
+            balance = (double) 0;
+        } else {
             balance = transactionRequestDto.getPenny();
         }
-        while (balance >= 100){
-            balance = balance/100;
+        while (balance > 100) {
+            balance -= 100;
+            hryvnas++;
+        }
+        if (balance == 100) {
+            hryvnas++;
+            balance = (double) 0;
+        } else {
+            balance /= 100;
         }
         balance += hryvnas;
-        if(balance == 0){
+        if (balance == 0) {
             throw new NullPointerException("Null balance");
         }
         transaction.setAmount(balance);
 
-//        transaction.setAmount(transactionRequestDto.getAmount());
         transaction.setCategory(categoryService.findByName(transactionRequestDto.getCategoryName()));
-        transactionService.create(transaction,tempField);
+        transactionService.create(transaction, tempField);
     }
 
     @Override

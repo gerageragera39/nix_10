@@ -1,11 +1,6 @@
 package ua.com.alevel.view.dto.response;
 
-import ua.com.alevel.persistence.entity.Category;
 import ua.com.alevel.persistence.entity.Transaction;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 public class TransactionResponseDto extends ResponseDto {
 
@@ -13,7 +8,7 @@ public class TransactionResponseDto extends ResponseDto {
     private String categoryName;
     private boolean flag;
 
-    public TransactionResponseDto(Transaction transaction){
+    public TransactionResponseDto(Transaction transaction) {
         setId(transaction.getId());
         setCreated(transaction.getCreated());
         setUpdated(transaction.getUpdated());
@@ -47,10 +42,10 @@ public class TransactionResponseDto extends ResponseDto {
         this.flag = flag;
     }
 
-    public String getColor(){
-        if(this.flag){
+    public String getColor() {
+        if (this.flag) {
             return "incomePlus";
-        } else{
+        } else {
             return "incomeMinus";
         }
     }

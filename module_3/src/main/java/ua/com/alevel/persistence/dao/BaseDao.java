@@ -2,7 +2,6 @@ package ua.com.alevel.persistence.dao;
 
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.BaseEntity;
 
 public interface BaseDao<ENTITY extends BaseEntity> {

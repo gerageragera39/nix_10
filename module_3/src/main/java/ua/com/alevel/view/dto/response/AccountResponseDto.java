@@ -12,9 +12,10 @@ public class AccountResponseDto extends ResponseDto {
     private CardType cardType;
     private Integer transactionCount;
 
-    public AccountResponseDto() { }
+    public AccountResponseDto() {
+    }
 
-    public AccountResponseDto(Account account){
+    public AccountResponseDto(Account account) {
         setId(account.getId());
         setCreated(account.getCreated());
         setUpdated(account.getUpdated());

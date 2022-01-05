@@ -8,7 +8,7 @@ public class CategoryResponseDto extends ResponseDto {
     private boolean finances;
     private Integer transactionCount;
 
-    public CategoryResponseDto(Category category){
+    public CategoryResponseDto(Category category) {
         setId(category.getId());
         setCreated(category.getCreated());
         setUpdated(category.getUpdated());

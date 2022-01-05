@@ -55,18 +55,6 @@
                                 </ul>
                             </td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th>All transactions</th>-->
-<!--                            <td>-->
-<!--                                <ul th:each="transaction : ${transactions}">-->
-<!--                                    <li>-->
-<!--                                        <a role="button" class="btn btn-link"-->
-<!--                                           th:href="@{'/transactions/details/' + ${transaction.getKey()}}"-->
-<!--                                           th:text="${transaction.getValue()}">details</a>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </td>-->
-<!--                        </tr>-->
                     </table>
                     <div class="col-12">
                         <div class="card mt-2 mb-2">
@@ -74,7 +62,12 @@
                                 <a type="button" class="btn btn-primary"
                                    th:href="@{'/accounts/newTransaction/' + ${account.getId()}}">Add new Transaction</a>
                                 <a type="button" class="btn btn-primary"
-                                   th:href="@{'/transactions/allByAccount/' + ${account.getId()}}">Show all Transactions</a>
+                                   th:href="@{'/transactions/allByAccount/' + ${account.getId()}}">Show all
+                                    Transactions</a>
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/accounts/toUpdate/' + ${account.getId()}}">Update Account</a>
+                                <a type="button" class="btn btn-primary"
+                                   th:href="@{'/accounts/download/' + ${account.getId()}}">Download Card Statement</a>
                             </div>
                         </div>
                     </div>

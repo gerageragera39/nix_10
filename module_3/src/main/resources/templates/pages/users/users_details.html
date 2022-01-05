@@ -70,16 +70,20 @@
                     </table>
                     <div class="col-12">
                         <div class="card mt-2 mb-2">
-                            <div class="card-header">
-                                <a type="button" class="btn btn-primary"
+                            <div class="card-header d-flex align-content-end flex-wrap">
+                                <a type="button" class="btn btn-primary m-auto"
                                    th:href="@{'/users/newAccount/' + ${user.getId()}}">Add new Account</a>
-                                <a type="button" class="btn btn-primary"
+                                <a type="button" class="btn btn-primary m-auto"
+                                   th:href="@{'/accounts/allByUser/' + ${user.getId()}}">Show all Accounts</a>
+                                <a type="button" class="btn btn-primary m-auto"
                                    th:href="@{'/users/toRemove/' + ${user.getId()}}">Delete Account</a>
-                                <a type="button" class="btn btn-primary"
+                                <a type="button" class="btn btn-primary m-auto"
                                    th:href="@{'/transactions/allByUser/' + ${user.getId()}}">Show all Transactions</a>
-                                <a type="button" class="btn btn-primary"
+                                <a type="button" class="btn btn-primary m-auto"
                                    th:href="@{'/users/toUpdate/' + ${user.getId()}}">Update User</a>
                             </div>
+                            <a type="button" class="btn btn-primary m-auto t-1"
+                               th:href="@{'/users/download/' + ${user.getId()}}">Download User Statement</a>
                         </div>
                     </div>
                 </div>

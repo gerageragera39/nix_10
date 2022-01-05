@@ -5,7 +5,6 @@ import ua.com.alevel.persistence.dao.AccountDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Account;
-import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.AccountService;
 import ua.com.alevel.util.WebResponseUtil;
 
@@ -27,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void update(Account entity) {
-
+        accountDao.update(entity);
     }
 
     @Override
@@ -41,13 +40,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void writeOut(Long id) {
+        accountDao.writeOut(id);
+    }
+
+    @Override
+    public DataTableResponse<Account> findAll(Long userId, DataTableRequest dataTableRequest) {
+        DataTableResponse<Account> dataTableResponse = accountDao.findAll(userId, dataTableRequest);
+        long count = accountDao.countVisible();
+        WebResponseUtil.initDataTableResponse(dataTableRequest, dataTableResponse, count);
+        return dataTableResponse;
+    }
+
+    @Override
     public Account findById(Long id) {
         return accountDao.findById(id);
     }
 
     @Override
     public DataTableResponse<Account> findAll(DataTableRequest request) {
-//        return accountDao.findAll(request);
         DataTableResponse<Account> dataTableResponse = accountDao.findAll(request);
         long count = accountDao.countVisible();
         WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);

@@ -1,11 +1,13 @@
 package ua.com.alevel.persistence.dao.impl;
 
+import com.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.dao.UserDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.Account;
+import ua.com.alevel.persistence.entity.Transaction;
 import ua.com.alevel.persistence.entity.User;
 
 import javax.persistence.EntityManager;
@@ -15,6 +17,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,9 +45,6 @@ public class UserDaoImpl implements UserDao {
     public void delete(Long id) {
         List<Account> accountList = findById(id).getAccounts().stream().toList();
         for (Account account : accountList) {
-//            entityManager.createQuery("delete from Account account where account.id = :id")
-//                    .setParameter("id", account.getId())
-//                    .executeUpdate();
             account.setVisible(false);
         }
         findById(id).setVisible(false);
@@ -119,11 +120,11 @@ public class UserDaoImpl implements UserDao {
         return (long) query.getSingleResult();
     }
 
-    public int countNumOfAccounts(Long id){
+    public int countNumOfAccounts(Long id) {
         List<Account> accounts = findById(id).getAccounts().stream().toList();
         int countVisible = 0;
         for (Account account : accounts) {
-            if(account.getVisible()){
+            if (account.getVisible()) {
                 countVisible++;
             }
         }
@@ -135,7 +136,7 @@ public class UserDaoImpl implements UserDao {
         List<Account> accountList = findById(id).getAccounts().stream().toList();
         List<Account> visibleAccounts = new ArrayList<>();
         for (Account account : accountList) {
-            if(account.getVisible() == true){
+            if (account.getVisible() == true) {
                 visibleAccounts.add(account);
             }
         }
@@ -158,5 +159,32 @@ public class UserDaoImpl implements UserDao {
         Query query = entityManager.createQuery("select count(u.id) from User u where u.email = :email")
                 .setParameter("email", email);
         return (Long) query.getSingleResult() == 1;
+    }
+
+    @Override
+    public void writeOut(Long id) {
+        List<Account> accounts = findById(id).getAccounts().stream().toList();
+        List<Transaction> transactions = new ArrayList<>();
+        for (Account account : accounts) {
+            List<Transaction> byAccount = account.getTransactions().stream().toList();
+            transactions.addAll(byAccount);
+        }
+        List<String[]> transactionList = new ArrayList<>();
+        try (CSVWriter csvWriter = new CSVWriter(new FileWriter("write_out.csv"))) {
+            for (int i = 0; i < transactions.size(); i++) {
+                String[] transactionsString = new String[3];
+                transactionsString[0] = String.valueOf(i);
+                if (transactions.get(i).getCategory().getFinances()) {
+                    transactionsString[1] = "+ " + transactions.get(i).getAmount().toString();
+                } else {
+                    transactionsString[1] = "- " + transactions.get(i).getAmount().toString();
+                }
+                transactionsString[2] = transactions.get(i).getCategory().getName();
+                transactionList.add(transactionsString);
+            }
+            csvWriter.writeAll(transactionList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

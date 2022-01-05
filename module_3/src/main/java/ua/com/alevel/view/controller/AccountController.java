@@ -11,21 +11,16 @@ import ua.com.alevel.facade.AccountFacade;
 import ua.com.alevel.facade.UserFacade;
 import ua.com.alevel.persistence.cardType.CardType;
 import ua.com.alevel.view.dto.request.AccountRequestDto;
-import ua.com.alevel.view.dto.request.UserRequestDto;
 import ua.com.alevel.view.dto.response.AccountResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
-import ua.com.alevel.view.dto.response.UserResponseDto;
 
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/accounts")
 public class AccountController extends BaseController {
 
     private String tempUserEmail;
-    private String tempAccountName;
 
     private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
@@ -39,6 +34,7 @@ public class AccountController extends BaseController {
 
     private final TransactionController transactionController;
     private final AccountFacade accountFacade;
+    private Long tempId;
 
     public AccountController(TransactionController transactionController, AccountFacade accountFacade, UserFacade userFacade) {
         this.transactionController = transactionController;
@@ -53,6 +49,17 @@ public class AccountController extends BaseController {
         model.addAttribute("createUrl", "/accounts/all");
         model.addAttribute("createNew", "/accounts/new");
         model.addAttribute("cardHeader", "All Accounts");
+        return "pages/accounts/accounts_all";
+    }
+
+    @GetMapping("/allByUser/{userId}")
+    public String findAllByUserId(@PathVariable Long userId, Model model, WebRequest request) {
+        PageData<AccountResponseDto> response = accountFacade.findAll(userId, request);
+        initDataTable(response, columnNames, model);
+        model.addAttribute("pageData", response);
+        model.addAttribute("createUrl", "/transactions/all");
+        model.addAttribute("createNew", "/transactions/new");
+        model.addAttribute("cardHeader", "All Transactions");
         return "pages/accounts/accounts_all";
     }
 
@@ -74,7 +81,6 @@ public class AccountController extends BaseController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute("account") AccountRequestDto dto) {
-//        dto.setCardNumber(UUID.randomUUID().toString());
         accountFacade.create(dto, getTempUserEmail());
         return "redirect:/users";
     }
@@ -105,6 +111,26 @@ public class AccountController extends BaseController {
         return "redirect:/transactions/new";
     }
 
+    @GetMapping("/toUpdate/{id}")
+    public String redirectToUpdatePersonPage(@PathVariable Long id, Model model) {
+        AccountResponseDto accountResponseDto = accountFacade.findById(id);
+        setTempId(id);
+        model.addAttribute("account", new AccountRequestDto());
+        model.addAttribute("cardTypes", CardType.values());
+        return "pages/accounts/accounts_update";
+    }
+
+    @PostMapping("/update")
+    public String updatePerson(@ModelAttribute("account") AccountRequestDto dto) {
+        accountFacade.update(dto, getTempId());
+        return "redirect:/accounts";
+    }
+
+    @GetMapping("/download/{id}")
+    public String redirectToDownloadAccount(@PathVariable Long id, Model model) {
+        accountFacade.writeOut(id);
+        return "redirect:/download/file/write_out.csv";
+    }
 
     public String getTempUserEmail() {
         return tempUserEmail;
@@ -114,11 +140,11 @@ public class AccountController extends BaseController {
         this.tempUserEmail = tempUserEmail;
     }
 
-    public String getTempAccountName() {
-        return tempAccountName;
+    public Long getTempId() {
+        return tempId;
     }
 
-    public void setTempAccountName(String tempAccountName) {
-        this.tempAccountName = tempAccountName;
+    public void setTempId(Long tempId) {
+        this.tempId = tempId;
     }
 }

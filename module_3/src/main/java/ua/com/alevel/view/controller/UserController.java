@@ -14,7 +14,6 @@ import ua.com.alevel.view.dto.request.UserRequestDto;
 import ua.com.alevel.view.dto.response.PageData;
 import ua.com.alevel.view.dto.response.UserResponseDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +35,7 @@ public class UserController extends BaseController {
     };
 
     private final UserFacade userFacade;
+    private Long tempId;
 
     public UserController(AccountController accountController, UserFacade userFacade, AccountFacade accountFacade) {
         this.accountController = accountController;
@@ -71,12 +71,13 @@ public class UserController extends BaseController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute("user") UserRequestDto dto) {
-        userFacade.create(dto, dto.getEmail());
-        if(userFacade.existByEmail(dto.getEmail())){
+        boolean creatingFlag = userFacade.checkAll(dto);
+        if (creatingFlag) {
+            userFacade.create(dto, dto.getEmail());
             accountController.setTempUserEmail(dto.getEmail());
             return "redirect:/accounts/new";
         }
-        return "redirect:/users";
+        return "error";
     }
 
     @GetMapping("/newAccount/{id}")
@@ -100,11 +101,6 @@ public class UserController extends BaseController {
 
     @GetMapping("/toRemove/{id}")
     public String redirectToRemovedAccountPage(@PathVariable Long id, Model model) {
-//        PopulationResponseDto populationResponseDto = populationFacade.findById(id);
-//        setTempPassportId(populationResponseDto.getPassportID());
-//        List<String> names = populationFacade.findNamesByPersonId(id);
-
-        UserResponseDto userResponseDto = userFacade.findById(id);
         List<String> cardNames = userFacade.findAccountsByUserId(id).values().stream().toList();
         model.addAttribute("user", new UserRequestDto());
         model.addAttribute("cardNames", cardNames);
@@ -113,7 +109,34 @@ public class UserController extends BaseController {
 
     @PostMapping("/remove")
     public String removeCitizenship(@ModelAttribute("user") UserRequestDto dto) {
-//        accountController.setTempAccountName(dto.getAccountName());
         return "redirect:/accounts/deleteByName/" + dto.getAccountName();
+    }
+
+    @GetMapping("/toUpdate/{id}")
+    public String redirectToUpdatePersonPage(@PathVariable Long id, Model model) {
+        setTempId(id);
+        model.addAttribute("cities", Cities.values());
+        model.addAttribute("user", new UserRequestDto());
+        return "pages/users/users_update";
+    }
+
+    @PostMapping("/update")
+    public String updatePerson(@ModelAttribute("user") UserRequestDto dto) {
+        userFacade.update(dto, getTempId());
+        return "redirect:/users";
+    }
+
+    @GetMapping("/download/{id}")
+    public String redirectToDownloadUser(@PathVariable Long id, Model model) {
+        userFacade.writeOut(id);
+        return "redirect:/download/file/write_out.csv";
+    }
+
+    public Long getTempId() {
+        return tempId;
+    }
+
+    public void setTempId(Long tempId) {
+        this.tempId = tempId;
     }
 }

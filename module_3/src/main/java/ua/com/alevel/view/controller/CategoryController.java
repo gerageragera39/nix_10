@@ -11,14 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.CategoryFacade;
-import ua.com.alevel.persistence.cardType.CardType;
-import ua.com.alevel.view.dto.request.AccountRequestDto;
 import ua.com.alevel.view.dto.request.CategoryRequestDto;
 import ua.com.alevel.view.dto.response.CategoryResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
-import ua.com.alevel.view.dto.response.UserResponseDto;
 
-import javax.swing.text.StyledEditorKit;
 import java.util.Map;
 
 @Controller
@@ -29,9 +25,7 @@ public class CategoryController extends BaseController {
             new HeaderName("#", null, null),
             new HeaderName("name", "name", "name"),
             new HeaderName("finances", "finances", "finances"),
-            new HeaderName("categoryCount", "categoryCount", "categoryCount"),
-            new HeaderName("details", null, null),
-            new HeaderName("delete", null, null)
+            new HeaderName("categoryCount", "categoryCount", "categoryCount")
     };
 
     private final CategoryFacade categoryFacade;

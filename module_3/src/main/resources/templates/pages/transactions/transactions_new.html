@@ -19,24 +19,15 @@
                 </div>
                 <div class="card-body">
                     <form action="#" th:action="@{/transactions/create}" th:object="${transaction}" method="post">
-<!--                        <div class="form-group">-->
-<!--                            <label for="amount">Amount</label>-->
-<!--                            <input type="number" class="form-control" id="amount" aria-describedby="balance"-->
-<!--                                   placeholder="Enter balance" th:field="*{amount}">-->
-<!--                        </div>-->
                         <div class="form-group">
-                            <!--                            <label for="balance1">Balance</label>-->
                             <h3>Balance:</h3>
-<!--                            <div>-->
-                                <label for="hryvnas">гривны : </label>
-                                <input type="number" class="form-control" id="hryvnas" aria-describedby="hryvnas"
-                                       placeholder="Enter hryvnas" th:field="*{hryvnas}">
-                                <label for="penny">копейки : </label>
-                                <input type="number" class="form-control" id="penny" aria-describedby="penny"
-                                       placeholder="Enter penny" th:field="*{penny}">
-<!--                            </div>-->
+                            <label for="hryvnas">гривны : </label>
+                            <input type="number" class="form-control" id="hryvnas" aria-describedby="hryvnas"
+                                   placeholder="Enter hryvnas" th:field="*{hryvnas}">
+                            <label for="penny">копейки : </label>
+                            <input type="number" class="form-control" id="penny" aria-describedby="penny"
+                                   placeholder="Enter penny" th:field="*{penny}">
                         </div>
-
                         <div class="form-group">
                             <label for="category">Category</label>
                             <select class="form-control" id="category" th:field="*{categoryName}">
@@ -46,7 +37,6 @@
                                 </option>
                             </select>
                             <div/>
-
                             <button type="submit" class="btn btn-primary">Create Transaction</button>
                     </form>
                 </div>

@@ -122,7 +122,7 @@ public class TransactionDaoImpl implements TransactionDao {
         Predicate cond2;
         if (entityClass.isAssignableFrom(Account.class)) {
             cond2 = criteriaBuilder.or(criteriaBuilder.equal(from.get("account"), entityId));
-            criteriaQuery.where(cond,cond2);
+            criteriaQuery.where(cond, cond2);
         } else if (entityClass.isAssignableFrom(User.class)) {
             Query query = entityManager.createQuery("select u.accounts from User u where u.id = :id")
                     .setParameter("id", entityId);

@@ -4,15 +4,18 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.UserDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.UserService;
 import ua.com.alevel.util.WebResponseUtil;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    public static final Pattern emailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     private final UserDao userDao;
 
@@ -22,14 +25,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User entity, String tempField) {
-        if (!userDao.existByPassportId(entity.getPassportID()) && !userDao.existByEmail(entity.getEmail()) && ageCheck(entity.getAge())) {
+        if (checkAll(entity)) {
             userDao.create(entity, tempField);
         }
     }
 
     @Override
     public void update(User entity) {
-
+        if (userDao.existByPassportId(entity.getPassportID()) && !userDao.existByEmail(entity.getEmail()) && ageAndEmailCheck(entity.getAge()) && validEmail(entity.getEmail())) {
+            userDao.update(entity);
+        }
     }
 
     @Override
@@ -60,7 +65,26 @@ public class UserServiceImpl implements UserService {
         return userDao.existByEmail(email);
     }
 
-    public boolean ageCheck(int age) {
+    @Override
+    public boolean validEmail(String email) {
+        Matcher matcher = emailPattern.matcher(email);
+        if (matcher.find()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkAll(User user) {
+        return !userDao.existByPassportId(user.getPassportID()) && !userDao.existByEmail(user.getEmail()) && ageAndEmailCheck(user.getAge()) && validEmail(user.getEmail());
+    }
+
+    @Override
+    public void writeOut(Long id) {
+        userDao.writeOut(id);
+    }
+
+    public boolean ageAndEmailCheck(int age) {
         if ((age > 0) && (age < 122)) {
             return true;
         }

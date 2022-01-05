@@ -1,10 +1,10 @@
 package ua.com.alevel.facade;
 
-import ua.com.alevel.persistence.entity.Transaction;
+import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.view.dto.request.AccountRequestDto;
 import ua.com.alevel.view.dto.response.AccountResponseDto;
+import ua.com.alevel.view.dto.response.PageData;
 
-import java.util.List;
 import java.util.Map;
 
 public interface AccountFacade extends BaseFacade<AccountRequestDto, AccountResponseDto> {
@@ -14,4 +14,8 @@ public interface AccountFacade extends BaseFacade<AccountRequestDto, AccountResp
     Map<Long, String> findUserByAccountId(Long id);
 
     void delete(String name);
+
+    void writeOut(Long id);
+
+    PageData<AccountResponseDto> findAll(Long userId, WebRequest request);
 }

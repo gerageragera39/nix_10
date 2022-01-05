@@ -1,5 +1,6 @@
 package ua.com.alevel.persistence.dao.impl;
 
+import com.opencsv.CSVWriter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.dao.AccountDao;
@@ -16,10 +17,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 @Transactional
@@ -31,18 +31,23 @@ public class AccountDaoImpl implements AccountDao {
     @Override
     public void create(Account entity, String tempField) {
         entity.setCardNumber(generateCardNumber());
-
         Query query = entityManager.createQuery("select u from User u where u.email = :email")
                 .setParameter("email", tempField);
         User user = (User) query.getSingleResult();
-        entityManager.persist(entity);
-        user.addAccount(entity);
-        entityManager.merge(user);
+        if (entity.getBalance() >= 0) {
+            entityManager.persist(entity);
+            user.addAccount(entity);
+            entityManager.merge(user);
+        } else if (user.getAccounts().size() == 0) {
+            entityManager.createQuery("delete from User u where u.id = :id")
+                    .setParameter("id", user.getId())
+                    .executeUpdate();
+        }
     }
 
     @Override
     public void update(Account entity) {
-
+        entityManager.merge(entity);
     }
 
     @Override
@@ -54,9 +59,9 @@ public class AccountDaoImpl implements AccountDao {
         User user = findById(id).getUser();
         List<Account> accounts = user.getAccounts().stream().toList();
         for (Account acc : accounts) {
-            if(!acc.getVisible()){
+            if (!acc.getVisible()) {
                 user.setVisible(false);
-            }else{
+            } else {
                 user.setVisible(true);
                 break;
             }
@@ -72,13 +77,12 @@ public class AccountDaoImpl implements AccountDao {
         Account account = findByName(name);
         account.setVisible(false);
         update(account);
-
         User user = account.getUser();
         List<Account> accounts = user.getAccounts().stream().toList();
         for (Account acc : accounts) {
-            if(!acc.getVisible()){
+            if (!acc.getVisible()) {
                 user.setVisible(false);
-            }else{
+            } else {
                 user.setVisible(true);
                 break;
             }
@@ -87,6 +91,62 @@ public class AccountDaoImpl implements AccountDao {
         for (Transaction transaction : transactionList) {
             transaction.setVisible(false);
         }
+    }
+
+    @Override
+    public void writeOut(Long id) {
+        List<Transaction> transactions = findById(id).getTransactions().stream().toList();
+        List<String[]> transactionList = new ArrayList<>();
+        try (CSVWriter csvWriter = new CSVWriter(new FileWriter("write_out.csv"))) {
+            for (int i = 0; i < transactions.size(); i++) {
+                String[] transactionsString = new String[3];
+                transactionsString[0] = String.valueOf(i);
+                if (transactions.get(i).getCategory().getFinances()) {
+                    transactionsString[1] = "+ " + transactions.get(i).getAmount().toString();
+                } else {
+                    transactionsString[1] = "- " + transactions.get(i).getAmount().toString();
+                }
+                transactionsString[2] = transactions.get(i).getCategory().getName();
+                transactionList.add(transactionsString);
+            }
+            csvWriter.writeAll(transactionList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public DataTableResponse<Account> findAll(Long userId, DataTableRequest dataTableRequest) {
+        List<Account> items;
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Account> criteriaQuery = criteriaBuilder.createQuery(Account.class);
+        Root<Account> from = criteriaQuery.from(Account.class);
+
+        int page = (dataTableRequest.getCurrentPage() - 1) * dataTableRequest.getPageSize();
+        int size = page + dataTableRequest.getPageSize();
+
+        Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), true));
+        if (dataTableRequest.getOrder().equals("desc")) {
+            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(dataTableRequest.getSort())));
+        } else {
+            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(dataTableRequest.getSort())));
+        }
+        Predicate cond2;
+        cond2 = criteriaBuilder.or(criteriaBuilder.equal(from.get("user"), userId));
+        criteriaQuery.where(cond, cond2);
+
+        items = entityManager.createQuery(criteriaQuery)
+                .setFirstResult(page)
+                .setMaxResults(size)
+                .getResultList();
+
+        DataTableResponse<Account> response = new DataTableResponse<>();
+        response.setSort(dataTableRequest.getSort());
+        response.setOrder(dataTableRequest.getOrder());
+        response.setCurrentPage(dataTableRequest.getCurrentPage());
+        response.setCurrentSize(dataTableRequest.getPageSize());
+        response.setItems(items);
+        return response;
     }
 
     @Override
@@ -163,7 +223,7 @@ public class AccountDaoImpl implements AccountDao {
         return (long) query.getSingleResult();
     }
 
-    public int countNumOfTransactions(Long id){
+    public int countNumOfTransactions(Long id) {
         return findById(id).getTransactions().size();
     }
 
@@ -181,18 +241,18 @@ public class AccountDaoImpl implements AccountDao {
     public Map<Long, String> findUserByAccountId(Long id) {
         User user = findById(id).getUser();
         Map<Long, String> userMap = new HashMap<>();
-        userMap.put(user.getId(),user.getEmail());
+        userMap.put(user.getId(), user.getEmail());
         return userMap;
     }
 
-    private String generateCardNumber(){
+    private String generateCardNumber() {
         Random random = new Random();
         String cardNumber = " ";
         for (int i = 0; i < 4; i++) {
             String tempFourDigits = String.valueOf(random.nextInt(1, 9999));
 
             switch (tempFourDigits.length()) {
-                case 1 :
+                case 1:
                     tempFourDigits = "000" + tempFourDigits;
                     break;
                 case 2:
@@ -202,9 +262,9 @@ public class AccountDaoImpl implements AccountDao {
                     tempFourDigits = "0" + tempFourDigits;
                     break;
             }
-            if(i==0){
+            if (i == 0) {
                 cardNumber = " " + tempFourDigits;
-            } else{
+            } else {
                 cardNumber += " " + tempFourDigits;
             }
         }
@@ -212,7 +272,7 @@ public class AccountDaoImpl implements AccountDao {
         Query query = entityManager.createQuery("select a.cardNumber from Account a");
         List<String> numbers = query.getResultList();
         for (String number : numbers) {
-            if(cardNumber.equals(number)){
+            if (cardNumber.equals(number)) {
                 generateCardNumber();
             }
         }

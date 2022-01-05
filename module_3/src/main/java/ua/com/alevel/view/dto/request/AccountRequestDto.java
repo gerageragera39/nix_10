@@ -5,7 +5,7 @@ import ua.com.alevel.persistence.cardType.CardType;
 public class AccountRequestDto extends RequestDto {
 
     private String cardNumber;
-    private Long balance;
+    private Double balance;
     private CardType cardType;
     private Double hryvnas;
     private Double penny;
@@ -18,11 +18,11 @@ public class AccountRequestDto extends RequestDto {
         this.cardNumber = cardNumber;
     }
 
-    public Long getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Long balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

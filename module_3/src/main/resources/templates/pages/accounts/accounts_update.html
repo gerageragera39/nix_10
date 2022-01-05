@@ -5,7 +5,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="utf-8">
-    <title>Remove Citizenship</title>
+    <title>Update Account</title>
 </head>
 <body>
 
@@ -15,20 +15,20 @@
         <div class="col-12">
             <div class="card mt-2">
                 <div class="card-header">
-                    <h4>Remove Citizenship</h4>
+                    <h4>Update Account</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{/users/remove}" th:object="${user}" method="post">
+                    <form action="#" th:action="@{/accounts/update} " th:object="${account}" method="post">
                         <div class="form-group">
-                            <label for="country">Country</label>
-                            <select class="form-control" id="country" th:field="*{accountName}">
-                                <option th:each="name : ${cardNames}"
-                                        th:value="${name}"
-                                        th:text="${name}">
+                            <label for="cities">Card Type</label>
+                            <select class="form-control" id="cities" th:field="*{cardType}">
+                                <option th:each="type : ${cardTypes}"
+                                        th:value="${type}"
+                                        th:text="${type}">
                                 </option>
                             </select>
                             <div/>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Update Account</button>
                     </form>
                 </div>
             </div>

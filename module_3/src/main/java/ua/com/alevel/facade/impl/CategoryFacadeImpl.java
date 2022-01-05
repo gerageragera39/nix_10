@@ -5,14 +5,12 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.CategoryFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.Category;
 import ua.com.alevel.service.CategoryService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.view.dto.request.CategoryRequestDto;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
-import ua.com.alevel.view.dto.response.AccountResponseDto;
 import ua.com.alevel.view.dto.response.CategoryResponseDto;
 import ua.com.alevel.view.dto.response.PageData;
 

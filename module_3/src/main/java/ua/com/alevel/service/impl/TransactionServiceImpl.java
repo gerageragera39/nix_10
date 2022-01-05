@@ -4,9 +4,7 @@ import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.dao.TransactionDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.Transaction;
-import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.TransactionService;
 import ua.com.alevel.util.WebResponseUtil;
 
@@ -43,7 +41,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public DataTableResponse<Transaction> findAll(DataTableRequest request) {
-//        return transactionDao.findAll(request);
         DataTableResponse<Transaction> dataTableResponse = transactionDao.findAll(request);
         long count = transactionDao.countVisible();
         WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
@@ -52,8 +49,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public DataTableResponse<Transaction> findAll(Class entityClass, Long entityId, DataTableRequest dataTableRequest) {
-//        return transactionDao.findAll(entityClass, entityId, dataTableRequest);
-        DataTableResponse<Transaction> dataTableResponse = transactionDao.findAll(dataTableRequest);
+        DataTableResponse<Transaction> dataTableResponse = transactionDao.findAll(entityClass, entityId, dataTableRequest);
         long count = transactionDao.countVisible();
         WebResponseUtil.initDataTableResponse(dataTableRequest, dataTableResponse, count);
         return dataTableResponse;

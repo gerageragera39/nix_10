@@ -4,26 +4,26 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{pages/accounts/accounts_data_table}">
 <head>
-  <meta charset="utf-8">
-  <title>accounts</title>
+    <meta charset="utf-8">
+    <title>accounts</title>
 </head>
 <body>
 
 <div layout:fragment="data_table_content">
 
-  <tr th:each="account,iter : ${pageData.getItems()}">
-    <td th:text="${iter.count}"></td>
-    <td th:text="${account.getCardNumber()}"></td>
-    <td th:text="${account.getBalance()}"></td>
-    <td th:text="${account.getCardType()}"></td>
-    <td th:text="${account.getTransactionCount()}"></td>
-    <td>
-      <a th:href="@{'/accounts/details/' + ${account.getId()}}" type="button" class="btn btn-primary">details</a>
-    </td>
-    <td>
-      <a th:href="@{'/accounts/delete/' + ${account.getId()}}" type="button" class="btn btn-danger">delete</a>
-    </td>
-  </tr>
+    <tr th:each="account,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${account.getCardNumber()}"></td>
+        <td th:text="${account.getBalance()}"></td>
+        <td th:text="${account.getCardType()}"></td>
+        <td th:text="${account.getTransactionCount()}"></td>
+        <td>
+            <a th:href="@{'/accounts/details/' + ${account.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:href="@{'/accounts/delete/' + ${account.getId()}}" type="button" class="btn btn-danger">delete</a>
+        </td>
+    </tr>
 </div>
 
 </body>

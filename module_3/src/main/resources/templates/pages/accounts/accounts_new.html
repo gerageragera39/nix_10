@@ -19,14 +19,7 @@
                 </div>
                 <div class="card-body">
                     <form action="#" th:action="@{/accounts/create}" th:object="${account}" method="post">
-<!--                        <div class="form-group">-->
-<!--                            <label for="balance">Balance</label>-->
-<!--                            <input type="number" class="form-control" id="balance" aria-describedby="balance"-->
-<!--                                   placeholder="Enter balance" th:field="*{balance}">-->
-<!--                        </div>-->
-
                         <div class="form-group">
-<!--                            <label for="balance1">Balance</label>-->
                             <h3>Balance:</h3>
                             <div>
                                 <label for="hryvnas">гривны : </label>
@@ -39,7 +32,6 @@
                         </div>
 
                         <div class="form-group">
-<!--                            <label for="cardType">Card Type</label>-->
                             <h3>Card Type:</h3>
                             <select class="form-control" id="cardType" th:field="*{cardType}">
                                 <option th:each="types : ${cardTypes}"
@@ -48,7 +40,6 @@
                                 </option>
                             </select>
                             <div/>
-
                             <button type="submit" class="btn btn-primary">Create Account</button>
                     </form>
                 </div>

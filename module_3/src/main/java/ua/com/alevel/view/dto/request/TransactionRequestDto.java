@@ -1,7 +1,5 @@
 package ua.com.alevel.view.dto.request;
 
-import ua.com.alevel.persistence.entity.Category;
-
 public class TransactionRequestDto extends RequestDto {
 
     private Double amount;

@@ -5,10 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.dao.CategoryDao;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.Account;
 import ua.com.alevel.persistence.entity.Category;
 import ua.com.alevel.persistence.entity.Transaction;
-import ua.com.alevel.persistence.entity.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +15,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,11 +122,11 @@ public class CategoryDaoImpl implements CategoryDao {
         return (Category) query.getSingleResult();
     }
 
-    public int countNumOfTransactions(Long id){
+    public int countNumOfTransactions(Long id) {
         List<Transaction> transactionList = findById(id).getTransactions().stream().toList();
         int count = 0;
         for (Transaction transaction : transactionList) {
-            if(transaction.getVisible()){
+            if (transaction.getVisible()) {
                 count++;
             }
         }

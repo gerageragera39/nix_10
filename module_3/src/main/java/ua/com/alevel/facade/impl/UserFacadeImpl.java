@@ -8,7 +8,6 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.User;
 import ua.com.alevel.service.UserService;
 import ua.com.alevel.util.WebRequestUtil;
-import ua.com.alevel.view.dto.request.AccountRequestDto;
 import ua.com.alevel.view.dto.request.PageAndSizeData;
 import ua.com.alevel.view.dto.request.SortData;
 import ua.com.alevel.view.dto.request.UserRequestDto;
@@ -42,7 +41,13 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void update(UserRequestDto userRequestDto, Long id) {
-
+        User user = userService.findById(id);
+        user.setFirstName(userRequestDto.getFirstName());
+        user.setLastName(userRequestDto.getLastName());
+        user.setAge(userRequestDto.getAge());
+        user.setEmail(userRequestDto.getEmail());
+        user.setCity(userRequestDto.getCity());
+        userService.update(user);
     }
 
     @Override
@@ -89,7 +94,19 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public boolean existByEmail(String email) {
-        return userService.existByEmail(email);
+    public boolean checkAll(UserRequestDto dto) {
+        User user = new User();
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setAge(dto.getAge());
+        user.setPassportID(dto.getPassportID());
+        user.setEmail(dto.getEmail());
+        user.setCity(dto.getCity());
+        return userService.checkAll(user);
+    }
+
+    @Override
+    public void writeOut(Long id) {
+        userService.writeOut(id);
     }
 }

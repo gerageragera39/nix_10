@@ -19,7 +19,6 @@ public class Account extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CardType cardType;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
     @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     private User user;
@@ -27,7 +26,7 @@ public class Account extends BaseEntity {
     @OneToMany(mappedBy = "account")
     private Set<Transaction> transactions;
 
-    public void addTransaction(Transaction transaction){
+    public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
 
