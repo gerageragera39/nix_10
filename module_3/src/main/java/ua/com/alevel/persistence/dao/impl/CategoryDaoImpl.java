@@ -62,7 +62,7 @@ public class CategoryDaoImpl implements CategoryDao {
         int page = (request.getCurrentPage() - 1) * request.getPageSize();
         int size = page + request.getPageSize();
 
-        if (request.getSort().equals("categoryCount")) {
+        if (request.getSort().equals("transactionCount")) {
             Query query;
             if (request.getOrder().equals("desc")) {
                 query = entityManager.createQuery("select c from Category c where c.visible = true order by c.transactions.size desc")

@@ -87,8 +87,9 @@ public class AccountFacadeImpl implements AccountFacade {
 
         List<AccountResponseDto> accounts = dataTableResponse.getItems().stream().
                 map(AccountResponseDto::new).
+                peek(accountResponseDto -> accountResponseDto.setTransactionCount((Integer) dataTableResponse.
+                        getOtherParamMap().get(accountResponseDto.getId()))).
                 collect(Collectors.toList());
-
 
         PageData<AccountResponseDto> pageData = new PageData<>();
         pageData.setItems(accounts);

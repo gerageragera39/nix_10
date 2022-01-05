@@ -35,6 +35,7 @@ public class AccountController extends BaseController {
     private final TransactionController transactionController;
     private final AccountFacade accountFacade;
     private Long tempId;
+    private int flag;
 
     public AccountController(TransactionController transactionController, AccountFacade accountFacade, UserFacade userFacade) {
         this.transactionController = transactionController;
@@ -56,10 +57,12 @@ public class AccountController extends BaseController {
     public String findAllByUserId(@PathVariable Long userId, Model model, WebRequest request) {
         PageData<AccountResponseDto> response = accountFacade.findAll(userId, request);
         initDataTable(response, columnNames, model);
+        setTempId(userId);
+        setFlag(1);
         model.addAttribute("pageData", response);
-        model.addAttribute("createUrl", "/transactions/all");
-        model.addAttribute("createNew", "/transactions/new");
-        model.addAttribute("cardHeader", "All Transactions");
+        model.addAttribute("createUrl", "/accounts/all");
+        model.addAttribute("createNew", "/accounts/new");
+        model.addAttribute("cardHeader", "User Accounts");
         return "pages/accounts/accounts_all";
     }
 
@@ -69,7 +72,10 @@ public class AccountController extends BaseController {
         if (MapUtils.isNotEmpty(parameterMap)) {
             parameterMap.forEach(model::addAttribute);
         }
-        return new ModelAndView("redirect:/accounts", model);
+        return switch (flag) {
+            case 1 -> new ModelAndView("redirect:/accounts/allByUser/" + getTempId(), model);
+            default -> new ModelAndView("redirect:/accounts", model);
+        };
     }
 
     @GetMapping("/new")
@@ -107,7 +113,7 @@ public class AccountController extends BaseController {
 
     @GetMapping("/newTransaction/{id}")
     public String redirectToNewAccountPage(@PathVariable Long id, Model model) {
-        transactionController.setTempAccountId(accountFacade.findById(id).getCardNumber());
+        transactionController.setTempId(accountFacade.findById(id).getCardNumber());
         return "redirect:/transactions/new";
     }
 
@@ -146,5 +152,13 @@ public class AccountController extends BaseController {
 
     public void setTempId(Long tempId) {
         this.tempId = tempId;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }

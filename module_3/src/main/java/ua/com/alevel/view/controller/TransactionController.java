@@ -21,8 +21,6 @@ import java.util.Map;
 @RequestMapping("/transactions")
 public class TransactionController extends BaseController {
 
-    private String tempAccountId;
-
     private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
             new HeaderName("amount", "amount", "amount"),
@@ -32,6 +30,8 @@ public class TransactionController extends BaseController {
 
     private final TransactionFacade transactionFacade;
     private final CategoryFacade categoryFacade;
+    private String tempId;
+    private int flag;
 
     public TransactionController(TransactionFacade transactionFacade, CategoryFacade categoryFacade) {
         this.transactionFacade = transactionFacade;
@@ -53,10 +53,12 @@ public class TransactionController extends BaseController {
     public String findAllByAccountId(@PathVariable Long accountId, Model model, WebRequest request) {
         PageData<TransactionResponseDto> response = transactionFacade.findAll(Account.class, accountId, request);
         initDataTable(response, columnNames, model);
+        setTempId(accountId.toString());
+        setFlag(1);
         model.addAttribute("pageData", response);
         model.addAttribute("createUrl", "/transactions/all");
         model.addAttribute("createNew", "/transactions/new");
-        model.addAttribute("cardHeader", "All Transactions");
+        model.addAttribute("cardHeader", "Account Transactions");
         return "pages/transactions/transactions_all";
     }
 
@@ -64,10 +66,12 @@ public class TransactionController extends BaseController {
     public String findAllByUserId(@PathVariable Long userId, Model model, WebRequest request) {
         PageData<TransactionResponseDto> response = transactionFacade.findAll(User.class, userId, request);
         initDataTable(response, columnNames, model);
+        setTempId(userId.toString());
+        setFlag(2);
         model.addAttribute("pageData", response);
         model.addAttribute("createUrl", "/transactions/all");
         model.addAttribute("createNew", "/transactions/new");
-        model.addAttribute("cardHeader", "All Transactions");
+        model.addAttribute("cardHeader", "User Transactions");
         return "pages/transactions/transactions_all";
     }
 
@@ -77,7 +81,11 @@ public class TransactionController extends BaseController {
         if (MapUtils.isNotEmpty(parameterMap)) {
             parameterMap.forEach(model::addAttribute);
         }
-        return new ModelAndView("redirect:/transactions", model);
+        return switch (flag) {
+            case 1 -> new ModelAndView("redirect:/transactions/allByAccount/" + getTempId(), model);
+            case 2 -> new ModelAndView("redirect:/transactions/allByUser/" + getTempId(), model);
+            default -> new ModelAndView("redirect:/transactions", model);
+        };
     }
 
     @GetMapping("/details/{id}")
@@ -97,15 +105,23 @@ public class TransactionController extends BaseController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute("transaction") TransactionRequestDto dto) {
-        transactionFacade.create(dto, getTempAccountId());
+        transactionFacade.create(dto, getTempId());
         return "redirect:/accounts";
     }
 
-    public String getTempAccountId() {
-        return tempAccountId;
+    public String getTempId() {
+        return tempId;
     }
 
-    public void setTempAccountId(String tempAccountId) {
-        this.tempAccountId = tempAccountId;
+    public void setTempId(String tempId) {
+        this.tempId = tempId;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 }

@@ -25,7 +25,7 @@ public class CategoryController extends BaseController {
             new HeaderName("#", null, null),
             new HeaderName("name", "name", "name"),
             new HeaderName("finances", "finances", "finances"),
-            new HeaderName("categoryCount", "categoryCount", "categoryCount")
+            new HeaderName("transactionCount", "transactionCount", "transactionCount")
     };
 
     private final CategoryFacade categoryFacade;

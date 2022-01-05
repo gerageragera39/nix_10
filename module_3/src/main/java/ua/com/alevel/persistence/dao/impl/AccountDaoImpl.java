@@ -116,36 +116,57 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public DataTableResponse<Account> findAll(Long userId, DataTableRequest dataTableRequest) {
+    public DataTableResponse<Account> findAll(Long userId, DataTableRequest request) {
         List<Account> items;
+        Map<Object, Object> otherParamMap = new HashMap<>();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Account> criteriaQuery = criteriaBuilder.createQuery(Account.class);
         Root<Account> from = criteriaQuery.from(Account.class);
 
-        int page = (dataTableRequest.getCurrentPage() - 1) * dataTableRequest.getPageSize();
-        int size = page + dataTableRequest.getPageSize();
+        int page = (request.getCurrentPage() - 1) * request.getPageSize();
+        int size = page + request.getPageSize();
 
-        Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), true));
-        if (dataTableRequest.getOrder().equals("desc")) {
-            criteriaQuery.orderBy(criteriaBuilder.desc(from.get(dataTableRequest.getSort())));
+        if (request.getSort().equals("transactionCount")) {
+            Query query;
+            if (request.getOrder().equals("desc")) {
+                query = entityManager.createQuery("select a from Account a where a.visible = true and a.user.id = :userId order by a.transactions.size desc")
+                        .setParameter("userId", userId)
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            } else {
+                query = entityManager.createQuery("select a from Account a where a.visible = true and a.user.id = :userId order by a.transactions.size asc")
+                        .setParameter("userId", userId)
+                        .setFirstResult(page)
+                        .setMaxResults(size);
+            }
+            items = query.getResultList();
         } else {
-            criteriaQuery.orderBy(criteriaBuilder.asc(from.get(dataTableRequest.getSort())));
+            Predicate cond = criteriaBuilder.and(criteriaBuilder.equal(from.get("visible"), true));
+            if (request.getOrder().equals("desc")) {
+                criteriaQuery.orderBy(criteriaBuilder.desc(from.get(request.getSort())));
+            } else {
+                criteriaQuery.orderBy(criteriaBuilder.asc(from.get(request.getSort())));
+            }
+            Predicate cond2 = criteriaBuilder.or(criteriaBuilder.equal(from.get("user"), userId));
+            criteriaQuery.where(cond, cond2);
+            items = entityManager.createQuery(criteriaQuery)
+                    .setFirstResult(page)
+                    .setMaxResults(size)
+                    .getResultList();
         }
-        Predicate cond2;
-        cond2 = criteriaBuilder.or(criteriaBuilder.equal(from.get("user"), userId));
-        criteriaQuery.where(cond, cond2);
 
-        items = entityManager.createQuery(criteriaQuery)
-                .setFirstResult(page)
-                .setMaxResults(size)
-                .getResultList();
+        for (int i = 0; i < items.size(); i++) {
+            otherParamMap.put(items.get(i).getId(), countNumOfTransactions(items.get(i).getId()));
+        }
 
         DataTableResponse<Account> response = new DataTableResponse<>();
-        response.setSort(dataTableRequest.getSort());
-        response.setOrder(dataTableRequest.getOrder());
-        response.setCurrentPage(dataTableRequest.getCurrentPage());
-        response.setCurrentSize(dataTableRequest.getPageSize());
+        response.setSort(request.getSort());
+        response.setOrder(request.getOrder());
+        response.setCurrentPage(request.getCurrentPage());
+        response.setCurrentSize(request.getPageSize());
         response.setItems(items);
+        response.setOtherParamMap(otherParamMap);
+
         return response;
     }
 
