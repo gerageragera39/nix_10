@@ -163,26 +163,36 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void writeOut(Long id) {
-        List<Account> accounts = findById(id).getAccounts().stream().toList();
+        User user = findById(id);
+        List<Account> accounts = user.getAccounts().stream().toList();
         List<Transaction> transactions = new ArrayList<>();
         for (Account account : accounts) {
             List<Transaction> byAccount = account.getTransactions().stream().toList();
             transactions.addAll(byAccount);
         }
-        List<String[]> transactionList = new ArrayList<>();
+        List<String[]> writeOutList = new ArrayList<>();
+        String[] strings = new String[5];
+        strings[0] = "#";
+        strings[1] = "user_email";
+        strings[2] = "account_number";
+        strings[3] = "transaction_amount";
+        strings[4] = "category_name";
+        writeOutList.add(strings);
         try (CSVWriter csvWriter = new CSVWriter(new FileWriter("write_out.csv"))) {
             for (int i = 0; i < transactions.size(); i++) {
-                String[] transactionsString = new String[3];
+                String[] transactionsString = new String[5];
                 transactionsString[0] = String.valueOf(i);
+                transactionsString[1] = transactions.get(i).getAccount().getUser().getEmail();
+                transactionsString[2] = transactions.get(i).getAccount().getCardNumber();
                 if (transactions.get(i).getCategory().getFinances()) {
-                    transactionsString[1] = "+ " + transactions.get(i).getAmount().toString();
+                    transactionsString[3] = "+ " + transactions.get(i).getAmount().toString();
                 } else {
-                    transactionsString[1] = "- " + transactions.get(i).getAmount().toString();
+                    transactionsString[3] = "- " + transactions.get(i).getAmount().toString();
                 }
-                transactionsString[2] = transactions.get(i).getCategory().getName();
-                transactionList.add(transactionsString);
+                transactionsString[4] = transactions.get(i).getCategory().getName();
+                writeOutList.add(transactionsString);
             }
-            csvWriter.writeAll(transactionList);
+            csvWriter.writeAll(writeOutList);
         } catch (IOException e) {
             e.printStackTrace();
         }
