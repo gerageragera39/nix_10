@@ -30,3 +30,5 @@ module_2 = 9
 hw_8 = 9
 hw_9 = 9
 hw_10 = 9
+
+module_3 = 9
