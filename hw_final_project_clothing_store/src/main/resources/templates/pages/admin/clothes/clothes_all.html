@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>books</title>
+</head>
+<body>
+
+<div layout:fragment="data_table_content">
+    <tr th:each="thing,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td>
+            <img th:src="@{${thing.getImages().get(0).getUrl()}}" width="45" height="45"/>
+        </td>
+        <td th:text="${thing.getTitle()}"></td>
+        <td th:text="${thing.getColor()}"></td>
+        <td th:text="${thing.getSize()}"></td>
+        <td th:text="${thing.getSex()}"></td>
+        <td th:text="${thing.getType()}"></td>
+        <td th:text="${#calendars.format(thing.getCreated(),'dd MMMM yyyy')}"></td>
+        <td th:text="${thing.getPrice()}"></td>
+        <td th:text="${thing.getQuantity()}"></td>
+        <td>
+            <a th:href="@{'/admin/clothes/details/' + ${thing.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:href="@{'/admin/clothes/delete/' + ${thing.getId()}}" type="button" class="btn btn-danger">delete</a>
+        </td>
+    </tr>
+</div>
+
+</body>
+</html>
