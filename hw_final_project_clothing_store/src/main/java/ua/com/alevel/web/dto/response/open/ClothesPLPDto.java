@@ -20,6 +20,10 @@ public class ClothesPLPDto extends ResponseDto {
     private Double price;
 
     public ClothesPLPDto(Clothes thing) {
+        setId(thing.getId());
+        setCreated(thing.getCreated());
+        setUpdated(thing.getUpdated());
+        setVisible(thing.getVisible());
         this.title = thing.getTitle();
         this.color = thing.getColor();
         this.size = thing.getSize();
