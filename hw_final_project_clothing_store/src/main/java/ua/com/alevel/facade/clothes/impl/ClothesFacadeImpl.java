@@ -8,7 +8,9 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.clothes.ClothesService;
-import ua.com.alevel.util.WebUtil;
+import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.web.dto.request.PageAndSizeData;
+import ua.com.alevel.web.dto.request.SortData;
 import ua.com.alevel.web.dto.request.clothes.ClothesRequestDto;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.PageData;
@@ -60,14 +62,36 @@ public class ClothesFacadeImpl implements ClothesFacade {
 
     @Override
     public PageData<ClothesResponseDto> findAll(WebRequest request) {
-        DataTableRequest dataTableRequest = WebUtil.generateDataTableRequestByWebRequest(request);
-        DataTableResponse<Clothes> tableResponse = clothesService.findAll(dataTableRequest);
-        List<ClothesResponseDto> books = tableResponse.getItems().stream().
+//        DataTableRequest dataTableRequest = WebUtil.generateDataTableRequestByWebRequest(request);
+//        DataTableResponse<Clothes> tableResponse = clothesService.findAll(dataTableRequest);
+//        List<ClothesResponseDto> clothes = tableResponse.getItems().stream().
+//                map(ClothesResponseDto::new).
+//                collect(Collectors.toList());
+//
+//        PageData<ClothesResponseDto> pageData = (PageData<ClothesResponseDto>) WebUtil.initPageData(tableResponse);
+//        pageData.setItems(clothes);
+//        return pageData;
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        dataTableRequest.setSize(pageAndSizeData.getSize());
+        dataTableRequest.setPage(pageAndSizeData.getPage());
+        dataTableRequest.setSort(sortData.getSort());
+        dataTableRequest.setOrder(sortData.getOrder());
+
+        DataTableResponse<Clothes> dataTableResponse = clothesService.findAll(dataTableRequest);
+        List<ClothesResponseDto> clothes = dataTableResponse.getItems().stream().
                 map(ClothesResponseDto::new).
                 collect(Collectors.toList());
 
-        PageData<ClothesResponseDto> pageData = (PageData<ClothesResponseDto>) WebUtil.initPageData(tableResponse);
-        pageData.setItems(books);
+        PageData<ClothesResponseDto> pageData = new PageData<>();
+        pageData.setItems(clothes);
+        pageData.setCurrentPage(pageAndSizeData.getPage());
+        pageData.setPageSize(pageAndSizeData.getSize());
+        pageData.setSort(sortData.getSort());
+        pageData.setOrder(sortData.getOrder());
+        pageData.setItemsSize(dataTableResponse.getItemsSize());
+        pageData.initPaginationState();
         return pageData;
     }
 }

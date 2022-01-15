@@ -20,6 +20,7 @@ public class ClothesResponseDto extends ResponseDto {
     private ThingTypes type;
     private String description;
     private String compound;
+    private String brandName;
     private List<Image> images;
     private Double price;
     private Integer quantity;
@@ -41,6 +42,7 @@ public class ClothesResponseDto extends ResponseDto {
         this.images = thing.getImages().stream().toList();
         this.price = thing.getPrice();
         this.quantity = thing.getQuantity();
+        this.brandName = thing.getBrand().getName();
     }
 
     public String getTitle() {
@@ -130,5 +132,13 @@ public class ClothesResponseDto extends ResponseDto {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 }

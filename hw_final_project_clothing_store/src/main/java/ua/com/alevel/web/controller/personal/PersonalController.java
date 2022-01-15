@@ -10,6 +10,6 @@ public class PersonalController {
 
     @GetMapping
     public String dashboard() {
-        return "pages/personal/dashboard";
+        return "pages/personals/dashboard";
     }
 }

@@ -6,4 +6,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 import ua.com.alevel.persistence.entity.BaseEntity;
 
 @NoRepositoryBean
-public interface BaseRepository<E extends BaseEntity> extends JpaRepository<E, Long>, JpaSpecificationExecutor<E> { }
+public interface BaseRepository<E extends BaseEntity> extends JpaRepository<E, Long>, JpaSpecificationExecutor<E> {
+}

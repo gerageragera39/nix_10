@@ -7,6 +7,8 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
 import ua.com.alevel.service.clothes.ClothesService;
+import ua.com.alevel.util.WebResponseUtil;
+import ua.com.alevel.util.WebUtil;
 
 import java.util.Optional;
 
@@ -43,6 +45,13 @@ public class ClothesServiceImpl implements ClothesService {
 
     @Override
     public DataTableResponse<Clothes> findAll(DataTableRequest request) {
-        return crudRepositoryHelper.findAll(clothesRepository, request);
+//        DataTableResponse<Clothes> dataTableResponse = crudRepositoryHelper.findAll(clothesRepository, request);
+//        int count = clothesRepository.countAllByVisibleTrue();
+////        WebUtil.initDataTableResponse(request, dataTableResponse, count);
+//        return dataTableResponse;
+        DataTableResponse<Clothes> dataTableResponse = crudRepositoryHelper.findAll(clothesRepository, request);
+        long count = clothesRepository.countAllByVisibleTrue();
+        WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
+        return dataTableResponse;
     }
 }

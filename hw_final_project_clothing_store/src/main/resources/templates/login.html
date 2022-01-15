@@ -11,6 +11,10 @@
 <body>
 <div class="container">
     <div layout:fragment="content">
+        <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+            <a class="nav-item nav-link" th:href="@{/clothes}">Clothes</a>
+            <a class="nav-item nav-link" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
+        </nav>
         <div class="row mb-2 mt-2" th:if="${showMessage}">
             <div class="col-12">
                 <div th:if="${message}" class="alert alert-primary alert-dismissible fade show" role="alert">

@@ -1,0 +1,76 @@
+package ua.com.alevel.facade.users.impl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.facade.users.PersonalFacade;
+import ua.com.alevel.persistence.datatable.DataTableRequest;
+import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.brands.Brand;
+import ua.com.alevel.persistence.entity.users.Personal;
+import ua.com.alevel.service.personal.PersonalService;
+import ua.com.alevel.util.WebRequestUtil;
+import ua.com.alevel.web.dto.request.PageAndSizeData;
+import ua.com.alevel.web.dto.request.SortData;
+import ua.com.alevel.web.dto.request.users.PersonalRequestDto;
+import ua.com.alevel.web.dto.response.PageData;
+import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
+import ua.com.alevel.web.dto.response.users.PersonalResponseDto;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class PersonalFacadeImpl implements PersonalFacade {
+
+    private final PersonalService personalService;
+
+    public PersonalFacadeImpl(PersonalService personalService) {
+        this.personalService = personalService;
+    }
+
+    @Override
+    public void create(PersonalRequestDto personalRequestDto) {
+
+    }
+
+    @Override
+    public void update(PersonalRequestDto personalRequestDto, Long id) {
+
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
+
+    @Override
+    public PersonalResponseDto findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public PageData<PersonalResponseDto> findAll(WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        dataTableRequest.setSize(pageAndSizeData.getSize());
+        dataTableRequest.setPage(pageAndSizeData.getPage());
+        dataTableRequest.setSort(sortData.getSort());
+        dataTableRequest.setOrder(sortData.getOrder());
+
+        DataTableResponse<Personal> dataTableResponse = personalService.findAll(dataTableRequest);
+        List<PersonalResponseDto> brands = dataTableResponse.getItems().stream().
+                map(PersonalResponseDto::new).
+                collect(Collectors.toList());
+
+        PageData<PersonalResponseDto> pageData = new PageData<>();
+        pageData.setItems(brands);
+        pageData.setCurrentPage(pageAndSizeData.getPage());
+        pageData.setPageSize(pageAndSizeData.getSize());
+        pageData.setSort(sortData.getSort());
+        pageData.setOrder(sortData.getOrder());
+        pageData.setItemsSize(dataTableResponse.getItemsSize());
+        pageData.initPaginationState();
+        return pageData;
+    }
+}

@@ -18,14 +18,12 @@ import ua.com.alevel.web.dto.response.PageData;
 @RequestMapping("/admin/clothes")
 public class AdminClothesController extends AbstractController {
 
-    private final ClothesFacade clothesFacade;
-
     private final HeaderName[] columnNames = new HeaderName[] {
             new HeaderName("#", null, null),
             new HeaderName("image", null, null),
             new HeaderName("title", "title", "title"),
             new HeaderName("color", "color", "color"),
-            new HeaderName("size", "size", "sex"),
+            new HeaderName("size", "size", "size"),
             new HeaderName("sex", "sex", "sex"),
             new HeaderName("type", "type", "type"),
             new HeaderName("created", "created", "created"),
@@ -34,6 +32,8 @@ public class AdminClothesController extends AbstractController {
             new HeaderName("details", null, null),
             new HeaderName("delete", null, null)
     };
+
+    private final ClothesFacade clothesFacade;
 
     public AdminClothesController(ClothesFacade clothesFacade) {
         this.clothesFacade = clothesFacade;
@@ -44,6 +44,7 @@ public class AdminClothesController extends AbstractController {
         PageData<ClothesResponseDto> response = clothesFacade.findAll(request);
         initDataTable(response, columnNames, model);
         model.addAttribute("createUrl", "/admin/clothes/all");
+//        model.addAttribute("createUrl", "/admin/clothes");
         model.addAttribute("createNew", "/admin/clothes/new");
         model.addAttribute("cardHeader", "All Clothes");
         return "pages/admin/clothes/clothes_all";
@@ -51,7 +52,7 @@ public class AdminClothesController extends AbstractController {
 
     @PostMapping("/all")
     public ModelAndView findAllRedirect(WebRequest request, ModelMap model) {
-        return findAllRedirect(request, model, "clothes");
+        return findAllRedirect(request, model, "admin/clothes");
     }
 
     @GetMapping("/new")

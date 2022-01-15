@@ -1,0 +1,65 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en"-->
+<!--      xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      layout:decorate="~{fragments/open_layout}">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div layout:fragment="open_content">-->
+<!--    <div class="row mt-4">-->
+<!--        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3" th:each="thing : ${clothes}">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <div class="card-body">-->
+<!--                    <a th:href="@{/login}">-->
+<!--                        <img th:src="${thing.getImages().get(0).getUrl()}" class="img-fluid rounded-start" alt="...">-->
+<!--                    </a>-->
+<!--                    <h5 class="card-title" th:text="${thing.getTitle()}"></h5>-->
+<!--                    <p class="card-text" th:text="${thing.getPrice()}"></p>-->
+<!--                    <p class="card-text" th:text="${thing.getBrandName()}"></p>-->
+<!--                    &lt;!&ndash;                    <button class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</button>&ndash;&gt;-->
+<!--                    <a class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/personal_clothes_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="personal_clothes_content">
+    <div class="row mt-4">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3" th:each="thing : ${clothes}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <a th:href="@{/login}">
+                        <img th:src="${thing.getImages().get(0).getUrl()}" class="img-fluid rounded-start" alt="...">
+                    </a>
+                    <h5 class="card-title" th:text="${thing.getTitle()}"></h5>
+                    <p class="card-text" th:text="${thing.getPrice()}"></p>
+                    <p class="card-text" th:text="${thing.getBrandName()}"></p>
+                    <!--                    <button class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</button>-->
+                    <a class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

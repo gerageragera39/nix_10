@@ -18,6 +18,7 @@ public class ClothesPLPDto extends ResponseDto {
     private ThingTypes type;
     private Image image;
     private Double price;
+    private String brandName;
 
     public ClothesPLPDto(Clothes thing) {
         setId(thing.getId());
@@ -31,6 +32,7 @@ public class ClothesPLPDto extends ResponseDto {
         this.type = thing.getType();
         this.image = thing.getImages().stream().toList().get(0);
         this.price = thing.getPrice();
+        this.brandName = thing.getBrand().getName();
     }
 
     public String getTitle() {
@@ -87,5 +89,13 @@ public class ClothesPLPDto extends ResponseDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 }

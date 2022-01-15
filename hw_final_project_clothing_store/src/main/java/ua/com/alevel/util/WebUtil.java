@@ -55,4 +55,12 @@ public final class WebUtil {
         pageData.initPaginationState();
         return pageData;
     }
+
+    public static void initDataTableResponse(DataTableRequest request, DataTableResponse<? extends BaseEntity> dataTableResponse, long count) {
+        dataTableResponse.setItemsSize(count);
+        dataTableResponse.setCurrentPage(request.getPage());
+        dataTableResponse.setItemsSize(request.getSize());
+        dataTableResponse.setOrder(request.getOrder());
+        dataTableResponse.setSort(request.getSort());
+    }
 }

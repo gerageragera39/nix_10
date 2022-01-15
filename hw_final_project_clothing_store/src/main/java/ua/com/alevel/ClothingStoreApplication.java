@@ -8,10 +8,13 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.token.Token;
 import ua.com.alevel.persistence.entity.users.Admin;
 import ua.com.alevel.persistence.repository.token.TokenRepository;
 import ua.com.alevel.persistence.repository.users.AdminRepository;
+import ua.com.alevel.persistence.sizes.Sizes;
+import ua.com.alevel.persistence.thing_type.ThingTypes;
 
 import java.util.Optional;
 
