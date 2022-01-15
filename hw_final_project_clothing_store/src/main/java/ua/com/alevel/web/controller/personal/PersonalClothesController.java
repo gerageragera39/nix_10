@@ -27,7 +27,7 @@ public class PersonalClothesController extends AbstractController {
 
     @GetMapping
     private String allClothes(Model model, WebRequest webRequest) {
-        PageData<ClothesResponseDto> response = clothesFacade.findAll(webRequest);
+        PageData<ClothesResponseDto> response = clothesFacade.personalFindAll(webRequest);
         List<ClothesResponseDto> clothesList = response.getItems();
         model.addAttribute("createUrl", "/personal/clothes/all");
         model.addAttribute("cardHeader", "All Clothes");

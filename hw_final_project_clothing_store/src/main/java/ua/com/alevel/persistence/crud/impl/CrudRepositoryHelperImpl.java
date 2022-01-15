@@ -110,6 +110,7 @@ public class CrudRepositoryHelperImpl<
         dataTableResponse.setOrder(orderBy);
         dataTableResponse.setSort(sortBy);
         dataTableResponse.setCurrentPage(dataTableRequest.getPage());
+        dataTableResponse.setPageSize(dataTableRequest.getSize());
 //        dataTableResponse.setItemsSize(dataTableRequest.getSize());
         dataTableResponse.setItemsSize(repository.countAllByVisibleTrue());
 

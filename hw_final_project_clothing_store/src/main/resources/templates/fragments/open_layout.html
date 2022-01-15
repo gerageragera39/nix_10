@@ -20,50 +20,52 @@
             </form>
             <a class="nav-item nav-link" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
         </nav>
+        <div style="margin-left: 50px;">
 
-        <section layout:fragment="open_content"></section>
+            <section layout:fragment="open_content"></section>
 
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="p-1" style="margin-top: 1em !important;">
-                <ul class="pagination align-middle">
-                    <li class="page-item" th:classappend="${pageData.isShowFirst() ? '' : 'disabled'}">
-                        <a class="page-link" href="#" th:onclick="|runPagination(1, ${pageData.getPageSize()}, 0)|" title="First Page"><i class="fa fa-fast-backward"></i></a>
-                    </li>
-                    <li class="page-item" th:classappend="${pageData.isShowPrevious() ? '' : 'disabled'}">
-                        <a class="page-link" href="#" th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, -1)|" title="Previous Page"><i class="fa fa-backward"></i></a>
-                    </li>
-                    <li class="page-item disabled">
-                        <a class="page-link" href="" th:text="${pageData.getCurrentPage()}">@Model.currentPage</a>
-                    </li>
-                    <li class="page-item" th:classappend="${pageData.isShowNext() ? '' : 'disabled'}">
-                        <a class="page-link" href="#" th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, 1)|" title="Next Page"><i class="fa fa-forward"></i></a>
-                    </li>
-                    <li class="page-item" th:classappend="${pageData.isShowLast() ? '' : 'disabled'}">
-                        <a class="page-link" href="#" th:onclick="|runPagination(${pageData.getTotalPageSize()}, ${pageData.getPageSize()}, 0)|" title="Last Page"><i class="fa fa-fast-forward"></i></a>
-                    </li>
-                </ul>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="p-1" style="margin-top: 1em !important;">
+                    <ul class="pagination align-middle">
+                        <li class="page-item" th:classappend="${pageData.isShowFirst() ? '' : 'disabled'}">
+                            <a class="page-link" href="#" th:onclick="|runPagination(1, ${pageData.getPageSize()}, 0)|" title="First Page"><i class="fa fa-fast-backward"></i></a>
+                        </li>
+                        <li class="page-item" th:classappend="${pageData.isShowPrevious() ? '' : 'disabled'}">
+                            <a class="page-link" href="#" th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, -1)|" title="Previous Page"><i class="fa fa-backward"></i></a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="" th:text="${pageData.getCurrentPage()}">@Model.currentPage</a>
+                        </li>
+                        <li class="page-item" th:classappend="${pageData.isShowNext() ? '' : 'disabled'}">
+                            <a class="page-link" href="#" th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, 1)|" title="Next Page"><i class="fa fa-forward"></i></a>
+                        </li>
+                        <li class="page-item" th:classappend="${pageData.isShowLast() ? '' : 'disabled'}">
+                            <a class="page-link" href="#" th:onclick="|runPagination(${pageData.getTotalPageSize()}, ${pageData.getPageSize()}, 0)|" title="Last Page"><i class="fa fa-fast-forward"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-1">
+                    <a class="page-link btn btn-secondary" href="#" th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, 0)|" title="Refresh Page"><i class="fa fa-refresh"></i></a>
+                </div>
+                <div class="p-1">
+                    <a class="page-link btn btn-secondary" href="#" onclick="runPagination(1, 10, 0)" title="Reset Page"><i class="fa fa-trash"></i></a>
+                </div>
             </div>
-            <div class="p-1">
-                <a class="page-link btn btn-secondary" href="#" th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, 0)|" title="Refresh Page"><i class="fa fa-refresh"></i></a>
-            </div>
-            <div class="p-1">
-                <a class="page-link btn btn-secondary" href="#" onclick="runPagination(1, 10, 0)" title="Reset Page"><i class="fa fa-trash"></i></a>
-            </div>
+
+            <form method="POST" th:action="@{${createUrl}}" id="personalSearch">
+                <input type="submit"
+                       id="personalSearchSubmit"
+                       style="visibility: hidden"
+                />
+            </form>
+
+            <span th:data-sort="${pageData.getSort()}"
+                  th:data-order="${pageData.getOrder()}"
+                  th:data-page="${pageData.getCurrentPage()}"
+                  th:data-size="${pageData.getPageSize()}"
+                  id="pageData">
+            </span>
         </div>
-
-        <form method="POST" th:action="@{${createUrl}}" id="personalSearch">
-            <input type="submit"
-                   id="personalSearchSubmit"
-                   style="visibility: hidden"
-            />
-        </form>
-
-        <span th:data-sort="${pageData.getSort()}"
-              th:data-order="${pageData.getOrder()}"
-              th:data-page="${pageData.getCurrentPage()}"
-              th:data-size="${pageData.getPageSize()}"
-              id="pageData">
-    </span>
     </div>
 </div>
 

@@ -18,6 +18,7 @@ public final class WebUtil {
     public static final String DEFAULT_ORDER_PARAM_VALUE = "desc";
     public static final int DEFAULT_PAGE_PARAM_VALUE = 1;
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
+    public static final int PLP_DEFAULT_SIZE_PARAM_VALUE = 8;
     public static final String PUBLISHER_PARAM = "publisher";
     public static final String SEARCH_BOOK_PARAM = "searchBook";
 
@@ -30,6 +31,27 @@ public final class WebUtil {
                 : Integer.parseInt(request.getParameter(PAGE_PARAM));
         int size = StringUtils.isBlank(request.getParameter(SIZE_PARAM))
                 ? DEFAULT_SIZE_PARAM_VALUE
+                : Integer.parseInt(request.getParameter(SIZE_PARAM));
+        String sort = StringUtils.isBlank(request.getParameter(SORT_PARAM))
+                ? DEFAULT_SORT_PARAM_VALUE
+                : request.getParameter(SORT_PARAM);
+        String order = StringUtils.isBlank(request.getParameter(ORDER_PARAM))
+                ? DEFAULT_ORDER_PARAM_VALUE
+                : request.getParameter(ORDER_PARAM);
+        dataTableRequest.setOrder(order);
+        dataTableRequest.setSort(sort);
+        dataTableRequest.setSize(size);
+        dataTableRequest.setPage(page);
+        return dataTableRequest;
+    }
+
+    public static DataTableRequest generatePLPDataTableRequestByWebRequest(WebRequest request) {
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        int page = StringUtils.isBlank(request.getParameter(PAGE_PARAM))
+                ? DEFAULT_PAGE_PARAM_VALUE
+                : Integer.parseInt(request.getParameter(PAGE_PARAM));
+        int size = StringUtils.isBlank(request.getParameter(SIZE_PARAM))
+                ? PLP_DEFAULT_SIZE_PARAM_VALUE
                 : Integer.parseInt(request.getParameter(SIZE_PARAM));
         String sort = StringUtils.isBlank(request.getParameter(SORT_PARAM))
                 ? DEFAULT_SORT_PARAM_VALUE

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>User details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header d-flex justify-content-start h3">
+                    User details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${thing.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <td th:text="${thing.getTitle()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Color</th>
+                            <td th:text="${thing.getColor()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Size</th>
+                            <td th:text="${thing.getSize()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Sex</th>
+                            <td th:text="${thing.getSex()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td th:text="${thing.getType()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td th:text="${thing.getDescription()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Compound</th>
+                            <td th:text="${thing.getCompound()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td th:text="${thing.getPrice()}">грн.</td>
+                        </tr>
+                        <tr>
+                            <th>Quantity</th>
+                            <td th:text="${thing.getQuantity()}"></td>
+                        </tr>
+                        <tr>
+                            <th>BrandName</th>
+                            <td th:text="${thing.getBrandName()}">
+<!--                                <a th:href="@{'/users/newAccount/' + ${thing.getId()}}"></a>-->
+<!--                            </td>-->
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(thing.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(thing.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Images</th>
+                            <td>
+                                <ul th:each="image : ${thing.getImages()}" class="list-group list-group-horizontal">
+                                    <li class="list-group-item">
+<!--                                        <a role="button" class="btn btn-link"-->
+<!--                                           th:href="@{'/accounts/details/' + ${account.getKey()}}"-->
+<!--                                           th:text="${account.getValue()}">details</a>-->
+                                        <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header d-flex align-content-end flex-wrap">
+                                <a type="button" class="btn btn-primary m-auto"
+                                   th:href="@{'/users/newAccount/' + ${thing.getId()}}">Add new Account</a>
+                                <a type="button" class="btn btn-primary m-auto"
+                                   th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>
+                                <a type="button" class="btn btn-primary m-auto"
+                                   th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>
+                                <a type="button" class="btn btn-primary m-auto"
+                                   th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>
+                                <a type="button" class="btn btn-primary m-auto"
+                                   th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>
+                            </div>
+                            <a type="button" class="btn btn-primary m-auto t-1"
+                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

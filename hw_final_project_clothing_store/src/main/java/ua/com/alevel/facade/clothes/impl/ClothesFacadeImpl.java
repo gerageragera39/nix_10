@@ -57,7 +57,7 @@ public class ClothesFacadeImpl implements ClothesFacade {
 
     @Override
     public ClothesResponseDto findById(Long id) {
-        return null;
+        return new ClothesResponseDto(clothesService.findById(id).get());
     }
 
     @Override
@@ -72,6 +72,32 @@ public class ClothesFacadeImpl implements ClothesFacade {
 //        pageData.setItems(clothes);
 //        return pageData;
         PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
+        SortData sortData = WebRequestUtil.generateSortData(request);
+        DataTableRequest dataTableRequest = new DataTableRequest();
+        dataTableRequest.setSize(pageAndSizeData.getSize());
+        dataTableRequest.setPage(pageAndSizeData.getPage());
+        dataTableRequest.setSort(sortData.getSort());
+        dataTableRequest.setOrder(sortData.getOrder());
+
+        DataTableResponse<Clothes> dataTableResponse = clothesService.findAll(dataTableRequest);
+        List<ClothesResponseDto> clothes = dataTableResponse.getItems().stream().
+                map(ClothesResponseDto::new).
+                collect(Collectors.toList());
+
+        PageData<ClothesResponseDto> pageData = new PageData<>();
+        pageData.setItems(clothes);
+        pageData.setCurrentPage(pageAndSizeData.getPage());
+        pageData.setPageSize(pageAndSizeData.getSize());
+        pageData.setSort(sortData.getSort());
+        pageData.setOrder(sortData.getOrder());
+        pageData.setItemsSize(dataTableResponse.getItemsSize());
+        pageData.initPaginationState();
+        return pageData;
+    }
+
+    @Override
+    public PageData<ClothesResponseDto> personalFindAll(WebRequest request) {
+        PageAndSizeData pageAndSizeData = WebRequestUtil.generatePersonalPageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = new DataTableRequest();
         dataTableRequest.setSize(pageAndSizeData.getSize());

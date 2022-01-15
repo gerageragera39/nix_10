@@ -28,14 +28,16 @@
 <!--                </div>-->
 <!--            </div>-->
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <img th:src="${thing.getImage().getUrl()}" class="img-fluid rounded-start" alt="...">
-                    <h5 class="card-title" th:text="${thing.getTitle()}"></h5>
-                    <p class="card-text" th:text="${thing.getPrice()}"></p>
-                    <p class="card-text" th:text="${thing.getBrandName()}"></p>
-<!--                    <button class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</button>-->
-                    <a class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</a>
+            <div class="mt-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <img th:src="${thing.getImage().getUrl()}" class="img-fluid rounded-start" alt="...">
+                        <h5 class="card-title" th:text="${thing.getTitle()}"></h5>
+                        <p class="card-text" th:text="${thing.getPrice()}"></p>
+                        <p class="card-text" th:text="${thing.getBrandName()}"></p>
+                        <!--                    <button class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</button>-->
+                        <a class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</a>
+                    </div>
                 </div>
             </div>
         </div>

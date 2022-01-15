@@ -26,7 +26,7 @@ public class PLPFacadeImpl implements PLPFacade {
 
     @Override
     public PageData findAll(WebRequest request) {
-        DataTableRequest dataTableRequest = WebUtil.generateDataTableRequestByWebRequest(request);
+        DataTableRequest dataTableRequest = WebUtil.generatePLPDataTableRequestByWebRequest(request);
 //        dataTableRequest.setSize(12);
         DataTableResponse<Clothes> tableResponse = plpService.findAll(dataTableRequest);
         List<ClothesPLPDto> clothes = tableResponse.getItems().stream().

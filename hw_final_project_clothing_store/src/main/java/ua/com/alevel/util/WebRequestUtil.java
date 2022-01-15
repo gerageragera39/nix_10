@@ -18,6 +18,7 @@ public final class WebRequestUtil {
     public static final String DEFAULT_ORDER_PARAM_VALUE = "desc";
     public static final int DEFAULT_PAGE_PARAM_VALUE = 1;
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
+    public static final int PERSONAL_DEFAULT_SIZE_PARAM_VALUE = 8;
 
     private WebRequestUtil() {
     }
@@ -36,6 +37,12 @@ public final class WebRequestUtil {
     public static PageAndSizeData generatePageAndSizeData(WebRequest webRequest) {
         int page = webRequest.getParameter(PAGE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(PAGE_PARAM))) : DEFAULT_PAGE_PARAM_VALUE;
         int size = webRequest.getParameter(SIZE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(SIZE_PARAM))) : DEFAULT_SIZE_PARAM_VALUE;
+        return new PageAndSizeData(page, size);
+    }
+
+    public static PageAndSizeData generatePersonalPageAndSizeData(WebRequest webRequest) {
+        int page = webRequest.getParameter(PAGE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(PAGE_PARAM))) : DEFAULT_PAGE_PARAM_VALUE;
+        int size = webRequest.getParameter(SIZE_PARAM) != null ? Integer.parseInt(Objects.requireNonNull(webRequest.getParameter(SIZE_PARAM))) : PERSONAL_DEFAULT_SIZE_PARAM_VALUE;
         return new PageAndSizeData(page, size);
     }
 
