@@ -50,7 +50,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public Optional<Personal> findById(Long id) {
-        return Optional.empty();
+        return crudRepositoryHelper.findById(personalRepository, id);
     }
 
     @Override

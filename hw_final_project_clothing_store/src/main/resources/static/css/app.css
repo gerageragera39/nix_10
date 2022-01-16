@@ -18,3 +18,13 @@ a.nav-item.nav-link {
     cursor: pointer;
     margin-right: 2em;
 }
+
+label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+}

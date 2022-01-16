@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -12,6 +13,7 @@ import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
+import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.users.PersonalResponseDto;
 
 @Controller
@@ -49,5 +51,18 @@ public class AdminPersonalController extends AbstractController {
     @PostMapping("/all")
     public ModelAndView findAllRedirect(WebRequest request, ModelMap model) {
         return findAllRedirect(request, model, "admin/personals");
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        personalFacade.delete(id);
+        return "redirect:/admin/clothes";
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable Long id, Model model) {
+        PersonalResponseDto dto = personalFacade.findById(id);
+        model.addAttribute("person", dto);
+        return "pages/admin/personals/personals_details";
     }
 }

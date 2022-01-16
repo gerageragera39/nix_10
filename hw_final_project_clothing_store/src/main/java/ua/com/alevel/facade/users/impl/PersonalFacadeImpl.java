@@ -45,7 +45,7 @@ public class PersonalFacadeImpl implements PersonalFacade {
 
     @Override
     public PersonalResponseDto findById(Long id) {
-        return null;
+        return new PersonalResponseDto(personalService.findById(id).get());
     }
 
     @Override

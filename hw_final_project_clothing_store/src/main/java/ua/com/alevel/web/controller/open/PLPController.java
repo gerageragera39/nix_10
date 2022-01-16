@@ -13,6 +13,8 @@ import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,9 @@ public class PLPController extends AbstractController {
     private String allClothes(Model model, WebRequest webRequest) {
         PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
         List<ClothesPLPDto> clothesPLPDtoList = response.getItems();
+//        System.out.println(LocalDateTime.now().getYear());
+//        System.out.println(LocalDateTime.now().getMonth().getValue());
+//        System.out.println(LocalDateTime.now().getDayOfMonth());
         model.addAttribute("createUrl", "/clothes/all");
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);

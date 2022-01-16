@@ -8,15 +8,14 @@ import java.util.Date;
 
 public class PersonalResponseDto extends ResponseDto {
 
-    private Date birthDay;
+    private String birthDay;
+    private Integer age;
     private String firstName;
     private String lastName;
+    private String fullName;
     private String email;
     private Boolean enabled;
     private RoleType roleType;
-
-//    private String fullName;
-//    private Integer age;
 
     public PersonalResponseDto() { }
 
@@ -31,13 +30,15 @@ public class PersonalResponseDto extends ResponseDto {
         this.email = personal.getEmail();
         this.enabled = personal.getEnabled();
         this.roleType = personal.getRoleType();
+        this.fullName = personal.getFullName();
+        this.age = personal.getAge();
     }
 
-    public Date getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 
@@ -79,5 +80,21 @@ public class PersonalResponseDto extends ResponseDto {
 
     public void setRoleType(RoleType roleType) {
         this.roleType = roleType;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

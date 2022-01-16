@@ -2,14 +2,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{fragments/auth_layout}">
 <head>
     <meta charset="utf-8">
     <title>User details</title>
 </head>
 <body>
 
-<div layout:fragment="content">
+<div layout:fragment="auth_content">
 
     <div class="row">
         <div class="col-12">
@@ -61,7 +61,10 @@
                         </tr>
                         <tr>
                             <th>BrandName</th>
-                            <td th:text="${thing.getBrandName()}">
+<!--                            <td th:text="${thing.getBrandName()}">-->
+                            <td>
+                                <a href="@{'/accounts/details/' + ${account.getKey()}}" th:text="${thing.getBrandName()}"></a>
+                            </td>
 <!--                                <a th:href="@{'/users/newAccount/' + ${thing.getId()}}"></a>-->
 <!--                            </td>-->
                         </tr>
@@ -76,35 +79,35 @@
                         <tr>
                             <th>Images</th>
                             <td>
-                                <ul th:each="image : ${thing.getImages()}" class="list-group list-group-horizontal">
-                                    <li class="list-group-item">
-<!--                                        <a role="button" class="btn btn-link"-->
-<!--                                           th:href="@{'/accounts/details/' + ${account.getKey()}}"-->
-<!--                                           th:text="${account.getValue()}">details</a>-->
+                                <ul th:each="image : ${thing.getImages()}" style="display:inline;">
+                                    <a th:href="${image.getUrl()}">
                                         <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
-                                    </li>
+                                    </a>
                                 </ul>
+                                <!--                                        <a role="button" class="btn btn-link"-->
+                                <!--                                           th:href="@{'/accounts/details/' + ${account.getKey()}}"-->
+                                <!--                                           th:text="${account.getValue()}">details</a>-->
                             </td>
                         </tr>
                     </table>
-                    <div class="col-12">
-                        <div class="card mt-2 mb-2">
-                            <div class="card-header d-flex align-content-end flex-wrap">
-                                <a type="button" class="btn btn-primary m-auto"
-                                   th:href="@{'/users/newAccount/' + ${thing.getId()}}">Add new Account</a>
-                                <a type="button" class="btn btn-primary m-auto"
-                                   th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>
-                                <a type="button" class="btn btn-primary m-auto"
-                                   th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>
-                                <a type="button" class="btn btn-primary m-auto"
-                                   th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>
-                                <a type="button" class="btn btn-primary m-auto"
-                                   th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>
-                            </div>
-                            <a type="button" class="btn btn-primary m-auto t-1"
-                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>
-                        </div>
-                    </div>
+<!--                    <div class="col-12">-->
+<!--                        <div class="card mt-2 mb-2">-->
+<!--                            <div class="card-header d-flex align-content-end flex-wrap">-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/users/newAccount/' + ${thing.getId()}}">Add new Account</a>-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>-->
+<!--                            </div>-->
+<!--                            <a type="button" class="btn btn-primary m-auto t-1"-->
+<!--                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

@@ -1,22 +1,22 @@
 package ua.com.alevel.persistence.entity.users;
 
+import org.joda.time.LocalDate;
+import ua.com.alevel.persistence.listener.AgeByBirthDayGenerationListener;
 import ua.com.alevel.persistence.listener.FullNameGenerationListener;
 import ua.com.alevel.persistence.types.RoleType;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @DiscriminatorValue("PERSONAL")
 @EntityListeners({
         FullNameGenerationListener.class,
-//        AgeByBirthDayGenerationListener.class
+        AgeByBirthDayGenerationListener.class
 })
 public class Personal extends User {
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "birth_day")
-    private Date birthDay;
+    private String birthDay;
 
     @Column(name = "first_name")
     private String firstName;
@@ -33,14 +33,6 @@ public class Personal extends User {
     public Personal() {
         super();
         setRoleType(RoleType.ROLE_PERSONAL);
-    }
-
-    public Date getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
     }
 
     public String getFirstName() {
@@ -73,5 +65,13 @@ public class Personal extends User {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
     }
 }

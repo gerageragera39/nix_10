@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/auth_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>User details</title>
+</head>
+<body>
+
+<div layout:fragment="auth_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header d-flex justify-content-start h3">
+                    User details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${person.getId()}"></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th>Title</th>-->
+<!--                            <td th:text="${person.getFirstName()}"></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th>Color</th>-->
+<!--                            <td th:text="${person.getLastName()}"></td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <th>Full Name</th>
+                            <td th:text="${person.getFullName()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Age</th>
+                            <td th:text="${person.getAge()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Birth Day</th>
+                            <td th:text="${person.getBirthDay()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Role</th>
+                            <td th:text="${person.getRoleType()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(person.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(person.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                    </table>
+                    <!--                    <div class="col-12">-->
+                    <!--                        <div class="card mt-2 mb-2">-->
+                    <!--                            <div class="card-header d-flex align-content-end flex-wrap">-->
+                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
+                    <!--                                   th:href="@{'/users/newAccount/' + ${thing.getId()}}">Add new Account</a>-->
+                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
+                    <!--                                   th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>-->
+                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
+                    <!--                                   th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>-->
+                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
+                    <!--                                   th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>-->
+                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
+                    <!--                                   th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>-->
+                    <!--                            </div>-->
+                    <!--                            <a type="button" class="btn btn-primary m-auto t-1"-->
+                    <!--                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
