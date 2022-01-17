@@ -16,7 +16,9 @@ import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
 import ua.com.alevel.web.dto.response.users.PersonalResponseDto;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,5 +74,16 @@ public class PersonalFacadeImpl implements PersonalFacade {
         pageData.setItemsSize(dataTableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;
+    }
+
+    @Override
+    public void changeEnable(Long id) {
+        Optional<Personal> optionalPersonal = personalService.findById(id);
+        if(optionalPersonal.isPresent()){
+            Personal personal = optionalPersonal.get();
+            personal.setEnabled(!personal.getEnabled());
+            personal.setUpdated(new Date());
+            personalService.update(personal);
+        }
     }
 }

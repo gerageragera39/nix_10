@@ -8,6 +8,8 @@ import ua.com.alevel.persistence.sizes.Sizes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.dto.response.ResponseDto;
 
+import java.math.BigDecimal;
+
 
 public class ClothesPLPDto extends ResponseDto {
 
@@ -19,6 +21,7 @@ public class ClothesPLPDto extends ResponseDto {
     private Image image;
     private Double price;
     private String brandName;
+    private String stringPrice;
 
     public ClothesPLPDto(Clothes thing) {
         setId(thing.getId());
@@ -32,6 +35,7 @@ public class ClothesPLPDto extends ResponseDto {
         this.type = thing.getType();
         this.image = thing.getImages().stream().toList().get(0);
         this.price = thing.getPrice();
+        this.stringPrice = generatePrice(thing.getPrice());
         this.brandName = thing.getBrand().getName();
     }
 
@@ -97,5 +101,27 @@ public class ClothesPLPDto extends ResponseDto {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    private String generatePrice(Double price) {
+        String stringPrice = price.toString();
+        String[] finances = stringPrice.split("\\.");
+        stringPrice = finances[0];
+        if(finances[1].length() > 2) {
+            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
+        }
+        stringPrice += "." + finances[1];
+        if(finances[1].length() < 2) {
+            stringPrice += "0";
+        }
+        return stringPrice;
+    }
+
+    public String getStringPrice() {
+        return stringPrice;
+    }
+
+    public void setStringPrice(String stringPrice) {
+        this.stringPrice = stringPrice;
     }
 }

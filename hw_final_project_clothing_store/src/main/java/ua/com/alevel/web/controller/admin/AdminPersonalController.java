@@ -65,4 +65,13 @@ public class AdminPersonalController extends AbstractController {
         model.addAttribute("person", dto);
         return "pages/admin/personals/personals_details";
     }
+
+    @GetMapping("/change/{id}")
+    public String changeEnable(@PathVariable Long id, Model model) {
+        personalFacade.changeEnable(id);
+        PersonalResponseDto dto = personalFacade.findById(id);
+        model.addAttribute("person", dto);
+//        return "pages/admin/personals/personals_details";
+        return "redirect:/admin/personals/details/" + id;
+    }
 }

@@ -5,7 +5,7 @@
       layout:decorate="~{fragments/auth_layout}">
 <head>
     <meta charset="utf-8">
-    <title>User details</title>
+    <title>Personal details</title>
 </head>
 <body>
 
@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card mb-2 mt-2">
                 <div class="card-header d-flex justify-content-start h3">
-                    User details
+                    Personal details
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -31,6 +31,10 @@
 <!--                            <th>Color</th>-->
 <!--                            <td th:text="${person.getLastName()}"></td>-->
 <!--                        </tr>-->
+                        <tr>
+                            <th>E-mail</th>
+                            <td th:text="${person.getEmail()}"></td>
+                        </tr>
                         <tr>
                             <th>Full Name</th>
                             <td th:text="${person.getFullName()}"></td>
@@ -48,6 +52,19 @@
                             <td th:text="${person.getRoleType()}"></td>
                         </tr>
                         <tr>
+                            <th>Enable</th>
+                            <td th:text="${person.getEnabled()}"></td>
+<!--                            <td>-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>-->
+<!--                            </td>-->
+<!--                            <div>-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>-->
+
+<!--                            </div>-->
+                        </tr>
+                        <tr>
                             <th>Created</th>
                             <td th:text="${#calendars.format(person.getCreated(),'dd MMMM yyyy')}"></td>
                         </tr>
@@ -56,24 +73,26 @@
                             <td th:text="${#calendars.format(person.getUpdated(),'dd MMMM yyyy')}"></td>
                         </tr>
                     </table>
-                    <!--                    <div class="col-12">-->
-                    <!--                        <div class="card mt-2 mb-2">-->
-                    <!--                            <div class="card-header d-flex align-content-end flex-wrap">-->
-                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
-                    <!--                                   th:href="@{'/users/newAccount/' + ${thing.getId()}}">Add new Account</a>-->
-                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
-                    <!--                                   th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>-->
-                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
-                    <!--                                   th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>-->
-                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
-                    <!--                                   th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>-->
-                    <!--                                <a type="button" class="btn btn-primary m-auto"-->
-                    <!--                                   th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>-->
-                    <!--                            </div>-->
-                    <!--                            <a type="button" class="btn btn-primary m-auto t-1"-->
-                    <!--                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                    <a type="button" class="btn btn-primary m-auto"
+                       th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>
+<!--                    <div class="col-12">-->
+<!--                        <div class="card mt-2 mb-2">-->
+<!--                            <div class="card-header d-flex align-content-end flex-wrap">-->
+<!--                                <a type="button" class="btn btn-primary m-auto"-->
+<!--                                   th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>-->
+<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                       th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                       th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                       th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
+<!--    &lt;!&ndash;                                                       th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>&ndash;&gt;-->
+<!--                            </div>-->
+<!--&lt;!&ndash;                            <a type="button" class="btn btn-primary m-auto t-1"&ndash;&gt;-->
+<!--&lt;!&ndash;                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

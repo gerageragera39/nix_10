@@ -44,7 +44,7 @@ public class BrandFacadeImpl implements BrandFacade {
 
     @Override
     public BrandResponseDto findById(Long id) {
-        return null;
+        return new BrandResponseDto(brandService.findById(id).get());
     }
 
     @Override

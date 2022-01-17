@@ -40,7 +40,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Optional<Brand> findById(Long id) {
-        return Optional.empty();
+        return crudRepositoryHelper.findById(brandRepository, id);
     }
 
     @Override

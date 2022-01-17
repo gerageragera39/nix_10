@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
@@ -39,5 +40,12 @@ public class PersonalClothesController extends AbstractController {
     @PostMapping("/all")
     public ModelAndView findAllRedirect(WebRequest request, ModelMap model) {
         return findAllRedirect(request, model, "personal/clothes");
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable Long id, Model model) {
+        ClothesResponseDto dto = clothesFacade.findById(id);
+        model.addAttribute("thing", dto);
+        return "pages/personals/clothes/clothes_details";
     }
 }

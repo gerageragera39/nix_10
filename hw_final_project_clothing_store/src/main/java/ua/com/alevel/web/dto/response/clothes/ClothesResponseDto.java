@@ -21,9 +21,11 @@ public class ClothesResponseDto extends ResponseDto {
     private String description;
     private String compound;
     private String brandName;
+    private Long brandId;
     private List<Image> images;
     private Double price;
     private Integer quantity;
+    private String stringPrice;
 
     public ClothesResponseDto() { }
 
@@ -42,7 +44,9 @@ public class ClothesResponseDto extends ResponseDto {
         this.images = thing.getImages().stream().toList();
         this.price = thing.getPrice();
         this.quantity = thing.getQuantity();
+        this.stringPrice = generatePrice(thing.getPrice());
         this.brandName = thing.getBrand().getName();
+        this.brandId = thing.getBrand().getId();
     }
 
     public String getTitle() {
@@ -140,5 +144,35 @@ public class ClothesResponseDto extends ResponseDto {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    private String generatePrice(Double price) {
+        String stringPrice = price.toString();
+        String[] finances = stringPrice.split("\\.");
+        stringPrice = finances[0];
+        if(finances[1].length() > 2) {
+            finances[1] = String.valueOf(finances[1].charAt(0) + finances[1].charAt(1));
+        }
+        stringPrice += "." + finances[1];
+        if(finances[1].length() < 2) {
+            stringPrice += "0";
+        }
+        return stringPrice;
+    }
+
+    public String getStringPrice() {
+        return stringPrice;
+    }
+
+    public void setStringPrice(String stringPrice) {
+        this.stringPrice = stringPrice;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
     }
 }

@@ -6,11 +6,15 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
 <div class="container">
     <div layout:fragment="content">
+        <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+            <a class="nav-item nav-link" th:href="@{/clothes}">Clothes</a>
+            <a class="nav-item nav-link" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
+        </nav>
         <div class="row mb-2 mt-2" th:if="${showMessage}">
             <div class="col-12">
                 <div th:if="${message}" class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -82,13 +86,13 @@
                                             <label for="email">Last Name</label>
                                         </div>
 
-                                        <label for="start">Start date:</label>
-
-                                        <input type="date" id="start" name="trip-start"
-                                               value="2018-07-22"
-                                               min="1950-01-01" max="2021-12-31"
-                                               th:field="*{birthDay}">
-
+                                        <div class="form-outline form-white mb-4">
+                                            <input type="date" id="start" name="trip-start"
+                                                   value="2018-07-22"
+                                                   min="1950-01-01" max="2021-12-31"
+                                                   th:field="*{birthDay}">
+                                            <label for="start">Birth Day:</label>
+                                        </div>
 
                                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Create</button>
 

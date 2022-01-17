@@ -5,7 +5,7 @@
       layout:decorate="~{fragments/auth_layout}">
 <head>
     <meta charset="utf-8">
-    <title>User details</title>
+    <title>Thing details</title>
 </head>
 <body>
 
@@ -53,7 +53,7 @@
                         </tr>
                         <tr>
                             <th>Price</th>
-                            <td th:text="${thing.getPrice()}">грн.</td>
+                            <td th:text="${thing.getStringPrice()} + ' грн.'"></td>
                         </tr>
                         <tr>
                             <th>Quantity</th>
@@ -63,7 +63,8 @@
                             <th>BrandName</th>
 <!--                            <td th:text="${thing.getBrandName()}">-->
                             <td>
-                                <a href="@{'/accounts/details/' + ${account.getKey()}}" th:text="${thing.getBrandName()}"></a>
+                                <a th:href="@{'/admin/brands/details/' + ${thing.getBrandId()}}"
+                                   th:text="${thing.getBrandName()}"></a>
                             </td>
 <!--                                <a th:href="@{'/users/newAccount/' + ${thing.getId()}}"></a>-->
 <!--                            </td>-->
@@ -80,7 +81,7 @@
                             <th>Images</th>
                             <td>
                                 <ul th:each="image : ${thing.getImages()}" style="display:inline;">
-                                    <a th:href="${image.getUrl()}">
+                                    <a th:href="${image.getUrl()}" target="_blank">
                                         <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
                                     </a>
                                 </ul>
@@ -90,6 +91,8 @@
                             </td>
                         </tr>
                     </table>
+                    <a type="button" class="btn btn-primary m-auto"
+                        th:href="@{'/admin/clothes/to/update/' + ${thing.getId()}}">Redact Thing</a>
 <!--                    <div class="col-12">-->
 <!--                        <div class="card mt-2 mb-2">-->
 <!--                            <div class="card-header d-flex align-content-end flex-wrap">-->

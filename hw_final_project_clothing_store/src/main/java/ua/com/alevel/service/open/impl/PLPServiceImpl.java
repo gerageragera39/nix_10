@@ -8,6 +8,8 @@ import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
 import ua.com.alevel.service.open.PLPService;
 
+import java.util.Optional;
+
 @Service
 public class PLPServiceImpl implements PLPService {
 
@@ -26,5 +28,10 @@ public class PLPServiceImpl implements PLPService {
         int count = clothesRepository.countAllByVisibleTrue();
 //        WebUtil.initDataTableResponse(request, dataTableResponse, count);
         return dataTableResponse;
+    }
+
+    @Override
+    public Clothes findById(Long id) {
+        return crudRepositoryHelper.findById(clothesRepository, id).get();
     }
 }

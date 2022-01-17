@@ -5,4 +5,6 @@ import ua.com.alevel.web.dto.request.users.PersonalRequestDto;
 import ua.com.alevel.web.dto.response.users.PersonalResponseDto;
 
 public interface PersonalFacade extends BaseFacade<PersonalRequestDto, PersonalResponseDto> {
+
+    void changeEnable(Long id);
 }

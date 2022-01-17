@@ -35,6 +35,11 @@ insert into brands values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Z
 insert into brands values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'HUGO BOSS');
 insert into brands values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Emporio Armani');
 
+# insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
+#                             '',
+#                             '',
+#                             1, 1, '', '', '', '', 1);
+
 insert into clothes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, 'Black',
                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
@@ -96,18 +101,18 @@ insert into clothes values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1
                             'Футболка прямого силуэта из мягкого трикотажа. Модель с круглой горловиной и коротким рукавом.',
                             599 , 20, 'Male', 'XL', 'Футболка темно-синяя с принтом Emporio Armani', 'TShirts', 5);
 
-insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
-                            '',
-                            '',
-                            1, 1, '', '', '', '', 1);
-
-
-
-
-insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
-                            '',
-                            '',
-                            1, 1, '', '', '', '', 1);
+# insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
+#                             '',
+#                             '',
+#                             1, 1, '', '', '', '', 1);
+#
+#
+#
+#
+# insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
+#                             '',
+#                             '',
+#                             1, 1, '', '', '', '', 1);
 
 # insert into images values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', 1);
 insert into images values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
@@ -120,6 +125,18 @@ insert into images values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20150408/164/20150408164542_001643235_3.jpg', 4);
 insert into images values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210701/112/20210701112559_005803334_1.jpg', 5);
+insert into images values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
+                           'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210312/134/20210312134017_005693660_1.jpg', 6);
+insert into images values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
+                           'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210412/163/20210412163742_005725414_25.jpg', 7);
+insert into images values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
+                           'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210412/163/20210412163742_005725414_23.jpg', 7);
+insert into images values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
+                           'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210412/163/20210412163742_005725414_24.jpg', 7);
+insert into images values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
+                           'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20180510/175/20180510175124_004260603_3.jpg', 8);
+insert into images values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
+                           'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20180510/175/20180510175124_004260603_1.jpg', 8);
 
 
 

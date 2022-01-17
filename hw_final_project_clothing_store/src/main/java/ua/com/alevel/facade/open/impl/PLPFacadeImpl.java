@@ -38,4 +38,9 @@ public class PLPFacadeImpl implements PLPFacade {
 //        pageData.setPageSize(12);
         return pageData;
     }
+
+    @Override
+    public ClothesResponseDto findById(Long id) {
+        return new ClothesResponseDto(plpService.findById(id));
+    }
 }

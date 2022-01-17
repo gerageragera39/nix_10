@@ -16,4 +16,6 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
     Optional<Clothes> findClothesByCLG(String CLG);
 
     List<Clothes> findAllByVisible(Boolean visible, Pageable pageable);
+
+    List<Clothes> findAllByBrandId(Long id);
 }

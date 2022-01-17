@@ -16,6 +16,7 @@ import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.PageData;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,8 +47,20 @@ public class ClothesFacadeImpl implements ClothesFacade {
     }
 
     @Override
-    public void update(ClothesRequestDto clothesRequestDto, Long id) {
+    public void update(ClothesRequestDto dto, Long id) {
+        Optional<Clothes> optionalClothes = clothesService.findById(id);
+        if(optionalClothes.isPresent()) {
+            Clothes clothes = optionalClothes.get();
+            clothes.setTitle(dto.getTitle());
+            clothes.setSize(dto.getSize());
+            clothes.setType(dto.getType());
+            clothes.setSex(dto.getSex());
+            clothes.setColor(dto.getColor());
+            clothes.setDescription(dto.getDescription());
+            clothes.setCompound(dto.getCompound());
 
+            clothesService.update(clothes);
+        }
     }
 
     @Override
@@ -119,5 +132,14 @@ public class ClothesFacadeImpl implements ClothesFacade {
         pageData.setItemsSize(dataTableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;
+    }
+
+    @Override
+    public List<ClothesResponseDto> findAllByBrandId(Long id) {
+        List<Clothes> clothes = clothesService.findAllByBrandId(id);
+        List<ClothesResponseDto> clothesResponseDto = clothes.stream().
+                map(ClothesResponseDto::new).
+                collect(Collectors.toList());
+        return clothesResponseDto;
     }
 }

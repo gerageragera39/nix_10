@@ -5,7 +5,7 @@
         layout:decorate="~{fragments/data_table_layout}">
 <head>
     <meta charset="utf-8">
-    <title>books</title>
+    <title>Clothes</title>
 </head>
 <body>
 
@@ -21,7 +21,8 @@
         <td th:text="${thing.getSex()}"></td>
         <td th:text="${thing.getType()}"></td>
         <td th:text="${#calendars.format(thing.getCreated(),'dd MMMM yyyy')}"></td>
-        <td th:text="${thing.getPrice()}"></td>
+<!--        <td th:text="${thing.getPrice()}"></td>-->
+        <td th:text="${thing.getStringPrice()}"></td>
         <td th:text="${thing.getQuantity()}"></td>
         <td>
             <a th:href="@{'/admin/clothes/details/' + ${thing.getId()}}" type="button" class="btn btn-primary">details</a>

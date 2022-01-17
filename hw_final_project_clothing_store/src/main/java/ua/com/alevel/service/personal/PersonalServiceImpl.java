@@ -40,7 +40,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public void update(Personal entity) {
-
+        crudRepositoryHelper.update(personalRepository, entity);
     }
 
     @Override

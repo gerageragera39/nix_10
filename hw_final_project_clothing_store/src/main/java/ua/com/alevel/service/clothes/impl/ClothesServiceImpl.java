@@ -9,7 +9,9 @@ import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
 import ua.com.alevel.service.clothes.ClothesService;
 import ua.com.alevel.util.WebResponseUtil;
 import ua.com.alevel.util.WebUtil;
+import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,5 +55,10 @@ public class ClothesServiceImpl implements ClothesService {
         long count = clothesRepository.countAllByVisibleTrue();
         WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
         return dataTableResponse;
+    }
+
+    @Override
+    public List<Clothes> findAllByBrandId(Long id) {
+        return clothesRepository.findAllByBrandId(id);
     }
 }
