@@ -27,13 +27,29 @@
                             <th>Title</th>
                             <td th:text="${thing.getTitle()}"></td>
                         </tr>
+<!--                        <tr>-->
+<!--                            <th>Color</th>-->
+<!--                            <td th:text="${thing.getColor()}"></td>-->
+<!--                        </tr>-->
                         <tr>
-                            <th>Color</th>
-                            <td th:text="${thing.getColor()}"></td>
+                            <th>All Colors</th>
+                            <td>
+                                <ul th:each="color : ${colors}">
+                                    <li th:text="${color.getValue()}"></li>
+                                </ul>
+                            </td>
                         </tr>
+<!--                        <tr>-->
+<!--                            <th>Size</th>-->
+<!--                            <td th:text="${thing.getSize()}"></td>-->
+<!--                        </tr>-->
                         <tr>
-                            <th>Size</th>
-                            <td th:text="${thing.getSize()}"></td>
+                            <th>All Sizes</th>
+                            <td>
+                                <ul th:each="size : ${sizes}">
+                                    <li th:text="${size.getValue()}"></li>
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <th>Sex</th>

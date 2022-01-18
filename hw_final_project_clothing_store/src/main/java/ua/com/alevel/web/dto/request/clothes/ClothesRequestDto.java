@@ -1,9 +1,7 @@
 package ua.com.alevel.web.dto.request.clothes;
 
-import ua.com.alevel.persistence.colors.Color;
 import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.persistence.sex.Sexes;
-import ua.com.alevel.persistence.sizes.Sizes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.dto.request.RequestDto;
 
@@ -15,10 +13,10 @@ import java.util.Set;
 public class ClothesRequestDto extends RequestDto {
 
     private String title;
-    private Color color;
-    private Sizes size;
-    private Sexes sex;
-    private ThingTypes type;
+//    private String color;
+//    private String size;
+    private String sex;
+    private String type;
     private String description;
     private String compound;
     private Set<Image> images;
@@ -36,35 +34,27 @@ public class ClothesRequestDto extends RequestDto {
         this.title = title;
     }
 
-    public Color getColor() {
-        return color;
-    }
+//    public String getSize() {
+//        return size;
+//    }
+//
+//    public void setSize(String size) {
+//        this.size = size;
+//    }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Sizes getSize() {
-        return size;
-    }
-
-    public void setSize(Sizes size) {
-        this.size = size;
-    }
-
-    public Sexes getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Sexes sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
-    public ThingTypes getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(ThingTypes type) {
+    public void setType(String type) {
         this.type = type;
     }
 

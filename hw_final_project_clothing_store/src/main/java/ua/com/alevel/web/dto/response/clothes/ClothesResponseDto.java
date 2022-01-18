@@ -1,10 +1,8 @@
 package ua.com.alevel.web.dto.response.clothes;
 
-import ua.com.alevel.persistence.colors.Color;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.persistence.sex.Sexes;
-import ua.com.alevel.persistence.sizes.Sizes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.dto.response.ResponseDto;
 
@@ -14,8 +12,7 @@ import java.util.List;
 public class ClothesResponseDto extends ResponseDto {
 
     private String title;
-    private Color color;
-    private Sizes size;
+//    private Sizes size;
     private Sexes sex;
     private ThingTypes type;
     private String description;
@@ -35,8 +32,7 @@ public class ClothesResponseDto extends ResponseDto {
         setUpdated(thing.getUpdated());
         setVisible(thing.getVisible());
         this.title = thing.getTitle();
-        this.color = thing.getColor();
-        this.size = thing.getSize();
+//        this.size = thing.getSize();
         this.sex = thing.getSex();
         this.type = thing.getType();
         this.description = thing.getDescription();
@@ -55,22 +51,6 @@ public class ClothesResponseDto extends ResponseDto {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Sizes getSize() {
-        return size;
-    }
-
-    public void setSize(Sizes size) {
-        this.size = size;
     }
 
     public Sexes getSex() {
@@ -151,7 +131,7 @@ public class ClothesResponseDto extends ResponseDto {
         String[] finances = stringPrice.split("\\.");
         stringPrice = finances[0];
         if(finances[1].length() > 2) {
-            finances[1] = String.valueOf(finances[1].charAt(0) + finances[1].charAt(1));
+            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
         }
         stringPrice += "." + finances[1];
         if(finances[1].length() < 2) {

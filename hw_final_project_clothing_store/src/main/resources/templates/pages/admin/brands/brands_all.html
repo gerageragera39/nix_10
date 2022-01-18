@@ -12,6 +12,9 @@
 <div layout:fragment="data_table_content">
     <tr th:each="brand,iter : ${pageData.getItems()}">
         <td th:text="${iter.count}"></td>
+        <td>
+            <img th:src="@{${brand.getLogo()}}" width="45" height="45"/>
+        </td>
         <td th:text="${brand.getName()}"></td>
         <td th:text="${#calendars.format(brand.getCreated(),'dd MMMM yyyy')}"></td>
         <td>

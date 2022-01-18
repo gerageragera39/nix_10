@@ -48,7 +48,8 @@
             <div class="mt-4">
                 <div class="card" style="width: 18rem;  height: 540px">
                     <div class="card-body">
-                        <a th:href="@{'/personal/clothes/details/' + ${thing.getId()}}">
+<!--                        <a th:href="@{'/personal/clothes/details/' + ${thing.getId()}}">-->
+                        <a th:href="@{'/personal/clothes/product/' + ${thing.getId()}}">
                             <img th:src="${thing.getImages().get(0).getUrl()}" class="img-fluid rounded-start" alt="...">
                         </a>
                         <h5 class="card-title" th:text="${thing.getTitle()}"></h5>

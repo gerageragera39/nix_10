@@ -10,7 +10,7 @@ public class Image extends BaseEntity {
 
     private String url;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "thing_id")
     private Clothes thing;
 

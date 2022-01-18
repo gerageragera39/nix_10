@@ -27,26 +27,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="colors">Color</label>
-                            <select class="form-control" id="colors" th:field="*{color}">
-                                <option th:each="color : ${colors}"
-                                        th:value="${color}"
-                                        th:text="${color}">
-                                </option>
-                            </select>
-                        <div/>
-
-                        <div class="form-group">
-                            <label for="sizes">Size</label>
-                            <select class="form-control" id="sizes" th:field="*{size}">
-                                <option th:each="size : ${sizes}"
-                                        th:value="${size}"
-                                        th:text="${size}">
-                                </option>
-                            </select>
-                        <div/>
-
-                        <div class="form-group">
                             <label for="sexes">Sex</label>
                             <select class="form-control" id="sexes" th:field="*{sex}">
                                 <option th:each="sex : ${sexes}"

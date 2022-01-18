@@ -28,8 +28,7 @@ public class AdminPersonalController extends AbstractController {
             new HeaderName("Role Type", "role_type", "roleType"),
             new HeaderName("Enabled", "enabled", "enabled"),
             new HeaderName("Registered", "created", "created"),
-            new HeaderName("details", null, null),
-            new HeaderName("delete", null, null)
+            new HeaderName("details", null, null)
     };
 
     private final PersonalFacade personalFacade;

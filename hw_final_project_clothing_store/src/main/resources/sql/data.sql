@@ -35,71 +35,78 @@ insert into brands values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Z
 insert into brands values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'HUGO BOSS');
 insert into brands values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Emporio Armani');
 
+
+insert into logos values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://ntl.ua/image/catalog/nata-lux.gif', 1);
+insert into logos values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://kasta.ua/imgw/loc/0x0/io/brand-logo/45863/default_1905bd4c-c1f1-4d46-82d0-bcdb36286e92.png', 2);
+insert into logos values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://kasta.ua/imgw/loc/0x0/io/brand-logo/65501/default_85c0a7bf-dad0-474c-831c-db25d4e2ac82.png', 3);
+insert into logos values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://images.hugoboss.com/is/image/boss/logo_social_sharing?$social_sharing$', 4);
+insert into logos values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://www.tictacarea.com/img/cms/landing/armani/emporioarmani-logo.png', 5);
+
 # insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
 #                             '',
 #                             '',
 #                             1, 1, '', '', '', '', 1);
 
-insert into clothes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, 'Black',
+insert into clothes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1,
                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
-                            424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
-insert into clothes values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2, 'Orange',
+                            424, 5, 'Male', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
+insert into clothes values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 2,
                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
                             'свитер regular fit, из хлопка, невысокий воротник-стойка оформлен резинкой, в нескольких расцветках, рост модели: 185 cm',
-                            424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
-insert into clothes values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1643235, 'White',
+                            424, 5, 'Male', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
+insert into clothes values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1643235,
                             'Страна - Украина
 Цвет - Белый
 Узор - Однотонный
 Состав - 100% хлопок
 Сезонность - Лето',
                             'Футболка приталенного силуэта, выполненная из натурального хлопка. Изделие с коротким рукавом и V-образным вырезом горловины.',
-                            139, 20, 'Male', 'M', 'Футболка белая Наталюкс', 'TShirts', 1);
-insert into clothes values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5122757, 'Black',
+                            139, 20, 'Male', 'Футболка белая Наталюкс', 'TShirts', 1);
+insert into clothes values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5122757,
                             'Страна - Украина
 Цвет - Черный
 Узор - Принтованный
 Состав - 100% хлопок
 Сезонность - Лето',
                             'Футболка прямого силуэта из мягкой хлопковой ткани, украшенная принтом. Модель с круглой горловиной и коротким рукавом.',
-                            329 , 15, 'Male', 'M', 'Футболка черная с принтом Manatki', 'TShirts', 2);
+                            329 , 15, 'Male', 'Футболка черная с принтом Manatki', 'TShirts', 2);
 
-insert into clothes values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5803334, 'Black',
+insert into clothes values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5803334,
                             'Страна - Украина
 Цвет - Черный
 Узор - Принтованный
 Состав - 100% хлопок
 Сезонность - Лето',
                             'Футболка из мягкого хлопкового трикотажа, классического кроя, с точным соответствием размеру. Модель с круглым вырезом горловины, коротким рукавом и оригинальным принтом.',
-                            399 , 100, 'Male', 'XL', 'Футболка черная с принтом Love&Live', 'TShirts', 1);
+                            399 , 100, 'Male', 'Футболка черная с принтом Love&Live', 'TShirts', 1);
 
-insert into clothes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5908550, 'White',
+insert into clothes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5908550,
                             'Страна - Украина
 Цвет - Белый
 Узор - Принтованный
 Состав - 100% хлопок
 Сезонность - Лето',
                             'Футболка из мягкого хлопкового трикотажа, классического кроя, с точным соответствием размеру - вещь, которая необходима всегда. Модель с круглым вырезом горловины и коротким рукавом. Изделие с оригинальным принтом. Рекомендация по уходу: машинная стирка.',
-                            349 , 30, 'Male', 'L', 'Футболка белая с принтом Zuzu', 'TShirts', 3);
+                            349 , 30, 'Male', 'Футболка белая с принтом Zuzu', 'TShirts', 3);
 
-insert into clothes values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5725411, 'Black',
+insert into clothes values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5725411,
                             'Страна - Турция
 Цвет - Черный
 Узор - Принтованный
 Состав - 100% хлопок
 Сезонность - Мульти',
                             'Футболка прямого силуэта из хлопкового материала. Модель с круглой горловиной и коротким рукавом.',
-                            599 , 150, 'Male', 'M', 'Футболка черная с логотипом HUGO BOSS', 'TShirts', 4);
+                            599 , 150, 'Male', 'Футболка черная с логотипом HUGO BOSS', 'TShirts', 4);
 
-insert into clothes values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, 'Black',
+insert into clothes values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1,
                             'Страна - Португалия
 Цвет - Синий
 Узор - Принтованный
 Состав - 95% хлопок, 5% эластан
 Сезонность - Лето',
                             'Футболка прямого силуэта из мягкого трикотажа. Модель с круглой горловиной и коротким рукавом.',
-                            599 , 20, 'Male', 'XL', 'Футболка темно-синяя с принтом Emporio Armani', 'TShirts', 5);
+                            599 , 20, 'Male', 'Футболка темно-синяя с принтом Emporio Armani', 'TShirts', 5);
 
 # insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
 #                             '',
@@ -138,8 +145,32 @@ insert into images values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
 insert into images values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20180510/175/20180510175124_004260603_1.jpg', 8);
 
+insert into colors values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Red');
+insert into colors values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Grey');
+insert into colors values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Light blue');
+insert into colors values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Dark blue');
+insert into colors values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Green');
+insert into colors values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Yellow');
+insert into colors values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Pink');
+insert into colors values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Orange');
+insert into colors values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Brown');
+insert into colors values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'White');
+insert into colors values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Black');
+insert into colors values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Violet');
 
 
+insert into sizes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XS');
+insert into sizes values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'S');
+insert into sizes values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'M');
+insert into sizes values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'L');
+insert into sizes values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XL');
+insert into sizes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XXL');
+
+insert into color_thing values (1, 1);
+insert into color_thing values (2, 1);
+
+insert into size_thing values (1, 1);
+insert into size_thing values (2, 1);
 
 
 

@@ -7,6 +7,7 @@ import ua.com.alevel.web.dto.response.ResponseDto;
 public class BrandResponseDto extends ResponseDto {
 
     private String name;
+    private String logo;
 
     public BrandResponseDto() { }
 
@@ -16,6 +17,7 @@ public class BrandResponseDto extends ResponseDto {
         setUpdated(brand.getUpdated());
         setVisible(brand.getVisible());
         this.name = brand.getName();
+        this.logo = brand.getLogo().getUrl();
     }
 
     public String getName() {
@@ -24,5 +26,13 @@ public class BrandResponseDto extends ResponseDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

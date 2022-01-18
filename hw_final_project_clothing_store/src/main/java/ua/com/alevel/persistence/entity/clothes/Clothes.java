@@ -1,15 +1,16 @@
 package ua.com.alevel.persistence.entity.clothes;
 
-import ua.com.alevel.persistence.colors.Color;
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.brands.Brand;
+import ua.com.alevel.persistence.entity.colors.Color;
+import ua.com.alevel.persistence.entity.sizes.Size;
 import ua.com.alevel.persistence.listener.ClothesVisibleGenerationListener;
 import ua.com.alevel.persistence.sex.Sexes;
-import ua.com.alevel.persistence.sizes.Sizes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -19,12 +20,6 @@ import java.util.Set;
 public class Clothes extends BaseEntity {
 
     private String title;
-
-    @Enumerated(EnumType.STRING)
-    private Color color;
-
-    @Enumerated(EnumType.STRING)
-    private Sizes size;
 
     @Enumerated(EnumType.STRING)
     private Sexes sex;
@@ -49,9 +44,21 @@ public class Clothes extends BaseEntity {
     @OneToMany(mappedBy = "thing")
     private Set<Image> images;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @ManyToMany(mappedBy = "clothes", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+    })
+    private Set<Color> colors;
+
+    @ManyToMany(mappedBy = "things", cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+    })
+    private Set<Size> sizes;
 
     public Clothes() {
         super();
@@ -60,6 +67,8 @@ public class Clothes extends BaseEntity {
         this.price = (double) 0;
         this.quantity = 0;
         CLG = generateCLG();
+        this.colors = new HashSet<>();
+        this.sizes = new HashSet<>();
     }
 
     public String getTitle() {
@@ -68,22 +77,6 @@ public class Clothes extends BaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Sizes getSize() {
-        return size;
-    }
-
-    public void setSize(Sizes size) {
-        this.size = size;
     }
 
     public String getDescription() {
@@ -173,6 +166,22 @@ public class Clothes extends BaseEntity {
 
     public void setCLG(String CLG) {
         this.CLG = CLG;
+    }
+
+    public Set<ua.com.alevel.persistence.entity.colors.Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(Set<ua.com.alevel.persistence.entity.colors.Color> colors) {
+        this.colors = colors;
+    }
+
+    public Set<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(Set<Size> sizes) {
+        this.sizes = sizes;
     }
 
     private String generateCLG() {

@@ -10,14 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.alevel.facade.clothes.ClothesFacade;
-import ua.com.alevel.persistence.colors.Color;
 import ua.com.alevel.persistence.sex.Sexes;
-import ua.com.alevel.persistence.sizes.Sizes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.request.clothes.ClothesRequestDto;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.PageData;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/clothes")
@@ -27,12 +29,12 @@ public class AdminClothesController extends AbstractController {
     private String tempDescription;
     private String tempCompound;
 
+    private ClothesResponseDto tempDto;
+
     private final HeaderName[] columnNames = new HeaderName[] {
             new HeaderName("#", null, null),
             new HeaderName("image", null, null),
             new HeaderName("title", "title", "title"),
-            new HeaderName("color", "color", "color"),
-            new HeaderName("size", "size", "size"),
             new HeaderName("sex", "sex", "sex"),
             new HeaderName("type", "type", "type"),
             new HeaderName("created", "created", "created"),
@@ -85,6 +87,8 @@ public class AdminClothesController extends AbstractController {
     @GetMapping("/details/{id}")
     public String details(@PathVariable Long id, Model model) {
         ClothesResponseDto dto = clothesFacade.findById(id);
+        model.addAttribute("colors", clothesFacade.findColorsByThingId(id));
+        model.addAttribute("sizes", clothesFacade.findSizesByThingId(id));
         model.addAttribute("thing", dto);
         return "pages/admin/clothes/clothes_details";
     }
@@ -95,27 +99,16 @@ public class AdminClothesController extends AbstractController {
         setTempTitle(dto.getTitle());
         setTempDescription(dto.getDescription());
         setTempCompound(dto.getCompound());
+        setTempDto(dto);
+        generateFields(model);
         model.addAttribute("id", id);
         model.addAttribute("thing", new ClothesRequestDto());
-        model.addAttribute("colors", Color.values());
-        model.addAttribute("sizes", Sizes.values());
-        model.addAttribute("sexes", Sexes.values());
-        model.addAttribute("types", ThingTypes.values());
         return "pages/admin/clothes/clothes_update";
     }
 
     @PostMapping("/update/{id}")
     public String updateThing(@ModelAttribute("thing") ClothesRequestDto dto, @PathVariable Long id, Model model) {
-        if(StringUtils.isBlank(dto.getTitle())) {
-            dto.setTitle(getTempTitle());
-        }
-        if(StringUtils.isBlank(dto.getCompound())) {
-            dto.setCompound(getTempCompound());
-        }
-        if(StringUtils.isBlank(dto.getDescription())) {
-            dto.setDescription(getTempDescription());
-        }
-        clothesFacade.update(dto, id);
+        clothesFacade.update(dto, getTempDto(), id);
         model.addAttribute("thing", clothesFacade.findById(id));
 //        return "pages/admin/clothes/clothes_details";
         return "redirect:/admin/clothes/details/" + id;
@@ -143,5 +136,32 @@ public class AdminClothesController extends AbstractController {
 
     public void setTempCompound(String tempCompound) {
         this.tempCompound = tempCompound;
+    }
+
+    public ClothesResponseDto getTempDto() {
+        return tempDto;
+    }
+
+    public void setTempDto(ClothesResponseDto tempDto) {
+        this.tempDto = tempDto;
+    }
+
+    private void generateFields(Model model) {
+        List<Object> colors = new ArrayList<>();
+//        colors.add("Change color");
+//        colors.addAll(Arrays.stream(Color.values()).toList());
+        List<Object> sizes = new ArrayList<>();
+//        sizes.add("Change size");
+//        sizes.addAll(Arrays.stream(Sizes.values()).toList());
+        List<Object> sexes = new ArrayList<>();
+        sexes.add("Change sex");
+        sexes.addAll(Arrays.stream(Sexes.values()).toList());
+        List<Object> types = new ArrayList<>();
+        types.add("Change type");
+        types.addAll(Arrays.stream(ThingTypes.values()).toList());
+        model.addAttribute("colors", colors);
+        model.addAttribute("sizes", sizes);
+        model.addAttribute("sexes", sexes);
+        model.addAttribute("types", types);
     }
 }

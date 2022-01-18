@@ -2,9 +2,11 @@ package ua.com.alevel.persistence.entity.brands;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
+import ua.com.alevel.persistence.entity.clothes.Image;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,9 @@ public class Brand extends BaseEntity {
 
     @OneToMany(mappedBy = "brand")
     private Set<Clothes> clothes;
+
+    @OneToOne(mappedBy = "brand")
+    private Logo logo;
 
     public Brand() {
         super();
@@ -46,5 +51,13 @@ public class Brand extends BaseEntity {
 
     public void removeClothes(Clothes thing) {
         clothes.remove(thing);
+    }
+
+    public Logo getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Logo logo) {
+        this.logo = logo;
     }
 }

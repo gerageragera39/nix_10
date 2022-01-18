@@ -13,7 +13,6 @@ import ua.com.alevel.persistence.entity.token.Token;
 import ua.com.alevel.persistence.entity.users.Admin;
 import ua.com.alevel.persistence.repository.token.TokenRepository;
 import ua.com.alevel.persistence.repository.users.AdminRepository;
-import ua.com.alevel.persistence.sizes.Sizes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 
 import java.util.Optional;
@@ -54,5 +53,6 @@ public class ClothingStoreApplication {
             token.setContent("accepted");
             tokenRepository.save(token);
         }
+
     }
 }

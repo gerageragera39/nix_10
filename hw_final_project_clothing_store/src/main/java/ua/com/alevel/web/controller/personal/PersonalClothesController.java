@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.clothes.ClothesFacade;
+import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -42,10 +44,34 @@ public class PersonalClothesController extends AbstractController {
         return findAllRedirect(request, model, "personal/clothes");
     }
 
-    @GetMapping("/details/{id}")
-    public String details(@PathVariable Long id, Model model) {
+//    @GetMapping("/details/{id}")
+//    public String details(@PathVariable Long id, Model model) {
+//        ClothesResponseDto dto = clothesFacade.findById(id);
+//        List<Image> images = dto.getImages();
+//        images.remove(0);
+//        model.addAttribute("thing", dto);
+//        model.addAttribute("images", images);
+//        model.addAttribute("firstImage", images.get(0));
+//        model.addAttribute("colors", clothesFacade.findColorsByThingId(id));
+//        model.addAttribute("sizes", clothesFacade.findSizesByThingId(id));
+//        return "clothes_details_test";
+//    }
+
+    @GetMapping("/product/{id}")
+    public String product(@PathVariable Long id, Model model) {
         ClothesResponseDto dto = clothesFacade.findById(id);
+        List<Image> images = dto.getImages();
+        List<Image> imageList = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            if (i != 0) {
+                imageList.add(images.get(i));
+            }
+        }
         model.addAttribute("thing", dto);
+        model.addAttribute("images", imageList);
+        model.addAttribute("firstImage", images.get(0));
+        model.addAttribute("colors", clothesFacade.findColorsByThingId(id));
+        model.addAttribute("sizes", clothesFacade.findSizesByThingId(id));
         return "pages/personals/clothes/clothes_details";
     }
 }

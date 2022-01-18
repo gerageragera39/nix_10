@@ -39,7 +39,7 @@ public class BrandFacadeImpl implements BrandFacade {
 
     @Override
     public void delete(Long id) {
-
+        brandService.delete(id);
     }
 
     @Override

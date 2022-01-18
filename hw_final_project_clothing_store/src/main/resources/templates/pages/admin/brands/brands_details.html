@@ -24,6 +24,12 @@
                             <td th:text="${brand.getId()}"></td>
                         </tr>
                         <tr>
+                            <th>Logo</th>
+                            <td>
+                                <img th:src="@{${brand.getLogo()}}" width="45" height="45"/>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>Title</th>
                             <td th:text="${brand.getName()}"></td>
                         </tr>
