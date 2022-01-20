@@ -17,7 +17,9 @@ public class Color extends BaseEntity {
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
-            CascadeType.MERGE,
+            CascadeType.REMOVE
+//            CascadeType.MERGE,
+//            CascadeType.ALL
     })
     @JoinTable(
             name = "color_thing",
@@ -35,10 +37,14 @@ public class Color extends BaseEntity {
         thing.getColors().add(this);
     }
 
-    public boolean removeThing(Clothes thing) {
-        boolean is = clothes.remove(thing);
+    public void removeThing(Clothes thing) {
+        for (Clothes item : clothes) {
+            if(thing.equals(item)) {
+                clothes.remove(item);
+            }
+        }
+        clothes.remove(thing);
         thing.getColors().remove(this);
-        return is;
     }
 
     public String getColorName() {
@@ -57,4 +63,13 @@ public class Color extends BaseEntity {
         this.colorName = colorName;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

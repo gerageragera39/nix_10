@@ -13,14 +13,17 @@ import java.util.Set;
 public class ClothesRequestDto extends RequestDto {
 
     private String title;
-//    private String color;
-//    private String size;
+    private String color;
+    private String size;
     private String sex;
     private String type;
     private String description;
     private String compound;
     private Set<Image> images;
     private String brandName;
+
+    private String removeColor;
+    private String removeSize;
 
     public ClothesRequestDto() {
         this.images = new HashSet<>();
@@ -88,5 +91,37 @@ public class ClothesRequestDto extends RequestDto {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getRemoveColor() {
+        return removeColor;
+    }
+
+    public void setRemoveColor(String removeColor) {
+        this.removeColor = removeColor;
+    }
+
+    public String getRemoveSize() {
+        return removeSize;
+    }
+
+    public void setRemoveSize(String removeSize) {
+        this.removeSize = removeSize;
     }
 }

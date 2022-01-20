@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Details</title>
+    <meta charset="utf-8">
+    <title>Clothes details</title>
+
+    <link href="/css/product.css" rel="stylesheet">
 </head>
 <body>
+
+<div layout:fragment="content">
+
+    <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <a class="nav-item nav-link" th:href="@{/clothes}">Clothes</a>
+        <a class="nav-item nav-link" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+
+                        <div class="preview-pic tab-content">
+                            <div class="tab-pane active" id="pic-1"><img th:src="${firstImage.getUrl()}"/></div>
+                        </div>
+                        <ul class="preview-thumbnail nav nav-tabs" th:each="image : ${images}">
+                            <a th:href="${image.getUrl()}" target="_blank">
+                                <img th:src="${image.getUrl()}" width="150" height="150" class="img-fluid rounded-start" alt="...">
+                            </a>
+                        </ul>
+
+                    </div>
+                    <div class="details col-md-6">
+                        <h3 class="product-title" th:text="${thing.getTitle()}"></h3>
+                        <p class="product-description" th:text="'Description : ' + ${thing.getDescription()}"></p>
+                        <p class="product-description" th:text="'Compound : ' + ${thing.getCompound()}"></p>
+                        <h4 class="price">current price: <span class="priceSpan" th:text="${thing.getStringPrice()} + ' грн.'"></span></h4>
+                        <tr>
+                            <th>All Colors</th>
+                            <td>
+                                <ul th:each="color : ${colors}">
+                                    <li th:text="${color.getValue()}"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>All Sizes</th>
+                            <td>
+                                <ul th:each="size : ${sizes}">
+                                    <li th:text="${size.getValue()}"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <h4 class="price">Sex: <span th:text="${thing.getSex()}"></span></h4>
+                        <h4 class="price">Type: <span th:text="${thing.getType()}"></span></h4>
+                        <h4 class="price">BrandName: <span th:text="${thing.getBrandName()}"></span></h4>
+                        <div class="action">
+                            <a th:href="@{'/personal/clothes/product/' + ${id}}">
+                                <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                            </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>

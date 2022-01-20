@@ -1,96 +1,79 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/personal_details_layout}">
 <head>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>eCommerce Product Detail</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <link href="/css/product.css" rel="stylesheet">
-
+    <meta charset="utf-8">
+    <title>Update User</title>
 </head>
-
 <body>
 
-<div layout:fragment="personal_details_content">
+<div layout:fragment="personal_details_layout">
 
     <div class="container">
         <div class="card">
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
+                        <form action="#" th:action="@{'/admin/clothes/update/' + ${id}}" th:object="${product}" method="post">
 
-                        <div class="preview-pic tab-content">
-                            <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252"/></div>
-                            <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252"/></div>
-                            <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252"/></div>
-                            <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252"/></div>
-                            <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252"/></div>
-                        </div>
-                        <ul class="preview-thumbnail nav nav-tabs">
-                            <li class="active"><a data-target="#pic-1" data-toggle="tab"><img
-                                    src="http://placekitten.com/200/126"/></a></li>
-                            <li><a data-target="#pic-2" data-toggle="tab"><img
-                                    src="http://placekitten.com/200/126"/></a></li>
-                            <li><a data-target="#pic-3" data-toggle="tab"><img
-                                    src="http://placekitten.com/200/126"/></a></li>
-                            <li><a data-target="#pic-4" data-toggle="tab"><img
-                                    src="http://placekitten.com/200/126"/></a></li>
-                            <li><a data-target="#pic-5" data-toggle="tab"><img
-                                    src="http://placekitten.com/200/126"/></a></li>
-                        </ul>
-
-                    </div>
-                    <div class="details col-md-6">
-<!--                        <h3 class="product-title">men's shoes fashion</h3>-->
-<!--                        <tr>-->
-<!--                            <th>Title</th>-->
-<!--                            <td th:text="${thing.getTitle()}"></td>-->
-<!--                        </tr>-->
-                        <div class="rating">
-                            <div class="stars">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                            <div class="preview-pic tab-content">
+                                <div class="tab-pane active" id="pic-1"><img th:src="${firstImage.getUrl()}"/></div>
                             </div>
-                            <span class="review-no">41 reviews</span>
-                        </div>
-                        <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium
-                            cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-                        <h4 class="price">current price: <span>$180</span></h4>
-                        <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong>
-                        </p>
-                        <h5 class="sizes">sizes:
-                            <span class="size" data-toggle="tooltip" title="small">s</span>
-                            <span class="size" data-toggle="tooltip" title="medium">m</span>
-                            <span class="size" data-toggle="tooltip" title="large">l</span>
-                            <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-                        </h5>
-                        <h5 class="colors">colors:
-                            <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-                            <span class="color green"></span>
-                            <span class="color blue"></span>
-                        </h5>
-                        <div class="action">
-                            <button class="add-to-cart btn btn-default" type="button">add to cart</button>
-                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span>
-                            </button>
-                        </div>
-                    </div>
+                            <ul class="preview-thumbnail nav nav-tabs" th:each="image : ${images}">
+                                <a th:href="${image.getUrl()}" target="_blank">
+                                    <img th:src="${image.getUrl()}" width="150" height="150"
+                                         class="img-fluid rounded-start" alt="...">
+                                </a>
+                            </ul>
+
+                    <div class="details col-md-6">
+                        <h3 class="product-title" th:text="${thing.getTitle()}"></h3>
+                        <p class="product-description" th:text="'Description : ' + ${thing.getDescription()}"></p>
+                        <p class="product-description" th:text="'Compound : ' + ${thing.getCompound()}"></p>
+                        <h4 class="price">current price: <span class="priceSpan"
+                                                               th:text="${thing.getStringPrice()} + ' грн.'"></span>
+                        </h4>
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <select class="form-control" id="color" th:field="*{color}">
+                                <option th:each="color : ${colors}"
+                                        th:value="${color}"
+                                        th:text="${color}">
+                                </option>
+                            </select>
+                            <div/>
+
+                            <div class="form-group">
+                                <label for="types">Type</label>
+                                <select class="form-control" id="types" th:field="*{size}">
+                                    <option th:each="size : ${sizes}"
+                                            th:value="${size}"
+                                            th:text="${size}">
+                                    </option>
+                                </select>
+                                <div/>
+
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input type="text" class="form-control" id="description" aria-describedby="description"
+                                           placeholder="Enter description" th:field="*{description}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="compound">Compound</label>
+                                    <input type="text" class="form-control" id="compound" aria-describedby="compound"
+                                           placeholder="Enter compound" th:field="*{compound}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update User</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+
+</div>
+
 </body>
 </html>

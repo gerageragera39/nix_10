@@ -1,11 +1,14 @@
 package ua.com.alevel.persistence.entity.users;
 
 import org.joda.time.LocalDate;
+import ua.com.alevel.persistence.entity.products.Product;
 import ua.com.alevel.persistence.listener.AgeByBirthDayGenerationListener;
 import ua.com.alevel.persistence.listener.FullNameGenerationListener;
 import ua.com.alevel.persistence.types.RoleType;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("PERSONAL")
@@ -24,6 +27,9 @@ public class Personal extends User {
     @Column(name = "last_name")
     private String lastName;
 
+    @OneToMany(mappedBy = "personal")
+    private Set<Product> products;
+
     @Transient
     private String fullName;
 
@@ -32,7 +38,16 @@ public class Personal extends User {
 
     public Personal() {
         super();
+        this.products = new HashSet<>();
         setRoleType(RoleType.ROLE_PERSONAL);
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public String getFirstName() {

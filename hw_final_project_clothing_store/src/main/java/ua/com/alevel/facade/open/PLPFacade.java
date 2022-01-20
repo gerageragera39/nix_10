@@ -14,4 +14,6 @@ public interface PLPFacade<RES extends ResponseDto>{
     PageData<RES> findAll(WebRequest request);
 
     ClothesResponseDto findById(Long id);
+
+    List<String> searchClothesNames(String query);
 }

@@ -23,6 +23,7 @@ public class ClothesResponseDto extends ResponseDto {
     private Double price;
     private Integer quantity;
     private String stringPrice;
+    private String clg;
 
     public ClothesResponseDto() { }
 
@@ -43,6 +44,7 @@ public class ClothesResponseDto extends ResponseDto {
         this.stringPrice = generatePrice(thing.getPrice());
         this.brandName = thing.getBrand().getName();
         this.brandId = thing.getBrand().getId();
+        this.clg = thing.getCLG();
     }
 
     public String getTitle() {
@@ -126,20 +128,6 @@ public class ClothesResponseDto extends ResponseDto {
         this.brandName = brandName;
     }
 
-    private String generatePrice(Double price) {
-        String stringPrice = price.toString();
-        String[] finances = stringPrice.split("\\.");
-        stringPrice = finances[0];
-        if(finances[1].length() > 2) {
-            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
-        }
-        stringPrice += "." + finances[1];
-        if(finances[1].length() < 2) {
-            stringPrice += "0";
-        }
-        return stringPrice;
-    }
-
     public String getStringPrice() {
         return stringPrice;
     }
@@ -154,5 +142,27 @@ public class ClothesResponseDto extends ResponseDto {
 
     public void setBrandId(Long brandId) {
         this.brandId = brandId;
+    }
+
+    public String getClg() {
+        return clg;
+    }
+
+    public void setClg(String clg) {
+        this.clg = clg;
+    }
+
+    private String generatePrice(Double price) {
+        String stringPrice = price.toString();
+        String[] finances = stringPrice.split("\\.");
+        stringPrice = finances[0];
+        if(finances[1].length() > 2) {
+            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
+        }
+        stringPrice += "." + finances[1];
+        if(finances[1].length() < 2) {
+            stringPrice += "0";
+        }
+        return stringPrice;
     }
 }

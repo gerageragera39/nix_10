@@ -1,6 +1,7 @@
 package ua.com.alevel.persistence.entity.clothes;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
+import ua.com.alevel.persistence.entity.products.Product;
 import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.colors.Color;
 import ua.com.alevel.persistence.entity.sizes.Size;
@@ -10,7 +11,6 @@ import ua.com.alevel.persistence.thing_type.ThingTypes;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -48,27 +48,32 @@ public class Clothes extends BaseEntity {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @OneToMany(mappedBy = "wear")
+    private Set<Product> products;
+
     @ManyToMany(mappedBy = "clothes", cascade = {
             CascadeType.PERSIST,
-            CascadeType.MERGE,
+            CascadeType.REMOVE
+//            CascadeType.MERGE,
+//            CascadeType.ALL
     })
     private Set<Color> colors;
 
     @ManyToMany(mappedBy = "things", cascade = {
             CascadeType.PERSIST,
-            CascadeType.MERGE,
+//            CascadeType.MERGE,
     })
     private Set<Size> sizes;
 
     public Clothes() {
         super();
         this.images = new HashSet<>();
-//        this.price = new BigDecimal("00.00");
         this.price = (double) 0;
         this.quantity = 0;
         CLG = generateCLG();
         this.colors = new HashSet<>();
         this.sizes = new HashSet<>();
+        this.products = new HashSet<>();
     }
 
     public String getTitle() {
@@ -127,13 +132,13 @@ public class Clothes extends BaseEntity {
         this.type = type;
     }
 
-//    public BigDecimal getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(BigDecimal price) {
-//        this.price = price;
-//    }
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
     public Double getPrice() {
         return price;
@@ -205,5 +210,15 @@ public class Clothes extends BaseEntity {
             }
         }
         return CLG;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }

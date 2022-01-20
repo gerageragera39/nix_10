@@ -7,14 +7,16 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import ua.com.alevel.persistence.entity.clothes.Clothes;
+import ua.com.alevel.cron.SyncElasticCronService;
+import ua.com.alevel.elastic.document.ClothesIndex;
 import ua.com.alevel.persistence.entity.token.Token;
 import ua.com.alevel.persistence.entity.users.Admin;
 import ua.com.alevel.persistence.repository.token.TokenRepository;
 import ua.com.alevel.persistence.repository.users.AdminRepository;
-import ua.com.alevel.persistence.thing_type.ThingTypes;
 
+import javax.annotation.PreDestroy;
 import java.util.Optional;
 
 @SpringBootApplication(exclude = {
@@ -26,11 +28,15 @@ public class ClothingStoreApplication {
     private final BCryptPasswordEncoder encoder;
     private final AdminRepository adminRepository;
     private final TokenRepository tokenRepository;
+    private final ElasticsearchOperations elasticsearchOperations;
+    private final SyncElasticCronService syncElasticCronService;
 
-    public ClothingStoreApplication(BCryptPasswordEncoder encoder, AdminRepository adminRepository, TokenRepository tokenRepository) {
+    public ClothingStoreApplication(BCryptPasswordEncoder encoder, AdminRepository adminRepository, TokenRepository tokenRepository, ElasticsearchOperations elasticsearchOperations, SyncElasticCronService syncElasticCronService) {
         this.encoder = encoder;
         this.adminRepository = adminRepository;
         this.tokenRepository = tokenRepository;
+        this.elasticsearchOperations = elasticsearchOperations;
+        this.syncElasticCronService = syncElasticCronService;
     }
 
     public static void main(String[] args) {
@@ -53,6 +59,11 @@ public class ClothingStoreApplication {
             token.setContent("accepted");
             tokenRepository.save(token);
         }
+        syncElasticCronService.syncToSupplier();
+    }
 
+    @PreDestroy
+    public void resetElastic() {
+        elasticsearchOperations.indexOps(ClothesIndex.class).delete();
     }
 }

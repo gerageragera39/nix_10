@@ -15,6 +15,11 @@ public class ClothesVisibleGenerationListener {
         thing.setVisible(thing.getQuantity() != null &&
                 thing.getQuantity() > 0 &&
                 thing.getPrice() != null &&
-                thing.getPrice() > 0);
+                thing.getPrice() > 0 && thing.getColors() != null &&
+                thing.getColors().size() > 0 &&
+                thing.getSizes() != null &&
+                thing.getSizes().size() != 0 &&
+                thing.getImages() != null &&
+                thing.getImages().size() != 0);
     }
 }

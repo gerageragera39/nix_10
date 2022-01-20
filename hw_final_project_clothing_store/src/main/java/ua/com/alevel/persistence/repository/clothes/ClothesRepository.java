@@ -22,4 +22,7 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
 
     @Query("select c.colors from Clothes c where c.id = :id")
     List<Color> findColorsByThingId(@Param("id") Long id);
+
+    @Query("select c.title from Clothes c")
+    List<String> findAllNames(Pageable pageable);
 }

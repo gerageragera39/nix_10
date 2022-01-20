@@ -79,7 +79,7 @@ public class AuthController extends AbstractController {
             return "redirect:/admin/dashboard";
         }
         if (SecurityUtil.hasRole(RoleType.ROLE_PERSONAL.name())) {
-            return "redirect:/personal/dashboard";
+            return "redirect:/personal/clothes";
         }
         return "redirect:/login";
     }

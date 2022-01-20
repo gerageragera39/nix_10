@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    $('#bookNamed').autocomplete({
+    $('#clothesNamed').autocomplete({
             source: function (request, response) {
-                $.get("http://localhost:8080/books/suggestions?", { query: request.term }, function (data, status) {
+                $.get("http://localhost:8080/clothes/suggestions?", { query: request.term }, function (data, status) {
                     $("#results").html("");
                     if (status === 'success') {
                         response(data);

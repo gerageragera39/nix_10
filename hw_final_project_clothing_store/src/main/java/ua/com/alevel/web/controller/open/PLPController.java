@@ -3,10 +3,7 @@ package ua.com.alevel.web.controller.open;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.clothes.ClothesFacade;
@@ -43,6 +40,22 @@ public class PLPController extends AbstractController {
     public ModelAndView findAllRedirect(WebRequest request, ModelMap model) {
         return findAllRedirect(request, model, "clothes");
     }
+
+    @GetMapping("/suggestions")
+    private @ResponseBody List<String> searchClothesNames(@RequestParam String query) {
+        return plpFacade.searchClothesNames(query);
+    }
+
+//    @PostMapping("/search")
+//    private String searchClothes(Model model, @RequestParam String query) {
+//        PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
+//        List<ClothesPLPDto> clothesPLPDtoList = response.getItems();
+//        model.addAttribute("createUrl", "/clothes/all");
+//        model.addAttribute("cardHeader", "All Clothes");
+//        model.addAttribute("pageData", response);
+//        model.addAttribute("clothes", clothesPLPDtoList);
+//        return "pages/open/plp";
+//    }
 
 //    @GetMapping("/details/{id}")
 //    public String details(@PathVariable Long id, Model model) {

@@ -86,6 +86,10 @@
 <!--                            </td>-->
                         </tr>
                         <tr>
+                            <th>Visible</th>
+                            <td th:text="${thing.getVisible()}"></td>
+                        </tr>
+                        <tr>
                             <th>Created</th>
                             <td th:text="${#calendars.format(thing.getCreated(),'dd MMMM yyyy')}"></td>
                         </tr>
@@ -96,37 +100,28 @@
                         <tr>
                             <th>Images</th>
                             <td>
-                                <ul th:each="image : ${thing.getImages()}" style="display:inline;">
-                                    <a th:href="${image.getUrl()}" target="_blank">
-                                        <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
-                                    </a>
+                                <ul th:each="image : ${thing.getImages()}">
+                                    <div style="display:inline-block;">
+                                        <a th:href="${image.getUrl()}" target="_blank">
+                                            <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
+                                        </a>
+                                        <a th:href="@{'/admin/clothes/' + ${thing.getId()} +'/images/delete/' + ${image.getId()}}" type="button" class="btn btn-danger">Delete image</a>
+                                    </div>
+
                                 </ul>
-                                <!--                                        <a role="button" class="btn btn-link"-->
-                                <!--                                           th:href="@{'/accounts/details/' + ${account.getKey()}}"-->
-                                <!--                                           th:text="${account.getValue()}">details</a>-->
                             </td>
                         </tr>
                     </table>
-                    <a type="button" class="btn btn-primary m-auto"
-                        th:href="@{'/admin/clothes/to/update/' + ${thing.getId()}}">Redact Thing</a>
-<!--                    <div class="col-12">-->
-<!--                        <div class="card mt-2 mb-2">-->
-<!--                            <div class="card-header d-flex align-content-end flex-wrap">-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/users/newAccount/' + ${thing.getId()}}">Add new Account</a>-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>-->
-<!--                            </div>-->
-<!--                            <a type="button" class="btn btn-primary m-auto t-1"-->
-<!--                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header">
+                                <a th:href="@{'/admin/clothes/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Redact Thing</a>
+                                <a th:href="@{'/admin/clothes/images/to/add/' + ${thing.getId()}}" type="button" class="btn btn-primary">Add image</a>
+                                <a th:href="@{'/admin/clothes/color/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Update colors</a>
+                                <a th:href="@{'/admin/clothes/size/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Update sizes</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

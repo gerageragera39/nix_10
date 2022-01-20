@@ -17,7 +17,7 @@ public class Size extends BaseEntity {
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
-            CascadeType.MERGE,
+//            CascadeType.MERGE,
     })
     @JoinTable(
             name = "size_thing",

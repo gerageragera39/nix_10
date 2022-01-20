@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.facade.open.PLPFacade;
+import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Validated
 @Controller
-@RequestMapping("/clothes/details")
+@RequestMapping("/clothes/product")
 public class PDPController extends AbstractController {
 
     private final PLPFacade plpFacade;
@@ -27,9 +31,19 @@ public class PDPController extends AbstractController {
     @GetMapping("/{id}")
     public String details(@PathVariable Long id, Model model) {
         ClothesResponseDto dto = plpFacade.findById(id);
+        List<Image> images = dto.getImages();
+        List<Image> imageList = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            if (i != 0) {
+                imageList.add(images.get(i));
+            }
+        }
         model.addAttribute("thing", dto);
+        model.addAttribute("id", id);
+        model.addAttribute("images", imageList);
+        model.addAttribute("firstImage", images.get(0));
         model.addAttribute("colors", clothesFacade.findColorsByThingId(id));
         model.addAttribute("sizes", clothesFacade.findSizesByThingId(id));
-        return "pages/open/clothes/clothes_details";
+        return "pages/open/pdp";
     }
 }

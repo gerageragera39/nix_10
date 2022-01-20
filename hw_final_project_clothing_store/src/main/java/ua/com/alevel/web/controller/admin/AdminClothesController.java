@@ -1,6 +1,5 @@
 package ua.com.alevel.web.controller.admin;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -10,10 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.alevel.facade.clothes.ClothesFacade;
+import ua.com.alevel.facade.clothes.ImageFacade;
 import ua.com.alevel.persistence.sex.Sexes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.request.clothes.ClothesRequestDto;
+import ua.com.alevel.web.dto.request.clothes.ImageRequestDto;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.PageData;
 
@@ -24,12 +25,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin/clothes")
 public class AdminClothesController extends AbstractController {
-
-    private String tempTitle;
-    private String tempDescription;
-    private String tempCompound;
-
-    private ClothesResponseDto tempDto;
 
     private final HeaderName[] columnNames = new HeaderName[] {
             new HeaderName("#", null, null),
@@ -45,9 +40,11 @@ public class AdminClothesController extends AbstractController {
     };
 
     private final ClothesFacade clothesFacade;
+    private final ImageFacade imageFacade;
 
-    public AdminClothesController(ClothesFacade clothesFacade) {
+    public AdminClothesController(ClothesFacade clothesFacade, ImageFacade imageFacade) {
         this.clothesFacade = clothesFacade;
+        this.imageFacade = imageFacade;
     }
 
     @GetMapping
@@ -55,7 +52,6 @@ public class AdminClothesController extends AbstractController {
         PageData<ClothesResponseDto> response = clothesFacade.findAll(request);
         initDataTable(response, columnNames, model);
         model.addAttribute("createUrl", "/admin/clothes/all");
-//        model.addAttribute("createUrl", "/admin/clothes");
         model.addAttribute("createNew", "/admin/clothes/new");
         model.addAttribute("cardHeader", "All Clothes");
         return "pages/admin/clothes/clothes_all";
@@ -95,11 +91,6 @@ public class AdminClothesController extends AbstractController {
 
     @GetMapping("/to/update/{id}")
     public String toUpdate(@PathVariable Long id, Model model) {
-        ClothesResponseDto dto = clothesFacade.findById(id);
-        setTempTitle(dto.getTitle());
-        setTempDescription(dto.getDescription());
-        setTempCompound(dto.getCompound());
-        setTempDto(dto);
         generateFields(model);
         model.addAttribute("id", id);
         model.addAttribute("thing", new ClothesRequestDto());
@@ -108,51 +99,64 @@ public class AdminClothesController extends AbstractController {
 
     @PostMapping("/update/{id}")
     public String updateThing(@ModelAttribute("thing") ClothesRequestDto dto, @PathVariable Long id, Model model) {
-        clothesFacade.update(dto, getTempDto(), id);
-        model.addAttribute("thing", clothesFacade.findById(id));
+        clothesFacade.update(dto, id);
+//        model.addAttribute("thing", clothesFacade.findById(id));
 //        return "pages/admin/clothes/clothes_details";
         return "redirect:/admin/clothes/details/" + id;
     }
 
-    public String getTempTitle() {
-        return tempTitle;
+    @GetMapping("/color/to/update/{id}")
+    public String colorToUpdate(@PathVariable Long id, Model model) {
+        generateColorsList(id, model);
+        model.addAttribute("id", id);
+        model.addAttribute("thing", new ClothesRequestDto());
+        return "pages/admin/clothes/color_update";
     }
 
-    public void setTempTitle(String tempTitle) {
-        this.tempTitle = tempTitle;
+    @PostMapping("color/update/{id}")
+    public String colorUpdate(@ModelAttribute("thing") ClothesRequestDto dto, @PathVariable Long id, Model model) {
+        clothesFacade.updateColor(dto, id);
+        return "redirect:/admin/clothes/details/" + id;
     }
 
-    public String getTempDescription() {
-        return tempDescription;
+    @GetMapping("/size/to/update/{id}")
+    public String sizeToUpdate(@PathVariable Long id, Model model) {
+        generateSizesList(id, model);
+        model.addAttribute("id", id);
+        model.addAttribute("thing", new ClothesRequestDto());
+        return "pages/admin/clothes/size_update";
     }
 
-    public void setTempDescription(String tempDescription) {
-        this.tempDescription = tempDescription;
+    @PostMapping("size/update/{id}")
+    public String sizeUpdate(@ModelAttribute("thing") ClothesRequestDto dto, @PathVariable Long id, Model model) {
+        clothesFacade.updateSize(dto, id);
+        return "redirect:/admin/clothes/details/" + id;
     }
 
-    public String getTempCompound() {
-        return tempCompound;
+    @GetMapping("/images/to/add/{id}")
+    public String toAddImage(@PathVariable Long id, Model model) {
+        model.addAttribute("id", id);
+//        model.addAttribute("thing", new ClothesRequestDto());
+        model.addAttribute("image", new ImageRequestDto());
+        return "pages/admin/clothes/images_new";
     }
 
-    public void setTempCompound(String tempCompound) {
-        this.tempCompound = tempCompound;
+    @PostMapping("/images/add/{id}")
+    public String addImage(@ModelAttribute("image") ImageRequestDto dto, @PathVariable Long id) {
+        dto.setThingId(id);
+        imageFacade.create(dto);
+        return "redirect:/admin/clothes/details/" + id;
     }
 
-    public ClothesResponseDto getTempDto() {
-        return tempDto;
-    }
-
-    public void setTempDto(ClothesResponseDto tempDto) {
-        this.tempDto = tempDto;
+    @GetMapping("{thingId}/images/delete/{imageId}")
+    public String deleteImage(@PathVariable Long thingId, @PathVariable Long imageId) {
+        imageFacade.delete(imageId);
+        return "redirect:/admin/clothes/details/" + thingId;
     }
 
     private void generateFields(Model model) {
         List<Object> colors = new ArrayList<>();
-//        colors.add("Change color");
-//        colors.addAll(Arrays.stream(Color.values()).toList());
         List<Object> sizes = new ArrayList<>();
-//        sizes.add("Change size");
-//        sizes.addAll(Arrays.stream(Sizes.values()).toList());
         List<Object> sexes = new ArrayList<>();
         sexes.add("Change sex");
         sexes.addAll(Arrays.stream(Sexes.values()).toList());
@@ -163,5 +167,27 @@ public class AdminClothesController extends AbstractController {
         model.addAttribute("sizes", sizes);
         model.addAttribute("sexes", sexes);
         model.addAttribute("types", types);
+    }
+
+    private void generateColorsList(Long id, Model model) {
+        List<String> added = new ArrayList<>();
+        added.add("Remove color");
+        added.addAll(clothesFacade.findAllColorsByThingId(id));
+        List<String> notAdded = new ArrayList<>();
+        notAdded.add("Add color");
+        notAdded.addAll(clothesFacade.findAllColorsNotByThingId(id));
+        model.addAttribute("added", added);
+        model.addAttribute("notAdded", notAdded);
+    }
+
+    private void generateSizesList(Long id, Model model) {
+        List<String> added = new ArrayList<>();
+        added.add("Remove size");
+        added.addAll(clothesFacade.findAllSizesByThingId(id));
+        List<String> notAdded = new ArrayList<>();
+        notAdded.add("Add color");
+        notAdded.addAll(clothesFacade.findAllSizesNotByThingId(id));
+        model.addAttribute("added", added);
+        model.addAttribute("notAdded", notAdded);
     }
 }

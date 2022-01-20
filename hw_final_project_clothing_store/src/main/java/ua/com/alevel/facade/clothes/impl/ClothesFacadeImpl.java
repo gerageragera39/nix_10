@@ -13,6 +13,9 @@ import ua.com.alevel.persistence.sex.Sexes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.clothes.ClothesService;
+import ua.com.alevel.service.colors.ColorService;
+import ua.com.alevel.service.elastic.ElasticClothesSearchService;
+import ua.com.alevel.service.sizes.SizeService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.web.dto.request.PageAndSizeData;
 import ua.com.alevel.web.dto.request.SortData;
@@ -20,10 +23,7 @@ import ua.com.alevel.web.dto.request.clothes.ClothesRequestDto;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.PageData;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,10 +31,16 @@ public class ClothesFacadeImpl implements ClothesFacade {
 
     private final ClothesService clothesService;
     private final BrandService brandService;
+    private final ColorService colorService;
+    private final SizeService sizeService;
+    private final ElasticClothesSearchService elasticClothesSearchService;
 
-    public ClothesFacadeImpl(ClothesService clothesService, BrandService brandService) {
+    public ClothesFacadeImpl(ClothesService clothesService, BrandService brandService, ColorService colorService, SizeService sizeService, ElasticClothesSearchService elasticClothesSearchService) {
         this.clothesService = clothesService;
         this.brandService = brandService;
+        this.colorService = colorService;
+        this.sizeService = sizeService;
+        this.elasticClothesSearchService = elasticClothesSearchService;
     }
 
     @Override
@@ -54,59 +60,22 @@ public class ClothesFacadeImpl implements ClothesFacade {
 
     @Override
     public void update(ClothesRequestDto dto, Long id) {
-//        Optional<Clothes> optionalClothes = clothesService.findById(id);
-//        if(optionalClothes.isPresent()) {
-//            Clothes clothes = optionalClothes.get();
-//            clothes.setTitle(dto.getTitle());
-//            clothes.setSize(dto.getSize());
-//            clothes.setType(dto.getType());
-//            clothes.setSex(dto.getSex());
-//            clothes.setColor(Color.valueOf(dto.getColor()));
-//            clothes.setDescription(dto.getDescription());
-//            clothes.setCompound(dto.getCompound());
-//
-//            clothesService.update(clothes);
-//        }
-    }
-
-    @Override
-    public void update(ClothesRequestDto dto, ClothesResponseDto tempDto, Long id) {
         Optional<Clothes> optionalClothes = clothesService.findById(id);
         if(optionalClothes.isPresent()) {
             Clothes clothes = optionalClothes.get();
-            if(StringUtils.isBlank(dto.getTitle())) {
-                clothes.setTitle(tempDto.getTitle());
-            } else {
+            if(StringUtils.isNotBlank(dto.getTitle())) {
                 clothes.setTitle(dto.getTitle());
             }
-            if(StringUtils.isBlank(dto.getCompound())) {
-                clothes.setCompound(tempDto.getCompound());
-            } else {
+            if(StringUtils.isNotBlank(dto.getCompound())) {
                 clothes.setCompound(dto.getCompound());
             }
-            if(StringUtils.isBlank(dto.getDescription())) {
-                clothes.setDescription(tempDto.getDescription());
-            } else {
+            if(StringUtils.isNotBlank(dto.getDescription())) {
                 clothes.setDescription(dto.getDescription());
             }
-//            if(dto.getColor().equals("Change color")) {
-//                clothes.setColor(tempDto.getColor());
-//            } else {
-//                clothes.setColor(Color.valueOf(dto.getColor()));
-//            }
-            if(dto.getSex().equals("Change sex")) {
-                clothes.setSex(tempDto.getSex());
-            } else {
+            if(!dto.getSex().equals("Change sex")) {
                 clothes.setSex(Sexes.valueOf(dto.getSex()));
             }
-//            if(dto.getSize().equals("Change size")) {
-//                clothes.setSize(tempDto.getSize());
-//            } else {
-//                clothes.setSize(Sizes.valueOf(dto.getSize()));
-//            }
-            if(dto.getType().equals("Change type")) {
-                clothes.setType(tempDto.getType());
-            } else {
+            if(!dto.getType().equals("Change type")) {
                 clothes.setType(ThingTypes.valueOf(dto.getType()));
             }
             clothesService.update(clothes);
@@ -123,6 +92,37 @@ public class ClothesFacadeImpl implements ClothesFacade {
         }
         return map;
     }
+    @Override
+    public List<String> findAllColorsByThingId(Long id) {
+        List<Color> colors = clothesService.findById(id).get().getColors().stream().toList();
+        List<String> names = new ArrayList<>();
+        for (Color color : colors) {
+            names.add(color.getColorName());
+        }
+        return names;
+    }
+
+
+    @Override
+    public List<String> findAllColorsNotByThingId(Long id) {
+        List<Color> allColors = colorService.findAll();
+        List<Color> addedColors = clothesService.findById(id).get().getColors().stream().toList();
+        List<Color> notAddedColors = new ArrayList<>();
+        notAddedColors.addAll(allColors);
+        for (int i = 0; i < allColors.size(); i++) {
+            for (int j = 0; j < addedColors.size(); j++) {
+                if(allColors.get(i).getId() == addedColors.get(j).getId()) {
+                    notAddedColors.remove(allColors.get(i));
+                    break;
+                }
+            }
+        }
+        List<String> names = new ArrayList<>();
+        for (Color notAddedColor : notAddedColors) {
+            names.add(notAddedColor.getColorName());
+        }
+        return names;
+    }
 
     @Override
     public Map<Long, String> findSizesByThingId(Long id) {
@@ -132,6 +132,78 @@ public class ClothesFacadeImpl implements ClothesFacade {
             map.put(sizes.get(i).getId(), sizes.get(i).getSizeName());
         }
         return map;
+    }
+
+    @Override
+    public List<String> searchClothesNames(String query) {
+        return elasticClothesSearchService.searchClothesNames(query);
+    }
+
+    @Override
+    public void updateColor(ClothesRequestDto dto, Long id) {
+        Optional<Clothes> optionalClothes = clothesService.findById(id);
+        if(optionalClothes.isPresent()) {
+            Clothes clothes = optionalClothes.get();
+            if(!dto.getColor().equals("Add color")) {
+                Color color = colorService.findByName(dto.getColor());
+                color.addThing(clothes);
+                colorService.update(color);
+            }
+            if(!dto.getRemoveColor().equals("Remove color")) {
+                Color color = colorService.findByName(dto.getRemoveColor());
+                color.removeThing(clothes);
+                colorService.update(color);
+            }
+        }
+    }
+
+    @Override
+    public List<String> findAllSizesByThingId(Long id) {
+        List<Size> sizes = clothesService.findById(id).get().getSizes().stream().toList();
+        List<String> names = new ArrayList<>();
+        for (Size size : sizes) {
+            names.add(size.getSizeName());
+        }
+        return names;
+    }
+
+    @Override
+    public List<String> findAllSizesNotByThingId(Long id) {
+        List<Size> allSizes = sizeService.findAll();
+        List<Size> addedSizes = clothesService.findById(id).get().getSizes().stream().toList();
+        List<Size> notAddedSizes = new ArrayList<>();
+        notAddedSizes.addAll(allSizes);
+        for (int i = 0; i < allSizes.size(); i++) {
+            for (int j = 0; j < addedSizes.size(); j++) {
+                if(allSizes.get(i).getId() == addedSizes.get(j).getId()) {
+                    notAddedSizes.remove(allSizes.get(i));
+                    break;
+                }
+            }
+        }
+        List<String> names = new ArrayList<>();
+        for (Size notAddedSize : notAddedSizes) {
+            names.add(notAddedSize.getSizeName());
+        }
+        return names;
+    }
+
+    @Override
+    public void updateSize(ClothesRequestDto dto, Long id) {
+        Optional<Clothes> optionalClothes = clothesService.findById(id);
+        if(optionalClothes.isPresent()) {
+            Clothes clothes = optionalClothes.get();
+            if(!dto.getSize().equals("Add size")) {
+                Size size = sizeService.findByName(dto.getSize());
+                size.addThing(clothes);
+                sizeService.update(size);
+            }
+            if(!dto.getRemoveSize().equals("Remove size")) {
+                Size size = sizeService.findByName(dto.getRemoveSize());
+                size.removeThing(clothes);
+                sizeService.update(size);
+            }
+        }
     }
 
     @Override
