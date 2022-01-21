@@ -61,6 +61,7 @@ public class CrudRepositoryHelperImpl<
                 ? Sort.by(sortBy).descending()
                 : Sort.by(sortBy).ascending();
         PageRequest pageRequest = PageRequest.of(page, size, sort);
+//        List<E> items = repository.findAllByVisible(true, pageRequest);
         List<E> items = repository.findAllByVisibleTrue(pageRequest);
 
         DataTableResponse<E> dataTableResponse = new DataTableResponse<>();

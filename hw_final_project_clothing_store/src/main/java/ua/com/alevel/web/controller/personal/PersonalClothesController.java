@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.clothes.ClothesFacade;
+import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.facade.products.ProductFacade;
+import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.persistence.entity.clothes.Image;
+import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.request.product.ProductRequestDto;
 import ua.com.alevel.web.dto.response.PageData;
@@ -23,15 +26,20 @@ public class PersonalClothesController extends AbstractController {
 
     private final ClothesFacade clothesFacade;
     private final ProductFacade productFacade;
+    private final PersonalFacade personalFacade;
+    private final PLPFacade plpFacade;
 
-    public PersonalClothesController(ClothesFacade clothesFacade, ProductFacade productFacade) {
+    public PersonalClothesController(ClothesFacade clothesFacade, ProductFacade productFacade, PersonalFacade personalFacade, PLPFacade plpFacade) {
         this.clothesFacade = clothesFacade;
         this.productFacade = productFacade;
+        this.personalFacade = personalFacade;
+        this.plpFacade = plpFacade;
     }
 
     @GetMapping
     private String allClothes(Model model, WebRequest webRequest) {
-        PageData<ClothesResponseDto> response = clothesFacade.personalFindAll(webRequest);
+//        PageData<ClothesResponseDto> response = clothesFacade.personalFindAll(webRequest);
+        PageData<ClothesResponseDto> response = plpFacade.findAll(webRequest);
         List<ClothesResponseDto> clothesList = response.getItems();
         model.addAttribute("createUrl", "/personal/clothes/all");
         model.addAttribute("cardHeader", "All Clothes");
@@ -73,6 +81,7 @@ public class PersonalClothesController extends AbstractController {
 //        ProductRequestDto dto = new ProductRequestDto();
         ClothesResponseDto clothesResponseDto = clothesFacade.findById(id);
         dto.setWearId(id);
+        dto.setPersonalEmail(SecurityUtil.getUsername());
         dto.setClg(clothesResponseDto.getClg());
         productFacade.create(dto);
         return "redirect:/personal/clothes/product/" + id;
@@ -84,7 +93,10 @@ public class PersonalClothesController extends AbstractController {
     }
 
     @GetMapping("/bucket")
-    private String bucket() {
+    private String bucket(Model model) {
+//        model.addAttribute("products", personalFacade.findByEmail(SecurityUtil.getUsername()).getProducts());
+        model.addAttribute("products", productFacade.findByPersonalEmail(SecurityUtil.getUsername()));
+//        return "pages/personals/shopping_cart";
         return "pages/personals/bucket";
     }
 }

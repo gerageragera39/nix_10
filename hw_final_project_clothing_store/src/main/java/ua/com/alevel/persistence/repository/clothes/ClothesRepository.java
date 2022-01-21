@@ -1,5 +1,6 @@
 package ua.com.alevel.persistence.repository.clothes;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,6 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
 
     @Query("select c.title from Clothes c")
     List<String> findAllNames(Pageable pageable);
+
+    List<Clothes> findAllByVisibleTrue(Pageable pageable);
 }

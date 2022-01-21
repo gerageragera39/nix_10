@@ -17,9 +17,7 @@ public class Color extends BaseEntity {
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
-            CascadeType.REMOVE
-//            CascadeType.MERGE,
-//            CascadeType.ALL
+//            CascadeType.REMOVE
     })
     @JoinTable(
             name = "color_thing",
@@ -38,11 +36,6 @@ public class Color extends BaseEntity {
     }
 
     public void removeThing(Clothes thing) {
-        for (Clothes item : clothes) {
-            if(thing.equals(item)) {
-                clothes.remove(item);
-            }
-        }
         clothes.remove(thing);
         thing.getColors().remove(this);
     }

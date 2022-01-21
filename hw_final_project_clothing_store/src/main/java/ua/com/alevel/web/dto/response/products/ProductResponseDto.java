@@ -19,6 +19,7 @@ public class ProductResponseDto extends ResponseDto {
     private String color;
     private ThingTypes type;
     private String price;
+    private Integer count;
 
     public ProductResponseDto(Product product) {
         setId(product.getId());
@@ -33,6 +34,7 @@ public class ProductResponseDto extends ResponseDto {
         this.clg = product.getClg();
         this.color = product.getColor();
         this.size = product.getSize();
+        this.count = product.getCount();
     }
 
     public String getTitle() {
@@ -97,6 +99,14 @@ public class ProductResponseDto extends ResponseDto {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     private String generatePrice(Double price) {

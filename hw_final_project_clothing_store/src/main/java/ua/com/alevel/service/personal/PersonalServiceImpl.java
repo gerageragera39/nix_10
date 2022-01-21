@@ -60,4 +60,9 @@ public class PersonalServiceImpl implements PersonalService {
         WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
         return dataTableResponse;
     }
+
+    @Override
+    public Personal findByEmail(String personalEmail) {
+        return personalRepository.findByEmail(personalEmail);
+    }
 }

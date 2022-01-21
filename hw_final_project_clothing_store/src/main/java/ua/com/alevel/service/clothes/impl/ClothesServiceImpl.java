@@ -1,7 +1,5 @@
 package ua.com.alevel.service.clothes.impl;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -26,12 +24,14 @@ public class ClothesServiceImpl implements ClothesService {
     private final ClothesRepository clothesRepository;
     private final ImageRepository imageRepository;
     private final ColorRepository colorRepository;
+    private final SizeRepository sizeRepository;
 
-    public ClothesServiceImpl(CrudRepositoryHelper<Clothes, ClothesRepository> crudRepositoryHelper, ClothesRepository clothesRepository, ImageRepository imageRepository, ColorRepository colorRepository) {
+    public ClothesServiceImpl(CrudRepositoryHelper<Clothes, ClothesRepository> crudRepositoryHelper, ClothesRepository clothesRepository, ImageRepository imageRepository, ColorRepository colorRepository, SizeRepository sizeRepository) {
         this.crudRepositoryHelper = crudRepositoryHelper;
         this.clothesRepository = clothesRepository;
         this.imageRepository = imageRepository;
         this.colorRepository = colorRepository;
+        this.sizeRepository = sizeRepository;
     }
 
     @Override
@@ -46,34 +46,22 @@ public class ClothesServiceImpl implements ClothesService {
 
     @Override
     public void delete(Long id) {
-//        crudRepositoryHelper.delete(clothesRepository, id);
         Optional<Clothes> optionalClothes = clothesRepository.findById(id);
         if(optionalClothes.isPresent()) {
-            Clothes clothes = optionalClothes.get();
-            List<Image> images = clothes.getImages().stream().toList();
-            List<Color> colors = clothes.getColors().stream().toList();
-            List<Size> sizes = clothes.getSizes().stream().toList();
-
-//            clothes.setColors(new HashSet<>());
-//            clothes.setSizes(new HashSet<>());
-//            clothesRepository.save(clothes);
-//            clothes(new HashSet<>());
-            for (int i = 0; i < colors.size(); i++) {
-                colors.get(i).removeThing(clothes);
-                colorRepository.save(colors.get(i));
+            Clothes thing = optionalClothes.get();
+            List<Color> colors = thing.getColors().stream().toList();
+            List<Size> sizes = thing.getSizes().stream().toList();
+            for (Color color : colors) {
+                color.getClothes().remove(thing);
             }
-
-            for (int i = 0; i < sizes.size(); i++) {
-                sizes.get(i).removeThing(clothes);
+            for (Size size : sizes) {
+                size.getThings().remove(thing);
             }
-//            for (Size size : sizes) {
-//                size.removeThing(clothes);
-//                System.out.println();
-////                sizeRepository.save(size);
-//            }
-
-            imageRepository.deleteAll(images);
-            crudRepositoryHelper.delete(clothesRepository, id);
+            colorRepository.saveAll(colors);
+            sizeRepository.saveAll(sizes);
+            thing.getSizes().removeAll(colors);
+            thing.getSizes().removeAll(sizes);
+            clothesRepository.delete(thing);
         }
     }
 

@@ -185,7 +185,7 @@ public class AdminClothesController extends AbstractController {
         added.add("Remove size");
         added.addAll(clothesFacade.findAllSizesByThingId(id));
         List<String> notAdded = new ArrayList<>();
-        notAdded.add("Add color");
+        notAdded.add("Add size");
         notAdded.addAll(clothesFacade.findAllSizesNotByThingId(id));
         model.addAttribute("added", added);
         model.addAttribute("notAdded", notAdded);

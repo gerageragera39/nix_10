@@ -6,11 +6,14 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.colors.Color;
 import ua.com.alevel.persistence.entity.products.Product;
+import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.persistence.repository.colors.ColorRepository;
 import ua.com.alevel.persistence.repository.products.ProductRepository;
 import ua.com.alevel.persistence.repository.sizes.SizeRepository;
+import ua.com.alevel.service.personal.PersonalService;
 import ua.com.alevel.service.products.ProductService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +51,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public DataTableResponse<Product> findAll(DataTableRequest request) {
         return null;
+    }
+
+    @Override
+    public List<Product> findByPersonalEmail(Personal personal) {
+        return productRepository.findAllByPersonal(personal);
     }
 }

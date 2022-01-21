@@ -4,7 +4,7 @@ import ua.com.alevel.web.dto.request.RequestDto;
 
 public class ProductRequestDto extends RequestDto {
 
-    private Long personalId;
+    private String personalEmail;
 
     private Long wearId;
 
@@ -52,12 +52,12 @@ public class ProductRequestDto extends RequestDto {
         this.count = count;
     }
 
-    public Long getPersonalId() {
-        return personalId;
+    public String getPersonalEmail() {
+        return personalEmail;
     }
 
-    public void setPersonalId(Long personalId) {
-        this.personalId = personalId;
+    public void setPersonalEmail(String personalEmail) {
+        this.personalEmail = personalEmail;
     }
 
     public Long getWearId() {

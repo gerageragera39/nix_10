@@ -1,10 +1,12 @@
 package ua.com.alevel.web.dto.response.users;
 
+import ua.com.alevel.persistence.entity.products.Product;
 import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.persistence.types.RoleType;
 import ua.com.alevel.web.dto.response.ResponseDto;
 
 import java.util.Date;
+import java.util.List;
 
 public class PersonalResponseDto extends ResponseDto {
 
@@ -16,6 +18,7 @@ public class PersonalResponseDto extends ResponseDto {
     private String email;
     private Boolean enabled;
     private RoleType roleType;
+    private List<Product> products;
 
     public PersonalResponseDto() { }
 
@@ -32,6 +35,7 @@ public class PersonalResponseDto extends ResponseDto {
         this.roleType = personal.getRoleType();
         this.fullName = personal.getFullName();
         this.age = personal.getAge();
+        this.products = personal.getProducts().stream().toList();
     }
 
     public String getBirthDay() {
@@ -96,5 +100,13 @@ public class PersonalResponseDto extends ResponseDto {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

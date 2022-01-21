@@ -3,108 +3,45 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{layout}">
+      layout:decorate="~{fragments/personal_layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="/css/bucket.css" rel="stylesheet">
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="personal_content">
         <div class="shopping-cart">
             <!-- Title -->
             <div class="title">
                 Shopping Bag
             </div>
 
-            <!-- Товар #1 -->
-            <div class="item">
-                <div class="buttons">
-                    <span class="delete-btn"></span>
-                    <span class="like-btn"></span>
+            <ul th:each="product : ${products}">
+                <div class="item">
+
+                    <div class="image">
+                        <img th:src="${product.getImages().getUrl()}" style="height: 90px; width: 80px" alt=""/>
+                    </div>
+
+                    <div class="description">
+                        <span th:text="${product.getTitle()}"></span>
+                        <span th:text="${product.getSize()}"></span>
+                        <span th:text="${product.getColor()}"></span>
+                    </div>
+
+                    <div class="quantity">
+                        <td>Quantity : </td>
+                        <input type="text" name="name" th:value="${product.getCount()}">
+                    </div>
+
+                    <div class="total-price" th:text="${product.getPrice()} + ' грн'"></div>
                 </div>
-
-                <div class="image">
-                    <img src="item-1.png" alt=""/>
-                </div>
-
-                <div class="description">
-                    <span>Common Projects</span>
-                    <span>Bball High</span>
-                    <span>White</span>
-                </div>
-
-                <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-                        <img src="plus.svg" alt=""/>
-                    </button>
-                    <input type="text" name="name" value="1">
-                    <button class="minus-btn" type="button" name="button">
-                        <img src="minus.svg" alt=""/>
-                    </button>
-                </div>
-
-                <div class="total-price">$549</div>
-            </div>
-
-            <!-- Товар #2 -->
-            <div class="item">
-                <div class="buttons">
-                    <span class="delete-btn"></span>
-                    <span class="like-btn"></span>
-                </div>
-
-                <div class="image">
-                    <img src="item-2.png" alt=""/>
-                </div>
-
-                <div class="description">
-                    <span>Maison Margiela</span>
-                    <span>Future Sneakers</span>
-                    <span>White</span>
-                </div>
-
-                <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-                        <img src="plus.svg" alt=""/>
-                    </button>
-                    <input type="text" name="name" value="1">
-                    <button class="minus-btn" type="button" name="button">
-                        <img src="minus.svg" alt=""/>
-                    </button>
-                </div>
-
-                <div class="total-price">$870</div>
-            </div>
-
-            <!-- Товар #3 -->
-            <div class="item">
-                <div class="buttons">
-                    <span class="delete-btn"></span>
-                    <span class="like-btn"></span>
-                </div>
-
-                <div class="image">
-                    <img src="item-3.png" alt=""/>
-                </div>
-
-                <div class="description">
-                    <span>Our Legacy</span>
-                    <span>Brushed Scarf</span>
-                    <span>Brown</span>
-                </div>
-
-                <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-                        <img src="plus.svg" alt=""/>
-                    </button>
-                    <input type="text" name="name" value="1">
-                    <button class="minus-btn" type="button" name="button">
-                        <img src="minus.svg" alt=""/>
-                    </button>
-                </div>
-
-                <div class="total-price">$349</div>
+            </ul>
+            <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
+<!--                <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay-->
+<!--                </button>-->
+                <a type="button" class="btn btn-warning btn-block btn-lg ml-4 pay-button" style="margin-left: 300px;">Proceed to Pay</a>
             </div>
         </div>
     <div/>

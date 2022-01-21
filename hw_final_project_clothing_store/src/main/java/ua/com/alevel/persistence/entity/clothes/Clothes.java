@@ -36,12 +36,11 @@ public class Clothes extends BaseEntity {
     @Column(name = "clg")
     private String CLG;
 
-//    @Column(precision = 7, scale = 2)
     private Double price;
 
     private Integer quantity;
 
-    @OneToMany(mappedBy = "thing")
+    @OneToMany(mappedBy = "thing", cascade = CascadeType.REMOVE)
     private Set<Image> images;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -53,15 +52,13 @@ public class Clothes extends BaseEntity {
 
     @ManyToMany(mappedBy = "clothes", cascade = {
             CascadeType.PERSIST,
-            CascadeType.REMOVE
-//            CascadeType.MERGE,
-//            CascadeType.ALL
+//            CascadeType.REMOVE
     })
     private Set<Color> colors;
 
     @ManyToMany(mappedBy = "things", cascade = {
             CascadeType.PERSIST,
-//            CascadeType.MERGE,
+//            CascadeType.REMOVE
     })
     private Set<Size> sizes;
 

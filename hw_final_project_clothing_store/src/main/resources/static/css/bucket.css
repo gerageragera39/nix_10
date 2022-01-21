@@ -13,7 +13,7 @@ body {
 
 .shopping-cart {
     width: 750px;
-    height: 423px;
+    /*height: 423px;*/
     margin: 80px auto;
     background: #FFFFFF;
     box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
@@ -178,4 +178,17 @@ input:focus {
     .buttons {
         margin-right: 20px;
     }
+}
+
+.pay-button {
+    color: #fff
+}
+
+.pay-button:hover {
+    color: #fff
+}
+
+.pay-button:focus {
+    color: #fff;
+    box-shadow: none
 }

@@ -11,7 +11,7 @@ public class Logo extends BaseEntity {
 
     private String url;
 
-    @OneToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "brand_id")
     private Brand brand;
 

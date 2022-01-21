@@ -21,9 +21,7 @@
                 <nav class="navbar navbar-dark bg-dark">
                     <a class="nav-item nav-link" th:href="@{/personal/dashboard}">Dashboard</a>
                     <a class="nav-item nav-link" th:href="@{/personal/clothes}">Clothes</a>
-                    <a class="nav-item nav-link" th:href="@{/personal/clothes}">
-                        <img src="C:\Users\admin\IdeaProjects\nix_10\hw_final_project_clothing_store\src\main\resources\static\img\bucket.png" width="50" height="50"/>
-<!--                        <td>0</td>-->
+                    <a class="nav-item nav-link" th:href="@{/personal/clothes/bucket}" th:text="Basket">
                     </a>
                     <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
                 </nav>

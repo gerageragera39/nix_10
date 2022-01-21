@@ -86,4 +86,9 @@ public class PersonalFacadeImpl implements PersonalFacade {
             personalService.update(personal);
         }
     }
+
+    @Override
+    public PersonalResponseDto findByEmail(String username) {
+        return new PersonalResponseDto(personalService.findByEmail(username));
+    }
 }

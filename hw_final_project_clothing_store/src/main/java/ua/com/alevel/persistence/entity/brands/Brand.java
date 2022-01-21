@@ -4,10 +4,7 @@ import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.clothes.Image;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,10 +14,10 @@ public class Brand extends BaseEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "brand")
+    @OneToMany(mappedBy = "brand", cascade = CascadeType.REMOVE)
     private Set<Clothes> clothes;
 
-    @OneToOne(mappedBy = "brand")
+    @OneToOne(mappedBy = "brand", cascade = CascadeType.REMOVE)
     private Logo logo;
 
     public Brand() {

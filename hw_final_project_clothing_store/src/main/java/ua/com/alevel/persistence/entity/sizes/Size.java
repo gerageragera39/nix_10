@@ -17,6 +17,7 @@ public class Size extends BaseEntity {
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
+//            CascadeType.REMOVE
 //            CascadeType.MERGE,
     })
     @JoinTable(
@@ -46,5 +47,23 @@ public class Size extends BaseEntity {
 
     public void setSizeName(String sizeName) {
         this.sizeName = sizeName;
+    }
+
+    public Set<Clothes> getThings() {
+        return things;
+    }
+
+    public void setThings(Set<Clothes> things) {
+        this.things = things;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
