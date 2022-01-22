@@ -42,7 +42,7 @@ public class PLPServiceImpl implements PLPService {
         PageRequest pageRequest = PageRequest.of(page, size, sort);
 
         if (dataTableRequest.getRequestParamMap().get(WebUtil.BRAND_PARAM) != null &&
-                dataTableRequest.getRequestParamMap().get(WebUtil.BRAND_PARAM) != null) {
+                dataTableRequest.getRequestParamMap().get(WebUtil.SEARCH_CLOTHES_PARAM) != null) {
             Long brandId = Long.parseLong(String.valueOf(dataTableRequest.getRequestParamMap().get(WebUtil.BRAND_PARAM)));
             String clothesSearch = (String) dataTableRequest.getRequestParamMap().get(WebUtil.SEARCH_CLOTHES_PARAM);
             List<Clothes> items = clothesRepository.findAllByBrandIdAndTitleContaining(brandId, clothesSearch, pageRequest);

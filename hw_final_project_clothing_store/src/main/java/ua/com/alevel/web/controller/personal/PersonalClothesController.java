@@ -110,6 +110,7 @@ public class PersonalClothesController extends AbstractController {
     private String bucket(Model model) {
 //        model.addAttribute("products", personalFacade.findByEmail(SecurityUtil.getUsername()).getProducts());
         model.addAttribute("products", productFacade.findByPersonalEmail(SecurityUtil.getUsername()));
+        model.addAttribute("totalPrice", productFacade.findTotalPrice());
 //        return "pages/personals/shopping_cart";
         return "pages/personals/basket";
     }

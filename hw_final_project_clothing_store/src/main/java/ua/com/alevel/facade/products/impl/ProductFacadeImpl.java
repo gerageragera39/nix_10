@@ -3,18 +3,14 @@ package ua.com.alevel.facade.products.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.products.ProductFacade;
-import ua.com.alevel.persistence.datatable.DataTableRequest;
-import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.products.Product;
 import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.service.clothes.ClothesService;
 import ua.com.alevel.service.personal.PersonalService;
 import ua.com.alevel.service.products.ProductService;
-import ua.com.alevel.util.WebUtil;
+import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.web.dto.request.product.ProductRequestDto;
 import ua.com.alevel.web.dto.response.PageData;
-import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 import ua.com.alevel.web.dto.response.products.ProductResponseDto;
 
 import java.util.List;
@@ -73,5 +69,27 @@ public class ProductFacadeImpl implements ProductFacade {
                 collect(Collectors.toList());
 
        return products;
+    }
+
+    @Override
+    public String findTotalPrice() {
+        Personal personal = personalService.findByEmail(SecurityUtil.getUsername());
+        List<Product> products = personal.getProducts().stream().toList();
+        Double totalPrice = (double) 0;
+        for (Product product : products) {
+            totalPrice += (product.getWear().getPrice())*product.getCount();
+        }
+
+        String stringPrice = totalPrice.toString();
+        String[] finances = stringPrice.split("\\.");
+        stringPrice = finances[0];
+        if(finances[1].length() > 2) {
+            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
+        }
+        stringPrice += "." + finances[1];
+        if(finances[1].length() < 2) {
+            stringPrice += "0";
+        }
+        return stringPrice;
     }
 }

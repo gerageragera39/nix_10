@@ -10,4 +10,6 @@ import java.util.List;
 public interface ProductFacade extends BaseFacade<ProductRequestDto, ProductResponseDto> {
 
     List<ProductResponseDto> findByPersonalEmail(String email);
+
+    String findTotalPrice();
 }
