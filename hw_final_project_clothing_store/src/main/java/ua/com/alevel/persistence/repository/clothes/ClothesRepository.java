@@ -19,7 +19,7 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
 
     List<Clothes> findAllByVisible(Boolean visible, Pageable pageable);
 
-    List<Clothes> findAllByBrandId(Long id);
+    List<Clothes> findAllByBrandId(Long id, Pageable pageable);
 
     @Query("select c.colors from Clothes c where c.id = :id")
     List<Color> findColorsByThingId(@Param("id") Long id);
@@ -28,4 +28,8 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
     List<String> findAllNames(Pageable pageable);
 
     List<Clothes> findAllByVisibleTrue(Pageable pageable);
+
+    List<Clothes> findAllByTitleContaining(String search, Pageable pageable);
+
+    List<Clothes> findAllByBrandIdAndTitleContaining(Long id, String search, Pageable pageable);
 }

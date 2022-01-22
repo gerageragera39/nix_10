@@ -6,8 +6,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.facade.open.PLPFacade;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
@@ -44,6 +46,12 @@ public class PLPController extends AbstractController {
     @GetMapping("/suggestions")
     private @ResponseBody List<String> searchClothesNames(@RequestParam String query) {
         return plpFacade.searchClothesNames(query);
+    }
+
+    @PostMapping("/search")
+    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
+        ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
+        return "redirect:/clothes";
     }
 
 //    @PostMapping("/search")

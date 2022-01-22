@@ -6,12 +6,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.facade.products.ProductFacade;
 import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.util.SecurityUtil;
+import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.request.product.ProductRequestDto;
 import ua.com.alevel.web.dto.response.PageData;
@@ -75,6 +77,12 @@ public class PersonalClothesController extends AbstractController {
 //        return "pages/personals/clothes/product_details";
     }
 
+    @GetMapping("/product/delete/{id}")
+    private String deleteProduct(@PathVariable Long id) {
+        productFacade.delete(id);
+        return "redirect:/personal/clothes/bucket";
+    }
+
     @PostMapping("/add/{id}")
     private String addToBucket(@PathVariable Long id, @ModelAttribute("product") ProductRequestDto dto) {
 //        , @ModelAttribute("product") ProductRequestDto dto
@@ -84,7 +92,7 @@ public class PersonalClothesController extends AbstractController {
         dto.setPersonalEmail(SecurityUtil.getUsername());
         dto.setClg(clothesResponseDto.getClg());
         productFacade.create(dto);
-        return "redirect:/personal/clothes/product/" + id;
+        return "redirect:/personal/clothes/bucket";
     }
 
     @GetMapping("/suggestions")
@@ -92,11 +100,17 @@ public class PersonalClothesController extends AbstractController {
         return clothesFacade.searchClothesNames(query);
     }
 
+    @PostMapping("/search")
+    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
+        ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
+        return "redirect:/clothes";
+    }
+
     @GetMapping("/bucket")
     private String bucket(Model model) {
 //        model.addAttribute("products", personalFacade.findByEmail(SecurityUtil.getUsername()).getProducts());
         model.addAttribute("products", productFacade.findByPersonalEmail(SecurityUtil.getUsername()));
 //        return "pages/personals/shopping_cart";
-        return "pages/personals/bucket";
+        return "pages/personals/basket";
     }
 }

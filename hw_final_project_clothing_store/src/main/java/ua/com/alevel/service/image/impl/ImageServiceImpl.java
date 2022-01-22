@@ -1,5 +1,6 @@
 package ua.com.alevel.service.image.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -25,7 +26,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void create(Image entity) {
-        crudRepositoryHelper.create(imageRepository, entity);
+        if(StringUtils.isNotBlank(entity.getUrl())) {
+            crudRepositoryHelper.create(imageRepository, entity);
+        }
     }
 
     @Override

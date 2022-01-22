@@ -20,9 +20,9 @@
             <div sec:authorize="hasRole('ROLE_PERSONAL')">
                 <nav class="navbar navbar-dark bg-dark">
                     <a class="nav-item nav-link" th:href="@{/personal/dashboard}">Dashboard</a>
-                    <form class="d-flex">
+                    <form class="d-flex" method="post" th:action="@{/personal/clothes/search}">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="clothesNamed" style="width: 600px" th:name="query">
-                        <button class="btn btn-outline-success mt-1" type="submit" style="height: 41px">Search</button>
+                        <button class="btn btn-outline-success mt-1" type="submit" style="height: 41px" >Search</button>
                     </form>
                     <a class="nav-item nav-link" th:href="@{/personal/clothes/bucket}" th:text="Basket">
                     </a>

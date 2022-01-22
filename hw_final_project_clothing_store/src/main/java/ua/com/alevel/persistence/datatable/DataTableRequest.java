@@ -9,7 +9,7 @@ public class DataTableRequest {
     private int size;
     private String order;
     private String sort;
-    private Map<String, String[]> requestParamMap;
+    private Map<String, Object> requestParamMap;
 
     public DataTableRequest() {
         requestParamMap = Collections.emptyMap();
@@ -47,11 +47,11 @@ public class DataTableRequest {
         this.sort = sort;
     }
 
-    public Map<String, String[]> getRequestParamMap() {
+    public Map<String, Object> getRequestParamMap() {
         return requestParamMap;
     }
 
-    public void setRequestParamMap(Map<String, String[]> requestParamMap) {
+    public void setRequestParamMap(Map<String, Object> requestParamMap) {
         this.requestParamMap = requestParamMap;
     }
 }

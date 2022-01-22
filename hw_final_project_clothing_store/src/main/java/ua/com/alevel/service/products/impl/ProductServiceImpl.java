@@ -30,7 +30,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void create(Product entity) {
 //        crudRepositoryHelper.create(productRepository, entity);
-        productRepository.save(entity);
+        if (productRepository.existsByClg(entity.getClg())) {
+            Product product = productRepository.findByClg(entity.getClg());
+            if(product.getColor().equals(entity.getColor()) && product.getSize().equals(entity.getSize())) {
+                product.setCount(product.getCount() + 1);
+                productRepository.save(product);
+            } else {
+                productRepository.save(entity);
+            }
+        } else {
+            productRepository.save(entity);
+        }
     }
 
     @Override
@@ -40,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long id) {
-
+        crudRepositoryHelper.delete(productRepository, id);
     }
 
     @Override

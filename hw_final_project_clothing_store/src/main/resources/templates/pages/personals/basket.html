@@ -36,12 +36,15 @@
                     </div>
 
                     <div class="total-price" th:text="${product.getPrice()} + ' грн'"></div>
+                    <div class="mt-4">
+                        <a th:href="@{'/personal/clothes/product/delete/' + ${product.getId()}}" type="button" class="btn btn-danger">delete</a>
+                    </div>
                 </div>
             </ul>
             <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
 <!--                <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay-->
 <!--                </button>-->
-                <a type="button" class="btn btn-warning btn-block btn-lg ml-4 pay-button" style="margin-left: 300px;">Proceed to Pay</a>
+                <a type="button" class="btn btn-warning btn-block btn-lg ml-4 pay-button" style="margin-left: 300px;" th:disabled="${products.size() == 0}">Proceed to Pay</a>
             </div>
         </div>
     <div/>

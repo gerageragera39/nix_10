@@ -1,5 +1,6 @@
 package ua.com.alevel.web.dto.response.open;
 
+import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.persistence.sex.Sexes;
@@ -19,6 +20,7 @@ public class ClothesPLPDto extends ResponseDto {
     private ThingTypes type;
     private List<Image> images;
     private Double price;
+    private Brand brand;
     private String brandName;
     private String stringPrice;
 
@@ -36,6 +38,7 @@ public class ClothesPLPDto extends ResponseDto {
         this.price = thing.getPrice();
         this.stringPrice = generatePrice(thing.getPrice());
         this.brandName = thing.getBrand().getName();
+        this.brand = thing.getBrand();
     }
 
     public String getTitle() {
@@ -84,6 +87,14 @@ public class ClothesPLPDto extends ResponseDto {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     private String generatePrice(Double price) {

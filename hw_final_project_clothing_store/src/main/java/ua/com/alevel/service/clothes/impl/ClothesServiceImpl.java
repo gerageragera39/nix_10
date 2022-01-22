@@ -88,7 +88,8 @@ public class ClothesServiceImpl implements ClothesService {
 
     @Override
     public List<Clothes> findAllByBrandId(Long id) {
-        return clothesRepository.findAllByBrandId(id);
+//        return clothesRepository.findAllByBrandId(id);
+        return null;
     }
 
     @Override

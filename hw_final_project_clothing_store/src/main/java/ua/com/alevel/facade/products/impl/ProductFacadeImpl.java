@@ -52,7 +52,7 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public void delete(Long id) {
-
+        productService.delete(id);
     }
 
     @Override
