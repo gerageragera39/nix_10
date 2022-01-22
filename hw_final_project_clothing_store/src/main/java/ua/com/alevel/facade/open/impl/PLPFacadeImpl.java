@@ -50,6 +50,23 @@ public class PLPFacadeImpl implements PLPFacade {
             String searchClothes = params[0];
             queryMap.put(WebUtil.SEARCH_CLOTHES_PARAM, searchClothes);
         }
+        if (request.getParameterMap().get(WebUtil.SEX_PARAM) != null) {
+            String[] params = request.getParameterMap().get(WebUtil.SEX_PARAM);
+            if (StringUtils.isBlank(params[0])) {
+                throw new EntityNotFoundException("bad request");
+            }
+            String searchClothes = params[0];
+            queryMap.put(WebUtil.SEX_PARAM, searchClothes);
+        }
+        if (request.getParameterMap().get(WebUtil.TYPE_PARAM) != null) {
+            String[] params = request.getParameterMap().get(WebUtil.TYPE_PARAM);
+            if (StringUtils.isBlank(params[0])) {
+                throw new EntityNotFoundException("bad request");
+            }
+            String searchClothes = params[0];
+            queryMap.put(WebUtil.TYPE_PARAM, searchClothes);
+        }
+
         DataTableRequest dataTableRequest = WebUtil.generatePLPDataTableRequestByWebRequest(request);
         dataTableRequest.setRequestParamMap(queryMap);
         DataTableResponse<Clothes> tableResponse = plpService.findAll(dataTableRequest);

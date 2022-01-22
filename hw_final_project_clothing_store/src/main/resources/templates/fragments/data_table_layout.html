@@ -48,29 +48,15 @@
                         <div class="p-1">Showing [[${pageData.getCurrentShowFromEntries()}]] to [[${pageData.getCurrentShowToEntries()}]] of [[${pageData.getItemsSize()}]] entries</div>
                         <div class="p-1">
                             <div class="dropdown dropup">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
                                     <span th:text="${pageData.getPageSize()}"></span>
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu dropdown-menu-end">
                                     <section th:each="size : ${pageData.getPageSizeItems()}">
                                         <a class="dropdown-item" href="#" th:onclick="|runPagination(1, ${size}, 0)|" th:text="${size}">@size</a>
                                     </section>
                                 </div>
                             </div>
-<!--                            <div class="dropdown dropup">-->
-<!--                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                                    <span th:text="${pageData.getPageSize()}"></span>-->
-<!--                                </button>-->
-
-<!--                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
-<!--                                    <section th:each="size : ${pageData.getPageSizeItems()}">-->
-<!--                                        <a class="dropdown-item" href="#" th:onclick="|runPagination(1, ${size}, 0)|" th:text="${size}">@size</a>-->
-<!--                                    </section>-->
-<!--                                </div>-->
-<!--                                <section th:each="size : ${pageData.getPageSizeItems()}">-->
-<!--                                    <a class="dropdown-item" href="#" th:onclick="|runPagination(1, ${size}, 0)|" th:text="${size}">@size</a>-->
-<!--                                </section>-->
-<!--                            </div>-->
                         </div>
                         <div class="p-1" style="margin-top: 1em !important;">
                             <ul class="pagination align-middle">

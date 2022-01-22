@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.colors.Color;
 import ua.com.alevel.persistence.repository.BaseRepository;
+import ua.com.alevel.persistence.sex.Sexes;
+import ua.com.alevel.persistence.thing_type.ThingTypes;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,4 +34,8 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
     List<Clothes> findAllByTitleContaining(String search, Pageable pageable);
 
     List<Clothes> findAllByBrandIdAndTitleContaining(Long id, String search, Pageable pageable);
+
+    List<Clothes> findAllBySexEquals(Sexes sex, Pageable pageable);
+
+    List<Clothes> findAllByTypeEquals(ThingTypes type, Pageable pageable);
 }

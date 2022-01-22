@@ -3,18 +3,19 @@ package ua.com.alevel.service.open.impl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.repository.brands.BrandRepository;
 import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
+import ua.com.alevel.persistence.sex.Sexes;
+import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.service.open.PLPService;
 import ua.com.alevel.util.WebUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PLPServiceImpl implements PLPService {
@@ -60,6 +61,30 @@ public class PLPServiceImpl implements PLPService {
             List<Clothes> items = clothesRepository.findAllByTitleContaining(clothesSearch, pageRequest);
             return initDataTableResponse(dataTableRequest, items, sortBy, orderBy);
         }
+
+        if (dataTableRequest.getRequestParamMap().get(WebUtil.SEX_PARAM) != null) {
+            String stringSex = (String) dataTableRequest.getRequestParamMap().get(WebUtil.SEX_PARAM);
+            Sexes sex;
+            try {
+                 sex = Sexes.valueOf(stringSex);
+            } catch (IllegalArgumentException e) {
+                throw new EntityNotFoundException("bad request");
+            }
+            List<Clothes> items = clothesRepository.findAllBySexEquals(sex, pageRequest);
+            return initDataTableResponse(dataTableRequest, items, sortBy, orderBy);
+        }
+        if (dataTableRequest.getRequestParamMap().get(WebUtil.TYPE_PARAM) != null) {
+            String stringSex = (String) dataTableRequest.getRequestParamMap().get(WebUtil.TYPE_PARAM);
+            ThingTypes type;
+            try {
+                type = ThingTypes.valueOf(stringSex);
+            } catch (IllegalArgumentException e) {
+                throw new EntityNotFoundException("bad request");
+            }
+            List<Clothes> items = clothesRepository.findAllByTypeEquals(type, pageRequest);
+            return initDataTableResponse(dataTableRequest, items, sortBy, orderBy);
+        }
+
         DataTableResponse<Clothes> dataTableResponse = crudRepositoryHelper.findAll(clothesRepository, dataTableRequest);
         return dataTableResponse;
     }

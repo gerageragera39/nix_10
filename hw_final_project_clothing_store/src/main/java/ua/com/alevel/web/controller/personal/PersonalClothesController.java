@@ -18,6 +18,7 @@ import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.request.product.ProductRequestDto;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
+import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +42,15 @@ public class PersonalClothesController extends AbstractController {
     @GetMapping
     private String allClothes(Model model, WebRequest webRequest) {
 //        PageData<ClothesResponseDto> response = clothesFacade.personalFindAll(webRequest);
-        PageData<ClothesResponseDto> response = plpFacade.findAll(webRequest);
-        List<ClothesResponseDto> clothesList = response.getItems();
+        PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
+        List<ClothesPLPDto> clothesList = response.getItems();
         model.addAttribute("createUrl", "/personal/clothes/all");
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);
         model.addAttribute("clothes", clothesList);
+        if(response.getItems().size() == 1) {
+            return "redirect:/personal/clothes/product/" + response.getItems().get(0).getId();
+        }
         return "pages/personals/clothes/clothes_all";
     }
 
@@ -103,7 +107,7 @@ public class PersonalClothesController extends AbstractController {
     @PostMapping("/search")
     private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
         ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
-        return "redirect:/clothes";
+        return "redirect:/personal/clothes";
     }
 
     @GetMapping("/bucket")

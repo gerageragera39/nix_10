@@ -12,6 +12,22 @@
 <div class="container-fluid">
     <div layout:fragment="content">
         <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-dark p-4">
+                    <h5 class="text-white h4">Collapsed content</h5>
+                    <span class="text-muted">Toggleable via the navbar brand.</span>
+                </div>
+            </div>
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </nav>
             <a class="nav-item nav-link" th:href="@{/clothes}">Clothes</a>
             <form class="d-flex" method="post" th:action="@{/clothes/search}">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="clothesNamed" style="width: 600px" th:name="query">

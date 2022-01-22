@@ -35,6 +35,9 @@ public class PLPController extends AbstractController {
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);
         model.addAttribute("clothes", clothesPLPDtoList);
+        if(response.getItems().size() == 1) {
+            return "redirect:/clothes/product/" + response.getItems().get(0).getId();
+        }
         return "pages/open/plp";
     }
 
@@ -52,6 +55,11 @@ public class PLPController extends AbstractController {
     private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
         ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
         return "redirect:/clothes";
+    }
+
+    @GetMapping("/test")
+    private String test() {
+        return "test";
     }
 
 //    @PostMapping("/search")

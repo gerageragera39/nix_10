@@ -20,7 +20,9 @@ public final class WebUtil {
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
     public static final int PLP_DEFAULT_SIZE_PARAM_VALUE = 8;
     public static final String BRAND_PARAM = "brand";
-    public static final String SEARCH_CLOTHES_PARAM = "searchClothes";
+    public static final String SEX_PARAM = "sex";
+    public static final String TYPE_PARAM = "type";
+    public static final String SEARCH_CLOTHES_PARAM = "search_clothes";
 
     private WebUtil() { }
 
