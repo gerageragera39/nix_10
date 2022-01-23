@@ -8,6 +8,7 @@ import ua.com.alevel.web.dto.response.ResponseDto;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PLPFacade<RES extends ResponseDto>{
 
@@ -16,4 +17,8 @@ public interface PLPFacade<RES extends ResponseDto>{
     ClothesResponseDto findById(Long id);
 
     List<String> searchClothesNames(String query);
+
+    Map<Long, String> findAllBrands();
+
+    Map<Long, String> findAllColors();
 }

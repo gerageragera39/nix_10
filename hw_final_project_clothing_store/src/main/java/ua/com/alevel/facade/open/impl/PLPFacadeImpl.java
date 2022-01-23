@@ -88,4 +88,14 @@ public class PLPFacadeImpl implements PLPFacade {
     public List<String> searchClothesNames(String query) {
         return elasticClothesSearchService.searchClothesNames(query);
     }
+
+    @Override
+    public Map<Long, String> findAllBrands() {
+        return plpService.findAllBrands();
+    }
+
+    @Override
+    public Map<Long, String> findAllColors() {
+        return null;
+    }
 }

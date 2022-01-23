@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ua.com.alevel.facade.brands.BrandFacade;
 import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.facade.open.PLPFacade;
+import ua.com.alevel.persistence.sex.Sexes;
+import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
-import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class PLPController extends AbstractController {
 
     private final PLPFacade plpFacade;
 
-    public PLPController(PLPFacade plpFacade, ClothesFacade clothesFacade) {
+    public PLPController(PLPFacade plpFacade) {
         this.plpFacade = plpFacade;
     }
 
@@ -35,6 +37,10 @@ public class PLPController extends AbstractController {
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);
         model.addAttribute("clothes", clothesPLPDtoList);
+        model.addAttribute("brands", plpFacade.findAllBrands());
+        model.addAttribute("types", ThingTypes.values());
+        model.addAttribute("sexes", Sexes.values());
+        model.addAttribute("colors", plpFacade.findAllColors());
         if(response.getItems().size() == 1) {
             return "redirect:/clothes/product/" + response.getItems().get(0).getId();
         }

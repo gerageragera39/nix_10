@@ -248,7 +248,7 @@ Design: Varsity
 Fabric: Twill
 Length: Regular
 Sleeve Length: Long Sleeve',
-                            999, 100, 'Male', 'B Varsity Patch Bomber With Leather Look Sleeves', 'Jacket', 11);
+                            999, 100, 'Male', 'B Varsity Patch Bomber With Leather Look Sleeves', 'Jacket', 1);
 
 insert into images values (21, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz38699_red_xl/red-b-varsity-patch-bomber-with-leather-look-sleeves?$product_image_main$', 11);
 insert into images values (22, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz38699_red_xl_1/red-b-varsity-patch-bomber-with-leather-look-sleeves?$product_image_main$', 11);
@@ -265,7 +265,7 @@ insert into clothes values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 
 Design: Varsity
 Fabric: Denim
 Length: Regular',
-                            600, 30, 'Male', 'Skinny Rigid Varsity M Busted Knee Jeans', 'Jeans', 12);
+                            600, 30, 'Male', 'Skinny Rigid Varsity M Busted Knee Jeans', 'Jeans', 2);
 
 insert into images values (23, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz90360_washed%20black_xl/washed-black-skinny-rigid-varsity-m-busted-knee-jeans?$product_image_main$', 12);
 insert into images values (24, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz90360_washed%20black_xl_1/washed-black-skinny-rigid-varsity-m-busted-knee-jeans?$product_image_main$', 12);
@@ -282,7 +282,7 @@ insert into clothes values (13, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 
 Design: Plain
 Fabric: Denim
 Length: Regular',
-                            1700, 95, 'Male', 'Super Skinny Panelled Biker Jeans', 'Jeans', 13);
+                            1700, 95, 'Male', 'Super Skinny Panelled Biker Jeans', 'Jeans', 3);
 
 insert into images values (25, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz87321_light%20blue_xl/light-blue-blue-super-skinny-panelled-biker-jeans?$product_image_main$', 13);
 insert into images values (26, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz87321_light%20blue_xl_1/light-blue-blue-super-skinny-panelled-biker-jeans?$product_image_main$', 13);
@@ -299,7 +299,7 @@ insert into clothes values (14, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 
 Design: Plain
 Fabric: Jersey
 Length: Mid',
-                            300, 10, 'Male', 'Recycled 2 Pk Mid Length Jersey Shorts', 'Shorts', 14);
+                            300, 10, 'Male', 'Recycled 2 Pk Mid Length Jersey Shorts', 'Shorts', 4);
 
 insert into images values (27, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz73437_multi_xl/multi-recycled-2-pk-mid-length-jersey-shorts?$product_image_main$', 14);
 insert into images values (28, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz73437_multi_xl_3/multi-recycled-2-pk-mid-length-jersey-shorts?$product_image_main$', 14);
@@ -316,7 +316,7 @@ insert into clothes values (15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 
 Design: Plain
 Fabric: Jersey
 Length: Mid',
-                            700, 26, 'Male', 'Recycled Regular Fit Jersey Shorts', 'Shorts', 15);
+                            700, 26, 'Male', 'Recycled Regular Fit Jersey Shorts', 'Shorts', 5);
 
 insert into images values (29, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz10780_grey%20marl_xl/grey-marl-grey-plus-recycled-regular-fit-jersey-short?$product_image_main$', 15);
 insert into images values (30, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/mzz10780_grey%20marl_xl_1/grey-marl-grey-plus-recycled-regular-fit-jersey-short?$product_image_main$', 15);

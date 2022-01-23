@@ -7,6 +7,7 @@ import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.repository.brands.BrandRepository;
 import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
@@ -15,7 +16,9 @@ import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.service.open.PLPService;
 import ua.com.alevel.util.WebUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PLPServiceImpl implements PLPService {
@@ -92,6 +95,16 @@ public class PLPServiceImpl implements PLPService {
     @Override
     public Clothes findById(Long id) {
         return crudRepositoryHelper.findById(clothesRepository, id).get();
+    }
+
+    @Override
+    public Map<Long, String> findAllBrands() {
+        Map<Long, String> map = new HashMap<>();
+        List<Brand> brands = brandRepository.findAll();
+        for (Brand brand : brands) {
+            map.put(brand.getId(), brand.getName());
+        }
+        return map;
     }
 
     private DataTableResponse<Clothes> initDataTableResponse(DataTableRequest dataTableRequest, List<Clothes> items, String sortBy, String orderBy) {

@@ -28,7 +28,7 @@
     display: flex; /* используем flex для центрирования содержимого */
     align-items: center;  /* центрируем содержимое кнопки */
     position: fixed;
-    top: 12px;
+    top: 18px;
     left: 20px;
     width: 26px;
     height: 26px;
