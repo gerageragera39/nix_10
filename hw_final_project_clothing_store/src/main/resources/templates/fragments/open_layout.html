@@ -21,18 +21,7 @@
                 </label>
                 <ul class="menu__box">
                     <li><a class="menu__item" href="#">Главная</a></li>
-                    <!--                           th:text="${brands.get(0)}"-->
-                    <li><a class="menu__item" href="#">Проекты</a>
-<!--                                                <div class="form-group" style="display: inline-block;">-->
-<!--                                                    <label for="types">Brand : </label>-->
-<!--                                                    <select class="form-control" id="types" style="width: 200px;margin-left: 50px;">-->
-<!--                                                        <option th:each="brand : ${brands}"-->
-<!--                                                                th:value="${brand}"-->
-<!--                                                                th:text="${brand}">-->
-<!--                                                        </option>-->
-<!--                                                    </select>-->
-<!--                                                <div/>-->
-                    </li>
+                    <li><a class="menu__item" href="#">Проекты</a></li>
                     <li><a class="menu__item" href="#">Команда</a></li>
                     <li><a class="menu__item" href="#">Блог</a></li>
                     <li><a class="menu__item" href="#">Контакты</a></li>
@@ -50,7 +39,6 @@
             <p>
                 <a class="btn btn-dark mt-2" data-bs-toggle="collapse" href="#collapseExample" role="button"
                    aria-expanded="false" aria-controls="collapseExample">
-                    <!--                    Link with href-->
                     <img src="https://ouch-cdn2.icons8.com/3EQlf0y27jWtIZpDrxVA1Zndx4fS7z7YEcS6TIIjNng/rs:fit:256:248/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDMy/LzkyMjQzODM0LWU4/OTEtNDc1Ni05Yzg5/LTg4MWIyNmNlOTc3/MC5zdmc.png"
                          style="width: 20px; height: 20px">
                 </a>
@@ -67,33 +55,34 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <ul th:each="brand : ${brands}">
-<!--                                            th:href="@{'/clothes' + '?brand=' + ${brand.getKey()}}"-->
                                             <li><a class="dropdown-item" th:text="${brand.getValue()}" th:onclick="|insertParam('brand', ${brand.getKey()})|"></a></li>
                                         </ul>
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block">
+                                <div class="dropdown block" style="margin-right: 200px;">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown button
+                                        Choose Type
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <ul th:each="type : ${types}">
+                                            <li><a class="dropdown-item" th:text="${type.getValue()}"
+                                                   th:onclick="|insertParam('type', ${type.getKey()})|"></a></li>
+                                        </ul>
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block">
+                                <div class="dropdown block" style="margin-right: 200px;">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown button
+                                        Choose Color
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <ul th:each="color : ${colors}">
+                                            <li><a class="dropdown-item" th:text="${color.getValue()}"
+                                                   th:onclick="|insertParam('color', ${color.getKey()})|"></a></li>
+                                        </ul>
                                     </ul>
                                 </div>
 

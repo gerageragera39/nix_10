@@ -16,4 +16,8 @@ public interface PLPService<E extends BaseEntity> {
     Clothes findById(Long id);
 
     Map<Long, String> findAllBrands();
+
+    Map<Long, String> findAllColors();
+
+    Map<Long, String> findAllTypes();
 }

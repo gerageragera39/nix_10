@@ -8,6 +8,7 @@ import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
+import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.service.elastic.ElasticClothesSearchService;
 import ua.com.alevel.service.open.PLPService;
 import ua.com.alevel.util.WebUtil;
@@ -49,6 +50,14 @@ public class PLPFacadeImpl implements PLPFacade {
             }
             String searchClothes = params[0];
             queryMap.put(WebUtil.SEARCH_CLOTHES_PARAM, searchClothes);
+        }
+        if (request.getParameterMap().get(WebUtil.COLOR_PARAM) != null) {
+            String[] params = request.getParameterMap().get(WebUtil.COLOR_PARAM);
+            if (StringUtils.isBlank(params[0])) {
+                throw new EntityNotFoundException("bad request");
+            }
+            String color = params[0];
+            queryMap.put(WebUtil.COLOR_PARAM, color);
         }
         if (request.getParameterMap().get(WebUtil.SEX_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.SEX_PARAM);
@@ -96,6 +105,11 @@ public class PLPFacadeImpl implements PLPFacade {
 
     @Override
     public Map<Long, String> findAllColors() {
-        return null;
+        return plpService.findAllColors();
+    }
+
+    @Override
+    public Map<Long, String> findAllTypes() {
+        return plpService.findAllTypes();
     }
 }

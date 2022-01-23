@@ -23,6 +23,7 @@ public final class WebUtil {
     public static final String SEX_PARAM = "sex";
     public static final String TYPE_PARAM = "type";
     public static final String SEARCH_CLOTHES_PARAM = "search_clothes";
+    public static final String COLOR_PARAM = "color";
 
     private WebUtil() { }
 
@@ -75,6 +76,7 @@ public final class WebUtil {
         pageData.setPageSize(tableResponse.getPageSize());
         pageData.setOrder(tableResponse.getOrder());
         pageData.setSort(tableResponse.getSort());
+//        pageData.setItemsSize(tableResponse.getItemsSize());
         pageData.setItemsSize(tableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;

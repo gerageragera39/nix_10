@@ -17,6 +17,7 @@ import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,7 +31,7 @@ public class PLPController extends AbstractController {
     }
 
     @GetMapping
-    private String allClothes(Model model, WebRequest webRequest) {
+    private String allClothes(Model model, WebRequest webRequest, RedirectAttributes ra) {
         PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
         List<ClothesPLPDto> clothesPLPDtoList = response.getItems();
         model.addAttribute("createUrl", "/clothes/all");
@@ -38,10 +39,11 @@ public class PLPController extends AbstractController {
         model.addAttribute("pageData", response);
         model.addAttribute("clothes", clothesPLPDtoList);
         model.addAttribute("brands", plpFacade.findAllBrands());
-        model.addAttribute("types", ThingTypes.values());
+        model.addAttribute("types", plpFacade.findAllTypes());
         model.addAttribute("sexes", Sexes.values());
         model.addAttribute("colors", plpFacade.findAllColors());
-        if(response.getItems().size() == 1) {
+        if(webRequest.getParameterMap().get("search_clothes") != null &&
+                response.getItems().size() == 1) {
             return "redirect:/clothes/product/" + response.getItems().get(0).getId();
         }
         return "pages/open/plp";
@@ -59,6 +61,15 @@ public class PLPController extends AbstractController {
 
     @PostMapping("/search")
     private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
+
+//        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+//        ScriptEngine engine = scriptEngineManager.getEngineByName("JavaScript");
+//
+//        engine.put("myparam", "world");
+//        Object eval = engine.eval("function hello(p) { return \"Hello, \" + p; } \n" +
+//                "hello(myparam)");
+//        System.out.println(eval);
+
         ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
         return "redirect:/clothes";
     }
@@ -67,33 +78,4 @@ public class PLPController extends AbstractController {
     private String test() {
         return "test";
     }
-
-//    @PostMapping("/search")
-//    private String searchClothes(Model model, @RequestParam String query) {
-//        PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
-//        List<ClothesPLPDto> clothesPLPDtoList = response.getItems();
-//        model.addAttribute("createUrl", "/clothes/all");
-//        model.addAttribute("cardHeader", "All Clothes");
-//        model.addAttribute("pageData", response);
-//        model.addAttribute("clothes", clothesPLPDtoList);
-//        return "pages/open/plp";
-//    }
-
-//    @GetMapping("/details/{id}")
-//    public String details(@PathVariable Long id, Model model) {
-//        ClothesResponseDto dto = plpFacade.findById(id);
-//        model.addAttribute("thing", dto);
-//        return "pages/open/clothes/clothes_details";
-//    }
-
-//    @GetMapping("/suggestions")
-//    private @ResponseBody List<String> allSearchBooks(@RequestParam String query) {
-//        return plpFacade.searchBookName(query);
-//    }
-//
-//    @PostMapping("/search")
-//    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
-//        ra.addAttribute(WebUtil.SEARCH_BOOK_PARAM, query);
-//        return "redirect:/books";
-//    }
 }
