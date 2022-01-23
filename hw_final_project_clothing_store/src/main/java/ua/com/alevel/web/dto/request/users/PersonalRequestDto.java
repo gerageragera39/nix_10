@@ -15,7 +15,6 @@ public class PersonalRequestDto extends RequestDto {
     private String password;
     private Boolean enabled;
 
-
     public Date getBirthDay() {
         return birthDay;
     }

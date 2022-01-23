@@ -24,12 +24,7 @@ public class BrandController extends AbstractController {
         this.clothesFacade = clothesFacade;
     }
 
-    @GetMapping("/admin/brands/details/{id}")
-    public String adminBrandDetails(@PathVariable Long id, Model model) {
-        BrandResponseDto dto = brandFacade.findById(id);
-        model.addAttribute("brand", dto);
-        return "pages/admin/brands/brands_details";
-    }
+
 
     @GetMapping("/personal/brands/details/{id}")
     public String personalBrandDetails(@PathVariable Long id, Model model) {

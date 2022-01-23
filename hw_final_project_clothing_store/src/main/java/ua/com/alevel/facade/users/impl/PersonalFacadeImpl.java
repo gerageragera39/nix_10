@@ -1,5 +1,6 @@
 package ua.com.alevel.facade.users.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.users.PersonalFacade;
@@ -8,6 +9,7 @@ import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.service.personal.PersonalService;
+import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.web.dto.request.PageAndSizeData;
 import ua.com.alevel.web.dto.request.SortData;
@@ -36,8 +38,22 @@ public class PersonalFacadeImpl implements PersonalFacade {
     }
 
     @Override
-    public void update(PersonalRequestDto personalRequestDto, Long id) {
-
+    public void update(PersonalRequestDto dto, Long id) {
+        Optional<Personal> optionalPersonal = personalService.findById(id);
+        if(optionalPersonal.isPresent()) {
+            Personal personal = optionalPersonal.get();
+            if(StringUtils.isNotBlank(dto.getFirstName())) {
+                personal.setFirstName(dto.getFirstName());
+            }
+            if(StringUtils.isNotBlank(dto.getLastName())) {
+                personal.setLastName(dto.getLastName());
+            }
+            if(StringUtils.isNotBlank(dto.getPassword())) {
+                personal.setPassword(dto.getPassword());
+            }
+            personal.setUpdated(new Date());
+            personalService.update(personal);
+        }
     }
 
     @Override

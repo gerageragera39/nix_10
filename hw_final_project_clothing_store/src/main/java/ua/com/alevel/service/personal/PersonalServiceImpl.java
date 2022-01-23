@@ -40,6 +40,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public void update(Personal entity) {
+        entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
         crudRepositoryHelper.update(personalRepository, entity);
     }
 

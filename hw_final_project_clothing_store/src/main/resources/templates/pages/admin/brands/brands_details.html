@@ -34,6 +34,13 @@
                             <td th:text="${brand.getName()}"></td>
                         </tr>
                     </table>
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header">
+                                <a th:href="@{'/admin/brands/to/update/' + ${brand.getId()}}" type="button" class="btn btn-primary">Redact Brand</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
