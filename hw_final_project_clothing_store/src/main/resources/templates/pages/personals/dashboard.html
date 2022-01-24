@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{fragments/personal_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <link href="/css/profile.css" rel="stylesheet">
+</head>
+<body>
+
+<div layout:fragment="personal_content">
+    <h1>
+        Personal
+        Logged user: <span sec:authentication="name"></span>
+    </h1>
+
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+            <div class=" image d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-secondary"><img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100"/>
+                </button>
+                <span class="name mt-3" th:text="${personal.getFullName()}"></span>
+                <span class="idd" th:text="'@' + ${personal.getLastName()}"></span>
+                <div class=" d-flex mt-2" style=" color: grey;">
+                    <a  th:href="@{/personal/dashboard/to/edit}">
+                        <button class="btn1 btn-dark">
+                            Edit Profile
+                        </button>
+                    </a>
+                </div>
+
+                <div class="text mt-3 h2"><span th:text="'Age : ' + ${personal.getAge()}"></span></div>
+                <div class="text mt-3 h2"><span th:text="'Birth Day : ' + ${personal.getBirthDay()}"></span></div>
+                <div class=" px-2 rounded mt-4 date ">
+                    <span class="join" th:text="${personal.getCreated()}"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

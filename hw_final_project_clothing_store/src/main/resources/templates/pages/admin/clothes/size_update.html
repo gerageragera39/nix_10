@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Update User</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Update Person</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{'/admin/clothes/size/update/' + ${id}}" th:object="${thing}" method="post">
+
+                        <div class="form-group">
+                            <label for="sexes">To Add</label>
+                            <select class="form-control" id="sexes" th:field="*{size}">
+                                <option th:each="size : ${notAdded}"
+                                        th:value="${size}"
+                                        th:text="${size}">
+                                </option>
+                            </select>
+                            <div/>
+
+                            <div class="form-group">
+                                <label for="types">To Remove</label>
+                                <select class="form-control" id="types" th:field="*{removeSize}">
+                                    <option th:each="size : ${added}"
+                                            th:value="${size}"
+                                            th:text="${size}">
+                                    </option>
+                                </select>
+                                <div/>
+                                <button type="submit" class="btn btn-primary">Update Size</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

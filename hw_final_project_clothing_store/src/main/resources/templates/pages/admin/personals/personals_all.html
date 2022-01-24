@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{fragments/data_table_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Personals</title>
+</head>
+<body>
+
+<div layout:fragment="data_table_content">
+    <tr th:each="person,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+        <td th:text="${person.getEmail()}"></td>
+        <td th:text="${person.getRoleType()}"></td>
+        <td th:text="${person.getEnabled()}"></td>
+        <td th:text="${#calendars.format(person.getCreated(),'dd MMMM yyyy')}"></td>
+        <td>
+            <a th:href="@{'/admin/personals/details/' + ${person.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+    </tr>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Clothes details</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <a class="nav-item nav-link" th:href="@{/clothes}">Clothes</a>
+        <a class="nav-item nav-link" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
+    </nav>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header d-flex justify-content-start h3">
+                    User details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Images</th>
+                            <td>
+                                <ul th:each="image : ${thing.getImages()}" style="display:inline;">
+                                    <a th:href="${image.getUrl()}" target="_blank">
+                                        <img th:src="${image.getUrl()}" width="300" height="222" class="img-fluid rounded-start" alt="...">
+                                    </a>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <td th:text="${thing.getTitle()}"></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th>Color</th>-->
+<!--                            <td th:text="${thing.getColor()}"></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th>Size</th>-->
+<!--                            <td th:text="${thing.getSize()}"></td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <th>All Colors</th>
+                            <td>
+                                <ul th:each="color : ${colors}">
+                                    <li th:text="${color.getValue()}"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>All Sizes</th>
+                            <td>
+                                <ul th:each="size : ${sizes}">
+                                    <li th:text="${size.getValue()}"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Sex</th>
+                            <td th:text="${thing.getSex()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td th:text="${thing.getType()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td th:text="${thing.getDescription()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Compound</th>
+                            <td th:text="${thing.getCompound()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td th:text="${thing.getStringPrice() + ' грн.'}"></td>
+                        </tr>
+                        <tr>
+                            <th>BrandName</th>
+                            <td>
+                                <a th:href="@{'/login'}"
+                                   th:text="${thing.getBrandName()}"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

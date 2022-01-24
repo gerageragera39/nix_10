@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/css/button.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+    <div layout:fragment="content">
+        <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+
+            <div class="hamburger-menu">
+                <input id="menu__toggle" type="checkbox"/>
+                <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                </label>
+                <ul class="menu__box">
+                    <li><a class="menu__item" href="#">Главная</a></li>
+                    <li><a class="menu__item" href="#">Проекты</a></li>
+                    <li><a class="menu__item" href="#">Команда</a></li>
+                    <li><a class="menu__item" href="#">Блог</a></li>
+                    <li><a class="menu__item" href="#">Контакты</a></li>
+                </ul>
+            </div>
+
+            <a class="nav-item nav-link" th:href="@{/clothes}">Clothes</a>
+            <form class="d-flex" method="post" th:action="@{/clothes/search}">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                       id="clothesNamed" style="width: 600px" th:name="query">
+                <button class="btn btn-outline-success mt-1" type="submit" style="height: 41px">Search</button>
+            </form>
+            <a class="nav-item nav-link" th:href="@{/personal/clothes/bucket}" th:text="Basket"></a>
+            <a class="nav-item nav-link" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
+            <p>
+                <a class="btn btn-dark mt-2" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                   aria-expanded="false" aria-controls="collapseExample">
+                    <img src="https://ouch-cdn2.icons8.com/3EQlf0y27jWtIZpDrxVA1Zndx4fS7z7YEcS6TIIjNng/rs:fit:256:248/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDMy/LzkyMjQzODM0LWU4/OTEtNDc1Ni05Yzg5/LTg4MWIyNmNlOTc3/MC5zdmc.png"
+                         style="width: 20px; height: 20px">
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample" style="background: black">
+                <div class="card card-body" style="background: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;">
+                    <div class="form-group" style="display: inline-block;">
+                        <div class="container">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="dropdown block" style="margin-right: 200px;">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choose Brand
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <ul th:each="brand : ${brands}">
+                                            <li><a class="dropdown-item" th:text="${brand.getValue()}" th:onclick="|insertParam('brand', ${brand.getKey()})|"></a></li>
+                                        </ul>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown block" style="margin-right: 200px;">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choose Type
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <ul th:each="type : ${types}">
+                                            <li><a class="dropdown-item" th:text="${type.getValue()}"
+                                                   th:onclick="|insertParam('type', ${type.getKey()})|"></a></li>
+                                        </ul>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown block" style="margin-right: 200px;">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choose Color
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <ul th:each="color : ${colors}">
+                                            <li><a class="dropdown-item" th:text="${color.getValue()}"
+                                                   th:onclick="|insertParam('color', ${color.getKey()})|"></a></li>
+                                        </ul>
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown block" style="margin-right: 200px;">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Choose Size
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <ul th:each="size : ${sizes}">
+                                            <li><a class="dropdown-item" th:text="${size.getValue()}"
+                                                   th:onclick="|insertParam('clothes_size', ${size.getKey()})|"></a></li>
+                                        </ul>
+                                    </ul>
+                                </div>
+
+<!--                                <div class="dropdown block">-->
+<!--                                    <button class="btn btn-secondary dropdown-toggle" type="button"-->
+<!--                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                        Dropdown button-->
+<!--                                    </button>-->
+<!--                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
+<!--                                        <li><a class="dropdown-item" href="#">Action</a></li>-->
+<!--                                        <li><a class="dropdown-item" href="#">Another action</a></li>-->
+<!--                                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+
+                                <div/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!--        <div class="collapse" id="navbarToggleExternalContent">-->
+        <!--            <div class="bg-dark p-4">-->
+        <!--                <h5 class="text-white h4">Collapsed content</h5>-->
+        <!--                <span class="text-muted">Toggleable via the navbar brand.</span>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <nav class="navbar navbar-dark bg-dark">-->
+        <!--            <div class="container-fluid">-->
+        <!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--&lt;!&ndash;                    <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
+        <!--                    <img src="https://ouch-cdn2.icons8.com/3EQlf0y27jWtIZpDrxVA1Zndx4fS7z7YEcS6TIIjNng/rs:fit:256:248/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDMy/LzkyMjQzODM0LWU4/OTEtNDc1Ni05Yzg5/LTg4MWIyNmNlOTc3/MC5zdmc.png" style="width: 20px; height: 20px">-->
+        <!--                </button>-->
+        <!--            </div>-->
+        <!--        </nav>-->
+
+        <div style="margin-left: 50px;">
+
+            <section layout:fragment="open_content"></section>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="p-1" style="margin-top: 1em !important;">
+                    <ul class="pagination align-middle">
+                        <li class="page-item" th:classappend="${pageData.isShowFirst() ? '' : 'disabled'}">
+                            <a class="page-link" href="#" th:onclick="|runPagination(1, ${pageData.getPageSize()}, 0)|"
+                               title="First Page"><i class="fa fa-fast-backward"></i></a>
+                        </li>
+                        <li class="page-item" th:classappend="${pageData.isShowPrevious() ? '' : 'disabled'}">
+                            <a class="page-link" href="#"
+                               th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, -1)|"
+                               title="Previous Page"><i class="fa fa-backward"></i></a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="" th:text="${pageData.getCurrentPage()}">@Model.currentPage</a>
+                        </li>
+                        <li class="page-item" th:classappend="${pageData.isShowNext() ? '' : 'disabled'}">
+                            <a class="page-link" href="#"
+                               th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, 1)|"
+                               title="Next Page"><i class="fa fa-forward"></i></a>
+                        </li>
+                        <li class="page-item" th:classappend="${pageData.isShowLast() ? '' : 'disabled'}">
+                            <a class="page-link" href="#"
+                               th:onclick="|runPagination(${pageData.getTotalPageSize()}, ${pageData.getPageSize()}, 0)|"
+                               title="Last Page"><i class="fa fa-fast-forward"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-1">
+                    <a class="page-link btn btn-secondary" href="#"
+                       th:onclick="|runPagination(${pageData.getCurrentPage()}, ${pageData.getPageSize()}, 0)|"
+                       title="Refresh Page"><i class="fa fa-refresh"></i></a>
+                </div>
+                <div class="p-1">
+                    <a class="page-link btn btn-secondary" href="#" onclick="runPagination(1, 10, 0)"
+                       title="Reset Page"><i class="fa fa-trash"></i></a>
+                </div>
+            </div>
+
+            <form method="POST" th:action="@{${createUrl}}" id="personalSearch">
+                <input type="submit"
+                       id="personalSearchSubmit"
+                       style="visibility: hidden"
+                />
+            </form>
+
+            <span th:data-sort="${pageData.getSort()}"
+                  th:data-order="${pageData.getOrder()}"
+                  th:data-page="${pageData.getCurrentPage()}"
+                  th:data-size="${pageData.getPageSize()}"
+                  id="pageData">
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<th:block layout:fragment="scripts">
+    <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>-->
+    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+    <script type="text/javascript" th:src="@{/js/search.js}"></script>
+    <script type="text/javascript" th:src="@{/js/generateQueryParam.js}"></script>
+    <script type="text/javascript" th:src="@{/js/pagination_plp.js}"></script>
+</th:block>
+</body>
+</html>

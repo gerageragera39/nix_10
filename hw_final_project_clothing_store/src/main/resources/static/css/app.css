@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body {
+    background: url('https://w-dog.ru/wallpapers/15/2/426480228307734.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+a.nav-item.nav-link {
+    color: white;
+}
+
+.sort {
+    cursor: pointer;
+    margin-right: 2em;
+}
+
+label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+}

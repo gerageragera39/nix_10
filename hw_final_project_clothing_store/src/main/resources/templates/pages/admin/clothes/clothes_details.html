@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/auth_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Thing details</title>
+</head>
+<body>
+
+<div layout:fragment="auth_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header d-flex justify-content-start h3">
+                    User details
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Id</th>
+                            <td th:text="${thing.getId()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Title</th>
+                            <td th:text="${thing.getTitle()}"></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th>Color</th>-->
+<!--                            <td th:text="${thing.getColor()}"></td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <th>All Colors</th>
+                            <td>
+                                <ul th:each="color : ${colors}">
+                                    <li th:text="${color.getValue()}"></li>
+                                </ul>
+                            </td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <th>Size</th>-->
+<!--                            <td th:text="${thing.getSize()}"></td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <th>All Sizes</th>
+                            <td>
+                                <ul th:each="size : ${sizes}">
+                                    <li th:text="${size.getValue()}"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Sex</th>
+                            <td th:text="${thing.getSex()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td th:text="${thing.getType()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td th:text="${thing.getDescription()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Compound</th>
+                            <td th:text="${thing.getCompound()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td th:text="${thing.getStringPrice()} + ' грн.'"></td>
+                        </tr>
+                        <tr>
+                            <th>Quantity</th>
+                            <td th:text="${thing.getQuantity()}"></td>
+                        </tr>
+                        <tr>
+                            <th>BrandName</th>
+<!--                            <td th:text="${thing.getBrandName()}">-->
+                            <td>
+                                <a th:href="@{'/admin/brands/details/' + ${thing.getBrandId()}}"
+                                   th:text="${thing.getBrandName()}"></a>
+                            </td>
+<!--                                <a th:href="@{'/users/newAccount/' + ${thing.getId()}}"></a>-->
+<!--                            </td>-->
+                        </tr>
+                        <tr>
+                            <th>Visible</th>
+                            <td th:text="${thing.getVisible()}"></td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td th:text="${#calendars.format(thing.getCreated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Updated</th>
+                            <td th:text="${#calendars.format(thing.getUpdated(),'dd MMMM yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <th>Images</th>
+                            <td>
+                                <ul th:each="image : ${thing.getImages()}">
+                                    <div style="display:inline-block;">
+                                        <a th:href="${image.getUrl()}" target="_blank">
+                                            <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
+                                        </a>
+                                        <a th:href="@{'/admin/clothes/' + ${thing.getId()} +'/images/delete/' + ${image.getId()}}" type="button" class="btn btn-danger">Delete image</a>
+                                    </div>
+
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="col-12">
+                        <div class="card mt-2 mb-2">
+                            <div class="card-header">
+                                <a th:href="@{'/admin/clothes/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Redact Thing</a>
+                                <a th:href="@{'/admin/clothes/images/to/add/' + ${thing.getId()}}" type="button" class="btn btn-primary">Add image</a>
+                                <a th:href="@{'/admin/clothes/color/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Update colors</a>
+                                <a th:href="@{'/admin/clothes/size/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Update sizes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
