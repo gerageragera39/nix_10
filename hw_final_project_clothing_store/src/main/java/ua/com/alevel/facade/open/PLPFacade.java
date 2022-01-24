@@ -23,4 +23,6 @@ public interface PLPFacade<RES extends ResponseDto>{
     Map<Long, String> findAllColors();
 
     Map<Long, String> findAllTypes();
+
+    Map<Long, String> findAllSizes();
 }

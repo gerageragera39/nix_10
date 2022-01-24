@@ -42,6 +42,7 @@ public class PLPController extends AbstractController {
         model.addAttribute("types", plpFacade.findAllTypes());
         model.addAttribute("sexes", Sexes.values());
         model.addAttribute("colors", plpFacade.findAllColors());
+        model.addAttribute("sizes", plpFacade.findAllSizes());
         if(webRequest.getParameterMap().get("search_clothes") != null &&
                 response.getItems().size() == 1) {
             return "redirect:/clothes/product/" + response.getItems().get(0).getId();

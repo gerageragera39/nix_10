@@ -59,6 +59,14 @@ public class PLPFacadeImpl implements PLPFacade {
             String color = params[0];
             queryMap.put(WebUtil.COLOR_PARAM, color);
         }
+        if (request.getParameterMap().get(WebUtil.CLOTHES_SIZE_PARAM) != null) {
+            String[] params = request.getParameterMap().get(WebUtil.CLOTHES_SIZE_PARAM);
+            if (StringUtils.isBlank(params[0])) {
+                throw new EntityNotFoundException("bad request");
+            }
+            String color = params[0];
+            queryMap.put(WebUtil.CLOTHES_SIZE_PARAM, color);
+        }
         if (request.getParameterMap().get(WebUtil.SEX_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.SEX_PARAM);
             if (StringUtils.isBlank(params[0])) {
@@ -111,5 +119,10 @@ public class PLPFacadeImpl implements PLPFacade {
     @Override
     public Map<Long, String> findAllTypes() {
         return plpService.findAllTypes();
+    }
+
+    @Override
+    public Map<Long, String> findAllSizes() {
+        return plpService.findAllSizes();
     }
 }

@@ -20,4 +20,6 @@ public interface PLPService<E extends BaseEntity> {
     Map<Long, String> findAllColors();
 
     Map<Long, String> findAllTypes();
+
+    Map<Long, String> findAllSizes();
 }

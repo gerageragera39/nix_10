@@ -24,6 +24,7 @@ public final class WebUtil {
     public static final String TYPE_PARAM = "type";
     public static final String SEARCH_CLOTHES_PARAM = "search_clothes";
     public static final String COLOR_PARAM = "color";
+    public static final String CLOTHES_SIZE_PARAM = "clothes_size";
 
     private WebUtil() { }
 

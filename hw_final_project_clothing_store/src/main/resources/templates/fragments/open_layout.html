@@ -86,17 +86,30 @@
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block">
+                                <div class="dropdown block" style="margin-right: 200px;">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown button
+                                        Choose Size
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <ul th:each="size : ${sizes}">
+                                            <li><a class="dropdown-item" th:text="${size.getValue()}"
+                                                   th:onclick="|insertParam('clothes_size', ${size.getKey()})|"></a></li>
+                                        </ul>
                                     </ul>
                                 </div>
+
+<!--                                <div class="dropdown block">-->
+<!--                                    <button class="btn btn-secondary dropdown-toggle" type="button"-->
+<!--                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                        Dropdown button-->
+<!--                                    </button>-->
+<!--                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
+<!--                                        <li><a class="dropdown-item" href="#">Action</a></li>-->
+<!--                                        <li><a class="dropdown-item" href="#">Another action</a></li>-->
+<!--                                        <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
 
                                 <div/>
                             </div>
