@@ -11,7 +11,6 @@ import ua.com.alevel.persistence.thing_type.ThingTypes;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 @Entity
@@ -51,14 +50,12 @@ public class Clothes extends BaseEntity {
     private Set<Product> products;
 
     @ManyToMany(mappedBy = "clothes", cascade = {
-            CascadeType.PERSIST,
-//            CascadeType.REMOVE
+            CascadeType.PERSIST
     })
     private Set<Color> colors;
 
     @ManyToMany(mappedBy = "things", cascade = {
-            CascadeType.PERSIST,
-//            CascadeType.REMOVE
+            CascadeType.PERSIST
     })
     private Set<Size> sizes;
 

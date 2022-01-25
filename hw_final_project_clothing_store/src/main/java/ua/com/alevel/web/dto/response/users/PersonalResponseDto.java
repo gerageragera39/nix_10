@@ -5,7 +5,6 @@ import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.persistence.types.RoleType;
 import ua.com.alevel.web.dto.response.ResponseDto;
 
-import java.util.Date;
 import java.util.List;
 
 public class PersonalResponseDto extends ResponseDto {
@@ -20,7 +19,8 @@ public class PersonalResponseDto extends ResponseDto {
     private RoleType roleType;
     private List<Product> products;
 
-    public PersonalResponseDto() { }
+    public PersonalResponseDto() {
+    }
 
     public PersonalResponseDto(Personal personal) {
         setId(personal.getId());

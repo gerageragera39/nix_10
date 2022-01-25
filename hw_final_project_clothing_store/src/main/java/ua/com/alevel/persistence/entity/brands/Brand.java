@@ -2,7 +2,6 @@ package ua.com.alevel.persistence.entity.brands;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
-import ua.com.alevel.persistence.entity.clothes.Image;
 
 import javax.persistence.*;
 import java.util.HashSet;

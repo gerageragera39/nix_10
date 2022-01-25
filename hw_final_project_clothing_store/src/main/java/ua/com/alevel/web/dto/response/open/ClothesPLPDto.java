@@ -14,8 +14,6 @@ import java.util.List;
 public class ClothesPLPDto extends ResponseDto {
 
     private String title;
-//    private Color color;
-//    private Sizes size;
     private Sexes sex;
     private ThingTypes type;
     private List<Image> images;
@@ -30,8 +28,6 @@ public class ClothesPLPDto extends ResponseDto {
         setUpdated(thing.getUpdated());
         setVisible(thing.getVisible());
         this.title = thing.getTitle();
-//        this.color = thing.getColor();
-//        this.size = thing.getSize();
         this.sex = thing.getSex();
         this.type = thing.getType();
         this.images = thing.getImages().stream().toList();
@@ -97,25 +93,25 @@ public class ClothesPLPDto extends ResponseDto {
         this.brand = brand;
     }
 
-    private String generatePrice(Double price) {
-        String stringPrice = price.toString();
-        String[] finances = stringPrice.split("\\.");
-        stringPrice = finances[0];
-        if(finances[1].length() > 2) {
-            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
-        }
-        stringPrice += "." + finances[1];
-        if(finances[1].length() < 2) {
-            stringPrice += "0";
-        }
-        return stringPrice;
-    }
-
     public String getStringPrice() {
         return stringPrice;
     }
 
     public void setStringPrice(String stringPrice) {
         this.stringPrice = stringPrice;
+    }
+
+    private String generatePrice(Double price) {
+        String stringPrice = price.toString();
+        String[] finances = stringPrice.split("\\.");
+        stringPrice = finances[0];
+        if (finances[1].length() > 2) {
+            finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
+        }
+        stringPrice += "." + finances[1];
+        if (finances[1].length() < 2) {
+            stringPrice += "0";
+        }
+        return stringPrice;
     }
 }

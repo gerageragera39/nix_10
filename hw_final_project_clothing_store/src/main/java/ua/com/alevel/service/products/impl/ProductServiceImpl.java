@@ -1,6 +1,8 @@
 package ua.com.alevel.service.products.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -30,12 +32,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void create(Product entity) {
         Personal personal = personalRepository.findByEmail(SecurityUtil.getUsername());
         List<Product> productList = personal.getProducts().stream().toList();
         boolean uniq = true;
         for (Product product : productList) {
-            if(product.getClg().equals(entity.getClg()) &&
+            if (product.getClg().equals(entity.getClg()) &&
                     product.getColor().equals(entity.getColor()) &&
                     product.getSize().equals(entity.getSize())) {
                 product.setCount(product.getCount() + 1);
@@ -44,32 +47,22 @@ public class ProductServiceImpl implements ProductService {
                 break;
             }
         }
-        if(uniq) {
+        if (uniq) {
             productRepository.save(entity);
         }
-//        if (productRepository.existsByClg(entity.getClg())) {
-//            Product product = productRepository.findByClg(entity.getClg());
-//            if(product.getColor().equals(entity.getColor()) && product.getSize().equals(entity.getSize())) {
-//                product.setCount(product.getCount() + 1);
-//                productRepository.save(product);
-//            } else {
-//                productRepository.save(entity);
-//            }
-//        } else {
-//            productRepository.save(entity);
-//        }
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void update(Product entity) {
 
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void delete(Long id) {
-//        crudRepositoryHelper.delete(productRepository, id);
         Product product = crudRepositoryHelper.findById(productRepository, id).get();
-        if(product.getCount() == 1) {
+        if (product.getCount() == 1) {
             crudRepositoryHelper.delete(productRepository, id);
         } else {
             product.setCount(product.getCount() - 1);
@@ -78,16 +71,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
         return Optional.empty();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataTableResponse<Product> findAll(DataTableRequest request) {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Product> findByPersonalEmail(Personal personal) {
         return productRepository.findAllByPersonal(personal);
     }

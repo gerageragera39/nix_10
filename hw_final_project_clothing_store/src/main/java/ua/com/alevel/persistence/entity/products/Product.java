@@ -2,8 +2,6 @@ package ua.com.alevel.persistence.entity.products;
 
 import ua.com.alevel.persistence.entity.BaseEntity;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
-import ua.com.alevel.persistence.entity.colors.Color;
-import ua.com.alevel.persistence.entity.sizes.Size;
 import ua.com.alevel.persistence.entity.users.Personal;
 
 import javax.persistence.*;

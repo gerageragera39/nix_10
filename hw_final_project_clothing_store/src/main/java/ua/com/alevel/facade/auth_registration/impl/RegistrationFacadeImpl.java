@@ -1,6 +1,5 @@
 package ua.com.alevel.facade.auth_registration.impl;
 
-import org.joda.time.LocalDate;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.facade.auth_registration.RegistrationFacade;
 import ua.com.alevel.persistence.entity.users.Personal;

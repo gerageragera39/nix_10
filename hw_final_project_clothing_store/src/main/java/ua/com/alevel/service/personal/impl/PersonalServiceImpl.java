@@ -1,4 +1,4 @@
-package ua.com.alevel.service.personal;
+package ua.com.alevel.service.personal.impl;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,6 @@ import ua.com.alevel.exception.EntityExistException;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.persistence.repository.users.PersonalRepository;
 import ua.com.alevel.service.personal.PersonalService;

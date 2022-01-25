@@ -38,14 +38,6 @@ public class ClothesRequestDto extends RequestDto {
         this.title = title;
     }
 
-//    public String getSize() {
-//        return size;
-//    }
-//
-//    public void setSize(String size) {
-//        this.size = size;
-//    }
-
     public String getSex() {
         return sex;
     }

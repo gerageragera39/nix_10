@@ -34,7 +34,7 @@ public class SupplierServiceImpl implements SupplierService {
         Optional<Token> tokenOptionalContent = tokenRepository.findTokenById(1L);
         String token;
         String url;
-        if(tokenOptionalContent.isPresent()){
+        if (tokenOptionalContent.isPresent()) {
             token = tokenOptionalContent.get().getContent();
             url = tokenOptionalContent.get().getUrl();
         } else {
@@ -74,7 +74,7 @@ public class SupplierServiceImpl implements SupplierService {
             TokenSupplierModel tokenSupplierModel = responseToken.getBody();
             if (tokenSupplierModel != null) {
                 Optional<Token> tokenOptional = tokenRepository.findTokenById(1L);
-                if(tokenOptional.isPresent()){
+                if (tokenOptional.isPresent()) {
                     Token tempToken = tokenOptional.get();
                     tempToken.setContent(tokenSupplierModel.getContent());
                     tokenRepository.save(tempToken);

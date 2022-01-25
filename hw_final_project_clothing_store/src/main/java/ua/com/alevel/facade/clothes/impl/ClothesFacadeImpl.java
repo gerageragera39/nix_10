@@ -51,7 +51,6 @@ public class ClothesFacadeImpl implements ClothesFacade {
     public void create(ClothesRequestDto clothesRequestDto) {
         Clothes clothes = new Clothes();
         clothes.setBrand(brandService.findByName(clothesRequestDto.getBrandName()).get());
-//        clothes.setImages(clothesRequestDto.getImages());
         clothes.setCLG(clothesRequestDto.getClg());
         clothes.setCompound(clothesRequestDto.getCompound());
         clothes.setDescription(clothesRequestDto.getDescription());
@@ -101,7 +100,6 @@ public class ClothesFacadeImpl implements ClothesFacade {
 
     @Override
     public Map<Long, String> findColorsByThingId(Long id) {
-//        return clothesService.findColorsByThingId(id);
         List<Color> colors = clothesService.findById(id).get().getColors().stream().toList();
         Map<Long, String> map = new HashMap<>();
         for (int i = 0; i < colors.size(); i++) {
@@ -239,15 +237,6 @@ public class ClothesFacadeImpl implements ClothesFacade {
 
     @Override
     public PageData<ClothesResponseDto> findAll(WebRequest request) {
-//        DataTableRequest dataTableRequest = WebUtil.generateDataTableRequestByWebRequest(request);
-//        DataTableResponse<Clothes> tableResponse = clothesService.findAll(dataTableRequest);
-//        List<ClothesResponseDto> clothes = tableResponse.getItems().stream().
-//                map(ClothesResponseDto::new).
-//                collect(Collectors.toList());
-//
-//        PageData<ClothesResponseDto> pageData = (PageData<ClothesResponseDto>) WebUtil.initPageData(tableResponse);
-//        pageData.setItems(clothes);
-//        return pageData;
         PageAndSizeData pageAndSizeData = WebRequestUtil.generatePageAndSizeData(request);
         SortData sortData = WebRequestUtil.generateSortData(request);
         DataTableRequest dataTableRequest = new DataTableRequest();
@@ -296,14 +285,5 @@ public class ClothesFacadeImpl implements ClothesFacade {
         pageData.setItemsSize(dataTableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;
-    }
-
-    @Override
-    public List<ClothesResponseDto> findAllByBrandId(Long id) {
-        List<Clothes> clothes = clothesService.findAllByBrandId(id);
-        List<ClothesResponseDto> clothesResponseDto = clothes.stream().
-                map(ClothesResponseDto::new).
-                collect(Collectors.toList());
-        return clothesResponseDto;
     }
 }

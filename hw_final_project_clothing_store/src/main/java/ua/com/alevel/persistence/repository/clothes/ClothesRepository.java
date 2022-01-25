@@ -1,6 +1,5 @@
 package ua.com.alevel.persistence.repository.clothes;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

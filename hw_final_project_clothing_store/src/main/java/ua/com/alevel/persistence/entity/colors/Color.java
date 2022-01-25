@@ -5,7 +5,6 @@ import ua.com.alevel.persistence.entity.clothes.Clothes;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -16,8 +15,7 @@ public class Color extends BaseEntity {
     private String colorName;
 
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-//            CascadeType.REMOVE
+            CascadeType.PERSIST
     })
     @JoinTable(
             name = "color_thing",

@@ -25,7 +25,7 @@ import java.util.List;
 @RequestMapping("/admin/clothes")
 public class AdminClothesController extends AbstractController {
 
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
             new HeaderName("image", null, null),
             new HeaderName("title", "title", "title"),
@@ -73,7 +73,7 @@ public class AdminClothesController extends AbstractController {
     }
 
     @PostMapping("/create")
-    public String createNewDepartment( @ModelAttribute("thing") ClothesRequestDto dto) {
+    public String createNewDepartment(@ModelAttribute("thing") ClothesRequestDto dto) {
         clothesFacade.create(dto);
         return "redirect:/admin/clothes";
     }
@@ -104,8 +104,6 @@ public class AdminClothesController extends AbstractController {
     @PostMapping("/update/{id}")
     public String updateThing(@ModelAttribute("thing") ClothesRequestDto dto, @PathVariable Long id, Model model) {
         clothesFacade.update(dto, id);
-//        model.addAttribute("thing", clothesFacade.findById(id));
-//        return "pages/admin/clothes/clothes_details";
         return "redirect:/admin/clothes/details/" + id;
     }
 
@@ -140,7 +138,6 @@ public class AdminClothesController extends AbstractController {
     @GetMapping("/images/to/add/{id}")
     public String toAddImage(@PathVariable Long id, Model model) {
         model.addAttribute("id", id);
-//        model.addAttribute("thing", new ClothesRequestDto());
         model.addAttribute("image", new ImageRequestDto());
         return "pages/admin/clothes/images_new";
     }

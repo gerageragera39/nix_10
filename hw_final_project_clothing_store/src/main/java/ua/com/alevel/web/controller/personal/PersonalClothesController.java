@@ -42,7 +42,6 @@ public class PersonalClothesController extends AbstractController {
 
     @GetMapping
     private String allClothes(Model model, WebRequest webRequest) {
-//        PageData<ClothesResponseDto> response = clothesFacade.personalFindAll(webRequest);
         PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
         List<ClothesPLPDto> clothesList = response.getItems();
         model.addAttribute("createUrl", "/personal/clothes/all");
@@ -54,7 +53,7 @@ public class PersonalClothesController extends AbstractController {
         model.addAttribute("sexes", Sexes.values());
         model.addAttribute("colors", plpFacade.findAllColors());
         model.addAttribute("sizes", plpFacade.findAllSizes());
-        if(webRequest.getParameterMap().get("search_clothes") != null &&
+        if (webRequest.getParameterMap().get("search_clothes") != null &&
                 response.getItems().size() == 1) {
             return "redirect:/personal/clothes/product/" + response.getItems().get(0).getId();
         }
@@ -80,12 +79,10 @@ public class PersonalClothesController extends AbstractController {
         model.addAttribute("thing", dto);
         model.addAttribute("images", imageList);
         model.addAttribute("product", new ProductRequestDto());
-//        model.addAttribute("product", new ClothesRequestDto());
         model.addAttribute("firstImage", images.get(0));
         model.addAttribute("colors", clothesFacade.findColorsByThingId(id));
         model.addAttribute("sizes", clothesFacade.findSizesByThingId(id));
         return "pages/personals/clothes/clothes_details";
-//        return "pages/personals/clothes/product_details";
     }
 
     @GetMapping("/product/delete/{id}")
@@ -96,8 +93,6 @@ public class PersonalClothesController extends AbstractController {
 
     @PostMapping("/add/{id}")
     private String addToBucket(@PathVariable Long id, @ModelAttribute("product") ProductRequestDto dto) {
-//        , @ModelAttribute("product") ProductRequestDto dto
-//        ProductRequestDto dto = new ProductRequestDto();
         ClothesResponseDto clothesResponseDto = clothesFacade.findById(id);
         dto.setWearId(id);
         dto.setPersonalEmail(SecurityUtil.getUsername());
@@ -107,7 +102,8 @@ public class PersonalClothesController extends AbstractController {
     }
 
     @GetMapping("/suggestions")
-    private @ResponseBody List<String> searchClothesNames(@RequestParam String query) {
+    private @ResponseBody
+    List<String> searchClothesNames(@RequestParam String query) {
         return clothesFacade.searchClothesNames(query);
     }
 
@@ -119,10 +115,8 @@ public class PersonalClothesController extends AbstractController {
 
     @GetMapping("/bucket")
     private String bucket(Model model) {
-//        model.addAttribute("products", personalFacade.findByEmail(SecurityUtil.getUsername()).getProducts());
         model.addAttribute("products", productFacade.findByPersonalEmail(SecurityUtil.getUsername()));
         model.addAttribute("totalPrice", productFacade.findTotalPrice());
-//        return "pages/personals/shopping_cart";
         return "pages/personals/basket";
     }
 }

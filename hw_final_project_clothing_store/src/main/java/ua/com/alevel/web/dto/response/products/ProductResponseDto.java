@@ -1,10 +1,7 @@
 package ua.com.alevel.web.dto.response.products;
 
-import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.clothes.Image;
-import ua.com.alevel.persistence.entity.colors.Color;
 import ua.com.alevel.persistence.entity.products.Product;
-import ua.com.alevel.persistence.entity.sizes.Size;
 import ua.com.alevel.persistence.sex.Sexes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.dto.response.ResponseDto;
@@ -113,11 +110,11 @@ public class ProductResponseDto extends ResponseDto {
         String stringPrice = price.toString();
         String[] finances = stringPrice.split("\\.");
         stringPrice = finances[0];
-        if(finances[1].length() > 2) {
+        if (finances[1].length() > 2) {
             finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
         }
         stringPrice += "." + finances[1];
-        if(finances[1].length() < 2) {
+        if (finances[1].length() < 2) {
             stringPrice += "0";
         }
         return stringPrice;

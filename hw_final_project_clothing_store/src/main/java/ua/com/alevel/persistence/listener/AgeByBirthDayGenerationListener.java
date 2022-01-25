@@ -6,11 +6,7 @@ import ua.com.alevel.persistence.entity.users.Personal;
 import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
-import java.sql.Date;
-import java.sql.Timestamp;
 import org.joda.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 
 public class AgeByBirthDayGenerationListener {
 

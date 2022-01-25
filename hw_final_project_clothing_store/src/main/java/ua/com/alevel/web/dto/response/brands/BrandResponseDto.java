@@ -1,7 +1,6 @@
 package ua.com.alevel.web.dto.response.brands;
 
 import ua.com.alevel.persistence.entity.brands.Brand;
-import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.web.dto.response.ResponseDto;
 
 public class BrandResponseDto extends ResponseDto {
@@ -9,7 +8,8 @@ public class BrandResponseDto extends ResponseDto {
     private String name;
     private String logo;
 
-    public BrandResponseDto() { }
+    public BrandResponseDto() {
+    }
 
     public BrandResponseDto(Brand brand) {
         setId(brand.getId());

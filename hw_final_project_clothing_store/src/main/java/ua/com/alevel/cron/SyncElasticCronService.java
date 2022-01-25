@@ -2,13 +2,11 @@ package ua.com.alevel.cron;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.elastic.document.ClothesIndex;
 import ua.com.alevel.elastic.repository.ClothesIndexRepository;
-import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class SyncElasticCronService {
     }
 
 
-//    @Scheduled(fixedDelay = 60000)
+    //    @Scheduled(fixedDelay = 60000)
     @Scheduled(cron = "0 0 12 * * ?")
     public void syncToSupplier() {
         elasticsearchOperations.indexOps(ClothesIndex.class).refresh();
@@ -45,7 +43,7 @@ public class SyncElasticCronService {
             page++;
             Pageable pageable = PageRequest.of(page, size);
             List<String> strings = clothesRepository.findAllNames(pageable);
-            if(strings != null && strings.size() != 0) {
+            if (strings != null && strings.size() != 0) {
                 names.addAll(strings);
             } else {
                 break;

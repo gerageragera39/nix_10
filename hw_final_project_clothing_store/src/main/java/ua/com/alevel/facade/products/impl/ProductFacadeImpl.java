@@ -23,10 +23,10 @@ public class ProductFacadeImpl implements ProductFacade {
     private final PersonalService personalService;
     private final ClothesService clothesService;
 
-    public ProductFacadeImpl(ProductService productService, ClothesService clothesService, PersonalService personalService, ClothesService clothesService1) {
+    public ProductFacadeImpl(ProductService productService, PersonalService personalService, ClothesService clothesService) {
         this.productService = productService;
         this.personalService = personalService;
-        this.clothesService = clothesService1;
+        this.clothesService = clothesService;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ProductFacadeImpl implements ProductFacade {
                 map(ProductResponseDto::new).
                 collect(Collectors.toList());
 
-       return products;
+        return products;
     }
 
     @Override
@@ -77,17 +77,17 @@ public class ProductFacadeImpl implements ProductFacade {
         List<Product> products = personal.getProducts().stream().toList();
         Double totalPrice = (double) 0;
         for (Product product : products) {
-            totalPrice += (product.getWear().getPrice())*product.getCount();
+            totalPrice += (product.getWear().getPrice()) * product.getCount();
         }
 
         String stringPrice = totalPrice.toString();
         String[] finances = stringPrice.split("\\.");
         stringPrice = finances[0];
-        if(finances[1].length() > 2) {
+        if (finances[1].length() > 2) {
             finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
         }
         stringPrice += "." + finances[1];
-        if(finances[1].length() < 2) {
+        if (finances[1].length() < 2) {
             stringPrice += "0";
         }
         return stringPrice;

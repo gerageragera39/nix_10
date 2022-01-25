@@ -44,7 +44,7 @@ public class ElasticClothesSearchServiceImpl implements ElasticClothesSearchServ
                         ClothesIndex.class,
                         IndexCoordinates.of(CLOTHES_INDEX));
         final List<String> suggestions = new ArrayList<>();
-        searchSuggestions.getSearchHits().forEach(searchHit-> suggestions.add(searchHit.getContent().getThingName()));
+        searchSuggestions.getSearchHits().forEach(searchHit -> suggestions.add(searchHit.getContent().getThingName()));
         return suggestions;
     }
 }

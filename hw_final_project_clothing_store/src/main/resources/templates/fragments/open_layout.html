@@ -44,7 +44,8 @@
                 </a>
             </p>
             <div class="collapse" id="collapseExample" style="background: black">
-                <div class="card card-body" style="background: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;">
+                <div class="card card-body"
+                     style="background: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;">
                     <div class="form-group" style="display: inline-block;">
                         <div class="container">
                             <div class="d-flex flex-row justify-content-between">
@@ -55,7 +56,8 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <ul th:each="brand : ${brands}">
-                                            <li><a class="dropdown-item" th:text="${brand.getValue()}" th:onclick="|insertParam('brand', ${brand.getKey()})|"></a></li>
+                                            <li><a class="dropdown-item" th:text="${brand.getValue()}"
+                                                   th:onclick="|insertParam('brand', ${brand.getKey()})|"></a></li>
                                         </ul>
                                     </ul>
                                 </div>
@@ -86,7 +88,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block" style="margin-right: 100px;">
+                                <div class="dropdown block" style="margin-right: 50px;">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Choose Size
@@ -94,14 +96,50 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                         <ul th:each="size : ${sizes}">
                                             <li><a class="dropdown-item" th:text="${size.getValue()}"
-                                                   th:onclick="|insertParam('clothes_size', ${size.getKey()})|"></a></li>
+                                                   th:onclick="|insertParam('clothes_size', ${size.getKey()})|"></a>
+                                            </li>
                                         </ul>
                                     </ul>
                                 </div>
 
+                                <button style="width: 200px; background: #6c757d; margin-right: 50px">
+                                    <th th:each="columnHeader : ${headerDataList}">
+                                        <th:block th:if="${columnHeader.isSortable()}">
+                                            <th:block th:if="${columnHeader.isActive()}">
+                                                <span th:text="${columnHeader.getHeaderName()}"
+                                                      style="color: black; width: 300px"></span>
+                                                <!--                                            <a th:text="${columnHeader.getHeaderName()}"></a>-->
+                                                <i th:if="${columnHeader.getOrder().equals('desc')}"
+                                                   class="fa fa-sort-desc float-right sort" aria-hidden="true"
+                                                   th:data-sort="${columnHeader.getSort()}"
+                                                   th:data-order="${columnHeader.getOrder()}"
+                                                   onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
+                                                   style="color: white"></i>
+                                                <i th:if="${columnHeader.getOrder().equals('asc')}"
+                                                   class="fa fa-sort-asc float-right sort" aria-hidden="true"
+                                                   th:data-sort="${columnHeader.getSort()}"
+                                                   th:data-order="${columnHeader.getOrder()}"
+                                                   onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
+                                                   style="color: white"></i>
+                                            </th:block>
+                                            <th:block th:unless="${columnHeader.isActive()}">
+                                                <span th:text="${columnHeader.getHeaderName()}" style="color: white"></span>
+                                                <i class="fa fa-sort float-right sort" aria-hidden="true" style="color: white"
+                                                   th:data-sort="${columnHeader.getSort()}"
+                                                   th:data-order="${columnHeader.getOrder()}"
+                                                   onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"></i>
+                                            </th:block>
+                                        </th:block>
+
+                                        <span th:unless="${columnHeader.isSortable()}"
+                                              th:text="${columnHeader.getHeaderName()}" style="color: white"></span>
+                                    </th>
+                                </button>
                                 <div>
-                                    <a class="page-link btn btn-secondary mb-3" href="#" onclick="runPagination(1, 8, 0)" title="Reset Page" style="background: #6c757d;">
-                                        <img src="https://cdn-icons-png.flaticon.com/512/1483/1483063.png" style="background: #6c757d; width: 30px;">
+                                    <a class="page-link btn btn-secondary mb-3" href="#"
+                                       onclick="runPagination(1, 8, 0)" title="Reset Page" style="background: #6c757d;">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/1483/1483063.png"
+                                             style="background: #6c757d; width: 30px;">
                                     </a>
                                 </div>
                                 <div/>

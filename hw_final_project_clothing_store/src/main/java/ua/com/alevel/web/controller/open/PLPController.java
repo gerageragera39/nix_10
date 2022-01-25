@@ -7,19 +7,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ua.com.alevel.facade.brands.BrandFacade;
-import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.persistence.sex.Sexes;
-import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,6 +21,10 @@ import java.util.List;
 public class PLPController extends AbstractController {
 
     private final PLPFacade plpFacade;
+
+    private final HeaderName[] columnNames = new HeaderName[]{
+            new HeaderName("price", "price", "price")
+    };
 
     public PLPController(PLPFacade plpFacade) {
         this.plpFacade = plpFacade;
@@ -36,6 +34,7 @@ public class PLPController extends AbstractController {
     private String allClothes(Model model, WebRequest webRequest, RedirectAttributes ra) {
         PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
         List<ClothesPLPDto> clothesPLPDtoList = response.getItems();
+        initDataTable(response, columnNames, model);
         model.addAttribute("createUrl", "/clothes/all");
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);
@@ -45,7 +44,7 @@ public class PLPController extends AbstractController {
         model.addAttribute("sexes", Sexes.values());
         model.addAttribute("colors", plpFacade.findAllColors());
         model.addAttribute("sizes", plpFacade.findAllSizes());
-        if(webRequest.getParameterMap().get("search_clothes") != null &&
+        if (webRequest.getParameterMap().get("search_clothes") != null &&
                 response.getItems().size() == 1) {
             return "redirect:/clothes/product/" + response.getItems().get(0).getId();
         }
@@ -58,14 +57,13 @@ public class PLPController extends AbstractController {
     }
 
     @GetMapping("/suggestions")
-    private @ResponseBody List<String> searchClothesNames(@RequestParam String query) {
+    private @ResponseBody
+    List<String> searchClothesNames(@RequestParam String query) {
         return plpFacade.searchClothesNames(query);
     }
 
     @PostMapping("/search")
-    private String searchBooks(HttpServletRequest request, @RequestParam String query, RedirectAttributes ra) {
-        HttpSession session = request.getSession();
-        String [] arrayOfLines = (String[])session.getAttribute("listOfNumbersName");
+    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
         ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
         return "redirect:/clothes";
     }

@@ -8,7 +8,6 @@ import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
-import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.service.elastic.ElasticClothesSearchService;
 import ua.com.alevel.service.open.PLPService;
 import ua.com.alevel.util.WebUtil;

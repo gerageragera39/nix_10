@@ -6,16 +6,13 @@ import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
-import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.users.Personal;
 import ua.com.alevel.service.personal.PersonalService;
-import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.web.dto.request.PageAndSizeData;
 import ua.com.alevel.web.dto.request.SortData;
 import ua.com.alevel.web.dto.request.users.PersonalRequestDto;
 import ua.com.alevel.web.dto.response.PageData;
-import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
 import ua.com.alevel.web.dto.response.users.PersonalResponseDto;
 
 import java.util.Date;
@@ -40,15 +37,15 @@ public class PersonalFacadeImpl implements PersonalFacade {
     @Override
     public void update(PersonalRequestDto dto, Long id) {
         Optional<Personal> optionalPersonal = personalService.findById(id);
-        if(optionalPersonal.isPresent()) {
+        if (optionalPersonal.isPresent()) {
             Personal personal = optionalPersonal.get();
-            if(StringUtils.isNotBlank(dto.getFirstName())) {
+            if (StringUtils.isNotBlank(dto.getFirstName())) {
                 personal.setFirstName(dto.getFirstName());
             }
-            if(StringUtils.isNotBlank(dto.getLastName())) {
+            if (StringUtils.isNotBlank(dto.getLastName())) {
                 personal.setLastName(dto.getLastName());
             }
-            if(StringUtils.isNotBlank(dto.getPassword())) {
+            if (StringUtils.isNotBlank(dto.getPassword())) {
                 personal.setPassword(dto.getPassword());
             }
             personal.setUpdated(new Date());
@@ -95,7 +92,7 @@ public class PersonalFacadeImpl implements PersonalFacade {
     @Override
     public void changeEnable(Long id) {
         Optional<Personal> optionalPersonal = personalService.findById(id);
-        if(optionalPersonal.isPresent()){
+        if (optionalPersonal.isPresent()) {
             Personal personal = optionalPersonal.get();
             personal.setEnabled(!personal.getEnabled());
             personal.setUpdated(new Date());

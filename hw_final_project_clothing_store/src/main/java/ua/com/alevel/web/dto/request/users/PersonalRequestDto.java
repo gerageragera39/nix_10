@@ -1,9 +1,7 @@
 package ua.com.alevel.web.dto.request.users;
 
-import ua.com.alevel.persistence.types.RoleType;
 import ua.com.alevel.web.dto.request.RequestDto;
 
-import javax.persistence.*;
 import java.util.Date;
 
 public class PersonalRequestDto extends RequestDto {

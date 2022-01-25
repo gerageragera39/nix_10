@@ -12,18 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
-import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
-import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 import ua.com.alevel.web.dto.response.users.PersonalResponseDto;
 
 @Controller
 @RequestMapping("/admin/personals")
 public class AdminPersonalController extends AbstractController {
 
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
-//            new HeaderName("First Name", "first_name", "firstName"),
-//            new HeaderName("Last name", "last_name", "lastName"),
             new HeaderName("E-mail", "email", "email"),
             new HeaderName("Role Type", "role_type", "roleType"),
             new HeaderName("Enabled", "enabled", "enabled"),
@@ -70,7 +66,6 @@ public class AdminPersonalController extends AbstractController {
         personalFacade.changeEnable(id);
         PersonalResponseDto dto = personalFacade.findById(id);
         model.addAttribute("person", dto);
-//        return "pages/admin/personals/personals_details";
         return "redirect:/admin/personals/details/" + id;
     }
 }

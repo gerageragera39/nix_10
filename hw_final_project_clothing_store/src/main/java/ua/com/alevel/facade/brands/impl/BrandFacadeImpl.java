@@ -8,8 +8,6 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.brands.Logo;
-import ua.com.alevel.persistence.entity.clothes.Clothes;
-import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.brand.LogoService;
 import ua.com.alevel.util.WebRequestUtil;
@@ -48,7 +46,7 @@ public class BrandFacadeImpl implements BrandFacade {
             logo.setUrl(brandsRequestDto.getLogoUrl());
         }
         Optional<Brand> optionalBrand = brandService.findByName(brandsRequestDto.getName());
-        if(optionalBrand.isPresent()) {
+        if (optionalBrand.isPresent()) {
             Brand brand1 = optionalBrand.get();
             logo.setBrand(brand1);
             logoService.create(logo);
@@ -58,13 +56,13 @@ public class BrandFacadeImpl implements BrandFacade {
     @Override
     public void update(BrandsRequestDto dto, Long id) {
         Optional<Brand> optionalBrand = brandService.findById(id);
-        if(optionalBrand.isPresent()) {
+        if (optionalBrand.isPresent()) {
             Brand brand = optionalBrand.get();
-            if(StringUtils.isNotBlank(dto.getName())) {
+            if (StringUtils.isNotBlank(dto.getName())) {
                 brand.setName(dto.getName());
                 brandService.update(brand);
             }
-            if(StringUtils.isNotBlank(dto.getLogoUrl())) {
+            if (StringUtils.isNotBlank(dto.getLogoUrl())) {
                 Logo logo = brand.getLogo();
                 logo.setUrl(dto.getLogoUrl());
                 logoService.update(logo);

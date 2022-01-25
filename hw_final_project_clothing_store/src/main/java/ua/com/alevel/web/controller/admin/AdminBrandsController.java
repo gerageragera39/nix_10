@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import ua.com.alevel.facade.brands.BrandFacade;
-import ua.com.alevel.persistence.sex.Sexes;
-import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.request.brands.BrandsRequestDto;
-import ua.com.alevel.web.dto.request.clothes.ClothesRequestDto;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
 
@@ -19,7 +16,7 @@ import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
 @RequestMapping("/admin/brands")
 public class AdminBrandsController extends AbstractController {
 
-    private final HeaderName[] columnNames = new HeaderName[] {
+    private final HeaderName[] columnNames = new HeaderName[]{
             new HeaderName("#", null, null),
             new HeaderName("logo", null, null),
             new HeaderName("name", "name", "name"),
@@ -56,7 +53,7 @@ public class AdminBrandsController extends AbstractController {
     }
 
     @PostMapping("/create")
-    public String createNewDepartment( @ModelAttribute("brand") BrandsRequestDto dto) {
+    public String createNewDepartment(@ModelAttribute("brand") BrandsRequestDto dto) {
         brandFacade.create(dto);
         return "redirect:/admin/brands";
     }

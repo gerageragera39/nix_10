@@ -13,8 +13,6 @@ import java.util.Optional;
 
 public interface ClothesService extends BaseService<Clothes> {
 
-    List<Clothes> findAllByBrandId(Long id);
-
     Map<Long, String> findColorsByThingId(Long id);
 
     List<Color> findAllColors();

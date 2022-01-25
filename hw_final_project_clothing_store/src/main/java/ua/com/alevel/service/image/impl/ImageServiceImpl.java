@@ -26,7 +26,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void create(Image entity) {
-        if(StringUtils.isNotBlank(entity.getUrl())) {
+        if (StringUtils.isNotBlank(entity.getUrl())) {
             crudRepositoryHelper.create(imageRepository, entity);
         }
     }

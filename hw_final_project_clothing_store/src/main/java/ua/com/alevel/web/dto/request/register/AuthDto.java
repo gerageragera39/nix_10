@@ -1,14 +1,10 @@
 package ua.com.alevel.web.dto.request.register;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 public class AuthDto {
 
     private String email;
     private String password;
     private String passwordConfirm;
-//    private Date birthDay;
     private String birthDay;
     private String firstName;
     private String lastName;
@@ -37,14 +33,6 @@ public class AuthDto {
         this.passwordConfirm = passwordConfirm;
     }
 
-//    public Date getBirthDay() {
-//        return birthDay;
-//    }
-//
-//    public void setBirthDay(Date birthDay) {
-//        this.birthDay = birthDay;
-//    }
-
     public String getBirthDay() {
         return birthDay;
     }
@@ -52,15 +40,6 @@ public class AuthDto {
     public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
-
-
-//    public LocalDateTime getBirthDay() {
-//        return birthDay;
-//    }
-//
-//    public void setBirthDay(LocalDateTime birthDay) {
-//        this.birthDay = birthDay;
-//    }
 
     public String getFirstName() {
         return firstName;

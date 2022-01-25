@@ -1,14 +1,14 @@
 package ua.com.alevel.service.brand.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.repository.brands.BrandRepository;
-import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
-import ua.com.alevel.persistence.repository.clothes.ImageRepository;
 import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.clothes.ClothesService;
 import ua.com.alevel.util.WebResponseUtil;
@@ -42,9 +42,10 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void delete(Long id) {
         Optional<Brand> optionalBrand = crudRepositoryHelper.findById(brandRepository, id);
-        if(optionalBrand.isPresent()) {
+        if (optionalBrand.isPresent()) {
             Brand brand = optionalBrand.get();
             List<Clothes> clothes = brand.getClothes().stream().toList();
             for (Clothes thing : clothes) {
@@ -73,6 +74,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Map<Long, String> findAll() {
         List<Brand> brands = brandRepository.findAll();
         Map<Long, String> map = new HashMap<>();

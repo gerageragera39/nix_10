@@ -1,14 +1,14 @@
 package ua.com.alevel.service.clothes.impl;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
-import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.persistence.entity.colors.Color;
 import ua.com.alevel.persistence.entity.sizes.Size;
 import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
@@ -48,9 +48,10 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void delete(Long id) {
         Optional<Clothes> optionalClothes = clothesRepository.findById(id);
-        if(optionalClothes.isPresent()) {
+        if (optionalClothes.isPresent()) {
             Clothes thing = optionalClothes.get();
             List<Color> colors = thing.getColors().stream().toList();
             List<Size> sizes = thing.getSizes().stream().toList();
@@ -74,6 +75,7 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DataTableResponse<Clothes> findAll(DataTableRequest dataTableRequest) {
         int page = dataTableRequest.getPage() - 1;
         int size = dataTableRequest.getSize();
@@ -97,12 +99,7 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
-    public List<Clothes> findAllByBrandId(Long id) {
-//        return clothesRepository.findAllByBrandId(id);
-        return null;
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public Map<Long, String> findColorsByThingId(Long id) {
         Map<Long, String> map = new HashMap<>();
         List<Color> colors = clothesRepository.findColorsByThingId(id);
@@ -113,11 +110,13 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Color> findAllColors() {
         return colorRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Clothes> findByClg(String clg) {
         return clothesRepository.findClothesByCLG(clg);
     }

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.util.SecurityUtil;
-import ua.com.alevel.web.dto.request.clothes.ClothesRequestDto;
 import ua.com.alevel.web.dto.request.users.PersonalRequestDto;
 
 @Controller

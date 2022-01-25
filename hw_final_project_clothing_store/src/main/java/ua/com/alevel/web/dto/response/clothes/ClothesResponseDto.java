@@ -6,13 +6,11 @@ import ua.com.alevel.persistence.sex.Sexes;
 import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.web.dto.response.ResponseDto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class ClothesResponseDto extends ResponseDto {
 
     private String title;
-//    private Sizes size;
     private Sexes sex;
     private ThingTypes type;
     private String description;
@@ -25,7 +23,8 @@ public class ClothesResponseDto extends ResponseDto {
     private String stringPrice;
     private String clg;
 
-    public ClothesResponseDto() { }
+    public ClothesResponseDto() {
+    }
 
     public ClothesResponseDto(Clothes thing) {
         setId(thing.getId());
@@ -33,7 +32,6 @@ public class ClothesResponseDto extends ResponseDto {
         setUpdated(thing.getUpdated());
         setVisible(thing.getVisible());
         this.title = thing.getTitle();
-//        this.size = thing.getSize();
         this.sex = thing.getSex();
         this.type = thing.getType();
         this.description = thing.getDescription();
@@ -95,15 +93,6 @@ public class ClothesResponseDto extends ResponseDto {
         this.images = images;
     }
 
-//    public BigDecimal getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(BigDecimal price) {
-//        this.price = price;
-//    }
-
-
     public Double getPrice() {
         return price;
     }
@@ -156,11 +145,11 @@ public class ClothesResponseDto extends ResponseDto {
         String stringPrice = price.toString();
         String[] finances = stringPrice.split("\\.");
         stringPrice = finances[0];
-        if(finances[1].length() > 2) {
+        if (finances[1].length() > 2) {
             finances[1] = Character.toString(finances[1].charAt(0)) + Character.toString(finances[1].charAt(1));
         }
         stringPrice += "." + finances[1];
-        if(finances[1].length() < 2) {
+        if (finances[1].length() < 2) {
             stringPrice += "0";
         }
         return stringPrice;
