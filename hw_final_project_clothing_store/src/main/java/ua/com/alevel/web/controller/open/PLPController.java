@@ -14,6 +14,7 @@ import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -63,7 +64,24 @@ public class PLPController extends AbstractController {
     }
 
     @PostMapping("/search")
-    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
+    private String searchBooks(@RequestParam String query, WebRequest webRequest, RedirectAttributes ra) {
+        String referrer = webRequest.getHeader("referer");
+        System.out.println("referrer = " + referrer);
+        String[] url = referrer.split("\\?");
+        if(url.length == 2) {
+            if(url[1].charAt(0) == '&') {
+                url[1] = String.copyValueOf(url[1].toCharArray(), 1, url[1].length() - 1);
+            }
+            String[] params = url[1].split("&");
+            List<String[]> pairs = new ArrayList<>();
+            for (String param : params) {
+                String[] pair = param.split("=");
+                pairs.add(pair);
+            }
+            for (String[] pair : pairs) {
+                ra.addAttribute(pair[0], pair[1]);
+            }
+        }
         ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
         return "redirect:/clothes";
     }
