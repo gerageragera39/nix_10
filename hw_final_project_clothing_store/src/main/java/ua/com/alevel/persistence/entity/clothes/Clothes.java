@@ -67,7 +67,6 @@ public class Clothes extends BaseEntity {
         this.images = new HashSet<>();
         this.price = (double) 0;
         this.quantity = 0;
-        CLG = generateCLG();
         this.colors = new HashSet<>();
         this.sizes = new HashSet<>();
         this.products = new HashSet<>();
@@ -184,29 +183,6 @@ public class Clothes extends BaseEntity {
 
     public void setSizes(Set<Size> sizes) {
         this.sizes = sizes;
-    }
-
-    private String generateCLG() {
-        Random random = new Random();
-        String CLG = " ";
-        for (int i = 0; i < 4; i++) {
-            String tempThreeDigits = String.valueOf(random.nextInt(1, 999));
-
-            switch (tempThreeDigits.length()) {
-                case 1:
-                    tempThreeDigits = "00" + tempThreeDigits;
-                    break;
-                case 2:
-                    tempThreeDigits = "0" + tempThreeDigits;
-                    break;
-            }
-            if (i == 0) {
-                CLG = " " + tempThreeDigits;
-            } else {
-                CLG += " " + tempThreeDigits;
-            }
-        }
-        return CLG;
     }
 
     @Override

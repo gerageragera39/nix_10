@@ -7,6 +7,7 @@ import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.clothes.Clothes;
+import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.persistence.entity.colors.Color;
 import ua.com.alevel.persistence.entity.sizes.Size;
 import ua.com.alevel.persistence.sex.Sexes;
@@ -15,6 +16,7 @@ import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.clothes.ClothesService;
 import ua.com.alevel.service.colors.ColorService;
 import ua.com.alevel.service.elastic.ElasticClothesSearchService;
+import ua.com.alevel.service.image.ImageService;
 import ua.com.alevel.service.sizes.SizeService;
 import ua.com.alevel.util.WebRequestUtil;
 import ua.com.alevel.web.dto.request.PageAndSizeData;
@@ -33,29 +35,44 @@ public class ClothesFacadeImpl implements ClothesFacade {
     private final BrandService brandService;
     private final ColorService colorService;
     private final SizeService sizeService;
+    private final ImageService imageService;
     private final ElasticClothesSearchService elasticClothesSearchService;
 
-    public ClothesFacadeImpl(ClothesService clothesService, BrandService brandService, ColorService colorService, SizeService sizeService, ElasticClothesSearchService elasticClothesSearchService) {
+    public ClothesFacadeImpl(ClothesService clothesService, BrandService brandService, ColorService colorService, SizeService sizeService, ImageService imageService, ElasticClothesSearchService elasticClothesSearchService) {
         this.clothesService = clothesService;
         this.brandService = brandService;
         this.colorService = colorService;
         this.sizeService = sizeService;
+        this.imageService = imageService;
         this.elasticClothesSearchService = elasticClothesSearchService;
     }
 
     @Override
     public void create(ClothesRequestDto clothesRequestDto) {
         Clothes clothes = new Clothes();
-        clothes.setBrand(brandService.findByName(clothesRequestDto.getBrandName()));
-        clothes.setImages(clothesRequestDto.getImages());
+        clothes.setBrand(brandService.findByName(clothesRequestDto.getBrandName()).get());
+//        clothes.setImages(clothesRequestDto.getImages());
+        clothes.setCLG(clothesRequestDto.getClg());
         clothes.setCompound(clothesRequestDto.getCompound());
         clothes.setDescription(clothesRequestDto.getDescription());
         clothes.setSex(Sexes.valueOf(clothesRequestDto.getSex()));
-//        clothes.setSize(Sizes.valueOf(clothesRequestDto.getSize()));
         clothes.setTitle(clothesRequestDto.getTitle());
         clothes.setType(ThingTypes.valueOf(clothesRequestDto.getType()));
 
         clothesService.create(clothes);
+
+        Image image = new Image();
+        if (StringUtils.isBlank(clothesRequestDto.getImageUrl())) {
+            image.setUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Icon_None.svg/1200px-Icon_None.svg.png");
+        } else {
+            image.setUrl(clothesRequestDto.getImageUrl());
+        }
+        Optional<Clothes> optionalThing = clothesService.findByClg(clothesRequestDto.getClg());
+        if(optionalThing.isPresent()) {
+            Clothes thing = optionalThing.get();
+            image.setThing(thing);
+            imageService.create(image);
+        }
     }
 
     @Override

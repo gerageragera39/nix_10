@@ -17,6 +17,8 @@ import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.open.ClothesPLPDto;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,16 +63,9 @@ public class PLPController extends AbstractController {
     }
 
     @PostMapping("/search")
-    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
-
-//        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-//        ScriptEngine engine = scriptEngineManager.getEngineByName("JavaScript");
-//
-//        engine.put("myparam", "world");
-//        Object eval = engine.eval("function hello(p) { return \"Hello, \" + p; } \n" +
-//                "hello(myparam)");
-//        System.out.println(eval);
-
+    private String searchBooks(HttpServletRequest request, @RequestParam String query, RedirectAttributes ra) {
+        HttpSession session = request.getSession();
+        String [] arrayOfLines = (String[])session.getAttribute("listOfNumbersName");
         ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
         return "redirect:/clothes";
     }

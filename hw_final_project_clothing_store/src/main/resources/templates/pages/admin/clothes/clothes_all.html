@@ -31,6 +31,14 @@
             <a th:href="@{'/admin/clothes/delete/' + ${thing.getId()}}" type="button" class="btn btn-danger">delete</a>
         </td>
     </tr>
+
+    <div class="col-12">
+        <div class="card mt-2 mb-2">
+            <div class="card-header">
+                <a th:href="@{'/admin/clothes/new'}" type="button" class="btn btn-primary">Add Thing</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

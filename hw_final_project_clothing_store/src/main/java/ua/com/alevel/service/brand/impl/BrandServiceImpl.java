@@ -13,7 +13,9 @@ import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.clothes.ClothesService;
 import ua.com.alevel.util.WebResponseUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -31,7 +33,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void create(Brand entity) {
-
+        crudRepositoryHelper.create(brandRepository, entity);
     }
 
     @Override
@@ -66,7 +68,17 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Brand findByName(String brandName) {
+    public Optional<Brand> findByName(String brandName) {
         return brandRepository.findBrandByName(brandName);
+    }
+
+    @Override
+    public Map<Long, String> findAll() {
+        List<Brand> brands = brandRepository.findAll();
+        Map<Long, String> map = new HashMap<>();
+        for (Brand brand : brands) {
+            map.put(brand.getId(), brand.getName());
+        }
+        return map;
     }
 }

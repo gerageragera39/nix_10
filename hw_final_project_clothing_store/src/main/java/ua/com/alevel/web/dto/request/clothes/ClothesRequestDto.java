@@ -19,14 +19,15 @@ public class ClothesRequestDto extends RequestDto {
     private String type;
     private String description;
     private String compound;
-    private Set<Image> images;
+    private String imageUrl;
     private String brandName;
+    private Long brandId;
+    private String clg;
 
     private String removeColor;
     private String removeSize;
 
     public ClothesRequestDto() {
-        this.images = new HashSet<>();
     }
 
     public String getTitle() {
@@ -77,12 +78,12 @@ public class ClothesRequestDto extends RequestDto {
         this.compound = compound;
     }
 
-    public Set<Image> getImages() {
-        return images;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImages(Set<Image> images) {
-        this.images = images;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getBrandName() {
@@ -123,5 +124,21 @@ public class ClothesRequestDto extends RequestDto {
 
     public void setRemoveSize(String removeSize) {
         this.removeSize = removeSize;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Long brandId) {
+        this.brandId = brandId;
+    }
+
+    public String getClg() {
+        return clg;
+    }
+
+    public void setClg(String clg) {
+        this.clg = clg;
     }
 }

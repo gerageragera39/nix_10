@@ -24,7 +24,7 @@ public class LogoServiceImpl implements LogoService {
 
     @Override
     public void create(Logo entity) {
-
+        crudRepositoryHelper.create(logoRepository, entity);
     }
 
     @Override

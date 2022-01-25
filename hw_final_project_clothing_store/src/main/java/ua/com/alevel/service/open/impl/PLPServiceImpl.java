@@ -20,10 +20,7 @@ import ua.com.alevel.persistence.thing_type.ThingTypes;
 import ua.com.alevel.service.open.PLPService;
 import ua.com.alevel.util.WebUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PLPServiceImpl implements PLPService {
@@ -189,30 +186,49 @@ public class PLPServiceImpl implements PLPService {
                 : Sort.by(sortBy).ascending();
         PageRequest pageRequest = PageRequest.of(page, size, sort);
 
+        List<Long> longs = new ArrayList<>();
+
         List<Clothes> clothes = new ArrayList<>();
         //must not be null
         String clothesSearch = null;
         if (dataTableRequest.getRequestParamMap().get(WebUtil.SEARCH_CLOTHES_PARAM) != null) {
             clothesSearch = (String) dataTableRequest.getRequestParamMap().get(WebUtil.SEARCH_CLOTHES_PARAM);
-            clothes.addAll(clothesRepository.findAllByTitleContaining(clothesSearch, pageRequest));
+            clothes.addAll(clothesRepository.findAllByTitleContainingAndVisibleTrue(clothesSearch.toLowerCase(), pageRequest));
+            longs.addAll(clothesRepository.findAllClothesIdByTitleContainingAndVisibleTrue(clothesSearch.toLowerCase()));
         }
 
         Long brandId = null;
         if (dataTableRequest.getRequestParamMap().get(WebUtil.BRAND_PARAM) != null) {
             brandId = Long.parseLong(String.valueOf(dataTableRequest.getRequestParamMap().get(WebUtil.BRAND_PARAM)));
-            clothes.addAll(clothesRepository.findAllByBrandId(brandId, pageRequest));
+            clothes.addAll(clothesRepository.findAllByBrandIdAndVisibleTrue(brandId, pageRequest));
+            longs.addAll(clothesRepository.findAllClothesIdByBrandIdAndVisibleTrue(brandId));
         }
 
         Long colorId = null;
         if (dataTableRequest.getRequestParamMap().get(WebUtil.COLOR_PARAM) != null) {
             colorId = Long.parseLong(String.valueOf(dataTableRequest.getRequestParamMap().get(WebUtil.COLOR_PARAM)));
-            clothes.addAll(clothesRepository.findAllByColorsContains(colorRepository.findById(colorId).get(), pageRequest));
+            clothes.addAll(clothesRepository.findAllByColorsContainsAndVisibleTrue(colorRepository.findById(colorId).get(), pageRequest));
+//            List<Clothes> clothesList = clothesRepository.findAllByColorsContainsAndVisibleTrue(colorRepository.findById(colorId).get());
+//            for (Clothes thing : clothesList) {
+//                longs.add(thing.getId());
+//            }
+
+            List<Clothes> clothesList = colorRepository.findById(colorId).get().getClothes().stream().toList();
+            for (Clothes thing : clothesList) {
+                longs.add(thing.getId());
+            }
         }
 
         Long sizeId = null;
         if (dataTableRequest.getRequestParamMap().get(WebUtil.CLOTHES_SIZE_PARAM) != null) {
             sizeId = Long.parseLong(String.valueOf(dataTableRequest.getRequestParamMap().get(WebUtil.CLOTHES_SIZE_PARAM)));
-            clothes.addAll(clothesRepository.findAllBySizesContains(sizeRepository.findById(sizeId).get(), pageRequest));
+            clothes.addAll(clothesRepository.findAllBySizesContainsAndVisibleTrue(sizeRepository.findById(sizeId).get(), pageRequest));
+//            List<Clothes> clothesList = clothesRepository.findAllBySizesContainsAndVisibleTrue(sizeRepository.findById(sizeId).get());
+
+            List<Clothes> clothesList = sizeRepository.findById(sizeId).get().getThings().stream().toList();
+            for (Clothes thing : clothesList) {
+                longs.add(thing.getId());
+            }
         }
 
         int sexId = 0;
@@ -221,10 +237,11 @@ public class PLPServiceImpl implements PLPService {
             Sexes sex;
             try {
                 sex = Sexes.values()[sexId];
+                longs.addAll(clothesRepository.findAllClothesIdBySexEqualsAndVisibleTrue(sex));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new EntityNotFoundException("bad request");
             }
-            clothes.addAll(clothesRepository.findAllBySexEquals(sex, pageRequest));
+            clothes.addAll(clothesRepository.findAllBySexEqualsAndVisibleTrue(sex, pageRequest));
         }
 
         int typeId = 0;
@@ -233,17 +250,17 @@ public class PLPServiceImpl implements PLPService {
             ThingTypes type;
             try {
                 type = ThingTypes.values()[typeId];
+                longs.addAll(clothesRepository.findAllClothesIdByTypeEqualsAndVisibleTrue(type));
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new EntityNotFoundException("bad request");
             }
-            clothes.addAll(clothesRepository.findAllByTypeEquals(type, pageRequest));
+            clothes.addAll(clothesRepository.findAllByTypeEqualsAndVisibleTrue(type, pageRequest));
         }
-
 
         if (dataTableRequest.getRequestParamMap().get(WebUtil.SEARCH_CLOTHES_PARAM) != null) {
             List<Clothes> tempList = new ArrayList<>();
             for (Clothes thing : clothes) {
-                if (thing.getTitle().toLowerCase().contains(clothesSearch)) {
+                if (thing.getTitle().toLowerCase().contains(clothesSearch.toLowerCase())) {
                     tempList.add(thing);
                 }
             }
@@ -316,6 +333,7 @@ public class PLPServiceImpl implements PLPService {
                 for (Clothes item : items) {
                     if (thing.equals(item)) {
                         uniq = false;
+                        break;
                     }
                 }
                 if(uniq) {
@@ -324,9 +342,26 @@ public class PLPServiceImpl implements PLPService {
             }
         }
 
+        List<Long> uniqLongs = new ArrayList<>();
+        if (longs.size() != 0) {
+            uniqLongs.add(longs.get(0));
+            for (Long l : longs) {
+                boolean uniq = true;
+                for (Long item : uniqLongs) {
+                    if (l.equals(item)) {
+                        uniq = false;
+                        break;
+                    }
+                }
+                if(uniq) {
+                    uniqLongs.add(l);
+                }
+            }
+        }
+
         DataTableResponse<Clothes> dataTableResponse = initDataTableResponse(dataTableRequest, items, sortBy, orderBy);
-//        dataTableResponse.setItemsSize(clothesRepository.countAllByTypeEquals(type));
-        dataTableResponse.setItemsSize(clothes.size());
+
+        dataTableResponse.setItemsSize(uniqLongs.size());
         return dataTableResponse;
     }
 }

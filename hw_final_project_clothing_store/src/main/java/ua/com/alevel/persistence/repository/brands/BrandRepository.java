@@ -6,9 +6,10 @@ import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.repository.BaseRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BrandRepository extends BaseRepository<Brand> {
 
-    Brand findBrandByName(String name);
+    Optional<Brand> findBrandByName(String name);
 }

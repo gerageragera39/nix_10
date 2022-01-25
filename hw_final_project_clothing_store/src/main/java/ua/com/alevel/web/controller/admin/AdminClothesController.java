@@ -5,9 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ua.com.alevel.facade.brands.BrandFacade;
 import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.facade.clothes.ImageFacade;
 import ua.com.alevel.persistence.sex.Sexes;
@@ -41,10 +40,12 @@ public class AdminClothesController extends AbstractController {
 
     private final ClothesFacade clothesFacade;
     private final ImageFacade imageFacade;
+    private final BrandFacade brandFacade;
 
-    public AdminClothesController(ClothesFacade clothesFacade, ImageFacade imageFacade) {
+    public AdminClothesController(ClothesFacade clothesFacade, ImageFacade imageFacade, BrandFacade brandFacade) {
         this.clothesFacade = clothesFacade;
         this.imageFacade = imageFacade;
+        this.brandFacade = brandFacade;
     }
 
     @GetMapping
@@ -64,12 +65,15 @@ public class AdminClothesController extends AbstractController {
 
     @GetMapping("/new")
     public String redirectToNewBookPage(Model model) {
-        model.addAttribute("book", new ClothesResponseDto());
+        model.addAttribute("thing", new ClothesRequestDto());
+        model.addAttribute("sexes", Sexes.values());
+        model.addAttribute("types", ThingTypes.values());
+        model.addAttribute("brands", brandFacade.findAll());
         return "pages/admin/clothes/clothes_new";
     }
 
     @PostMapping("/create")
-    public String createNewDepartment(RedirectAttributes attributes, @ModelAttribute("thing") ClothesRequestDto dto, @RequestParam("file") MultipartFile file) {
+    public String createNewDepartment( @ModelAttribute("thing") ClothesRequestDto dto) {
         clothesFacade.create(dto);
         return "redirect:/admin/clothes";
     }

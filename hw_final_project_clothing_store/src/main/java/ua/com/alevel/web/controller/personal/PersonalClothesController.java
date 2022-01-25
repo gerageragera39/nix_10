@@ -12,6 +12,7 @@ import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.facade.products.ProductFacade;
 import ua.com.alevel.facade.users.PersonalFacade;
 import ua.com.alevel.persistence.entity.clothes.Image;
+import ua.com.alevel.persistence.sex.Sexes;
 import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.util.WebUtil;
 import ua.com.alevel.web.controller.AbstractController;
@@ -48,7 +49,13 @@ public class PersonalClothesController extends AbstractController {
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);
         model.addAttribute("clothes", clothesList);
-        if(response.getItems().size() == 1) {
+        model.addAttribute("brands", plpFacade.findAllBrands());
+        model.addAttribute("types", plpFacade.findAllTypes());
+        model.addAttribute("sexes", Sexes.values());
+        model.addAttribute("colors", plpFacade.findAllColors());
+        model.addAttribute("sizes", plpFacade.findAllSizes());
+        if(webRequest.getParameterMap().get("search_clothes") != null &&
+                response.getItems().size() == 1) {
             return "redirect:/personal/clothes/product/" + response.getItems().get(0).getId();
         }
         return "pages/personals/clothes/clothes_all";

@@ -8,6 +8,8 @@ import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
 import ua.com.alevel.persistence.entity.brands.Brand;
 import ua.com.alevel.persistence.entity.brands.Logo;
+import ua.com.alevel.persistence.entity.clothes.Clothes;
+import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.service.brand.BrandService;
 import ua.com.alevel.service.brand.LogoService;
 import ua.com.alevel.util.WebRequestUtil;
@@ -18,6 +20,7 @@ import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.brands.BrandResponseDto;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,7 +37,22 @@ public class BrandFacadeImpl implements BrandFacade {
 
     @Override
     public void create(BrandsRequestDto brandsRequestDto) {
+        Brand brand = new Brand();
+        brand.setName(brandsRequestDto.getName());
+        brandService.create(brand);
 
+        Logo logo = new Logo();
+        if (StringUtils.isBlank(brandsRequestDto.getLogoUrl())) {
+            logo.setUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Icon_None.svg/1200px-Icon_None.svg.png");
+        } else {
+            logo.setUrl(brandsRequestDto.getLogoUrl());
+        }
+        Optional<Brand> optionalBrand = brandService.findByName(brandsRequestDto.getName());
+        if(optionalBrand.isPresent()) {
+            Brand brand1 = optionalBrand.get();
+            logo.setBrand(brand1);
+            logoService.create(logo);
+        }
     }
 
     @Override
@@ -88,5 +106,10 @@ public class BrandFacadeImpl implements BrandFacade {
         pageData.setItemsSize(dataTableResponse.getItemsSize());
         pageData.initPaginationState();
         return pageData;
+    }
+
+    @Override
+    public Map<Long, String> findAll() {
+        return brandService.findAll();
     }
 }

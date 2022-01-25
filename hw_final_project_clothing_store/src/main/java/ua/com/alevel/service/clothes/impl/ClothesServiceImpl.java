@@ -1,5 +1,8 @@
 package ua.com.alevel.service.clothes.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -71,18 +74,25 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
-    public DataTableResponse<Clothes> findAll(DataTableRequest request) {
-//        DataTableResponse<Clothes> dataTableResponse = crudRepositoryHelper.findAll(clothesRepository, request);
-//        int count = clothesRepository.countAllByVisibleTrue();
-////        WebUtil.initDataTableResponse(request, dataTableResponse, count);
-//        return dataTableResponse;
-//        int page = 0;
-//        int size = 2;
-//        Pageable pageable = PageRequest.of(page, size);
-//        List<String> strings = clothesRepository.findAllNames(pageable);
-        DataTableResponse<Clothes> dataTableResponse = crudRepositoryHelper.findAll(clothesRepository, request);
-        long count = clothesRepository.countAllByVisibleTrue();
-        WebResponseUtil.initDataTableResponse(request, dataTableResponse, count);
+    public DataTableResponse<Clothes> findAll(DataTableRequest dataTableRequest) {
+        int page = dataTableRequest.getPage() - 1;
+        int size = dataTableRequest.getSize();
+        String sortBy = dataTableRequest.getSort();
+        String orderBy = dataTableRequest.getOrder();
+        Sort sort = orderBy.equals("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        List<Clothes> items = clothesRepository.findAll(pageRequest).getContent();
+        DataTableResponse<Clothes> dataTableResponse = new DataTableResponse<>();
+        dataTableResponse.setItems(items);
+        dataTableResponse.setOrder(orderBy);
+        dataTableResponse.setSort(sortBy);
+        dataTableResponse.setCurrentPage(dataTableRequest.getPage());
+        dataTableResponse.setPageSize(dataTableRequest.getSize());
+        dataTableResponse.setItemsSize(clothesRepository.count());
+        long count = clothesRepository.count();
+        WebResponseUtil.initDataTableResponse(dataTableRequest, dataTableResponse, count);
         return dataTableResponse;
     }
 
@@ -105,5 +115,10 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public List<Color> findAllColors() {
         return colorRepository.findAll();
+    }
+
+    @Override
+    public Optional<Clothes> findByClg(String clg) {
+        return clothesRepository.findClothesByCLG(clg);
     }
 }
