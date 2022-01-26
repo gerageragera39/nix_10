@@ -83,4 +83,9 @@ public class BrandServiceImpl implements BrandService {
         }
         return map;
     }
+
+    @Override
+    public boolean existByName(String name) {
+        return brandRepository.existsByName(name);
+    }
 }

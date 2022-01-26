@@ -49,6 +49,10 @@ public class PLPController extends AbstractController {
                 response.getItems().size() == 1) {
             return "redirect:/clothes/product/" + response.getItems().get(0).getId();
         }
+
+        if (response.getItems().size() == 0) {
+            return "pages/open/empty_plp";
+        }
         return "pages/open/plp";
     }
 
@@ -89,5 +93,10 @@ public class PLPController extends AbstractController {
     @GetMapping("/test")
     private String test() {
         return "test";
+    }
+
+    @GetMapping("/main")
+    private String main() {
+        return "pages/open/plp_main_page";
     }
 }

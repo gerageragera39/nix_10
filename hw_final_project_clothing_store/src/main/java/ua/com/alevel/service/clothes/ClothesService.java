@@ -18,4 +18,6 @@ public interface ClothesService extends BaseService<Clothes> {
     List<Color> findAllColors();
 
     Optional<Clothes> findByClg(String clg);
+
+    boolean existByClg(String clg);
 }

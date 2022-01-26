@@ -3,6 +3,7 @@ package ua.com.alevel.facade.clothes.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.exception.NotUniqueException;
 import ua.com.alevel.facade.clothes.ClothesFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -58,19 +59,23 @@ public class ClothesFacadeImpl implements ClothesFacade {
         clothes.setTitle(clothesRequestDto.getTitle());
         clothes.setType(ThingTypes.valueOf(clothesRequestDto.getType()));
 
-        clothesService.create(clothes);
+        if (!clothesService.existByClg(clothes.getCLG())) {
+            clothesService.create(clothes);
 
-        Image image = new Image();
-        if (StringUtils.isBlank(clothesRequestDto.getImageUrl())) {
-            image.setUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Icon_None.svg/1200px-Icon_None.svg.png");
+            Image image = new Image();
+            if (StringUtils.isBlank(clothesRequestDto.getImageUrl())) {
+                image.setUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Icon_None.svg/1200px-Icon_None.svg.png");
+            } else {
+                image.setUrl(clothesRequestDto.getImageUrl());
+            }
+            Optional<Clothes> optionalThing = clothesService.findByClg(clothesRequestDto.getClg());
+            if(optionalThing.isPresent()) {
+                Clothes thing = optionalThing.get();
+                image.setThing(thing);
+                imageService.create(image);
+            }
         } else {
-            image.setUrl(clothesRequestDto.getImageUrl());
-        }
-        Optional<Clothes> optionalThing = clothesService.findByClg(clothesRequestDto.getClg());
-        if(optionalThing.isPresent()) {
-            Clothes thing = optionalThing.get();
-            image.setThing(thing);
-            imageService.create(image);
+            throw new NotUniqueException("CLG is not unique");
         }
     }
 

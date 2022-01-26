@@ -182,7 +182,7 @@ public class PLPServiceImpl implements PLPService {
                 sex = Sexes.values()[sexId];
                 longs.addAll(clothesRepository.findAllClothesIdBySexEqualsAndVisibleTrue(sex));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new EntityNotFoundException("bad request");
+                throw new EntityNotFoundException("Product is not found");
             }
             clothes.addAll(clothesRepository.findAllBySexEqualsAndVisibleTrue(sex, pageRequest));
             numOfRepeat++;
@@ -196,7 +196,7 @@ public class PLPServiceImpl implements PLPService {
                 type = ThingTypes.values()[typeId];
                 longs.addAll(clothesRepository.findAllClothesIdByTypeEqualsAndVisibleTrue(type));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new EntityNotFoundException("bad request");
+                throw new EntityNotFoundException("Product is not found");
             }
             clothes.addAll(clothesRepository.findAllByTypeEqualsAndVisibleTrue(type, pageRequest));
             numOfRepeat++;

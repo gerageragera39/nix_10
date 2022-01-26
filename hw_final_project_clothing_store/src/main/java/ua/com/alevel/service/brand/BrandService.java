@@ -12,4 +12,6 @@ public interface BrandService extends BaseService<Brand> {
     Optional<Brand> findByName(String brandName);
 
     Map<Long, String> findAll();
+
+    boolean existByName(String name);
 }

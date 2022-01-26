@@ -64,4 +64,6 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
 
     @Query("select c.id from Clothes c where c.type = :type and c.visible = true ")
     List<Long> findAllClothesIdByTypeEqualsAndVisibleTrue(@Param("type")ThingTypes type);
+
+    boolean existsByCLG(String clg);
 }

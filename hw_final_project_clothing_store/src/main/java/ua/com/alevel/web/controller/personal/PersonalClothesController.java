@@ -119,4 +119,9 @@ public class PersonalClothesController extends AbstractController {
         model.addAttribute("totalPrice", productFacade.findTotalPrice());
         return "pages/personals/basket";
     }
+
+    @GetMapping("/main")
+    private String main() {
+        return "pages/personals/personals_main_page";
+    }
 }

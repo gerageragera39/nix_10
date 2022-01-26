@@ -20,11 +20,16 @@
                     <span></span>
                 </label>
                 <ul class="menu__box">
-                    <li><a class="menu__item" href="#">Главная</a></li>
-                    <li><a class="menu__item" href="#">Проекты</a></li>
-                    <li><a class="menu__item" href="#">Команда</a></li>
-                    <li><a class="menu__item" href="#">Блог</a></li>
-                    <li><a class="menu__item" href="#">Контакты</a></li>
+                    <li><a class="menu__item" th:href="@{clothes + '?sex=0'}">Male</a></li>
+                    <li><a class="menu__item" th:href="@{clothes + '?sex=1'}">Female</a></li>
+                    <li><a class="menu__item" th:href="@{clothes + '?sex=2'}">Unisex</a></li>
+                    <li><a class="menu__item"></a></li>
+                    <li><a class="menu__item" th:href="@{clothes/main}">Main</a></li>
+                    <li><a class="menu__item" href="#">Projects</a></li>
+                    <li><a class="menu__item" href="#">About</a></li>
+                    <li><a class="menu__item" href="#">Contacts</a></li>
+                    <li><a class="menu__item"></a></li>
+                    <li><a class="menu__item" th:href="@{/login}">Login</a></li>
                 </ul>
             </div>
 

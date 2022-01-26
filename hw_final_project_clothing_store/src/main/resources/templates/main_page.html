@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<header id="header" class="header">
+    <div class="container">
+        <div class="nav">
+            <img src="https://i.pinimg.com/originals/a0/d3/fc/a0d3fce1eb992ac9af288bb63f7ada4f.png" alt="Logo" class="logo" style="width: 50px">
+            <ul class="menu">
+                <li>
+                    <a href="#">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Contacts
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/login}">
+                        Login
+                    </a>
+                </li>
+            </ul>
+            <a href="tel:+380689202222" class="tel">
+                +38 068 920 22 22
+            </a>
+        </div>
+        <div class="offer">
+            <p>
+                Allow yourself more style.</p>
+            <h1>
+                Clothing Store
+            </h1>
+            <a th:href="@{/clothes}" class="btn">Go shopping</a>
+        </div>
+    </div>
+</header>
+<section id="about" class="about">
+    <div class="container">
+        <h2>About us</h2>
+        <div class="description">
+            <div class="desc-left">
+                <h3>How are we ?</h3>
+                <p>
+                    We launched in 2006 and have been your fashion bestie ever since.
+
+                    Style never sleeps and neither do we – we're 24/7, dropping over 500 new products a week, so you always have the latest looks for less. We make fashion accessible and fun, so every girl can get the wardrobe of her dreams.
+
+                    One thing we love more than your amazing style is your individuality – we want to help you show it off, do your thing and look incredible at the same time.
+                </p>
+            </div>
+            <div class="desc-right">
+                <h3>OUR CHARITY STRATEGY</h3>
+                <p>
+                    We all know it's better to give than receive, which is why our charity programme is so important to us.
+
+                    We’ve held charity sample sales, coffee mornings, bake sales, charity-shop takeovers, swap shops, sponsored challenges and much more.
+
+                    We’ve developed collections and made charitable donations to amazing causes including Pride and Breast Cancer Awareness Month with Coppa Feel.
+                </p>
+            </div>
+        </div>
+        <div class="gallery">
+            <img src="https://svitlotech.com.ua/wp-content/uploads/osveshhenie-magazinov-odezhdy.jpg" alt="Event photo 1" style="width: 350px">
+            <img src="https://epicris.ru/wp-content/uploads/2019/03/rejting-top-10-internet-magazinov-odezhdy.jpg" alt="Event photo 2" style="width: 350px">
+            <img src="https://povod.com.ua/images/usa-shop.png" alt="Event photo 3" style="width: 350px">
+        </div>
+    </div>
+</section>
+<footer id="footer" class="footer">
+    <div class="container">
+        <div class="footer-text">
+            <p>
+                ©2021-2022 nix10 project
+            </p>
+            <p>
+                German Digtenko & Iegor Funtusov
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

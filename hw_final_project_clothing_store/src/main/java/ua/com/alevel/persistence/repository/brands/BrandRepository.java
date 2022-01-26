@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface BrandRepository extends BaseRepository<Brand> {
 
     Optional<Brand> findBrandByName(String name);
+
+    boolean existsByName(String name);
 }

@@ -12,6 +12,7 @@ import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class PDPController extends AbstractController {
     }
 
     @GetMapping("/{id}")
-    public String details(@PathVariable Long id, Model model) {
+    public String details(@PathVariable @Min(value = 1, message = "incorrect id") Long id, Model model) {
         ClothesResponseDto dto = plpFacade.findById(id);
         List<Image> images = dto.getImages();
         List<Image> imageList = new ArrayList<>();

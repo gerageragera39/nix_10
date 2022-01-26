@@ -327,6 +327,123 @@ insert into color_thing values (12, 15);
 insert into size_thing values (3, 15);
 insert into size_thing values (4, 15);
 
+insert into clothes values (16, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 842685,
+                            '100% Polyester. Machine wash. Model wears UK size 16',
+                            'Style: Blazer
+Design: Woven Tab
+Fabric: Woven
+Length: Regular
+Neckline: Collared
+Sleeve Length: Long Sleeve',
+                            1500, 100, 'Female', 'Plus Stretch Woven Ruched Sleeve Blazer', 'Jacket', 11);
+
+insert into images values (31, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz06563_rose_xl/rose-pink-plus-stretch-woven-ruched-sleeve-blazer?$product_image_main$', 16);
+insert into images values (32, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz06563_rose_xl_1/rose-pink-plus-stretch-woven-ruched-sleeve-blazer?$product_image_main$', 16);
+
+insert into color_thing values (1, 16);
+insert into color_thing values (6, 16);
+
+insert into size_thing values (3, 16);
+insert into size_thing values (4, 16);
+
+insert into clothes values (17, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 793478,
+                              '95% Polyester 5% Elastane. Machine Wash. Model wears UK size 16.',
+                              'Style: Blazer
+Design: Plain
+Fabric: Jersey',
+                               2000, 45, 'Female', 'Plus Lapel Detail Ruched Sleeve Blazer', 'Jacket', 12);
+
+insert into images values (33, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz72824_black_xl/black-plus-lapel-detail-ruched-sleeve-blazer?$product_image_main$', 17);
+insert into images values (34, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz72824_black_xl_1/black-plus-lapel-detail-ruched-sleeve-blazer?$product_image_main$', 17);
+
+insert into color_thing values (3, 17);
+insert into color_thing values (11, 17);
+
+insert into size_thing values (3, 17);
+insert into size_thing values (2, 17);
+
+insert into clothes values (18, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 512220,
+                              '95% Polyester. 5% Elastane. Machine Wash. Model wears UK size 16.',
+                              'Style: Blazer
+Design: Plain
+Fabric: Woven
+Sleeve Length: Long Sleeve',
+                              700, 30, 'Female', 'Plus Ruched Sleeve Blazer', 'Jacket', 13);
+
+insert into images values (35, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz77316_black_xl/black-plus-ruched-sleeve-blazer?$product_image_main$', 18);
+insert into images values (36, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz77316_black_xl_1/black-plus-ruched-sleeve-blazer?$product_image_main$', 18);
+
+insert into color_thing values (8, 18);
+insert into color_thing values (9, 18);
+
+insert into size_thing values (4, 18);
+insert into size_thing values (5, 18);
+
+insert into clothes values (19, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 745002,
+                              '100% Cotton. Machine Washable. Model Wears UK Size 10. Keep Away From Fire.',
+                              'Style: Skinny Jeans
+Design: Plain
+Fabric: Denim',
+                              999 , 100, 'Female', 'Butt Shaper Mid Rise Skinny Jeans', 'Jeans', 14);
+
+insert into images values (37, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/dzz11660_mid%20blue_xl/mid-blue-blue-butt-shaper-mid-rise-skinny-jeans?$product_image_main$', 19);
+insert into images values (38, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/dzz11660_mid%20blue_xl_1/mid-blue-blue-butt-shaper-mid-rise-skinny-jeans?$product_image_main$', 19);
+
+insert into color_thing values (7, 19);
+insert into color_thing values (12, 19);
+
+insert into size_thing values (3, 19);
+insert into size_thing values (5, 19);
+
+insert into clothes values (20, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 154398,
+                              'Machine Washable. 95% Polyester 5% Elastane. Model Wears UK Size 10',
+                              'Style: Bodysuit
+Fabric: Jersey
+Sleeve Length: Sleeveless',
+                               1950, 200, 'Female', 'Slinky Double Layer Scoop Sleeveless Bodysuit', 'Jeans', 15);
+
+insert into images values (39, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/fzz99459_black_xl/black-slinky-double-layer-scoop-sleeveless-bodysuit?$product_image_main$', 20);
+insert into images values (40, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/fzz99459_black_xl_3/black-slinky-double-layer-scoop-sleeveless-bodysuit?$product_image_main$', 20);
+
+insert into color_thing values (3, 20);
+insert into color_thing values (10, 20);
+
+insert into size_thing values (3, 20);
+insert into size_thing values (6, 20);
+
+
+insert into clothes values (21, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 893481,
+                              '95% Cotton 5% Elastane. Measurement not Worn: Total Length 31cm/12". (Measured On UK Size 6). Machine Wash. Model Wears UK Size 6.',
+                              'Style: Denim Shorts
+Fabric: Denim',
+                               500, 26, 'Female', 'Petite High Rise Distressed Denim Shorts', 'Shorts', 16);
+
+insert into images values (41, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz90137_black_xl/black-petite-high-rise-distressed-denim-shorts?$product_image_main$', 21);
+insert into images values (42, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz90137_black_xl_1/black-petite-high-rise-distressed-denim-shorts?$product_image_main$', 21);
+
+insert into color_thing values (4, 21);
+insert into color_thing values (8, 21);
+
+insert into size_thing values (4, 21);
+insert into size_thing values (5, 21);
+
+
+
+
+# insert into clothes values (, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, ,
+#                             '',
+#                             '',
+#                             , , '', '', '', );
+#
+# insert into images values (, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', );
+# insert into images values (, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', );
+#
+# insert into color_thing values (, );
+# insert into color_thing values (, );
+#
+# insert into size_thing values (, );
+# insert into size_thing values (, );
+
 # insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1,
 #                             '',
 #                             '',

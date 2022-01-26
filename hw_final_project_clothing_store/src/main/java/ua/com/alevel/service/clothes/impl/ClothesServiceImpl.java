@@ -120,4 +120,9 @@ public class ClothesServiceImpl implements ClothesService {
     public Optional<Clothes> findByClg(String clg) {
         return clothesRepository.findClothesByCLG(clg);
     }
+
+    @Override
+    public boolean existByClg(String clg) {
+        return clothesRepository.existsByCLG(clg);
+    }
 }

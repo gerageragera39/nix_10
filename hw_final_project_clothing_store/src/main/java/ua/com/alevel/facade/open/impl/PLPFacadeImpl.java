@@ -3,6 +3,7 @@ package ua.com.alevel.facade.open.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.exception.BadRequestException;
 import ua.com.alevel.exception.EntityNotFoundException;
 import ua.com.alevel.facade.open.PLPFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
@@ -37,7 +38,7 @@ public class PLPFacadeImpl implements PLPFacade {
         if (request.getParameterMap().get(WebUtil.BRAND_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.BRAND_PARAM);
             if (StringUtils.isBlank(params[0])) {
-                throw new EntityNotFoundException("bad request");
+                throw new BadRequestException("bad request");
             }
             Long publisherId = Long.parseLong(params[0]);
             queryMap.put(WebUtil.BRAND_PARAM, publisherId);
@@ -45,7 +46,7 @@ public class PLPFacadeImpl implements PLPFacade {
         if (request.getParameterMap().get(WebUtil.SEARCH_CLOTHES_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.SEARCH_CLOTHES_PARAM);
             if (StringUtils.isBlank(params[0])) {
-                throw new EntityNotFoundException("bad request");
+                throw new BadRequestException("bad request");
             }
             String searchClothes = params[0];
             queryMap.put(WebUtil.SEARCH_CLOTHES_PARAM, searchClothes);
@@ -53,7 +54,7 @@ public class PLPFacadeImpl implements PLPFacade {
         if (request.getParameterMap().get(WebUtil.COLOR_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.COLOR_PARAM);
             if (StringUtils.isBlank(params[0])) {
-                throw new EntityNotFoundException("bad request");
+                throw new BadRequestException("bad request");
             }
             String color = params[0];
             queryMap.put(WebUtil.COLOR_PARAM, color);
@@ -61,7 +62,7 @@ public class PLPFacadeImpl implements PLPFacade {
         if (request.getParameterMap().get(WebUtil.CLOTHES_SIZE_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.CLOTHES_SIZE_PARAM);
             if (StringUtils.isBlank(params[0])) {
-                throw new EntityNotFoundException("bad request");
+                throw new BadRequestException("bad request");
             }
             String color = params[0];
             queryMap.put(WebUtil.CLOTHES_SIZE_PARAM, color);
@@ -69,7 +70,7 @@ public class PLPFacadeImpl implements PLPFacade {
         if (request.getParameterMap().get(WebUtil.SEX_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.SEX_PARAM);
             if (StringUtils.isBlank(params[0])) {
-                throw new EntityNotFoundException("bad request");
+                throw new BadRequestException("bad request");
             }
             String searchClothes = params[0];
             queryMap.put(WebUtil.SEX_PARAM, searchClothes);
@@ -77,7 +78,7 @@ public class PLPFacadeImpl implements PLPFacade {
         if (request.getParameterMap().get(WebUtil.TYPE_PARAM) != null) {
             String[] params = request.getParameterMap().get(WebUtil.TYPE_PARAM);
             if (StringUtils.isBlank(params[0])) {
-                throw new EntityNotFoundException("bad request");
+                throw new BadRequestException("bad request");
             }
             String searchClothes = params[0];
             queryMap.put(WebUtil.TYPE_PARAM, searchClothes);

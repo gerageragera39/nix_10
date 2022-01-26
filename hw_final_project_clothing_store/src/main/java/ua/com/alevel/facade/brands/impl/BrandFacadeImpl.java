@@ -3,6 +3,7 @@ package ua.com.alevel.facade.brands.impl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
+import ua.com.alevel.exception.NotUniqueException;
 import ua.com.alevel.facade.brands.BrandFacade;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -37,19 +38,24 @@ public class BrandFacadeImpl implements BrandFacade {
     public void create(BrandsRequestDto brandsRequestDto) {
         Brand brand = new Brand();
         brand.setName(brandsRequestDto.getName());
-        brandService.create(brand);
 
-        Logo logo = new Logo();
-        if (StringUtils.isBlank(brandsRequestDto.getLogoUrl())) {
-            logo.setUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Icon_None.svg/1200px-Icon_None.svg.png");
+        if (!brandService.existByName(brandsRequestDto.getName())) {
+            brandService.create(brand);
+
+            Logo logo = new Logo();
+            if (StringUtils.isBlank(brandsRequestDto.getLogoUrl())) {
+                logo.setUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Icon_None.svg/1200px-Icon_None.svg.png");
+            } else {
+                logo.setUrl(brandsRequestDto.getLogoUrl());
+            }
+            Optional<Brand> optionalBrand = brandService.findByName(brandsRequestDto.getName());
+            if (optionalBrand.isPresent()) {
+                Brand brand1 = optionalBrand.get();
+                logo.setBrand(brand1);
+                logoService.create(logo);
+            }
         } else {
-            logo.setUrl(brandsRequestDto.getLogoUrl());
-        }
-        Optional<Brand> optionalBrand = brandService.findByName(brandsRequestDto.getName());
-        if (optionalBrand.isPresent()) {
-            Brand brand1 = optionalBrand.get();
-            logo.setBrand(brand1);
-            logoService.create(logo);
+            throw new NotUniqueException("Name in not unique");
         }
     }
 
