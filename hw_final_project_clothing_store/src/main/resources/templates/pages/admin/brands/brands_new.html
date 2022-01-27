@@ -5,7 +5,7 @@
       layout:decorate="~{fragments/admin_layout}">
 <head>
     <meta charset="utf-8">
-    <title>Create Thing</title>
+    <title>Create Brand</title>
 </head>
 <body>
 
@@ -23,13 +23,13 @@
                         <div class="form-group">
                             <label for="title">Name</label>
                             <input type="text" class="form-control" id="title" aria-describedby="title"
-                                   placeholder="Enter title" th:field="*{name}">
+                                   placeholder="Enter name" th:field="*{name}">
                         </div>
 
                         <div class="form-group">
-                            <label for="clg">Title</label>
+                            <label for="clg">Logo Url</label>
                             <input type="text" class="form-control" id="clg" aria-describedby="clg"
-                                   placeholder="Enter CLG" th:field="*{logoUrl}">
+                                   placeholder="Enter url" th:field="*{logoUrl}">
                         </div>
 
                         <button type="submit" class="btn btn-primary">Create Brand</button>

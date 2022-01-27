@@ -66,7 +66,8 @@ function submitRequest(sort, order, page, size) {
                     kvp[i].startsWith('brand' + '=') ||
                     kvp[i].startsWith('color' + '=') ||
                     kvp[i].startsWith('search_clothes' + '=') ||
-                    kvp[i].startsWith('clothes_size' + '=')
+                    kvp[i].startsWith('clothes_size' + '=') ||
+                    kvp[i].startsWith('sex' + '=')
                     // kvp[i].startsWith('sort' + '=')
                 ){
                     let pair = kvp[i].split('=');

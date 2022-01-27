@@ -33,6 +33,10 @@ public class PersonalClothesController extends AbstractController {
     private final PersonalFacade personalFacade;
     private final PLPFacade plpFacade;
 
+    private final HeaderName[] columnNames = new HeaderName[]{
+            new HeaderName("price", "price", "price")
+    };
+
     public PersonalClothesController(ClothesFacade clothesFacade, ProductFacade productFacade, PersonalFacade personalFacade, PLPFacade plpFacade) {
         this.clothesFacade = clothesFacade;
         this.productFacade = productFacade;
@@ -44,6 +48,7 @@ public class PersonalClothesController extends AbstractController {
     private String allClothes(Model model, WebRequest webRequest) {
         PageData<ClothesPLPDto> response = plpFacade.findAll(webRequest);
         List<ClothesPLPDto> clothesList = response.getItems();
+        initDataTable(response, columnNames, model);
         model.addAttribute("createUrl", "/personal/clothes/all");
         model.addAttribute("cardHeader", "All Clothes");
         model.addAttribute("pageData", response);
@@ -118,10 +123,5 @@ public class PersonalClothesController extends AbstractController {
         model.addAttribute("products", productFacade.findByPersonalEmail(SecurityUtil.getUsername()));
         model.addAttribute("totalPrice", productFacade.findTotalPrice());
         return "pages/personals/basket";
-    }
-
-    @GetMapping("/main")
-    private String main() {
-        return "pages/personals/personals_main_page";
     }
 }

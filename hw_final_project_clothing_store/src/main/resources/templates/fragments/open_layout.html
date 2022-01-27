@@ -24,10 +24,9 @@
                     <li><a class="menu__item" th:href="@{clothes + '?sex=1'}">Female</a></li>
                     <li><a class="menu__item" th:href="@{clothes + '?sex=2'}">Unisex</a></li>
                     <li><a class="menu__item"></a></li>
-                    <li><a class="menu__item" th:href="@{clothes/main}">Main</a></li>
-                    <li><a class="menu__item" href="#">Projects</a></li>
-                    <li><a class="menu__item" href="#">About</a></li>
-                    <li><a class="menu__item" href="#">Contacts</a></li>
+                    <li><a class="menu__item" th:href="@{clothes/main}">Home</a></li>
+                    <li><a class="menu__item" th:href="@{clothes/about}">About</a></li>
+                    <li><a class="menu__item" th:href="@{clothes/contacts}">Contacts</a></li>
                     <li><a class="menu__item"></a></li>
                     <li><a class="menu__item" th:href="@{/login}">Login</a></li>
                 </ul>
@@ -112,7 +111,7 @@
                                         <th:block th:if="${columnHeader.isSortable()}">
                                             <th:block th:if="${columnHeader.isActive()}">
                                                 <span th:text="${columnHeader.getHeaderName()}"
-                                                      style="color: black; width: 300px"></span>
+                                                      style="color: white; width: 300px"></span>
                                                 <!--                                            <a th:text="${columnHeader.getHeaderName()}"></a>-->
                                                 <i th:if="${columnHeader.getOrder().equals('desc')}"
                                                    class="fa fa-sort-desc float-right sort" aria-hidden="true"

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+<header id="header" class="header">
+    <div class="container">
+        <div class="nav">
+            <img src="https://i.pinimg.com/originals/a0/d3/fc/a0d3fce1eb992ac9af288bb63f7ada4f.png" alt="Logo"
+                 class="logo" style="width: 50px">
+            <ul class="menu">
+                <li>
+                    <a th:href="@{/clothes/main}">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/clothes/about}">
+                        About
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/clothes}">
+                        Clothes
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/login}">
+                        Login
+                    </a>
+                </li>
+            </ul>
+            <a href="tel:+380689202222" class="tel">
+                +38 068 920 22 22
+            </a>
+        </div>
+
+        <section  class="story">
+            <div class="container">
+                <div class="about">
+                    <h2 style="color: black">
+                        OUR TELEPHONE NUMBER
+                    </h2>
+                    <div class="text" style="margin-bottom: 100px">
+                        <p  style="color: black">
+                            +38 (068) 920-22-22
+                        </p>
+                    </div>
+
+                    <h2 style="color: black">
+                        OUR E-MAIL
+                    </h2>
+                    <div class="text"  style="margin-bottom: 100px">
+                        <p  style="color: black">
+                            german030103@gmail.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+</header>
+
+<footer id="footer" class="footer">
+    <div class="container">
+        <div class="footer-text">
+            <p>
+                ©2021-2022 nix-10 project
+            </p>
+            <p>
+                German Digtenko & Iegor Funtusov
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

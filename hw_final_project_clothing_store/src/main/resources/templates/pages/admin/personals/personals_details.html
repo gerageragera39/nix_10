@@ -23,14 +23,6 @@
                             <th>Id</th>
                             <td th:text="${person.getId()}"></td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th>Title</th>-->
-<!--                            <td th:text="${person.getFirstName()}"></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Color</th>-->
-<!--                            <td th:text="${person.getLastName()}"></td>-->
-<!--                        </tr>-->
                         <tr>
                             <th>E-mail</th>
                             <td th:text="${person.getEmail()}"></td>
@@ -54,15 +46,6 @@
                         <tr>
                             <th>Enable</th>
                             <td th:text="${person.getEnabled()}"></td>
-<!--                            <td>-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>-->
-<!--                            </td>-->
-<!--                            <div>-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>-->
-
-<!--                            </div>-->
                         </tr>
                         <tr>
                             <th>Created</th>
@@ -75,24 +58,6 @@
                     </table>
                     <a type="button" class="btn btn-primary m-auto"
                        th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>
-<!--                    <div class="col-12">-->
-<!--                        <div class="card mt-2 mb-2">-->
-<!--                            <div class="card-header d-flex align-content-end flex-wrap">-->
-<!--                                <a type="button" class="btn btn-primary m-auto"-->
-<!--                                   th:href="@{'/admin/personals/change/' + ${person.getId()}}">Change enable status</a>-->
-<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                       th:href="@{'/accounts/allByUser/' + ${thing.getId()}}">Show all Accounts</a>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                       th:href="@{'/users/toRemove/' + ${thing.getId()}}">Delete Account</a>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                       th:href="@{'/transactions/allByUser/' + ${thing.getId()}}">Show all Transactions</a>&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                    <a type="button" class="btn btn-primary m-auto"&ndash;&gt;-->
-<!--    &lt;!&ndash;                                                       th:href="@{'/users/toUpdate/' + ${thing.getId()}}">Update User</a>&ndash;&gt;-->
-<!--                            </div>-->
-<!--&lt;!&ndash;                            <a type="button" class="btn btn-primary m-auto t-1"&ndash;&gt;-->
-<!--&lt;!&ndash;                               th:href="@{'/users/download/' + ${thing.getId()}}">Download User Statement</a>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>

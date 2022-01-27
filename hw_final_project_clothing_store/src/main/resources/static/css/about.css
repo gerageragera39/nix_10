@@ -1,0 +1,76 @@
+body{
+    margin:0;
+    padding: 0;
+}
+h1,h2,h3,h4{
+    margin:0;
+    padding: 0;
+    font-family: Gilroy-Bold;
+}
+p{
+    margin:0;
+    padding: 0;
+    font-family: Gilroy-Medium;
+}
+.container{
+    width: 950px;
+    margin: 0 auto;
+}
+.grey{
+    color:#828282;
+    margin-left:156px;
+}
+.grey:nth-child(5){
+    margin-left:auto;
+}
+.nav{
+    display: flex;
+    margin-top:33px;
+}
+.lang{
+    display: flex;
+    margin-left:auto;
+    transform: rotate(270deg);
+
+}
+.ru{
+    color:#828282;
+    margin-right:5px;
+}
+.name{
+
+    display: flex;
+    margin-top:40px;
+    margin-bottom: 31px;
+    margin-left:50px;
+}
+
+.name p{
+    margin-left:298px;
+    margin-top:35px;
+}
+header{
+    padding-bottom: 105px;
+}
+.story{
+    background: #F6F6F6;
+    text-align: center;
+}
+h2{
+    font-size: 34px;
+}
+.story p{
+    font-size: 18px;
+    margin-bottom:40px;
+}
+.story p:nth-child(3){
+    margin-bottom:0px;
+}
+.text{
+    margin-top:18px;
+}
+.about{
+    padding-top: 120px;
+    padding-bottom: 108px;
+
+}

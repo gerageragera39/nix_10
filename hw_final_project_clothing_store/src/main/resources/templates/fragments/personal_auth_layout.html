@@ -31,10 +31,9 @@
                             <li><a class="menu__item" th:href="@{clothes + '?sex=1'}">Female</a></li>
                             <li><a class="menu__item" th:href="@{clothes + '?sex=2'}">Unisex</a></li>
                             <li><a class="menu__item"></a></li>
-                            <li><a class="menu__item" th:href="@{clothes/main}">Main</a></li>
-                            <li><a class="menu__item" href="#">Projects</a></li>
-                            <li><a class="menu__item" href="#">About</a></li>
-                            <li><a class="menu__item" href="#">Contacts</a></li>
+                            <li><a class="menu__item" th:href="@{/personal/main}">Home</a></li>
+                            <li><a class="menu__item" th:href="@{/personal/about}">About</a></li>
+                            <li><a class="menu__item" th:href="@{/personal/contacts}">Contacts</a></li>
                             <li><a class="menu__item"></a></li>
                             <li><a class="menu__item" onclick="document.forms['logoutForm'].submit()">Logout</a></li>
                         </ul>
@@ -112,6 +111,40 @@
                                                 </ul>
                                             </ul>
                                         </div>
+
+                                        <button style="width: 200px; background: #6c757d; margin-right: 50px">
+                                            <th th:each="columnHeader : ${headerDataList}">
+                                                <th:block th:if="${columnHeader.isSortable()}">
+                                                    <th:block th:if="${columnHeader.isActive()}">
+                                                <span th:text="${columnHeader.getHeaderName()}"
+                                                      style="color: white; width: 300px"></span>
+                                                        <!--                                            <a th:text="${columnHeader.getHeaderName()}"></a>-->
+                                                        <i th:if="${columnHeader.getOrder().equals('desc')}"
+                                                           class="fa fa-sort-desc float-right sort" aria-hidden="true"
+                                                           th:data-sort="${columnHeader.getSort()}"
+                                                           th:data-order="${columnHeader.getOrder()}"
+                                                           onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
+                                                           style="color: white"></i>
+                                                        <i th:if="${columnHeader.getOrder().equals('asc')}"
+                                                           class="fa fa-sort-asc float-right sort" aria-hidden="true"
+                                                           th:data-sort="${columnHeader.getSort()}"
+                                                           th:data-order="${columnHeader.getOrder()}"
+                                                           onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"
+                                                           style="color: white"></i>
+                                                    </th:block>
+                                                    <th:block th:unless="${columnHeader.isActive()}">
+                                                        <span th:text="${columnHeader.getHeaderName()}" style="color: white"></span>
+                                                        <i class="fa fa-sort float-right sort" aria-hidden="true" style="color: white"
+                                                           th:data-sort="${columnHeader.getSort()}"
+                                                           th:data-order="${columnHeader.getOrder()}"
+                                                           onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"></i>
+                                                    </th:block>
+                                                </th:block>
+
+                                                <span th:unless="${columnHeader.isSortable()}"
+                                                      th:text="${columnHeader.getHeaderName()}" style="color: white"></span>
+                                            </th>
+                                        </button>
 
                                         <div>
                                             <a class="page-link btn btn-secondary mb-3" href="#" onclick="runPagination(1, 8, 0)" title="Reset Page" style="background: #6c757d;">

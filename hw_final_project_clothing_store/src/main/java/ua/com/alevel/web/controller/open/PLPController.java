@@ -90,13 +90,18 @@ public class PLPController extends AbstractController {
         return "redirect:/clothes";
     }
 
-    @GetMapping("/test")
-    private String test() {
-        return "test";
-    }
-
     @GetMapping("/main")
     private String main() {
         return "pages/open/plp_main_page";
+    }
+
+    @GetMapping("/about")
+    private String about() {
+        return "pages/open/plp_about_page";
+    }
+
+    @GetMapping("/contacts")
+    private String contacts() {
+        return "pages/open/plp_contacts";
     }
 }

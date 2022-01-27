@@ -11,7 +11,7 @@ import ua.com.alevel.util.SecurityUtil;
 import ua.com.alevel.web.dto.request.users.PersonalRequestDto;
 
 @Controller
-@RequestMapping("/personal/dashboard")
+@RequestMapping("/personal")
 public class PersonalController {
 
     private final PersonalFacade personalFacade;
@@ -20,21 +20,36 @@ public class PersonalController {
         this.personalFacade = personalFacade;
     }
 
-    @GetMapping
+    @GetMapping("/dashboard")
     public String dashboard(Model model) {
         model.addAttribute("personal", personalFacade.findByEmail(SecurityUtil.getUsername()));
         return "pages/personals/dashboard";
     }
 
-    @GetMapping("/to/edit")
+    @GetMapping("/dashboard/to/edit")
     public String toEdit(Model model) {
         model.addAttribute("personal", new PersonalRequestDto());
         return "pages/personals/personals_edit";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/dashboard/edit")
     public String edit(@ModelAttribute("personal") PersonalRequestDto dto) {
         personalFacade.update(dto, personalFacade.findByEmail(SecurityUtil.getUsername()).getId());
         return "redirect:/personal/dashboard";
+    }
+
+    @GetMapping("/main")
+    private String main() {
+        return "pages/personals/personals_main_page";
+    }
+
+    @GetMapping("/about")
+    private String about() {
+        return "pages/personals/personals_about";
+    }
+
+    @GetMapping("/contacts")
+    private String contacts() {
+        return "pages/personals/personals_contacts";
     }
 }

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+<header id="header" class="header">
+    <div class="container">
+        <div class="nav">
+            <img src="https://i.pinimg.com/originals/a0/d3/fc/a0d3fce1eb992ac9af288bb63f7ada4f.png" alt="Logo"
+                 class="logo" style="width: 50px">
+            <ul class="menu">
+                <li>
+                    <a th:href="@{/clothes/main}">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/clothes}">
+                        Clothes
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/clothes/contacts}">
+                        Contacts
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/login}">
+                        Login
+                    </a>
+                </li>
+            </ul>
+            <a href="tel:+380689202222" class="tel">
+                +38 068 920 22 22
+            </a>
+    </div>
+
+        <section  class="story">
+            <div class="container">
+                <div class="about">
+                    <h2 style="color: black">
+                        WHO ARE WE ?
+                    </h2>
+                    <div class="text" style="margin-bottom: 100px">
+                        <p  style="color: black">
+                            We launched in 2006 and have been <br>
+                            your fashion bestie ever since.
+                        </p>
+                        <p  style="color: black">
+                            Style never sleeps and neither do we – we're 24/7,<br>
+                            dropping over 500 new products a week, so you always<br>
+                            have the latest looks for less. We make fashion accessible and fun,<br>
+                            so every girl can get the wardrobe of her dreams.
+                        </p>
+                        <p  style="color: black">
+                            One thing we love more than your amazing style<br>
+                            is your individuality – we want to help you show it off,<br>
+                            do your thing and look incredible at the same time.
+                        </p>
+                    </div>
+
+                    <h2 style="color: black">
+                        OUR PHILOSOPHY
+                    </h2>
+                    <div class="text"  style="margin-bottom: 100px">
+                        <p  style="color: black">
+                            Our philosophy's pretty simple: we don't take life,<br>
+                            or fashion, too seriously.
+                        </p>
+                        <p  style="color: black">
+                            Like the bestie you can always count on,<br>
+                            we’ve got all the outfits and inspo you could ever need. <br>
+                            From date-night dresses to a pick-me-up when you’ve had a bad day,<br>
+                            we’ll never let you down.
+                        </p>
+                        <p  style="color: black">
+                            And with over 10 million followers on social, and fans all over the world,<br>
+                            we’ve created a community of babes who inspire us every day.
+                        </p>
+                    </div>
+
+                    <h2 style="color: black">
+                        OUR CHARITY STRATEGY
+                    </h2>
+                    <div class="text"  style="margin-bottom: 100px">
+                        <p  style="color: black">
+                            We all know it's better to give than receive,<br>
+                            which is why our charity programme is so important to us.<br>
+
+                            We’ve held charity sample sales,<br>
+                            coffee mornings, bake sales, charity-shop takeovers,<br>
+                            swap shops, sponsored challenges and much more.
+                        </p>
+                        <p  style="color: black">
+                            We’ve developed collections and made charitable <br>
+                            donations to amazing causes including Pride and<br>
+                            Breast Cancer Awareness Month with Coppa Feel.
+                        </p>
+                        <p  style="color: black">
+                            In the wake of the terror attack at the Manchester Arena in May 2017<br>,
+                            we played an active role in supporting and fundraising for the Red Cross'<br>
+                            'We Love Manchester' victims fund. After an initial donation of £100,000,<br>
+                            the Group launched a One Love charity clothing collection with 100% of<br>
+                            profits going to the Red Cross fund.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+</header>
+
+<footer id="footer" class="footer">
+    <div class="container">
+        <div class="footer-text">
+            <p>
+                ©2021-2022 nix-10 project
+            </p>
+            <p>
+                German Digtenko & Iegor Funtusov
+            </p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
