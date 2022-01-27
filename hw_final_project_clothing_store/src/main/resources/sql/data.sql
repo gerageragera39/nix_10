@@ -71,7 +71,7 @@ insert into sizes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XX
 insert into clothes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 842685,
                             '70% Cotton ad 30% Polyester, Mode is 6"1"',
                             'regular fit, cotton jersey, BoJack Horseman print on the front, height: 185 cm',
-                            1500, 5, 'Male', 'Oversized Printed Hoodie With Stitch Detail', 'Sweater', 1);
+                            1500, 25, 'Male', 'Oversized Printed Hoodie With Stitch Detail', 'Sweater', 1);
 
 insert into images values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/amm14510_purple_xl/purple-oversized-printed-hoodie-with-stitch-detail?$product_image_main$', 1);
 insert into images values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/amm14510_purple_xl_1/purple-oversized-printed-hoodie-with-stitch-detail?$product_image_main$', 1);
@@ -86,7 +86,7 @@ insert into clothes values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 6
                             'Outside: 98% Cotton, 2% POLYSTER',
                             'regular fit, cotton jumper, low stand-up collar with elastic band, available in several
 several colours, model height: 185 cm',
-                            499, 5, 'Male', 'Oversized Graphic Split Hem T-shirt', 'TShirt', 2);
+                            499, 55, 'Male', 'Oversized Graphic Split Hem T-shirt', 'TShirt', 2);
 
 insert into images values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/amm14486_black_xl/black-oversized-graphic-split-hem-t-shirt?$product_image_main$', 2);
 insert into images values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/amm14486_black_xl_1/black-oversized-graphic-split-hem-t-shirt?$product_image_main$', 2);

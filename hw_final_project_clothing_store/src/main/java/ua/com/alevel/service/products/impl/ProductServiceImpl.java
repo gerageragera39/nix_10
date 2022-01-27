@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
+import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.products.Product;
 import ua.com.alevel.persistence.entity.users.Personal;
+import ua.com.alevel.persistence.repository.clothes.ClothesRepository;
 import ua.com.alevel.persistence.repository.colors.ColorRepository;
 import ua.com.alevel.persistence.repository.products.ProductRepository;
 import ua.com.alevel.persistence.repository.sizes.SizeRepository;
@@ -23,12 +25,14 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final PersonalRepository personalRepository;
+    private final ClothesRepository clothesRepository;
     private final CrudRepositoryHelper<Product, ProductRepository> crudRepositoryHelper;
 
-    public ProductServiceImpl(ProductRepository productRepository, CrudRepositoryHelper<Product, ProductRepository> crudRepositoryHelper, ColorRepository colorRepository, SizeRepository sizeRepository, PersonalRepository personalRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, CrudRepositoryHelper<Product, ProductRepository> crudRepositoryHelper, ColorRepository colorRepository, SizeRepository sizeRepository, PersonalRepository personalRepository, ClothesRepository clothesRepository) {
         this.productRepository = productRepository;
         this.crudRepositoryHelper = crudRepositoryHelper;
         this.personalRepository = personalRepository;
+        this.clothesRepository = clothesRepository;
     }
 
     @Override
@@ -37,18 +41,25 @@ public class ProductServiceImpl implements ProductService {
         Personal personal = personalRepository.findByEmail(SecurityUtil.getUsername());
         List<Product> productList = personal.getProducts().stream().toList();
         boolean uniq = true;
-        for (Product product : productList) {
-            if (product.getClg().equals(entity.getClg()) &&
-                    product.getColor().equals(entity.getColor()) &&
-                    product.getSize().equals(entity.getSize())) {
-                product.setCount(product.getCount() + 1);
-                productRepository.save(product);
-                uniq = false;
-                break;
+        if (entity.getWear().getQuantity() != 0) {
+            Clothes thing = entity.getWear();
+            for (Product product : productList) {
+                if (product.getClg().equals(entity.getClg()) &&
+                        product.getColor().equals(entity.getColor()) &&
+                        product.getSize().equals(entity.getSize())) {
+                    product.setCount(product.getCount() + 1);
+                    productRepository.save(product);
+                    thing.setQuantity(thing.getQuantity() - 1);
+                    clothesRepository.save(thing);
+                    uniq = false;
+                    break;
+                }
             }
-        }
-        if (uniq) {
-            productRepository.save(entity);
+            if (uniq) {
+                productRepository.save(entity);
+                thing.setQuantity(thing.getQuantity() - 1);
+                clothesRepository.save(thing);
+            }
         }
     }
 
@@ -61,12 +72,27 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void delete(Long id) {
-        Product product = crudRepositoryHelper.findById(productRepository, id).get();
-        if (product.getCount() == 1) {
-            crudRepositoryHelper.delete(productRepository, id);
-        } else {
-            product.setCount(product.getCount() - 1);
-            productRepository.save(product);
+        Optional<Product> optionalProduct = crudRepositoryHelper.findById(productRepository, id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            Clothes thing = product.getWear();
+            if (product.getCount() == 1) {
+                crudRepositoryHelper.delete(productRepository, id);
+            } else {
+                product.setCount(product.getCount() - 1);
+                productRepository.save(product);
+            }
+            thing.setQuantity(thing.getQuantity() + 1);
+            thing.setVisible(thing.getQuantity() != null &&
+                    thing.getQuantity() > 0 &&
+                    thing.getPrice() != null &&
+                    thing.getPrice() > 0 && thing.getColors() != null &&
+                    thing.getColors().size() > 0 &&
+                    thing.getSizes() != null &&
+                    thing.getSizes().size() != 0 &&
+                    thing.getImages() != null &&
+                    thing.getImages().size() != 0);
+            clothesRepository.save(thing);
         }
     }
 
