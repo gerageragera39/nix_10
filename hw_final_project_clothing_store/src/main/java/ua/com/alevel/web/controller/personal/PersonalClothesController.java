@@ -1,5 +1,6 @@
 package ua.com.alevel.web.controller.personal;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -34,7 +35,7 @@ public class PersonalClothesController extends AbstractController {
     private final PLPFacade plpFacade;
 
     private final HeaderName[] columnNames = new HeaderName[]{
-            new HeaderName("price", "price", "price")
+            new HeaderName("Price", "price", "price")
     };
 
     public PersonalClothesController(ClothesFacade clothesFacade, ProductFacade productFacade, PersonalFacade personalFacade, PLPFacade plpFacade) {
@@ -61,6 +62,10 @@ public class PersonalClothesController extends AbstractController {
         if (webRequest.getParameterMap().get("search_clothes") != null &&
                 response.getItems().size() == 1) {
             return "redirect:/personal/clothes/product/" + response.getItems().get(0).getId();
+        }
+
+        if (response.getItems().size() == 0) {
+            return "pages/personals/empty_personals";
         }
         return "pages/personals/clothes/clothes_all";
     }
@@ -113,8 +118,27 @@ public class PersonalClothesController extends AbstractController {
     }
 
     @PostMapping("/search")
-    private String searchBooks(@RequestParam String query, RedirectAttributes ra) {
-        ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
+    private String searchClothes(@RequestParam String query, WebRequest webRequest, RedirectAttributes ra) {
+        String referrer = webRequest.getHeader("referer");
+        String[] url = referrer.split("\\?");
+        if(url.length == 2) {
+            if(url[1].charAt(0) == '&') {
+                url[1] = String.copyValueOf(url[1].toCharArray(), 1, url[1].length() - 1);
+            }
+            String[] params = url[1].split("&");
+            List<String[]> pairs = new ArrayList<>();
+            for (String param : params) {
+                String[] pair = param.split("=");
+                pairs.add(pair);
+            }
+            for (String[] pair : pairs) {
+                ra.addAttribute(pair[0], pair[1]);
+            }
+        }
+        if(StringUtils.isNotBlank(query)) {
+            ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
+        }
+
         return "redirect:/personal/clothes";
     }
 

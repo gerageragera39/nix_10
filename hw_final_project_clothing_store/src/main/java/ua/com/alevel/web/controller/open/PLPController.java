@@ -1,5 +1,7 @@
 package ua.com.alevel.web.controller.open;
 
+import io.netty.util.internal.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -24,7 +26,7 @@ public class PLPController extends AbstractController {
     private final PLPFacade plpFacade;
 
     private final HeaderName[] columnNames = new HeaderName[]{
-            new HeaderName("price", "price", "price")
+            new HeaderName("Price", "price", "price")
     };
 
     public PLPController(PLPFacade plpFacade) {
@@ -68,9 +70,8 @@ public class PLPController extends AbstractController {
     }
 
     @PostMapping("/search")
-    private String searchBooks(@RequestParam String query, WebRequest webRequest, RedirectAttributes ra) {
+    private String searchClothes(@RequestParam String query, WebRequest webRequest, RedirectAttributes ra) {
         String referrer = webRequest.getHeader("referer");
-        System.out.println("referrer = " + referrer);
         String[] url = referrer.split("\\?");
         if(url.length == 2) {
             if(url[1].charAt(0) == '&') {
@@ -86,7 +87,10 @@ public class PLPController extends AbstractController {
                 ra.addAttribute(pair[0], pair[1]);
             }
         }
-        ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
+
+        if(StringUtils.isNotBlank(query)) {
+            ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
+        }
         return "redirect:/clothes";
     }
 

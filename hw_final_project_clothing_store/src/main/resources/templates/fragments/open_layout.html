@@ -53,7 +53,7 @@
                     <div class="form-group" style="display: inline-block;">
                         <div class="container">
                             <div class="d-flex flex-row justify-content-between">
-                                <div class="dropdown block" style="margin-right: 200px;">
+                                <div class="dropdown block" style="padding-right: 100px">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Choose Brand
@@ -66,7 +66,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block" style="margin-right: 200px;">
+                                <div class="dropdown block" style="padding-right: 100px">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Choose Type
@@ -79,7 +79,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block" style="margin-right: 200px;">
+                                <div class="dropdown block" style="padding-right: 100px">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Choose Color
@@ -92,7 +92,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="dropdown block" style="margin-right: 50px;">
+                                <div class="dropdown block" style="padding-right: 100px">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                         Choose Size
@@ -106,7 +106,7 @@
                                     </ul>
                                 </div>
 
-                                <button style="width: 200px; background: #6c757d; margin-right: 50px">
+                                <button style="width: 200px; height: 40px; background: #6c757d; margin-right: 100px">
                                     <th th:each="columnHeader : ${headerDataList}">
                                         <th:block th:if="${columnHeader.isSortable()}">
                                             <th:block th:if="${columnHeader.isActive()}">
@@ -141,7 +141,7 @@
                                 </button>
                                 <div>
                                     <a class="page-link btn btn-secondary mb-3" href="#"
-                                       onclick="runPagination(1, 8, 0)" title="Reset Page" style="background: #6c757d;">
+                                       onclick="deleteParams(1, 8, 0)" title="Reset Page" style="background: #6c757d;">
                                         <img src="https://cdn-icons-png.flaticon.com/512/1483/1483063.png"
                                              style="background: #6c757d; width: 30px;">
                                     </a>

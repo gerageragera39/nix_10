@@ -12,6 +12,7 @@ import ua.com.alevel.persistence.entity.clothes.Image;
 import ua.com.alevel.web.controller.AbstractController;
 import ua.com.alevel.web.dto.response.clothes.ClothesResponseDto;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.List;

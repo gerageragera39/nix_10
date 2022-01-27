@@ -85,20 +85,39 @@ function submitRequest(sort, order, page, size) {
     }
 }
 
-// function insertParam() {
-//     var kvp = document.location.search.substr(1).split('&');
-//
-//     let i = 0;
-//     for (; i < kvp.length; i++) {
-//         if (kvp[i].startsWith(key + '=')) {
-//             let pair = kvp[i].split('=');
-//             pair[1] = value;
-//             kvp[i] = pair.join('=');
-//             break;
-//         }
-//     }
-//
-//
-//     let params = kvp.join('&');
-//     document.location.search = params;
-// }
+function deleteParams(page, size, pageOperator) {
+    let pageData = document.getElementById('pageData');
+    const sort = pageData.getAttribute('data-sort');
+    const order = pageData.getAttribute('data-order');
+    submitDelete(sort, order, page + pageOperator, size);
+}
+
+function submitDelete(sort, order, page, size) {
+    let personalSearchSubmit = document.getElementById('personalSearchSubmit');
+    if (personalSearchSubmit !== null) {
+        let personalSearch = document.getElementById('personalSearch');
+        if (personalSearch !== null) {
+            let input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "sort");
+            input.setAttribute("value", sort);
+            personalSearch.appendChild(input);
+            input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "order");
+            input.setAttribute("value", order);
+            personalSearch.appendChild(input);
+            input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "page");
+            input.setAttribute("value", page);
+            personalSearch.appendChild(input);
+            input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "size");
+            input.setAttribute("value", size);
+            personalSearch.appendChild(input);
+            personalSearchSubmit.click();
+        }
+    }
+}
