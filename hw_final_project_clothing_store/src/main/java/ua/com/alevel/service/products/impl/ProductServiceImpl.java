@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void update(Product entity) {
-
+        crudRepositoryHelper.update(productRepository, entity);
     }
 
     @Override
@@ -76,13 +76,14 @@ public class ProductServiceImpl implements ProductService {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             Clothes thing = product.getWear();
-            if (product.getCount() == 1) {
-                crudRepositoryHelper.delete(productRepository, id);
-            } else {
-                product.setCount(product.getCount() - 1);
-                productRepository.save(product);
-            }
-            thing.setQuantity(thing.getQuantity() + 1);
+//            if (product.getCount() == 1) {
+//                crudRepositoryHelper.delete(productRepository, id);
+//            } else {
+//                product.setCount(product.getCount() - 1);
+//                productRepository.save(product);
+//            }
+            crudRepositoryHelper.delete(productRepository, id);
+            thing.setQuantity(thing.getQuantity() + product.getCount());
             thing.setVisible(thing.getQuantity() != null &&
                     thing.getQuantity() > 0 &&
                     thing.getPrice() != null &&
@@ -99,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public Optional<Product> findById(Long id) {
-        return Optional.empty();
+        return crudRepositoryHelper.findById(productRepository, id);
     }
 
     @Override

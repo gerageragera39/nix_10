@@ -12,4 +12,6 @@ public interface ProductFacade extends BaseFacade<ProductRequestDto, ProductResp
     List<ProductResponseDto> findByPersonalEmail(String email);
 
     String findTotalPrice();
+
+    void redactQuantity(Long id, boolean isPlus);
 }

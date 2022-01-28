@@ -3,8 +3,10 @@ package ua.com.alevel.facade.products.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import ua.com.alevel.facade.products.ProductFacade;
+import ua.com.alevel.persistence.entity.clothes.Clothes;
 import ua.com.alevel.persistence.entity.products.Product;
 import ua.com.alevel.persistence.entity.users.Personal;
+import ua.com.alevel.persistence.repository.products.ProductRepository;
 import ua.com.alevel.service.clothes.ClothesService;
 import ua.com.alevel.service.personal.PersonalService;
 import ua.com.alevel.service.products.ProductService;
@@ -14,6 +16,7 @@ import ua.com.alevel.web.dto.response.PageData;
 import ua.com.alevel.web.dto.response.products.ProductResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -91,5 +94,26 @@ public class ProductFacadeImpl implements ProductFacade {
             stringPrice += "0";
         }
         return stringPrice;
+    }
+
+    @Override
+    public void redactQuantity(Long id, boolean isPlus) {
+        Optional<Product> optionalProduct = productService.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            if (isPlus) {
+                productService.create(product);
+            } else {
+                product.setCount(product.getCount() - 1);
+                if (product.getCount() == 0) {
+                    productService.delete(id);
+                } else {
+                    productService.update(product);
+                }
+                Clothes thing = product.getWear();
+                thing.setQuantity(thing.getQuantity() + 1);
+                clothesService.update(thing);
+            }
+        }
     }
 }

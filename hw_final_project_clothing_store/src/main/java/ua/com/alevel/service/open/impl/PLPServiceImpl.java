@@ -147,12 +147,7 @@ public class PLPServiceImpl implements PLPService {
         Long colorId = null;
         if (dataTableRequest.getRequestParamMap().get(WebUtil.COLOR_PARAM) != null) {
             colorId = Long.parseLong(String.valueOf(dataTableRequest.getRequestParamMap().get(WebUtil.COLOR_PARAM)));
-//            clothes.addAll(clothesRepository.findAllByColorsContainsAndVisibleTrue(colorRepository.findById(colorId).get(), pageRequest));
             clothes.addAll(clothesRepository.findAllByColorsContainsAndVisibleTrue(colorRepository.findById(colorId).get(), pageRequest));
-//            List<Clothes> clothesList = clothesRepository.findAllByColorsContainsAndVisibleTrue(colorRepository.findById(colorId).get());
-//            for (Clothes thing : clothesList) {
-//                longs.add(thing.getId());
-//            }
 
             List<Clothes> clothesList = colorRepository.findById(colorId).get().getClothes().stream().toList();
             for (Clothes thing : clothesList) {
@@ -370,12 +365,7 @@ public class PLPServiceImpl implements PLPService {
         Long colorId = null;
         if (dataTableRequest.getRequestParamMap().get(WebUtil.COLOR_PARAM) != null) {
             colorId = Long.parseLong(String.valueOf(dataTableRequest.getRequestParamMap().get(WebUtil.COLOR_PARAM)));
-//            clothes.addAll(clothesRepository.findAllByColorsContainsAndVisibleTrue(colorRepository.findById(colorId).get(), pageRequest));
-
             CriteriaBuilder.In<String> inClause = criteriaBuilder.in(from.get("colors"));
-
-//            Predicate pred = criteriaBuilder.and(criteriaBuilder.in(from.get("colors").get(colorRepository.findById(colorId).get())));
-
             Expression<Collection<Color>> colors = from.get("colors");
             Predicate pred = criteriaBuilder.isMember(colorRepository.findById(colorId).get(), colors);
             predicates.add(pred);
@@ -410,7 +400,7 @@ public class PLPServiceImpl implements PLPService {
                 sex = Sexes.values()[sexId];
                 longs.addAll(clothesRepository.findAllClothesIdBySexEqualsAndVisibleTrue(sex));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new EntityNotFoundException("bad request");
+                throw new EntityNotFoundException("entity it not found");
             }
             Predicate pred = criteriaBuilder.and(criteriaBuilder.equal(from.get("sex"), sex));
             predicates.add(pred);
@@ -425,7 +415,7 @@ public class PLPServiceImpl implements PLPService {
                 type = ThingTypes.values()[typeId];
                 longs.addAll(clothesRepository.findAllClothesIdByTypeEqualsAndVisibleTrue(type));
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new EntityNotFoundException("bad request");
+                throw new EntityNotFoundException("entity it not found");
             }
             Predicate pred = criteriaBuilder.and(criteriaBuilder.equal(from.get("type"), type));
             predicates.add(pred);

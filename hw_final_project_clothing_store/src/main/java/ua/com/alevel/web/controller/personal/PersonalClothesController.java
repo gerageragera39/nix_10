@@ -111,6 +111,18 @@ public class PersonalClothesController extends AbstractController {
         return "redirect:/personal/clothes/bucket";
     }
 
+    @GetMapping("/product/plus/{id}")
+    private String plus(@PathVariable Long id) {
+        productFacade.redactQuantity(id, true);
+        return "redirect:/personal/clothes/bucket";
+    }
+
+    @GetMapping("/product/minus/{id}")
+    private String minus(@PathVariable Long id) {
+        productFacade.redactQuantity(id, false);
+        return "redirect:/personal/clothes/bucket";
+    }
+
     @GetMapping("/suggestions")
     private @ResponseBody
     List<String> searchClothesNames(@RequestParam String query) {

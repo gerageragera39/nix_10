@@ -33,8 +33,16 @@
                     </div>
 
                     <div class="quantity">
-                        <td>Quantity : </td>
-                        <input type="text" name="name" th:value="${product.getCount()}">
+                        <td>Quantity: </td>
+                        <div>
+                            <a th:href="@{'/personal/clothes/product/minus/' + ${product.getId()}}">
+                                <img src="https://image.flaticon.com/icons/png/512/56/56889.png" style="width: 10px">
+                            </a>
+                            <input type="text" name="name" th:value="${product.getCount()}">
+                            <a th:href="@{'/personal/clothes/product/plus/' + ${product.getId()}}">
+                                <img src="https://pngimg.com/uploads/plus/small/plus_PNG110.png" style="width: 15px">
+                            </a>
+                        </div>
                     </div>
 
                     <div class="total-price" th:text="${product.getPrice()} + ' грн'"></div>
