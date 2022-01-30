@@ -38,7 +38,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void create(Product entity) {
-        Personal personal = personalRepository.findByEmail(SecurityUtil.getUsername());
+//        Personal personal = personalRepository.findByEmail(SecurityUtil.getUsername());
+        Personal personal = entity.getPersonal();
         List<Product> productList = personal.getProducts().stream().toList();
         boolean uniq = true;
         if (entity.getWear().getQuantity() != 0) {

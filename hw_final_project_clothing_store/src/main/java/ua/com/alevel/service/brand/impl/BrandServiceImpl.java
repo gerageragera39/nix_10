@@ -33,12 +33,14 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void create(Brand entity) {
-        crudRepositoryHelper.create(brandRepository, entity);
+        if (!brandRepository.existsByName(entity.getName())) {
+            crudRepositoryHelper.create(brandRepository, entity);
+        }
     }
 
     @Override
     public void update(Brand entity) {
-
+        crudRepositoryHelper.update(brandRepository, entity);
     }
 
     @Override

@@ -20,4 +20,6 @@ public interface ClothesService extends BaseService<Clothes> {
     Optional<Clothes> findByClg(String clg);
 
     boolean existByClg(String clg);
+
+    List<Clothes> findAll();
 }

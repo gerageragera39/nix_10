@@ -39,7 +39,9 @@ public class ClothesServiceImpl implements ClothesService {
 
     @Override
     public void create(Clothes entity) {
-        crudRepositoryHelper.create(clothesRepository, entity);
+        if (!clothesRepository.existsByCLG(entity.getCLG())) {
+            crudRepositoryHelper.create(clothesRepository, entity);
+        }
     }
 
     @Override
@@ -124,5 +126,10 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public boolean existByClg(String clg) {
         return clothesRepository.existsByCLG(clg);
+    }
+
+    @Override
+    public List<Clothes> findAll() {
+        return clothesRepository.findAll();
     }
 }
