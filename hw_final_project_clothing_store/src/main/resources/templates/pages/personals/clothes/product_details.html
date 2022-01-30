@@ -16,7 +16,8 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-                        <form action="#" th:action="@{'/admin/clothes/update/' + ${id}}" th:object="${product}" method="post">
+                        <form action="#" th:action="@{'/admin/clothes/update/' + ${id}}" th:object="${product}"
+                              method="post">
 
                             <div class="preview-pic tab-content">
                                 <div class="tab-pane active" id="pic-1"><img th:src="${firstImage.getUrl()}"/></div>
@@ -28,52 +29,55 @@
                                 </a>
                             </ul>
 
-                    <div class="details col-md-6">
-                        <h3 class="product-title" th:text="${thing.getTitle()}"></h3>
-                        <p class="product-description" th:text="'Description : ' + ${thing.getDescription()}"></p>
-                        <p class="product-description" th:text="'Compound : ' + ${thing.getCompound()}"></p>
-                        <h4 class="price">current price: <span class="priceSpan"
-                                                               th:text="${thing.getStringPrice()} + ' грн.'"></span>
-                        </h4>
-                        <div class="form-group">
-                            <label for="color">Color</label>
-                            <select class="form-control" id="color" th:field="*{color}">
-                                <option th:each="color : ${colors}"
-                                        th:value="${color}"
-                                        th:text="${color}">
-                                </option>
-                            </select>
-                            <div/>
-
-                            <div class="form-group">
-                                <label for="types">Type</label>
-                                <select class="form-control" id="types" th:field="*{size}">
-                                    <option th:each="size : ${sizes}"
-                                            th:value="${size}"
-                                            th:text="${size}">
-                                    </option>
-                                </select>
-                                <div/>
-
+                            <div class="details col-md-6">
+                                <h3 class="product-title" th:text="${thing.getTitle()}"></h3>
+                                <p class="product-description"
+                                   th:text="'Description : ' + ${thing.getDescription()}"></p>
+                                <p class="product-description" th:text="'Compound : ' + ${thing.getCompound()}"></p>
+                                <h4 class="price">current price: <span class="priceSpan"
+                                                                       th:text="${thing.getStringPrice()} + ' грн.'"></span>
+                                </h4>
                                 <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <input type="text" class="form-control" id="description" aria-describedby="description"
-                                           placeholder="Enter description" th:field="*{description}">
-                                </div>
+                                    <label for="color">Color</label>
+                                    <select class="form-control" id="color" th:field="*{color}">
+                                        <option th:each="color : ${colors}"
+                                                th:value="${color}"
+                                                th:text="${color}">
+                                        </option>
+                                    </select>
+                                    <div/>
 
-                                <div class="form-group">
-                                    <label for="compound">Compound</label>
-                                    <input type="text" class="form-control" id="compound" aria-describedby="compound"
-                                           placeholder="Enter compound" th:field="*{compound}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update User</button>
-                    </form>
+                                    <div class="form-group">
+                                        <label for="types">Type</label>
+                                        <select class="form-control" id="types" th:field="*{size}">
+                                            <option th:each="size : ${sizes}"
+                                                    th:value="${size}"
+                                                    th:text="${size}">
+                                            </option>
+                                        </select>
+                                        <div/>
+
+                                        <div class="form-group">
+                                            <label for="description">Description</label>
+                                            <input type="text" class="form-control" id="description"
+                                                   aria-describedby="description"
+                                                   placeholder="Enter description" th:field="*{description}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="compound">Compound</label>
+                                            <input type="text" class="form-control" id="compound"
+                                                   aria-describedby="compound"
+                                                   placeholder="Enter compound" th:field="*{compound}">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Update User</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 </body>
 </html>

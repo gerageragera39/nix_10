@@ -15,18 +15,18 @@
             <div class="mt-4">
                 <div class="card" style="width: 18rem;  height: 600px">
                     <div class="card-body">
-<!--                        <a th:href="@{'/personal/clothes/details/' + ${thing.getId()}}">-->
                         <a th:href="@{'/personal/clothes/product/' + ${thing.getId()}}">
-                            <img th:src="${thing.getImages().get(0).getUrl()}" class="img-fluid rounded-start" alt="...">
+                            <img th:src="${thing.getImages().get(0).getUrl()}" class="img-fluid rounded-start"
+                                 alt="...">
                         </a>
                         <h5 class="card-title" th:text="${thing.getTitle()}"></h5>
                         <p class="card-text" th:text="${thing.getStringPrice()} + ' грн.'"></p>
-<!--                        <p class="card-text" th:text="${thing.getBrandName()}"></p>-->
-                        <a th:onclick="|insertParam('brand', ${thing.getBrand().getId()})|" style="text-decoration: none;color: cornflowerblue;">
+                        <a th:onclick="|insertParam('brand', ${thing.getBrand().getId()})|"
+                           style="text-decoration: none;color: cornflowerblue;">
                             <p class="card-text" th:text="${thing.getBrandName()}"></p>
                         </a>
-                        <!--                    <button class="btn btn-primary" th:href="@{/login}" th:disabled="${!thing.getVisible()}">add to cart</button>-->
-                        <a class="btn btn-primary" th:href="@{'/personal/clothes/product/' + ${thing.getId()}}" th:disabled="${!thing.getVisible()}">add to cart</a>
+                        <a class="btn btn-primary" th:href="@{'/personal/clothes/product/' + ${thing.getId()}}"
+                           th:disabled="${!thing.getVisible()}">add to cart</a>
                     </div>
                 </div>
             </div>

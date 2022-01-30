@@ -1,32 +1,10 @@
-/*.badge {*/
-/*    padding-left: 9px;*/
-/*    padding-right: 9px;*/
-/*    -webkit-border-radius: 9px;*/
-/*    -moz-border-radius: 9px;*/
-/*    border-radius: 9px;*/
-/*}*/
-
-/*.label-warning[href],*/
-/*.badge-warning[href] {*/
-/*    background-color: #c67605;*/
-/*}*/
-
-/*#lblCartCount {*/
-/*    font-size: 12px;*/
-/*    background: #ff0000;*/
-/*    color: #fff;*/
-/*    padding: 0 5px;*/
-/*    vertical-align: top;*/
-/*}*/
-
-/* скрываем чекбокс */
 #menu__toggle {
     opacity: 0;
 }
-/* стилизуем кнопку */
+
 .menu__btn {
-    display: flex; /* используем flex для центрирования содержимого */
-    align-items: center;  /* центрируем содержимое кнопки */
+    display: flex;
+    align-items: center;
     position: fixed;
     top: 18px;
     left: 20px;
@@ -35,7 +13,7 @@
     cursor: pointer;
     z-index: 1;
 }
-/* добавляем "гамбургер" */
+
 .menu__btn > span,
 .menu__btn > span::before,
 .menu__btn > span::after {
@@ -54,7 +32,6 @@
     top: 8px;
 }
 
-/* контейнер меню */
 .menu__box {
     display: block;
     position: fixed;
@@ -70,7 +47,7 @@
     background-color: #ECEFF1;
     box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
 }
-/* элементы меню */
+
 .menu__item {
     display: block;
     padding: 12px 24px;

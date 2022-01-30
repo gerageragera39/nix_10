@@ -30,7 +30,8 @@
                         </div>
                         <ul class="preview-thumbnail nav nav-tabs" th:each="image : ${images}">
                             <a th:href="${image.getUrl()}" target="_blank">
-                                <img th:src="${image.getUrl()}" width="150" height="150" class="img-fluid rounded-start" alt="...">
+                                <img th:src="${image.getUrl()}" width="150" height="150" class="img-fluid rounded-start"
+                                     alt="...">
                             </a>
                         </ul>
 
@@ -39,7 +40,9 @@
                         <h3 class="product-title" th:text="${thing.getTitle()}"></h3>
                         <p class="product-description" th:text="'Description : ' + ${thing.getDescription()}"></p>
                         <p class="product-description" th:text="'Compound : ' + ${thing.getCompound()}"></p>
-                        <h4 class="price">current price: <span class="priceSpan" th:text="${thing.getStringPrice()} + ' грн.'"></span></h4>
+                        <h4 class="price">current price: <span class="priceSpan"
+                                                               th:text="${thing.getStringPrice()} + ' грн.'"></span>
+                        </h4>
                         <tr>
                             <th>All Colors</th>
                             <td>

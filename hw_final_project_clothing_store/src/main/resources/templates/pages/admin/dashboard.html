@@ -5,16 +5,16 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{fragments/admin_layout}">
 <head>
-  <meta charset="utf-8">
-  <title>Dashboard</title>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
 </head>
 <body>
 
 <div layout:fragment="admin_content">
-  <h1>
-    Admin
-    Logged user: <span sec:authentication="name"></span>
-  </h1>
+    <h1>
+        Admin
+        Logged user: <span sec:authentication="name"></span>
+    </h1>
 </div>
 
 </body>

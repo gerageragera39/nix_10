@@ -21,20 +21,6 @@ function submitRequest(sort, order, page, size) {
 
     var kvp = document.location.search.substr(1).split('&');
 
-    // console.log(kvp);
-
-    // let i = 0;
-    // for (; i < kvp.length; i++) {
-    //     if (kvp[i].startsWith(key + '=')) {
-    //         let pair = kvp[i].split('=');
-    //         pair[1] = value;
-    //         kvp[i] = pair.join('=');
-    //         break;
-    //     }
-    // }
-
-    // let params = kvp.join('&');
-
     let personalSearchSubmit = document.getElementById('personalSearchSubmit');
     if (personalSearchSubmit !== null) {
         let personalSearch = document.getElementById('personalSearch');
@@ -80,7 +66,6 @@ function submitRequest(sort, order, page, size) {
             }
 
             personalSearchSubmit.click();
-            // insertParam();
         }
     }
 }

@@ -19,7 +19,6 @@ insert into brands values (18, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '
 insert into brands values (19, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Prada');
 insert into brands values (20, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Zara');
 
-
 insert into logos values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://ntl.ua/image/catalog/nata-lux.gif', 1);
 insert into logos values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://kasta.ua/imgw/loc/0x0/io/brand-logo/45863/default_1905bd4c-c1f1-4d46-82d0-bcdb36286e92.png', 2);
 insert into logos values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://kasta.ua/imgw/loc/0x0/io/brand-logo/65501/default_85c0a7bf-dad0-474c-831c-db25d4e2ac82.png', 3);
@@ -54,19 +53,12 @@ insert into colors values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '
 insert into colors values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Black');
 insert into colors values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'Violet');
 
-
 insert into sizes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XS');
 insert into sizes values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'S');
 insert into sizes values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'M');
 insert into sizes values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'L');
 insert into sizes values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XL');
 insert into sizes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'XXL');
-
-
-# insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1, '',
-#                             '',
-#                             '',
-#                             1, 1, '', '', '', '', 1);
 
 insert into clothes values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 842685,
                             '70% Cotton ad 30% Polyester, Mode is 6"1"',
@@ -427,125 +419,153 @@ insert into color_thing values (8, 21);
 insert into size_thing values (4, 21);
 insert into size_thing values (5, 21);
 
+insert into clothes values (22, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 483458,
+                              '95% Cotton 5% Elastane. Measurement not Worn: Total Length 31cm/12". (Measured On UK Size 6). Machine Wash. Model Wears UK Size 6.',
+                              'Style: Denim Shorts
+Fabric: Denim',
+                               1200, 45, 'Female', 'Petite High Rise Distressed Denim Shorts', 'Shorts', 17);
 
+insert into images values (43, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz90137_black_xl/black-petite-high-rise-distressed-denim-shorts?$product_image_main$', 22);
+insert into images values (44, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz90137_black_xl_1/black-petite-high-rise-distressed-denim-shorts?$product_image_main$', 22);
 
+insert into color_thing values (1, 22);
+insert into color_thing values (11, 22);
 
-# insert into clothes values (, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, ,
-#                             '',
-#                             '',
-#                             , , '', '', '', );
-#
-# insert into images values (, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', );
-# insert into images values (, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', );
-#
-# insert into color_thing values (, );
-# insert into color_thing values (, );
-#
-# insert into size_thing values (, );
-# insert into size_thing values (, );
+insert into size_thing values (2, 22);
+insert into size_thing values (3, 22);
 
-# insert into clothes values (0, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 1,
-#                             '',
-#                             '',
-#                             1, 1, '', '', '', 1);
+insert into clothes values (23, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 140001,
+                              '95% Polyester, 5% Elastane. Machine Wash. Model Wears Size 8.',
+                              'Style: Denim Shorts
+Fabric: Denim',
+                              799, 40, 'Female', 'Petite High Waisted Extreme Frey Hem Denim Shorts', 'Shorts', 18);
 
+insert into images values (45, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz84512_blue_xl/blue-petite-high-waisted-extreme-frey-hem-denim-shorts?$product_image_main$', 23);
+insert into images values (46, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz84512_blue_xl_1/blue-petite-high-waisted-extreme-frey-hem-denim-shorts?$product_image_main$', 23);
 
-# insert into images values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', 1);
-# insert into images values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://www.cropp.com/media/catalog/product/8/0/8096G-80X-050-3_5.jpg', 1);
-# insert into images values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://www.cropp.com/media/catalog/product/8/4/8489G-99M-050-1_5.jpg', 2);
-# insert into images values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20150408/164/20150408164542_001643235_3.jpg', 3);
-# insert into images values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20150408/164/20150408164542_001643235_3.jpg', 4);
-# insert into images values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210701/112/20210701112559_005803334_1.jpg', 5);
-# insert into images values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210312/134/20210312134017_005693660_1.jpg', 6);
-# insert into images values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210412/163/20210412163742_005725414_25.jpg', 7);
-# insert into images values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210412/163/20210412163742_005725414_23.jpg', 7);
-# insert into images values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20210412/163/20210412163742_005725414_24.jpg', 7);
-# insert into images values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20180510/175/20180510175124_004260603_3.jpg', 8);
-# insert into images values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true,
-#                            'https://cdn.lbtq.io/productImage/resize/1200x1600_40cd750bba9870f18aada2478b24840a/20180510/175/20180510175124_004260603_1.jpg', 8);
+insert into color_thing values (5, 23);
+insert into color_thing values (6, 23);
 
+insert into size_thing values (5, 23);
+insert into size_thing values (6, 23);
 
+insert into clothes values (24, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 271940,
+                              '95% cotton 5% polyester. Machine Wash only. Model Wears Size 8.',
+                              'Style: Denim Shorts
+Fabric: Denim',
+                               899, 100, 'Female', 'Petite High Rise Distressed Denim Shorts', 'Shorts', 19);
 
+insert into images values (47, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz90137_black_xl/black-petite-high-rise-distressed-denim-shorts?$product_image_main$', 24);
+insert into images values (48, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz90137_black_xl_1/black-petite-high-rise-distressed-denim-shorts?$product_image_main$', 24);
 
+insert into color_thing values (2, 24);
+insert into color_thing values (10, 24);
 
-# insert into clothes values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (13, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (14, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (15, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (16, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (17, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (18, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (19, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
-# insert into clothes values (20, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '', '', '', '', '', '', , '', , );
+insert into size_thing values (4, 24);
+insert into size_thing values (5, 24);
 
+insert into clothes values (25, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 404757,
+                              '100% Polyester. Machine Wash. Model wears UK size 16.',
+                              'Style: Shirt
+Design: Leopard
+Fabric: Woven
+Sleeve Length: Long Sleeve',
+                              499 , 80, 'Female', 'Plus Satin Leopard Shirt', 'Shirt', 1);
 
--- insert into brands values (1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (2, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
--- insert into brands values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, '');
+insert into images values (49, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz74552_black_xl/black-plus-satin-leopard-shirt?$product_image_main$', 25);
+insert into images values (50, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz74552_black_xl_1/black-plus-satin-leopard-shirt?$product_image_main$', 25);
 
-# insert into clothes values (3, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 3, 'Black',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
-# insert into clothes values (4, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 4, 'Orange',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'свитер regular fit, из хлопка, невысокий воротник-стойка оформлен резинкой, в нескольких расцветках, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
-# insert into clothes values (5, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 5, 'Black',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
-# insert into clothes values (6, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 6, 'Orange',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'свитер regular fit, из хлопка, невысокий воротник-стойка оформлен резинкой, в нескольких расцветках, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
-# insert into clothes values (7, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 7, 'Black',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
-# insert into clothes values (8, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 8, 'Orange',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'свитер regular fit, из хлопка, невысокий воротник-стойка оформлен резинкой, в нескольких расцветках, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
-# insert into clothes values (9, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 9, 'Black',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
-# insert into clothes values (10, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 10, 'Orange',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'свитер regular fit, из хлопка, невысокий воротник-стойка оформлен резинкой, в нескольких расцветках, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
-# insert into clothes values (11, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 11, 'Black',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'футболка regular fit, из хлопкового трикотажа, принт BoJack Horseman спереди, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 1);
-# insert into clothes values (12, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 12, 'Orange',
-#                             'Внешняя сторона: 98% ХЛОПОК, 2% ПОЛИЭСТЕР',
-#                             'свитер regular fit, из хлопка, невысокий воротник-стойка оформлен резинкой, в нескольких расцветках, рост модели: 185 cm',
-#                             424, 5, 'Male', 'XS', 'Футболка с принтом BoJack Horseman', 'TShirts', 2);
+insert into color_thing values (5, 25);
+insert into color_thing values (8, 25);
+
+insert into size_thing values (1, 25);
+insert into size_thing values (2, 25);
+
+insert into clothes values (26, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 260946,
+                              '95% Viscose. 5% Elastane. Machine Wash. Model Wears UK Size 16.',
+                              'Style: T-Shirt
+Design: Plain
+Fabric: Jersey
+Sleeve Length: Short Sleeve',
+                               600, 40, 'Female', 'Plus Oversized T-Shirt', 'TShirt', 2);
+
+insert into images values (51, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz69699_berry_xl/berry-red-plus-oversized-t-shirt?$product_image_main$', 26);
+insert into images values (52, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz69699_berry_xl_1/berry-red-plus-oversized-t-shirt?$product_image_main$', 26);
+
+insert into color_thing values (3, 26);
+insert into color_thing values (7, 26);
+
+insert into size_thing values (3, 26);
+insert into size_thing values (4, 26);
+
+insert into clothes values (27, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 317429,
+                              '95% Polyester. 5% Elastane. Machine Wash. Model wears UK size 16.',
+                              'Style: T-Shirt
+Design: Plain
+Fabric: Jersey
+Sleeve Length: Long sleeve',
+                               600, 30, 'Female', 'Plus Long Sleeve Basic T-Shirt', 'TShirt', 3);
+
+insert into images values (53, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz92506_grey_xl/grey-plus-long-sleeve-basic-t-shirt?$product_image_main$', 27);
+insert into images values (54, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz92506_grey_xl_1/grey-plus-long-sleeve-basic-t-shirt?$product_image_main$', 27);
+
+insert into color_thing values (2, 27);
+insert into color_thing values (3, 27);
+
+insert into size_thing values (3, 27);
+insert into size_thing values (6, 27);
+
+insert into clothes values (28, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 678619,
+                              '100% Polyester. Do not wash. Model wears size 10.',
+                              'Style: T-Shirt
+Design: Plain
+Fabric: Jersey',
+                               2000, 70, 'Female', 'Oversized Faux Fur Teddy Coat', 'Coat', 4);
+
+insert into images values (55, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/gzz01620_blue_xl/blue-oversized-faux-fur-teddy-coat?$product_image_main$', 28);
+insert into images values (56, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/gzz01620_blue_xl_1/blue-oversized-faux-fur-teddy-coat?$product_image_main$', 28);
+
+insert into color_thing values (3, 28);
+insert into color_thing values (5, 28);
+
+insert into size_thing values (3, 28);
+insert into size_thing values (5, 28);
+
+insert into clothes values (29, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 683880,
+                              '
+100% Polyester. Exclusive of trimmings. Hand wash. Model wears UK size 16.',
+                              'Style: Gilet
+Design: Plain
+Fabric: Polyester
+Length: Longline
+Neckline: Hooded
+Sleeve Length: Sleeveless',
+                              1550 , 34, 'Female', 'Plus Longline Puffer Gilet', 'Coat', 5);
+
+insert into images values (57, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz04680_grey_xl/grey-plus-longline-puffer-gilet?$product_image_main$', 29);
+insert into images values (58, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/pzz04680_grey_xl_3/grey-plus-longline-puffer-gilet?$product_image_main$', 29);
+
+insert into color_thing values (4, 29);
+insert into color_thing values (8, 29);
+
+insert into size_thing values (2, 29);
+insert into size_thing values (4, 29);
+
+insert into clothes values (30, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 971388,
+                            '70% Cotton 30% Polyester Lining: 100% Polyester. Do not wash. Model wears size 10.',
+                            'Style: Gilet
+Design: Plain
+Fabric: Polyester
+Length: Longline
+Neckline: Hooded
+Sleeve Length: Sleeveless',
+                            500, 40, 'Female', 'Check Wool Look Coat', 'Coat', 6);
+
+insert into images values (59, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/gzz01629_cobalt_xl/cobalt-blue-check-wool-look-coat?$product_image_main$', 30);
+insert into images values (60, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), true, 'https://media.boohoo.com/i/boohoo/gzz01629_cobalt_xl_1/cobalt-blue-check-wool-look-coat?$product_image_main$', 30);
+
+insert into color_thing values (3, 30);
+insert into color_thing values (12, 30);
+
+insert into size_thing values (6, 30);
+insert into size_thing values (5, 30);

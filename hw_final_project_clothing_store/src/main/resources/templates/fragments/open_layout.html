@@ -22,7 +22,6 @@
                 <ul class="menu__box">
                     <li><a class="menu__item" th:href="@{clothes + '?sex=0'}">Male</a></li>
                     <li><a class="menu__item" th:href="@{clothes + '?sex=1'}">Female</a></li>
-                    <li><a class="menu__item" th:href="@{clothes + '?sex=2'}">Unisex</a></li>
                     <li><a class="menu__item"></a></li>
                     <li><a class="menu__item" th:href="@{clothes/main}">Home</a></li>
                     <li><a class="menu__item" th:href="@{clothes/about}">About</a></li>
@@ -127,8 +126,10 @@
                                                    style="color: white"></i>
                                             </th:block>
                                             <th:block th:unless="${columnHeader.isActive()}">
-                                                <span th:text="${columnHeader.getHeaderName()}" style="color: white"></span>
-                                                <i class="fa fa-sort float-right sort" aria-hidden="true" style="color: white"
+                                                <span th:text="${columnHeader.getHeaderName()}"
+                                                      style="color: white"></span>
+                                                <i class="fa fa-sort float-right sort" aria-hidden="true"
+                                                   style="color: white"
                                                    th:data-sort="${columnHeader.getSort()}"
                                                    th:data-order="${columnHeader.getOrder()}"
                                                    onclick="runSort(this.getAttribute('data-sort'), this.getAttribute('data-order'))"></i>
@@ -153,21 +154,6 @@
                 </div>
             </div>
         </nav>
-
-        <!--        <div class="collapse" id="navbarToggleExternalContent">-->
-        <!--            <div class="bg-dark p-4">-->
-        <!--                <h5 class="text-white h4">Collapsed content</h5>-->
-        <!--                <span class="text-muted">Toggleable via the navbar brand.</span>-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--        <nav class="navbar navbar-dark bg-dark">-->
-        <!--            <div class="container-fluid">-->
-        <!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">-->
-        <!--&lt;!&ndash;                    <span class="navbar-toggler-icon"></span>&ndash;&gt;-->
-        <!--                    <img src="https://ouch-cdn2.icons8.com/3EQlf0y27jWtIZpDrxVA1Zndx4fS7z7YEcS6TIIjNng/rs:fit:256:248/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDMy/LzkyMjQzODM0LWU4/OTEtNDc1Ni05Yzg5/LTg4MWIyNmNlOTc3/MC5zdmc.png" style="width: 20px; height: 20px">-->
-        <!--                </button>-->
-        <!--            </div>-->
-        <!--        </nav>-->
 
         <div style="margin-left: 50px;">
 
@@ -230,9 +216,6 @@
 
 
 <th:block layout:fragment="scripts">
-    <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>-->
-    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>-->
-    <!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
     <script type="text/javascript" th:src="@{/js/search.js}"></script>
     <script type="text/javascript" th:src="@{/js/generateQueryParam.js}"></script>
     <script type="text/javascript" th:src="@{/js/pagination_plp.js}"></script>

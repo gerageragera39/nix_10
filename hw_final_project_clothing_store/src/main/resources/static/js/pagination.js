@@ -5,18 +5,6 @@ function runPagination(page, size, pageOperator) {
     submitRequest(sort, order, page + pageOperator, size);
 }
 
-// function runSort(sort, order) {
-//     if (order === 'desc') {
-//         order = 'asc';
-//     } else {
-//         order = 'desc';
-//     }
-//     let pageData = document.getElementById('pageData');
-//     const page = pageData.getAttribute('data-page');
-//     const size = pageData.getAttribute('data-size');
-//     submitRequest(sort, order, page, size);
-// }
-
 function submitRequest(sort, order, page, size) {
     let personalSearchSubmit = document.getElementById('personalSearchSubmit');
     if (personalSearchSubmit !== null) {

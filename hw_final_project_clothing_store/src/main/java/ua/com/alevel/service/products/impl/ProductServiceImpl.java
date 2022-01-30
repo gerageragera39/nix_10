@@ -44,10 +44,10 @@ public class ProductServiceImpl implements ProductService {
                 if (product.getClg().equals(entity.getClg()) &&
                         product.getColor().equals(entity.getColor()) &&
                         product.getSize().equals(entity.getSize())) {
-                    product.setCount(product.getCount() + 1);
-                    productRepository.save(product);
-                    thing.setQuantity(thing.getQuantity() - 1);
-                    clothesRepository.save(thing);
+                    if (product.getWear().getQuantity() > product.getCount()) {
+                        product.setCount(product.getCount() + 1);
+                        productRepository.save(product);
+                    }
                     uniq = false;
                     break;
                 }
@@ -69,23 +69,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void delete(Long id) {
-        Optional<Product> optionalProduct = crudRepositoryHelper.findById(productRepository, id);
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            Clothes thing = product.getWear();
-            crudRepositoryHelper.delete(productRepository, id);
-            thing.setQuantity(thing.getQuantity() + product.getCount());
-            thing.setVisible(thing.getQuantity() != null &&
-                    thing.getQuantity() > 0 &&
-                    thing.getPrice() != null &&
-                    thing.getPrice() > 0 && thing.getColors() != null &&
-                    thing.getColors().size() > 0 &&
-                    thing.getSizes() != null &&
-                    thing.getSizes().size() != 0 &&
-                    thing.getImages() != null &&
-                    thing.getImages().size() != 0);
-            clothesRepository.save(thing);
-        }
+        crudRepositoryHelper.delete(productRepository, id);
     }
 
     @Override

@@ -42,12 +42,5 @@ function insertParam(key, value) {
 
 
     let params = kvp.join('&');
-    // params = params + '&page=1';
     document.location.search = params;
-
-    // rollbackPage('page', 1);
-}
-
-function getParams() {
-    return document.location.search;
 }

@@ -110,9 +110,6 @@ public class ProductFacadeImpl implements ProductFacade {
                 } else {
                     productService.update(product);
                 }
-                Clothes thing = product.getWear();
-                thing.setQuantity(thing.getQuantity() + 1);
-                clothesService.update(thing);
             }
         }
     }

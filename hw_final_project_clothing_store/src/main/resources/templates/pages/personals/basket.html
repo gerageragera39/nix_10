@@ -12,7 +12,6 @@
 <body>
 <div layout:fragment="personal_content">
         <div class="shopping-cart">
-            <!-- Title -->
             <div class="title">
                 Shopping Bag
             </div>
@@ -36,11 +35,11 @@
                         <td>Quantity: </td>
                         <div>
                             <a th:href="@{'/personal/clothes/product/minus/' + ${product.getId()}}">
-                                <img src="https://image.flaticon.com/icons/png/512/56/56889.png" style="width: 10px">
+                                <img src="https://image.flaticon.com/icons/png/512/56/56889.png" style="width: 6px">
                             </a>
                             <input type="text" name="name" th:value="${product.getCount()}">
                             <a th:href="@{'/personal/clothes/product/plus/' + ${product.getId()}}">
-                                <img src="https://pngimg.com/uploads/plus/small/plus_PNG110.png" style="width: 15px">
+                                <img src="https://pngimg.com/uploads/plus/small/plus_PNG110.png" style="width: 10px">
                             </a>
                         </div>
                     </div>
@@ -52,8 +51,6 @@
                 </div>
             </ul>
             <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
-<!--                <button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay-->
-<!--                </button>-->
                 <div class="total-price" th:text="'Total price : ' + ${totalPrice} + ' грн'"></div>
                 <a type="button" class="btn btn-warning btn-block btn-lg ml-4 pay-button" style="margin-left: 300px;" th:disabled="${products.size() == 0}">Proceed to Pay</a>
             </div>

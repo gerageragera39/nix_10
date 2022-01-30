@@ -5,7 +5,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="utf-8">
-    <title>Clothes details</title>
+    <title>Product details</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
         <div class="col-12">
             <div class="card mb-2 mt-2">
                 <div class="card-header d-flex justify-content-start h3">
-                    User details
+                    Product details
                 </div>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -29,7 +29,8 @@
                             <td>
                                 <ul th:each="image : ${thing.getImages()}" style="display:inline;">
                                     <a th:href="${image.getUrl()}" target="_blank">
-                                        <img th:src="${image.getUrl()}" width="300" height="222" class="img-fluid rounded-start" alt="...">
+                                        <img th:src="${image.getUrl()}" width="300" height="222"
+                                             class="img-fluid rounded-start" alt="...">
                                     </a>
                                 </ul>
                             </td>
@@ -38,14 +39,14 @@
                             <th>Title</th>
                             <td th:text="${thing.getTitle()}"></td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th>Color</th>-->
-<!--                            <td th:text="${thing.getColor()}"></td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <th>Size</th>-->
-<!--                            <td th:text="${thing.getSize()}"></td>-->
-<!--                        </tr>-->
+                        <!--                        <tr>-->
+                        <!--                            <th>Color</th>-->
+                        <!--                            <td th:text="${thing.getColor()}"></td>-->
+                        <!--                        </tr>-->
+                        <!--                        <tr>-->
+                        <!--                            <th>Size</th>-->
+                        <!--                            <td th:text="${thing.getSize()}"></td>-->
+                        <!--                        </tr>-->
                         <tr>
                             <th>All Colors</th>
                             <td>

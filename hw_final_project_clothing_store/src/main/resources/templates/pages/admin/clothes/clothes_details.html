@@ -27,10 +27,6 @@
                             <th>Title</th>
                             <td th:text="${thing.getTitle()}"></td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th>Color</th>-->
-<!--                            <td th:text="${thing.getColor()}"></td>-->
-<!--                        </tr>-->
                         <tr>
                             <th>All Colors</th>
                             <td>
@@ -39,10 +35,6 @@
                                 </ul>
                             </td>
                         </tr>
-<!--                        <tr>-->
-<!--                            <th>Size</th>-->
-<!--                            <td th:text="${thing.getSize()}"></td>-->
-<!--                        </tr>-->
                         <tr>
                             <th>All Sizes</th>
                             <td>
@@ -77,13 +69,10 @@
                         </tr>
                         <tr>
                             <th>BrandName</th>
-<!--                            <td th:text="${thing.getBrandName()}">-->
                             <td>
                                 <a th:href="@{'/admin/brands/details/' + ${thing.getBrandId()}}"
                                    th:text="${thing.getBrandName()}"></a>
                             </td>
-<!--                                <a th:href="@{'/users/newAccount/' + ${thing.getId()}}"></a>-->
-<!--                            </td>-->
                         </tr>
                         <tr>
                             <th>Visible</th>
@@ -103,9 +92,11 @@
                                 <ul th:each="image : ${thing.getImages()}">
                                     <div style="display:inline-block;">
                                         <a th:href="${image.getUrl()}" target="_blank">
-                                            <img th:src="${image.getUrl()}" width="200" height="222" class="img-fluid rounded-start" alt="...">
+                                            <img th:src="${image.getUrl()}" width="200" height="222"
+                                                 class="img-fluid rounded-start" alt="...">
                                         </a>
-                                        <a th:href="@{'/admin/clothes/' + ${thing.getId()} +'/images/delete/' + ${image.getId()}}" type="button" class="btn btn-danger">Delete image</a>
+                                        <a th:href="@{'/admin/clothes/' + ${thing.getId()} +'/images/delete/' + ${image.getId()}}"
+                                           type="button" class="btn btn-danger">Delete image</a>
                                     </div>
 
                                 </ul>
@@ -115,10 +106,14 @@
                     <div class="col-12">
                         <div class="card mt-2 mb-2">
                             <div class="card-header">
-                                <a th:href="@{'/admin/clothes/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Redact Thing</a>
-                                <a th:href="@{'/admin/clothes/images/to/add/' + ${thing.getId()}}" type="button" class="btn btn-primary">Add image</a>
-                                <a th:href="@{'/admin/clothes/color/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Update colors</a>
-                                <a th:href="@{'/admin/clothes/size/to/update/' + ${thing.getId()}}" type="button" class="btn btn-primary">Update sizes</a>
+                                <a th:href="@{'/admin/clothes/to/update/' + ${thing.getId()}}" type="button"
+                                   class="btn btn-primary">Redact Thing</a>
+                                <a th:href="@{'/admin/clothes/images/to/add/' + ${thing.getId()}}" type="button"
+                                   class="btn btn-primary">Add image</a>
+                                <a th:href="@{'/admin/clothes/color/to/update/' + ${thing.getId()}}" type="button"
+                                   class="btn btn-primary">Update colors</a>
+                                <a th:href="@{'/admin/clothes/size/to/update/' + ${thing.getId()}}" type="button"
+                                   class="btn btn-primary">Update sizes</a>
                             </div>
                         </div>
                     </div>

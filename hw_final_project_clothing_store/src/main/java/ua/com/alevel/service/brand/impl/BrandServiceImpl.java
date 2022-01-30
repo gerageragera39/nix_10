@@ -36,8 +36,6 @@ public class BrandServiceImpl implements BrandService {
     public void create(Brand entity) {
         if (!brandRepository.existsByName(entity.getName())) {
             crudRepositoryHelper.create(brandRepository, entity);
-        } else {
-            throw new NotUniqueException("not unique");
         }
     }
 

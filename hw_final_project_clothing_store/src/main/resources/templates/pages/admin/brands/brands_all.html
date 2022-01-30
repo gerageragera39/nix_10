@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{fragments/data_table_layout}">
+      layout:decorate="~{fragments/data_table_layout}">
 <head>
     <meta charset="utf-8">
     <title>Brands</title>
@@ -18,7 +18,8 @@
         <td th:text="${brand.getName()}"></td>
         <td th:text="${#calendars.format(brand.getCreated(),'dd MMMM yyyy')}"></td>
         <td>
-            <a th:href="@{'/admin/brands/details/' + ${brand.getId()}}" type="button" class="btn btn-primary">details</a>
+            <a th:href="@{'/admin/brands/details/' + ${brand.getId()}}" type="button"
+               class="btn btn-primary">details</a>
         </td>
         <td>
             <a th:href="@{'/admin/brands/delete/' + ${brand.getId()}}" type="button" class="btn btn-danger">delete</a>
