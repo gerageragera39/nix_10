@@ -3,6 +3,7 @@ package ua.com.alevel.service.brand.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import ua.com.alevel.exception.NotUniqueException;
 import ua.com.alevel.persistence.crud.CrudRepositoryHelper;
 import ua.com.alevel.persistence.datatable.DataTableRequest;
 import ua.com.alevel.persistence.datatable.DataTableResponse;
@@ -35,6 +36,8 @@ public class BrandServiceImpl implements BrandService {
     public void create(Brand entity) {
         if (!brandRepository.existsByName(entity.getName())) {
             crudRepositoryHelper.create(brandRepository, entity);
+        } else {
+            throw new NotUniqueException("not unique");
         }
     }
 

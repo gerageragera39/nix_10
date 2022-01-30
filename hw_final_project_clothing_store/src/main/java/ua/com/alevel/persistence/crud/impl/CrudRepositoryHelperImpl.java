@@ -22,12 +22,6 @@ public class CrudRepositoryHelperImpl<
         R extends BaseRepository<E>>
         implements CrudRepositoryHelper<E, R> {
 
-    private final ClothesRepository clothesRepository;
-
-    public CrudRepositoryHelperImpl(ClothesRepository clothesRepository) {
-        this.clothesRepository = clothesRepository;
-    }
-
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void create(R repository, E entity) {

@@ -11,8 +11,4 @@ import java.util.List;
 public interface ProductRepository extends BaseRepository<Product> {
 
     List<Product> findAllByPersonal(Personal personal);
-
-    boolean existsByClg(String clg);
-
-    Product findByClg(String clg);
 }

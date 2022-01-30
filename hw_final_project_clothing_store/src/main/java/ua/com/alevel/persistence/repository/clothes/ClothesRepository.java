@@ -19,14 +19,6 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
 
     Optional<Clothes> findClothesByCLG(String CLG);
 
-    List<Clothes> findAllByVisible(Boolean visible, Pageable pageable);
-
-    List<Clothes> findAllByBrandIdAndVisibleTrue(Long id, Pageable pageable);
-
-    List<Clothes> findAllByColorsContainsAndVisibleTrue(Color color, Pageable pageable);
-
-    List<Clothes> findAllBySizesContainsAndVisibleTrue(Size size, Pageable pageable);
-
     @Query("select c.colors from Clothes c where c.id = :id and c.visible = true ")
     List<Color> findColorsByThingId(@Param("id") Long id);
 
@@ -34,24 +26,6 @@ public interface ClothesRepository extends BaseRepository<Clothes> {
     List<String> findAllNames(Pageable pageable);
 
     List<Clothes> findAllByVisibleTrue(Pageable pageable);
-
-    List<Clothes> findAllByTitleContainingAndVisibleTrue(String search, Pageable pageable);
-
-    List<Clothes> findAllBySexEqualsAndVisibleTrue(Sexes sex, Pageable pageable);
-
-    List<Clothes> findAllByTypeEqualsAndVisibleTrue(ThingTypes type, Pageable pageable);
-
-    int countAllByTitleContaining(String search);
-
-    int countAllByBrandIdAndTitleContaining(Long id, String search);
-
-    int countAllBySexEquals(Sexes sex);
-
-    int countAllByTypeEquals(ThingTypes type);
-
-    int countAllByBrandId(Long id);
-
-    int countAllByColorsContains(Color color);
 
     @Query("select c.id from Clothes c where c.title like :search and c.visible = true ")
     List<Long> findAllClothesIdByTitleContainingAndVisibleTrue(@Param("search")String search);

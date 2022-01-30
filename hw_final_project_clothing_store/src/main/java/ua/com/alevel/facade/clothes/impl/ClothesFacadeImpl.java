@@ -69,7 +69,7 @@ public class ClothesFacadeImpl implements ClothesFacade {
                 image.setUrl(clothesRequestDto.getImageUrl());
             }
             Optional<Clothes> optionalThing = clothesService.findByClg(clothesRequestDto.getClg());
-            if(optionalThing.isPresent()) {
+            if (optionalThing.isPresent()) {
                 Clothes thing = optionalThing.get();
                 image.setThing(thing);
                 imageService.create(image);
@@ -82,21 +82,21 @@ public class ClothesFacadeImpl implements ClothesFacade {
     @Override
     public void update(ClothesRequestDto dto, Long id) {
         Optional<Clothes> optionalClothes = clothesService.findById(id);
-        if(optionalClothes.isPresent()) {
+        if (optionalClothes.isPresent()) {
             Clothes clothes = optionalClothes.get();
-            if(StringUtils.isNotBlank(dto.getTitle())) {
+            if (StringUtils.isNotBlank(dto.getTitle())) {
                 clothes.setTitle(dto.getTitle());
             }
-            if(StringUtils.isNotBlank(dto.getCompound())) {
+            if (StringUtils.isNotBlank(dto.getCompound())) {
                 clothes.setCompound(dto.getCompound());
             }
-            if(StringUtils.isNotBlank(dto.getDescription())) {
+            if (StringUtils.isNotBlank(dto.getDescription())) {
                 clothes.setDescription(dto.getDescription());
             }
-            if(!dto.getSex().equals("Change sex")) {
+            if (!dto.getSex().equals("Change sex")) {
                 clothes.setSex(Sexes.valueOf(dto.getSex()));
             }
-            if(!dto.getType().equals("Change type")) {
+            if (!dto.getType().equals("Change type")) {
                 clothes.setType(ThingTypes.valueOf(dto.getType()));
             }
             clothesService.update(clothes);
@@ -112,6 +112,7 @@ public class ClothesFacadeImpl implements ClothesFacade {
         }
         return map;
     }
+
     @Override
     public List<String> findAllColorsByThingId(Long id) {
         List<Color> colors = clothesService.findById(id).get().getColors().stream().toList();
@@ -131,7 +132,7 @@ public class ClothesFacadeImpl implements ClothesFacade {
         notAddedColors.addAll(allColors);
         for (int i = 0; i < allColors.size(); i++) {
             for (int j = 0; j < addedColors.size(); j++) {
-                if(allColors.get(i).getId() == addedColors.get(j).getId()) {
+                if (allColors.get(i).getId() == addedColors.get(j).getId()) {
                     notAddedColors.remove(allColors.get(i));
                     break;
                 }
@@ -162,14 +163,14 @@ public class ClothesFacadeImpl implements ClothesFacade {
     @Override
     public void updateColor(ClothesRequestDto dto, Long id) {
         Optional<Clothes> optionalClothes = clothesService.findById(id);
-        if(optionalClothes.isPresent()) {
+        if (optionalClothes.isPresent()) {
             Clothes clothes = optionalClothes.get();
-            if(!dto.getColor().equals("Add color")) {
+            if (!dto.getColor().equals("Add color")) {
                 Color color = colorService.findByName(dto.getColor());
                 color.addThing(clothes);
                 colorService.update(color);
             }
-            if(!dto.getRemoveColor().equals("Remove color")) {
+            if (!dto.getRemoveColor().equals("Remove color")) {
                 Color color = colorService.findByName(dto.getRemoveColor());
                 color.removeThing(clothes);
                 colorService.update(color);
@@ -195,7 +196,7 @@ public class ClothesFacadeImpl implements ClothesFacade {
         notAddedSizes.addAll(allSizes);
         for (int i = 0; i < allSizes.size(); i++) {
             for (int j = 0; j < addedSizes.size(); j++) {
-                if(allSizes.get(i).getId() == addedSizes.get(j).getId()) {
+                if (allSizes.get(i).getId() == addedSizes.get(j).getId()) {
                     notAddedSizes.remove(allSizes.get(i));
                     break;
                 }
@@ -211,14 +212,14 @@ public class ClothesFacadeImpl implements ClothesFacade {
     @Override
     public void updateSize(ClothesRequestDto dto, Long id) {
         Optional<Clothes> optionalClothes = clothesService.findById(id);
-        if(optionalClothes.isPresent()) {
+        if (optionalClothes.isPresent()) {
             Clothes clothes = optionalClothes.get();
-            if(!dto.getSize().equals("Add size")) {
+            if (!dto.getSize().equals("Add size")) {
                 Size size = sizeService.findByName(dto.getSize());
                 size.addThing(clothes);
                 sizeService.update(size);
             }
-            if(!dto.getRemoveSize().equals("Remove size")) {
+            if (!dto.getRemoveSize().equals("Remove size")) {
                 Size size = sizeService.findByName(dto.getRemoveSize());
                 size.removeThing(clothes);
                 sizeService.update(size);
@@ -234,7 +235,7 @@ public class ClothesFacadeImpl implements ClothesFacade {
     @Override
     public ClothesResponseDto findById(Long id) {
         Optional<Clothes> optionalClothes = clothesService.findById(id);
-        if(optionalClothes.isPresent()) {
+        if (optionalClothes.isPresent()) {
             return new ClothesResponseDto(optionalClothes.get());
         }
         return new ClothesResponseDto();

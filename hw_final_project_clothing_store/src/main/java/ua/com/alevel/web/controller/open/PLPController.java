@@ -73,8 +73,8 @@ public class PLPController extends AbstractController {
     private String searchClothes(@RequestParam String query, WebRequest webRequest, RedirectAttributes ra) {
         String referrer = webRequest.getHeader("referer");
         String[] url = referrer.split("\\?");
-        if(url.length == 2) {
-            if(url[1].charAt(0) == '&') {
+        if (url.length == 2) {
+            if (url[1].charAt(0) == '&') {
                 url[1] = String.copyValueOf(url[1].toCharArray(), 1, url[1].length() - 1);
             }
             String[] params = url[1].split("&");
@@ -88,7 +88,7 @@ public class PLPController extends AbstractController {
             }
         }
 
-        if(StringUtils.isNotBlank(query)) {
+        if (StringUtils.isNotBlank(query)) {
             ra.addAttribute(WebUtil.SEARCH_CLOTHES_PARAM, query);
         }
         return "redirect:/clothes";
